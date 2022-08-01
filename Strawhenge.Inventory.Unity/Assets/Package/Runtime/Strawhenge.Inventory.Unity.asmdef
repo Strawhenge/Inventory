@@ -1,0 +1,14 @@
+{
+    "name": "Strawhenge.Inventory.Unity",
+    "rootNamespace": "Strawhenge.Inventory.Unity",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
