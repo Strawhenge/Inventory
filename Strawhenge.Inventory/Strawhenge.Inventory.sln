@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Strawhenge.Inventory", "Strawhenge.Inventory\Strawhenge.Inventory.csproj", "{225F522A-A0E1-437B-B2B1-441CCE955946}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Strawhenge.Inventory", "Strawhenge.Inventory\Strawhenge.Inventory.csproj", "{225F522A-A0E1-437B-B2B1-441CCE955946}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Strawhenge.Inventory.Tests", "Strawhenge.Inventory.Tests\Strawhenge.Inventory.Tests.csproj", "{661366B6-54C8-4323-8E9C-2A2D8F909E96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{225F522A-A0E1-437B-B2B1-441CCE955946}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{225F522A-A0E1-437B-B2B1-441CCE955946}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{225F522A-A0E1-437B-B2B1-441CCE955946}.Release|Any CPU.Build.0 = Release|Any CPU
+		{661366B6-54C8-4323-8E9C-2A2D8F909E96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{661366B6-54C8-4323-8E9C-2A2D8F909E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{661366B6-54C8-4323-8E9C-2A2D8F909E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{661366B6-54C8-4323-8E9C-2A2D8F909E96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
