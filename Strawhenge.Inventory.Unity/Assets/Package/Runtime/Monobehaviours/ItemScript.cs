@@ -35,11 +35,23 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
         {
             ResetIgnoredColliders();
             IgnoreColliders(bindToColliders);
+
+            foreach (var onFixate in onFixatedEvents)
+            {
+                if (onFixate != null)
+                    onFixate.Invoke(gameObject);
+            }
         }
 
         public void Unfixate()
         {
             ResetIgnoredColliders();
+
+            foreach (var onUnfixate in onUnfixatedEvents)
+            {
+                if (onUnfixate != null)
+                    onUnfixate.Invoke(gameObject);
+            }
         }
 
         void IgnoreColliders(IEnumerable<Collider> bindToColliders)
