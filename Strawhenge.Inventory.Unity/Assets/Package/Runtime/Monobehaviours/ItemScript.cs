@@ -1,3 +1,4 @@
+using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
 using System.Collections.Generic;

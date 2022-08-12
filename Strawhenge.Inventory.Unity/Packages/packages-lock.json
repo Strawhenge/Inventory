@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "c5917a56826b79021dcdb8a866a8cee0a9cd02d1"
     },
+    "com.strawhenge.common": {
+      "version": "https://github.com/Strawhenge/Common.git?path=/Strawhenge.Common.Unity/Assets/Package#release",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f67dde1082d89ca24e3d266478785e7d0f7c86a5"
+    },
     "com.unity.collab-proxy": {
       "version": "1.5.7",
       "depth": 0,
