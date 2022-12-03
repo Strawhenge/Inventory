@@ -12,10 +12,13 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 
         readonly TransientItemLocator _sut;
         readonly Mock<IItem> _targetItemMock;
+        readonly Mock<IEquippedItems> _equippedItemsMock;
+        readonly Mock<IItemInventory> _inventoryMock;
+        readonly Mock<IItemGenerator> _itemGeneratorMock;
 
         ClearFromHandsPreference _clearFromHandsPreference;
 
-        public TransientItemLocator_Tests()
+        protected TransientItemLocator_Tests()
         {
             _targetItemMock = new Mock<IItem>();
             _targetItemMock.SetupGet(x => x.Name).Returns(TargetItemName);
@@ -24,34 +27,19 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
                 .SetupSet(x => x.ClearFromHandsPreference = It.IsAny<ClearFromHandsPreference>())
                 .Callback<ClearFromHandsPreference>(x => _clearFromHandsPreference = x);
 
-            var equippedItemsMock = new Mock<IEquippedItems>();
-            equippedItemsMock.SetupNone(x => x.GetItemInLeftHand());
-            equippedItemsMock.SetupNone(x => x.GetItemInRightHand());
+            _equippedItemsMock = new Mock<IEquippedItems>();
+            _equippedItemsMock.SetupNone(x => x.GetItemInLeftHand());
+            _equippedItemsMock.SetupNone(x => x.GetItemInRightHand());
 
-            var inventoryMock = new Mock<IItemInventory>();
+            _inventoryMock = new Mock<IItemInventory>();
 
-            var itemGeneratorMock = new Mock<IItemGenerator>();
-            itemGeneratorMock.SetupNone(x => x.GenerateByName(TargetItemName));
+            _itemGeneratorMock = new Mock<IItemGenerator>();
+            _itemGeneratorMock.SetupNone(x => x.GenerateByName(TargetItemName));
 
             _sut = new TransientItemLocator(
-                equippedItemsMock.Object,
-                inventoryMock.Object,
-                itemGeneratorMock.Object);
-
-            if (ItemInLeftHand is IItem left)
-                equippedItemsMock.SetupSome(x => x.GetItemInLeftHand(), left);
-
-            if (ItemInRightHand is IItem right)
-                equippedItemsMock.SetupSome(x => x.GetItemInRightHand(), right);
-
-            if (ItemsInHolsters() is IEnumerable<IItem> holster)
-                equippedItemsMock.Setup(x => x.GetItemsInHolsters()).Returns(holster);
-
-            if (ItemsInInventory() is IEnumerable<IItem> inventory)
-                inventoryMock.SetupGet(x => x.AllItems).Returns(inventory);
-
-            if (GenerateItem() is IItem generatedItem)
-                itemGeneratorMock.SetupSome(x => x.GenerateByName(TargetItemName), generatedItem);
+                _equippedItemsMock.Object,
+                _inventoryMock.Object,
+                _itemGeneratorMock.Object);
         }
 
         protected IItem TargetItem => _targetItemMock.Object;
@@ -67,6 +55,8 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
         [Fact]
         public void GetItemByName()
         {
+            ArrangeMocks();
+
             var result = _sut.GetItemByName(TargetItemName);
 
             if (!GetItemByName_ShouldReturnTargetItem)
@@ -99,6 +89,24 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
             var item = new Mock<IItem>();
             item.SetupGet(x => x.Name).Returns(name ?? "Other Item");
             return item.Object;
+        }
+
+        void ArrangeMocks()
+        {
+            if (ItemInLeftHand is IItem left)
+                _equippedItemsMock.SetupSome(x => x.GetItemInLeftHand(), left);
+
+            if (ItemInRightHand is IItem right)
+                _equippedItemsMock.SetupSome(x => x.GetItemInRightHand(), right);
+
+            if (ItemsInHolsters() is IEnumerable<IItem> holster)
+                _equippedItemsMock.Setup(x => x.GetItemsInHolsters()).Returns(holster);
+
+            if (ItemsInInventory() is IEnumerable<IItem> inventory)
+                _inventoryMock.SetupGet(x => x.AllItems).Returns(inventory);
+
+            if (GenerateItem() is IItem generatedItem)
+                _itemGeneratorMock.SetupSome(x => x.GenerateByName(TargetItemName), generatedItem);
         }
     }
 }
