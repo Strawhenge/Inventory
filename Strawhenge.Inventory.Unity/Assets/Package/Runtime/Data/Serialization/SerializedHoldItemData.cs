@@ -1,28 +1,40 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Strawhenge.Inventory.Unity.Data
 {
     [Serializable]
     public class SerializedHoldItemData : IHoldItemData
     {
-        public Vector3 positionOffset;
-        public Vector3 rotationOffset;
-        public int animationId;
-        public int drawFromHammerspaceId;
-        public int putInHammerspaceId;
-        public int swapFromHandId;
+        [FormerlySerializedAs("positionOffset"), SerializeField] 
+        Vector3 _positionOffset;
 
-        public Vector3 PositionOffset => positionOffset;
+        [FormerlySerializedAs("rotationOffset"), SerializeField] 
+        Vector3 _rotationOffset;
 
-        public Quaternion RotationOffset => Quaternion.Euler(rotationOffset);
+        [FormerlySerializedAs("animationId"), SerializeField] 
+        int _animationId;
 
-        public int AnimationId => animationId;
+        [FormerlySerializedAs("drawFromHammerspaceId"), SerializeField] 
+        int _drawFromHammerspaceId;
 
-        public int DrawFromHammerspaceId => drawFromHammerspaceId;
+        [FormerlySerializedAs("putInHammerspaceId"), SerializeField] 
+        int _putInHammerspaceId;
 
-        public int PutInHammerspaceId => putInHammerspaceId;
+        [FormerlySerializedAs("swapFromHandId"), SerializeField] 
+        int _swapFromHandId;
 
-        public int SwapFromHandId => swapFromHandId;
+        public Vector3 PositionOffset => _positionOffset;
+
+        public Quaternion RotationOffset => Quaternion.Euler(_rotationOffset);
+
+        public int AnimationId => _animationId;
+
+        public int DrawFromHammerspaceId => _drawFromHammerspaceId;
+
+        public int PutInHammerspaceId => _putInHammerspaceId;
+
+        public int SwapFromHandId => _swapFromHandId;
     }
 }
