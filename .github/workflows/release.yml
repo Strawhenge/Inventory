@@ -47,9 +47,9 @@ jobs:
           git commit -m 'Prepare Release ${{ env.VERSION }}'
           git push --set-upstream origin ${{ env.TEMP_BRANCH }}
           
-          git push --delete origin prerelease
-          git checkout -b prerelease
-          git push --set-upstream origin prerelease
+          git push --delete origin release
+          git checkout -b release
+          git push --set-upstream origin release
           git push --delete origin ${{ env.TEMP_BRANCH }}
       env:
           TEMP_BRANCH: temp-${{ github.run_number }}
