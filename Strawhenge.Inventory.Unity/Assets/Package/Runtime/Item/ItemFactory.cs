@@ -14,14 +14,14 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemFactory : IItemFactory
     {
-        private readonly IEnumerable<Collider> colliders;
-        private readonly IHands hands;
-        private readonly IHolsters holsters;
-        private readonly HolsterComponents holsterComponents;
-        private readonly ProcedureQueue procedureQueue;
-        private readonly IProcedureFactory procedureFactory;
-        private readonly ISpawner spawner;
-        private readonly ILogger logger;
+        readonly IEnumerable<Collider> colliders;
+        readonly IHands hands;
+        readonly IHolsters holsters;
+        readonly HolsterComponents holsterComponents;
+        readonly ProcedureQueue procedureQueue;
+        readonly IProcedureFactory procedureFactory;
+        readonly ISpawner spawner;
+        readonly ILogger logger;
 
         public ItemFactory(
             GameObject gameObject,
@@ -56,7 +56,7 @@ namespace Strawhenge.Inventory.Unity.Items
             return Create(component, data);
         }
 
-        private IItem Create(ItemHelper component, IItemData data)
+        IItem Create(ItemHelper component, IItemData data)
         {
             var view = new ItemView(component, procedureQueue, procedureFactory);
 
@@ -66,7 +66,7 @@ namespace Strawhenge.Inventory.Unity.Items
                 getHolstersForItem: x => CreateHolstersForItem(x, component));
         }
 
-        private IHolstersForItem CreateHolstersForItem(IItem item, ItemHelper itemComponent)
+        IHolstersForItem CreateHolstersForItem(IItem item, ItemHelper itemComponent)
         {
             List<IHolsterForItem> holstersForItem = new List<IHolsterForItem>();
 
@@ -88,7 +88,7 @@ namespace Strawhenge.Inventory.Unity.Items
             return new HolstersForItem(holstersForItem, logger);
         }
 
-        private Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)
+        Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)
         {
             switch (size)
             {

@@ -7,52 +7,52 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 {
     public class AnimatedPutInHammerspace : Procedure
     {
-        private readonly IProduceItemAnimationHandler animationHandler;
-        private readonly IHandComponent hand;
-        private readonly int animationId;
+        readonly IProduceItemAnimationHandler _animationHandler;
+        readonly IHandComponent _hand;
+        readonly int _animationId;
 
-        private Action endProcedure;
-        private bool itemIsPutAway;
-        private bool hasEnded;
+        Action _endProcedure;
+        bool _itemIsPutAway;
+        bool _hasEnded;
 
         public AnimatedPutInHammerspace(IProduceItemAnimationHandler animationHandler, IHandComponent hand, int animationId)
         {
-            this.animationHandler = animationHandler;
-            this.hand = hand;
-            this.animationId = animationId;
+            _animationHandler = animationHandler;
+            _hand = hand;
+            _animationId = animationId;
         }
 
         protected override void OnBegin(Action endProcedure)
         {
-            this.endProcedure = endProcedure;
+            _endProcedure = endProcedure;
 
-            animationHandler.ReleaseItem += AnimationHandler_ReleaseItem;
-            animationHandler.PutAwayEnded += AnimationHandler_PutAwayEnded;
-            animationHandler.PutAwayItem(animationId);
+            _animationHandler.ReleaseItem += AnimationHandler_ReleaseItem;
+            _animationHandler.PutAwayEnded += AnimationHandler_PutAwayEnded;
+            _animationHandler.PutAwayItem(_animationId);
         }
 
         protected override void OnSkip()
         {
-            if (hasEnded) return;
+            if (_hasEnded) return;
 
-            animationHandler.Interupt();
+            _animationHandler.Interupt();
             AnimationHandler_PutAwayEnded();
         }
 
-        private void AnimationHandler_PutAwayEnded()
+        void AnimationHandler_PutAwayEnded()
         {
-            hasEnded = true;
-            animationHandler.PutAwayEnded -= AnimationHandler_PutAwayEnded;
-            if (!itemIsPutAway) AnimationHandler_ReleaseItem();
+            _hasEnded = true;
+            _animationHandler.PutAwayEnded -= AnimationHandler_PutAwayEnded;
+            if (!_itemIsPutAway) AnimationHandler_ReleaseItem();
 
-            endProcedure();
+            _endProcedure();
         }
 
-        private void AnimationHandler_ReleaseItem()
+        void AnimationHandler_ReleaseItem()
         {
-            animationHandler.ReleaseItem -= AnimationHandler_ReleaseItem;
-            itemIsPutAway = true;
-            var item = hand.TakeItem();
+            _animationHandler.ReleaseItem -= AnimationHandler_ReleaseItem;
+            _itemIsPutAway = true;
+            var item = _hand.TakeItem();
             item.Despawn();
         }
     }

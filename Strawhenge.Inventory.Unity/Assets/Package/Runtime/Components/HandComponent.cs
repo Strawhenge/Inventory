@@ -10,10 +10,10 @@ namespace Strawhenge.Inventory.Unity.Components
 {
     public class HandComponent : IHandComponent
     {
-        private readonly IHoldItemAnimationHandler animationHandler;
-        private readonly Transform transform;
-        private readonly ILogger logger;
-        private readonly Func<IItemHelper, IHoldItemData> getHoldItemData;
+        readonly IHoldItemAnimationHandler animationHandler;
+        readonly Transform transform;
+        readonly ILogger logger;
+        readonly Func<IItemHelper, IHoldItemData> getHoldItemData;
 
         public HandComponent(IHoldItemAnimationHandler animationHandler, Transform transform, ILogger logger,
             Func<IItemHelper, IHoldItemData> getHoldItemData)

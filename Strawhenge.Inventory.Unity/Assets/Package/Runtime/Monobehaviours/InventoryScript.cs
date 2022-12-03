@@ -23,7 +23,7 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 
         public HolsterComponents HolsterComponents { private get; set; }
 
-        private void Start()
+        void Start()
         {
             if (LeftHand == null || RightHand == null)
             {

@@ -6,13 +6,13 @@ namespace Strawhenge.Inventory.Unity.Procedures.SwapHands
 {
     public class SimpleSwapHands : Procedure
     {
-        private readonly IHandComponent sourceHand;
-        private readonly IHandComponent destinationHand;
+        readonly IHandComponent _sourceHand;
+        readonly IHandComponent _destinationHand;
 
         public SimpleSwapHands(IHandComponent sourceHand, IHandComponent destinationHand)
         {
-            this.sourceHand = sourceHand;
-            this.destinationHand = destinationHand;
+            _sourceHand = sourceHand;
+            _destinationHand = destinationHand;
         }
 
         protected override void OnBegin(Action endProcedure)
@@ -28,8 +28,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.SwapHands
 
         void Swap()
         {
-            destinationHand.SetItem(
-                sourceHand.TakeItem());
+            _destinationHand.SetItem(
+                _sourceHand.TakeItem());
         }
     }
 }

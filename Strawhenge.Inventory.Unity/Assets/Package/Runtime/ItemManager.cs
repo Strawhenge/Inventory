@@ -8,9 +8,9 @@ namespace Strawhenge.Inventory.Unity
 {
     public class ItemManager : IItemManager
     {
-        private readonly IEquippedItems equippedItems;
-        private readonly IItemInventory inventory;
-        private readonly IItemFactory itemFactory;
+        readonly IEquippedItems equippedItems;
+        readonly IItemInventory inventory;
+        readonly IItemFactory itemFactory;
 
         public ItemManager(IEquippedItems equippedItems, IItemInventory inventory, IItemFactory itemFactory)
         {

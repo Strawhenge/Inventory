@@ -8,14 +8,14 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 {
     public class AnimatedDrawFromHammerspace : Procedure
     {
-        private readonly IProduceItemAnimationHandler animationHandler;
-        private readonly IItemHelper item;
-        private readonly IHandComponent hand;
-        private readonly int animationId;
+        readonly IProduceItemAnimationHandler _animationHandler;
+        readonly IItemHelper _item;
+        readonly IHandComponent _hand;
+        readonly int _animationId;
 
-        private Action endProcedure = () => { };
-        private bool itemInHand;
-        private bool hasEnded;
+        Action _endProcedure = () => { };
+        bool _itemInHand;
+        bool _hasEnded;
 
         public AnimatedDrawFromHammerspace(
             IProduceItemAnimationHandler animationHandler,
@@ -23,49 +23,49 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
             IHandComponent hand,
             int animationId)
         {
-            this.animationHandler = animationHandler;
-            this.item = item;
-            this.hand = hand;
-            this.animationId = animationId;
+            _animationHandler = animationHandler;
+            _item = item;
+            _hand = hand;
+            _animationId = animationId;
         }
 
         protected override void OnBegin(Action endProcedure)
         {
-            this.endProcedure = endProcedure;
+            _endProcedure = endProcedure;
 
-            animationHandler.GrabItem += AnimationHandler_GrabItem;
-            animationHandler.DrawEnded += AnimationHandler_DrawEnded;
+            _animationHandler.GrabItem += AnimationHandler_GrabItem;
+            _animationHandler.DrawEnded += AnimationHandler_DrawEnded;
 
-            animationHandler.DrawItem(animationId);
+            _animationHandler.DrawItem(_animationId);
         }
 
         protected override void OnSkip()
         {
-            if (hasEnded) return;
+            if (_hasEnded) return;
 
-            animationHandler.Interupt();
+            _animationHandler.Interupt();
             AnimationHandler_DrawEnded();
         }
 
-        private void AnimationHandler_DrawEnded()
+        void AnimationHandler_DrawEnded()
         {
-            hasEnded = true;
-            animationHandler.GrabItem -= AnimationHandler_GrabItem;
+            _hasEnded = true;
+            _animationHandler.GrabItem -= AnimationHandler_GrabItem;
 
-            if (!itemInHand)
+            if (!_itemInHand)
             {
                 AnimationHandler_GrabItem();
             }
 
-            endProcedure();
+            _endProcedure();
         }
 
-        private void AnimationHandler_GrabItem()
+        void AnimationHandler_GrabItem()
         {
-            animationHandler.GrabItem -= AnimationHandler_GrabItem;
+            _animationHandler.GrabItem -= AnimationHandler_GrabItem;
 
-            hand.SetItem(item);
-            itemInHand = true;
+            _hand.SetItem(_item);
+            _itemInHand = true;
         }
     }
 

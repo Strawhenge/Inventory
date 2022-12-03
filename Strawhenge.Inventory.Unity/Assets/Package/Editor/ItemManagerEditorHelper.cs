@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory.Unity.Editor
 {
     public class ItemManagerEditorHelper
     {
-        private readonly EditorTarget<IItemManager> target;
+        readonly EditorTarget<IItemManager> target;
 
         IItem item;
         bool displayLeftHand;
@@ -59,7 +59,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             EditorGUI.EndDisabledGroup();
         }
 
-        private void InspectHands()
+        void InspectHands()
         {
             displayLeftHand = EditorGUILayout.Foldout(displayLeftHand, $"In Left Hand ({GetLeftHandItemString()})",
                 toggleOnLabelClick: true);
@@ -78,7 +78,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
         }
 
-        private void InspectHolsters()
+        void InspectHolsters()
         {
             displayHolsters = EditorGUILayout.Foldout(displayHolsters, $"In Holsters ({GetHolsterItemCount()})",
                 toggleOnLabelClick: true);
@@ -91,7 +91,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
         }
 
-        private void InspectInventory()
+        void InspectInventory()
         {
             displayInventory = EditorGUILayout.Foldout(displayInventory, $"In Inventory ({GetInventoryCountString()})",
                 toggleOnLabelClick: true);
@@ -103,7 +103,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
         }
 
-        private void InspectItemWithToggle(IItem item)
+        void InspectItemWithToggle(IItem item)
         {
             bool show = EditorGUILayout.Foldout(item == displayItem, item.Name, toggleOnLabelClick: true);
 
@@ -120,7 +120,7 @@ namespace Strawhenge.Inventory.Unity.Editor
                 InspectItem(item);
         }
 
-        private void InspectItem(IItem item)
+        void InspectItem(IItem item)
         {
             EditorGUILayout.HelpBox(GetItemInfoString(item), MessageType.Info);
 
@@ -172,7 +172,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
         }
 
-        private string GetItemInfoString(IItem item)
+        string GetItemInfoString(IItem item)
         {
             var lines = new string[]
             {
@@ -184,23 +184,23 @@ namespace Strawhenge.Inventory.Unity.Editor
             return string.Join(Environment.NewLine, lines);
         }
 
-        private string GetHolsterItemCount() => target.HasInstance
+        string GetHolsterItemCount() => target.HasInstance
             ? target.Instance.ItemsInHolsters.Count().ToString()
             : "NA";
 
-        private string GetInventoryCountString() => target.HasInstance
+        string GetInventoryCountString() => target.HasInstance
             ? target.Instance.ItemsInInventory.Count().ToString()
             : "NA";
 
-        private string GetLeftHandItemString() => target.HasInstance
+        string GetLeftHandItemString() => target.HasInstance
             ? GetItemInHandString(target.Instance.ItemInLeftHand)
             : "NA";
 
-        private string GetRightHandItemString() => target.HasInstance
+        string GetRightHandItemString() => target.HasInstance
             ? GetItemInHandString(target.Instance.ItemInRightHand)
             : "NA";
 
-        private string GetItemInHandString(Maybe<IItem> item) => item
+        string GetItemInHandString(Maybe<IItem> item) => item
             .Map(x => x.Name)
             .Reduce(() => "none");
     }

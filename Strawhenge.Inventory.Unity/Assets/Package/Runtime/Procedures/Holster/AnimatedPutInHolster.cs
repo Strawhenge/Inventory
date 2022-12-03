@@ -7,56 +7,56 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 {
     public class AnimatedPutInHolster : Procedure
     {
-        private readonly IProduceItemAnimationHandler animationHandler;
-        private readonly IHandComponent hand;
-        private readonly IHolsterComponent holster;
-        private readonly int animationId;
+        readonly IProduceItemAnimationHandler _animationHandler;
+        readonly IHandComponent _hand;
+        readonly IHolsterComponent _holster;
+        readonly int _animationId;
 
-        private Action endProcedure;
-        private bool itemInHolster;
-        private bool hasEnded;
+        Action _endProcedure;
+        bool _itemInHolster;
+        bool _hasEnded;
 
         public AnimatedPutInHolster(IProduceItemAnimationHandler animationHandler, IHandComponent hand, IHolsterComponent holster, int animationId)
         {
-            this.animationHandler = animationHandler;
-            this.hand = hand;
-            this.holster = holster;
-            this.animationId = animationId;
+            _animationHandler = animationHandler;
+            _hand = hand;
+            _holster = holster;
+            _animationId = animationId;
         }
 
         protected override void OnBegin(Action endProcedure)
         {
-            this.endProcedure = endProcedure;
+            _endProcedure = endProcedure;
 
-            animationHandler.ReleaseItem += PutItemInHolster;
-            animationHandler.PutAwayEnded += End;
-            animationHandler.PutAwayItem(animationId);
+            _animationHandler.ReleaseItem += PutItemInHolster;
+            _animationHandler.PutAwayEnded += End;
+            _animationHandler.PutAwayItem(_animationId);
         }
 
         protected override void OnSkip()
         {
-            if (hasEnded) return;
+            if (_hasEnded) return;
 
-            animationHandler.Interupt();
+            _animationHandler.Interupt();
             End();
         }
 
-        private void PutItemInHolster()
+        void PutItemInHolster()
         {
-            itemInHolster = true;
-            animationHandler.ReleaseItem -= PutItemInHolster;
-            var item = hand.TakeItem();
-            holster.SetItem(item);
+            _itemInHolster = true;
+            _animationHandler.ReleaseItem -= PutItemInHolster;
+            var item = _hand.TakeItem();
+            _holster.SetItem(item);
         }
 
-        private void End()
+        void End()
         {
-            hasEnded = true;
-            animationHandler.PutAwayEnded -= End;
+            _hasEnded = true;
+            _animationHandler.PutAwayEnded -= End;
 
-            if (!itemInHolster) PutItemInHolster();
+            if (!_itemInHolster) PutItemInHolster();
 
-            endProcedure();
+            _endProcedure();
         }
     }
 }

@@ -4,8 +4,8 @@ namespace Strawhenge.Inventory.Unity.Editor
 {
     public class EditorTarget<T> where T : class
     {
-        private readonly Func<T> getTarget;
-        private T instance;
+        readonly Func<T> getTarget;
+        T instance;
 
         public EditorTarget(Func<T> getTarget)
         {

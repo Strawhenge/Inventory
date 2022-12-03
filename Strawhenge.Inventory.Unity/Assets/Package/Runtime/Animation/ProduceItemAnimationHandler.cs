@@ -6,7 +6,7 @@ namespace Strawhenge.Inventory.Unity.Animation
 {
     public class ProduceItemAnimationHandler : IProduceItemAnimationHandler
     {
-        private readonly Animator animator;
+        readonly Animator animator;
         public event Action GrabItem;
         public event Action ReleaseItem;
         public event Action DrawEnded;
@@ -45,12 +45,12 @@ namespace Strawhenge.Inventory.Unity.Animation
             animator.SetTrigger(AnimatorParameters.Interupt);
         }
 
-        private void OnGrabItem() => GrabItem?.Invoke();
+        void OnGrabItem() => GrabItem?.Invoke();
 
-        private void OnReleaseItem() => ReleaseItem?.Invoke();
+        void OnReleaseItem() => ReleaseItem?.Invoke();
 
-        private void OnDrawItemEnded() => DrawEnded?.Invoke();
+        void OnDrawItemEnded() => DrawEnded?.Invoke();
 
-        private void OnPutAwayItemEnded() => PutAwayEnded?.Invoke();
+        void OnPutAwayItemEnded() => PutAwayEnded?.Invoke();
     }
 }

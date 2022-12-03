@@ -6,11 +6,11 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 {
     public class SimplePutInHammerspace : Procedure
     {
-        private readonly IHandComponent hand;
+        readonly IHandComponent _hand;
 
         public SimplePutInHammerspace(IHandComponent hand)
         {
-            this.hand = hand;
+            _hand = hand;
         }
 
         protected override void OnBegin(Action endProcedure)
@@ -21,9 +21,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 
         protected override void OnSkip() => RemoveItemFromHand();
 
-        private void RemoveItemFromHand()
+        void RemoveItemFromHand()
         {
-            var item = hand.TakeItem();
+            var item = _hand.TakeItem();
             item.Despawn();
         }
     }

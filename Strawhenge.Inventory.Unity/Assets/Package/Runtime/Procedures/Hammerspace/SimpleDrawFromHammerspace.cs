@@ -7,13 +7,13 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 {
     public class SimpleDrawFromHammerspace : Procedure
     {
-        private readonly IItemHelper item;
-        private readonly IHandComponent hand;
+        readonly IItemHelper _item;
+        readonly IHandComponent _hand;
 
         public SimpleDrawFromHammerspace(IItemHelper item, IHandComponent hand)
         {
-            this.item = item;
-            this.hand = hand;
+            _item = item;
+            _hand = hand;
         }
 
         protected override void OnBegin(Action endProcedure)
@@ -27,9 +27,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
             PlaceItemInHand();
         }
 
-        private void PlaceItemInHand()
+        void PlaceItemInHand()
         {
-            hand.SetItem(item);
+            _hand.SetItem(_item);
         }
     }
 }
