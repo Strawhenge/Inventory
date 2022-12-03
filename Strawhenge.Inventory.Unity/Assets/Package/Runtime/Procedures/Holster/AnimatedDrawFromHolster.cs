@@ -7,56 +7,56 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 {
     public class AnimatedDrawFromHolster : Procedure
     {
-        private readonly IProduceItemAnimationHandler animationHandler;
-        private readonly IHolsterComponent holster;
-        private readonly IHandComponent hand;
-        private readonly int animationId;
+        readonly IProduceItemAnimationHandler _animationHandler;
+        readonly IHolsterComponent _holster;
+        readonly IHandComponent _hand;
+        readonly int _animationId;
 
-        private Action endProcedure = () => { };
-        private bool itemInHand;
-        private bool hasEnded;
+        Action _endProcedure = () => { };
+        bool _itemInHand;
+        bool _hasEnded;
 
         public AnimatedDrawFromHolster(IProduceItemAnimationHandler animationHandler, IHolsterComponent holster, IHandComponent hand, int animationId)
         {
-            this.animationHandler = animationHandler;
-            this.holster = holster;
-            this.hand = hand;
-            this.animationId = animationId;
+            _animationHandler = animationHandler;
+            _holster = holster;
+            _hand = hand;
+            _animationId = animationId;
         }
 
         protected override void OnBegin(Action endProcedure)
         {
-            this.endProcedure = endProcedure;
+            _endProcedure = endProcedure;
 
-            animationHandler.GrabItem += PutItemInHand;
-            animationHandler.DrawEnded += AnimationHandler_DrawEnded;
+            _animationHandler.GrabItem += PutItemInHand;
+            _animationHandler.DrawEnded += AnimationHandler_DrawEnded;
 
-            animationHandler.DrawItem(animationId);
+            _animationHandler.DrawItem(_animationId);
         }
 
         protected override void OnSkip()
         {
-            if (hasEnded) return;
+            if (_hasEnded) return;
 
-            animationHandler.Interupt();
+            _animationHandler.Interupt();
             AnimationHandler_DrawEnded();
         }
 
-        private void AnimationHandler_DrawEnded()
+        void AnimationHandler_DrawEnded()
         {
-            hasEnded = true;
-            animationHandler.DrawEnded -= AnimationHandler_DrawEnded;
+            _hasEnded = true;
+            _animationHandler.DrawEnded -= AnimationHandler_DrawEnded;
 
-            if (!itemInHand) PutItemInHand();
+            if (!_itemInHand) PutItemInHand();
 
-            endProcedure();
+            _endProcedure();
         }
 
-        private void PutItemInHand()
+        void PutItemInHand()
         {
-            animationHandler.GrabItem -= PutItemInHand;
-            hand.SetItem(holster.TakeItem());
-            itemInHand = true;
+            _animationHandler.GrabItem -= PutItemInHand;
+            _hand.SetItem(_holster.TakeItem());
+            _itemInHand = true;
         }
     }
 }

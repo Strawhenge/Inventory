@@ -1,23 +1,24 @@
-﻿using Strawhenge.Inventory.TransientItems;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.TransientItems;
 using Strawhenge.Inventory.Unity.Data;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemGenerator : IItemGenerator
     {
-        private readonly IItemFactory itemFactory;
-        private readonly IItemRepository itemRepository;
+        readonly IItemFactory _itemFactory;
+        readonly IItemRepository _itemRepository;
 
         public ItemGenerator(IItemFactory itemFactory, IItemRepository itemRepository)
         {
-            this.itemFactory = itemFactory;
-            this.itemRepository = itemRepository;
+            _itemFactory = itemFactory;
+            _itemRepository = itemRepository;
         }
 
         public Maybe<IItem> GenerateByName(string name)
         {
-            return itemRepository.FindByName(name)
-                .Map(itemFactory.Create);
+            return _itemRepository.FindByName(name)
+                .Map(_itemFactory.Create);
         }
     }
 }

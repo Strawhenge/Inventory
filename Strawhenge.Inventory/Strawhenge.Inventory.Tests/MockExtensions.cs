@@ -2,6 +2,7 @@
 using Moq.Language.Flow;
 using System;
 using System.Linq.Expressions;
+using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.Tests
 {

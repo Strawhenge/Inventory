@@ -1,6 +1,7 @@
 ﻿using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Data;
 using System.Linq;
+using Strawhenge.Common.Logging;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
@@ -20,12 +21,17 @@ namespace Strawhenge.Inventory.Unity.Items
         public static bool IsHolsterCompatible(this IItemHelper item, IHolsterComponent holster, ILogger logger) =>
             IsHolsterCompatible(item, holster, logger, out _);
 
-        public static bool IsHolsterCompatible(this IItemHelper item, IHolsterComponent holster, ILogger logger, out IHolsterItemData data)
+        public static bool IsHolsterCompatible(
+            this IItemHelper item,
+            IHolsterComponent holster,
+            ILogger logger,
+            out IHolsterItemData data)
         {
             var matchingData = item.Data.HolsterItemData
-                .Where(x => holster.Name.Equals(x.HolsterName));
+                .Where(x => holster.Name.Equals(x.HolsterName))
+                .ToArray();
 
-            if (matchingData.Count() > 1)
+            if (matchingData.Length > 1)
                 logger.LogError($"Item '{item.Data.Name}' has multiple setups for holster '{holster.Name}'.");
 
             data = matchingData.FirstOrDefault();

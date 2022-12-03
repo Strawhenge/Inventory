@@ -5,22 +5,22 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
 {
     public class HolsterForItem : IHolsterForItem
     {
-        private readonly IItem item;
-        private readonly IHolster holster;
-        private readonly IHolsterForItemView view;
+        readonly IItem _item;
+        readonly IHolster _holster;
+        readonly IHolsterForItemView _view;
 
         public HolsterForItem(IItem item, IHolster holster, IHolsterForItemView view)
         {
-            this.item = item;
-            this.holster = holster;
-            this.view = view;
+            _item = item;
+            _holster = holster;
+            _view = view;
 
             view.Released += OnRemoved;
         }
 
-        public string HolsterName => holster.Name;
+        public string HolsterName => _holster.Name;
 
-        public bool IsEquipped => holster.IsCurrentItem(item);
+        public bool IsEquipped => _holster.IsCurrentItem(_item);
 
         public void Equip(Action callback = null)
         {
@@ -32,14 +32,13 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
 
             ClearHolster();
 
-            item.UnequipFromHolster();
-            holster.SetItem(item);
+            _item.UnequipFromHolster();
+            _holster.SetItem(_item);
 
-            if (item.IsInHand)
+            if (_item.IsInHand)
                 callback?.Invoke();
             else
-                view.Show(callback);
-
+                _view.Show(callback);
         }
 
         public void Unequip(Action callback = null)
@@ -50,29 +49,29 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
                 return;
             }
 
-            holster.UnsetItem();
+            _holster.UnsetItem();
 
-            if (item.IsInHand)
+            if (_item.IsInHand)
                 callback?.Invoke();
             else
-                view.Hide(callback);
+                _view.Hide(callback);
         }
 
         public IHolsterForItemView GetView()
         {
-            return view;
+            return _view;
         }
 
-        private void ClearHolster()
+        void ClearHolster()
         {
-            holster.CurrentItem.Do(
+            _holster.CurrentItem.Do(
                 x => x.UnequipFromHolster());
         }
 
         void OnRemoved()
         {
-            if (holster.IsCurrentItem(item))
-                holster.UnsetItem();
+            if (_holster.IsCurrentItem(_item))
+                _holster.UnsetItem();
         }
     }
 }

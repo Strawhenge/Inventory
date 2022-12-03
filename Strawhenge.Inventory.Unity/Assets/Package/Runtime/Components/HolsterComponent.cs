@@ -1,19 +1,20 @@
 ﻿using Strawhenge.Inventory.Unity.Items;
 using UnityEngine;
+using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Components
 {
     public class HolsterComponent : IHolsterComponent
     {
-        readonly Transform transform;
-        readonly ILogger logger;
+        readonly Transform _transform;
+        readonly ILogger _logger;
 
-        IItemHelper item;
+        IItemHelper _item;
 
         public HolsterComponent(string name, Transform transform, ILogger logger)
         {
-            this.transform = transform;
-            this.logger = logger;
+            _transform = transform;
+            _logger = logger;
 
             Name = name;
         }
@@ -22,26 +23,27 @@ namespace Strawhenge.Inventory.Unity.Components
 
         public void SetItem(IItemHelper item)
         {
-            this.item = item;
+            _item = item;
 
-            var data = item.GetHolsterData(this, logger);
+            var data = item.GetHolsterData(this, _logger);
 
             var itemScript = item.Spawn();
-            itemScript.transform.parent = transform;
-            itemScript.transform.localPosition = data.PositionOffset;
-            itemScript.transform.localRotation = data.RotationOffset;
+            var itemTransform = itemScript.transform;
+            itemTransform.parent = _transform;
+            itemTransform.localPosition = data.PositionOffset;
+            itemTransform.localRotation = data.RotationOffset;
         }
 
         public IItemHelper TakeItem()
         {
-            if (item == null)
+            if (_item == null)
             {
-                logger.LogError("No item in holster.");
+                _logger.LogError("No item in holster.");
                 return new NullItemHelper();
             }
 
-            var result = item;
-            item = null;
+            var result = _item;
+            _item = null;
             return result;
         }
     }

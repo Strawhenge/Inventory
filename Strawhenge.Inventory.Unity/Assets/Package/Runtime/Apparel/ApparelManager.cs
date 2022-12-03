@@ -1,5 +1,6 @@
 ﻿using Strawhenge.Inventory.Apparel;
 using System.Collections.Generic;
+using Strawhenge.Common.Logging;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {

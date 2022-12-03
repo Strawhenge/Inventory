@@ -1,4 +1,6 @@
-﻿namespace Strawhenge.Inventory.Apparel
+﻿using FunctionalUtilities;
+
+namespace Strawhenge.Inventory.Apparel
 {
     public class ApparelSlot
     {

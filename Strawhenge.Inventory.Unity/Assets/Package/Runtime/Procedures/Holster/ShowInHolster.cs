@@ -7,13 +7,13 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 {
     public class ShowInHolster : Procedure
     {
-        private readonly IItemHelper item;
-        private readonly IHolsterComponent holster;
+        readonly IItemHelper _item;
+        readonly IHolsterComponent _holster;
 
         public ShowInHolster(IItemHelper item, IHolsterComponent holster)
         {
-            this.item = item;
-            this.holster = holster;
+            _item = item;
+            _holster = holster;
         }
 
         protected override void OnBegin(Action endProcedure)
@@ -27,9 +27,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
             Show();
         }
 
-        private void Show()
+        void Show()
         {
-            holster.SetItem(item);
+            _holster.SetItem(_item);
         }
     }
 }

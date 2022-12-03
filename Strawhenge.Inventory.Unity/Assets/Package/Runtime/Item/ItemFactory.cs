@@ -8,19 +8,20 @@ using Strawhenge.Inventory.Unity.Monobehaviours;
 using Strawhenge.Inventory.Unity.Procedures;
 using System.Collections.Generic;
 using UnityEngine;
+using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemFactory : IItemFactory
     {
-        private readonly IEnumerable<Collider> colliders;
-        private readonly IHands hands;
-        private readonly IHolsters holsters;
-        private readonly HolsterComponents holsterComponents;
-        private readonly ProcedureQueue procedureQueue;
-        private readonly IProcedureFactory procedureFactory;
-        private readonly ISpawner spawner;
-        private readonly ILogger logger;
+        readonly IReadOnlyList<Collider> _colliders;
+        readonly IHands _hands;
+        readonly IHolsters _holsters;
+        readonly HolsterComponents _holsterComponents;
+        readonly ProcedureQueue _procedureQueue;
+        readonly IProcedureFactory _procedureFactory;
+        readonly ISpawner _spawner;
+        readonly ILogger _logger;
 
         public ItemFactory(
             GameObject gameObject,
@@ -32,61 +33,62 @@ namespace Strawhenge.Inventory.Unity.Items
             ISpawner spawner,
             ILogger logger)
         {
-            colliders = gameObject.GetComponentsInChildren<Collider>();
+            _colliders = gameObject.GetComponentsInChildren<Collider>();
 
-            this.hands = hands;
-            this.holsters = holsters;
-            this.holsterComponents = holsterComponents;
-            this.procedureQueue = procedureQueue;
-            this.procedureFactory = procedureFactory;
-            this.spawner = spawner;
-            this.logger = logger;
+            _hands = hands;
+            _holsters = holsters;
+            _holsterComponents = holsterComponents;
+            _procedureQueue = procedureQueue;
+            _procedureFactory = procedureFactory;
+            _spawner = spawner;
+            _logger = logger;
         }
 
         public IItem Create(ItemScript itemScript)
         {
-            var component = new ItemHelper(spawner, colliders, itemScript);
+            var component = new ItemHelper(_spawner, _colliders, itemScript);
             return Create(component, itemScript.Data);
         }
 
         public IItem Create(IItemData data)
         {
-            var component = new ItemHelper(spawner, colliders, data);
+            var component = new ItemHelper(_spawner, _colliders, data);
             return Create(component, data);
         }
 
-        private IItem Create(ItemHelper component, IItemData data)
+        IItem Create(ItemHelper component, IItemData data)
         {
-            var view = new ItemView(component, procedureQueue, procedureFactory);
+            var view = new ItemView(component, _procedureQueue, _procedureFactory);
 
             var itemSize = CreateItemSize(data.Size);
 
-            return new Item(data.Name, hands, view, itemSize,
+            return new Item(data.Name, _hands, view, itemSize,
                 getHolstersForItem: x => CreateHolstersForItem(x, component));
         }
 
-        private IHolstersForItem CreateHolstersForItem(IItem item, ItemHelper itemComponent)
+        IHolstersForItem CreateHolstersForItem(IItem item, ItemHelper itemComponent)
         {
             List<IHolsterForItem> holstersForItem = new List<IHolsterForItem>();
 
-            foreach (var holsterComponent in holsterComponents.Components)
+            foreach (var holsterComponent in _holsterComponents.Components)
             {
-                if (!itemComponent.IsHolsterCompatible(holsterComponent, logger))
+                if (!itemComponent.IsHolsterCompatible(holsterComponent, _logger))
                     continue;
 
-                var holster = holsters.FindByName(holsterComponent.Name);
+                var holster = _holsters.FindByName(holsterComponent.Name);
 
                 holster.Do(x =>
                 {
-                    var view = new HolsterForItemView(itemComponent, holsterComponent, procedureQueue, procedureFactory);
+                    var view = new HolsterForItemView(itemComponent, holsterComponent, _procedureQueue,
+                        _procedureFactory);
                     holstersForItem.Add(new HolsterForItem(item, x, view));
                 });
             }
 
-            return new HolstersForItem(holstersForItem, logger);
+            return new HolstersForItem(holstersForItem, _logger);
         }
 
-        private Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)
+        Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)
         {
             switch (size)
             {

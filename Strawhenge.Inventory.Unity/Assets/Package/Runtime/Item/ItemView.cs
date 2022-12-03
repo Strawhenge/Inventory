@@ -7,15 +7,15 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemView : IItemView
     {
-        private readonly IItemHelper item;
-        private readonly ProcedureQueue procedureQueue;
-        private readonly IProcedureFactory procedureFactory;
+        readonly IItemHelper _item;
+        readonly ProcedureQueue _procedureQueue;
+        readonly IProcedureFactory _procedureFactory;
 
         public ItemView(IItemHelper item, ProcedureQueue procedureQueue, IProcedureFactory procedureFactory)
         {
-            this.item = item;
-            this.procedureQueue = procedureQueue;
-            this.procedureFactory = procedureFactory;
+            _item = item;
+            _procedureQueue = procedureQueue;
+            _procedureFactory = procedureFactory;
 
             item.Released += () => Released?.Invoke();
         }
@@ -25,70 +25,70 @@ namespace Strawhenge.Inventory.Unity.Items
         public void Disappear(Action callback = null)
         {
             Schedule(
-                procedureFactory.Disappear(item), callback);
+                _procedureFactory.Disappear(_item), callback);
         }
 
         public void DrawLeftHand(Action callback = null)
         {
             Schedule(
-                procedureFactory.DrawLeftHandFromHammerspace(item), callback);
+                _procedureFactory.DrawLeftHandFromHammerspace(_item), callback);
         }
 
         public void DrawRightHand(Action callback = null)
         {
             Schedule(
-                procedureFactory.DrawRightHandFromHammerspace(item), callback);
+                _procedureFactory.DrawRightHandFromHammerspace(_item), callback);
         }
 
         public void DropLeftHand(Action callback = null)
         {
             Schedule(
-                procedureFactory.DropFromLeftHand(item), callback);
+                _procedureFactory.DropFromLeftHand(_item), callback);
         }
 
         public void DropRightHand(Action callback = null)
         {
             Schedule(
-                procedureFactory.DropFromRightHand(item), callback);
+                _procedureFactory.DropFromRightHand(_item), callback);
         }
 
         public void LeftHandToRightHand(Action callback = null)
         {
             Schedule(
-                procedureFactory.SwapFromLeftHandToRightHand(item), callback);
+                _procedureFactory.SwapFromLeftHandToRightHand(_item), callback);
         }
 
         public void PutAwayLeftHand(Action callback = null)
         {
             Schedule(
-                procedureFactory.PutAwayLeftHandToHammerspace(item), callback);
+                _procedureFactory.PutAwayLeftHandToHammerspace(_item), callback);
         }
 
         public void PutAwayRightHand(Action callback = null)
         {
             Schedule(
-                procedureFactory.PutAwayRightHandToHammerspace(item), callback);
+                _procedureFactory.PutAwayRightHandToHammerspace(_item), callback);
         }
 
         public void RightHandToLeftHand(Action callback = null)
         {
             Schedule(
-                procedureFactory.SwapFromRightHandToLeftHand(item), callback);
+                _procedureFactory.SwapFromRightHandToLeftHand(_item), callback);
         }
 
         public void SpawnAndDrop(Action callback = null)
         {
             Schedule(
-                procedureFactory.SpawnAndDrop(item), callback);
+                _procedureFactory.SpawnAndDrop(_item), callback);
         }
 
-        private void Schedule(Procedure procedure, Action callback)
+        void Schedule(Procedure procedure, Action callback)
         {
-            procedureQueue.Schedule(procedure);
+            _procedureQueue.Schedule(procedure);
 
             if (callback != null)
             {
-                procedureQueue.Schedule(() =>
+                _procedureQueue.Schedule(() =>
                 {
                     callback();
                     return Procedure.Completed;

@@ -6,11 +6,11 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 {
     public class SimpleDropFromHand : Procedure
     {
-        private readonly IHandComponent hand;
+        readonly IHandComponent _hand;
 
         public SimpleDropFromHand(IHandComponent hand)
         {
-            this.hand = hand;
+            _hand = hand;
         }
 
         protected override void OnBegin(Action endProcedure)
@@ -24,9 +24,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
             Drop();
         }
 
-        private void Drop()
+        void Drop()
         {
-            hand.TakeItem().Release();
+            _hand.TakeItem().Release();
         }
     }
 }

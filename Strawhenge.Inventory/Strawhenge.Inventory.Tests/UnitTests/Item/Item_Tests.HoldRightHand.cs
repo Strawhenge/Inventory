@@ -13,7 +13,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         {
             HoldRightHand(shouldTestCallback);
 
-            itemViewMock.VerifyOnce(
+            _itemViewMock.VerifyOnce(
                 x => x.DrawRightHand(It.IsAny<Action>()));
 
             VerifyItemWasSetToRightHand();
@@ -47,7 +47,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             HoldRightHand(shouldTestCallback);
 
-            itemViewMock.VerifyOnce(
+            _itemViewMock.VerifyOnce(
                x => x.LeftHandToRightHand(It.IsAny<Action>()));
 
             VerifyItemWasSetToRightHand();
@@ -119,7 +119,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             HoldRightHand(shouldTestCallback);
 
-            itemViewMock.VerifyOnce(x => x.LeftHandToRightHand(It.IsAny<Action>()));
+            _itemViewMock.VerifyOnce(x => x.LeftHandToRightHand(It.IsAny<Action>()));
             VerifyNoOtherViewCalls();
 
             if (shouldTestCallback)
@@ -129,9 +129,9 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         void HoldRightHand(bool shouldTestCallback)
         {
             if (shouldTestCallback)
-                item.HoldRightHand(callback);
+                _item.HoldRightHand(_callback);
             else
-                item.HoldRightHand();
+                _item.HoldRightHand();
         }
     }
 }

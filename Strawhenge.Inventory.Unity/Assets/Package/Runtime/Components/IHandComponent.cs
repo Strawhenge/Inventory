@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Unity.Items;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Unity.Items;
 
 namespace Strawhenge.Inventory.Unity.Components
 {

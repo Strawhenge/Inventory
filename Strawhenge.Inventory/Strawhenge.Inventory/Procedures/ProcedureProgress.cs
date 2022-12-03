@@ -2,36 +2,36 @@
 
 namespace Strawhenge.Inventory.Procedures
 {
-    internal class ProcedureProgress
+    class ProcedureProgress
     {
-        private readonly Procedure procedure;
-        private readonly Action onComplete;
+        readonly Procedure _procedure;
+        readonly Action _onComplete;
 
-        private bool hasEnded = false;
+        bool _hasEnded;
 
         public ProcedureProgress(Procedure procedure, Action onComplete)
         {
-            this.procedure = procedure;
-            this.onComplete = onComplete;
+            _procedure = procedure;
+            _onComplete = onComplete;
         }
 
         public void Begin()
         {
-            procedure.Begin(OnEnded);
+            _procedure.Begin(OnEnded);
         }
 
         public void Skip()
         {
-            hasEnded = true;
-            procedure.Skip();
+            _hasEnded = true;
+            _procedure.Skip();
         }
 
-        private void OnEnded()
+        void OnEnded()
         {
-            if (hasEnded) return;
+            if (_hasEnded) return;
 
-            hasEnded = true;
-            onComplete();
+            _hasEnded = true;
+            _onComplete();
         }
     }
 }

@@ -6,26 +6,26 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 {
     public class SimplePutInHolster : Procedure
     {
-        private readonly IHandComponent hand;
-        private readonly IHolsterComponent holster;
+        readonly IHandComponent _hand;
+        readonly IHolsterComponent _holster;
 
         public SimplePutInHolster(IHandComponent hand, IHolsterComponent holster)
         {
-            this.hand = hand;
-            this.holster = holster;
+            _hand = hand;
+            _holster = holster;
         }
 
         protected override void OnBegin(Action endProcedure)
         {
-            var item = hand.TakeItem();
-            holster.SetItem(item);
+            var item = _hand.TakeItem();
+            _holster.SetItem(item);
             endProcedure();
         }
 
         protected override void OnSkip()
         {
-            var item = hand.TakeItem();
-            holster.SetItem(item);
+            var item = _hand.TakeItem();
+            _holster.SetItem(item);
         }
     }
 }

@@ -1,72 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.Procedures
 {
     public class ProcedureQueue
     {
-        private readonly Queue<Func<Procedure>> procedures = new Queue<Func<Procedure>>();
+        readonly Queue<Func<Procedure>> _procedures = new Queue<Func<Procedure>>();
 
-        private Maybe<ProcedureProgress> currentProgress = Maybe.None<ProcedureProgress>();
-        private bool isPaused = false;
+        Maybe<ProcedureProgress> _currentProgress = Maybe.None<ProcedureProgress>();
+        bool _isPaused;
 
         public void Schedule(Procedure procedure) => Schedule(() => procedure);
 
         public void Schedule(Func<Procedure> createProcedure)
         {
-            procedures.Enqueue(createProcedure);
+            _procedures.Enqueue(createProcedure);
             Next();
         }
 
         public void Pause()
         {
-            isPaused = true;
+            _isPaused = true;
         }
 
         public void Resume()
         {
-            isPaused = false;
+            _isPaused = false;
             Next();
         }
 
         public void SkipCurrentProcedure()
         {
-            currentProgress.Do(p => p.Skip());
-            currentProgress = Maybe.None<ProcedureProgress>();
+            _currentProgress.Do(p => p.Skip());
+            _currentProgress = Maybe.None<ProcedureProgress>();
             Next();
         }
 
         public void SkipAllScheduledProcedures()
         {
-            currentProgress.Do(p => p.Skip());
-            currentProgress = Maybe.None<ProcedureProgress>();
+            _currentProgress.Do(p => p.Skip());
+            _currentProgress = Maybe.None<ProcedureProgress>();
 
-            foreach (var procedure in procedures)
+            foreach (var procedure in _procedures)
             {
                 procedure().Skip();
             }
 
-            procedures.Clear();
+            _procedures.Clear();
         }
 
-        private void Next()
+        void Next()
         {
-            if (isPaused || !procedures.Any() || IsProcedureInProgress) return;
+            if (_isPaused || !_procedures.Any() || IsProcedureInProgress) return;
 
-            var procedure = procedures.Dequeue().Invoke();
+            var procedure = _procedures.Dequeue().Invoke();
             var progress = new ProcedureProgress(procedure, OnComplete);
-            currentProgress = Maybe.Some(progress);
+            _currentProgress = Maybe.Some(progress);
             progress.Begin();
 
             void OnComplete()
             {
-                currentProgress = Maybe.None<ProcedureProgress>();
+                _currentProgress = Maybe.None<ProcedureProgress>();
                 Next();
             }
         }
 
-        private bool IsProcedureInProgress => currentProgress
+        bool IsProcedureInProgress => _currentProgress
             .Map(_ => true)
             .Reduce(() => false);
     }

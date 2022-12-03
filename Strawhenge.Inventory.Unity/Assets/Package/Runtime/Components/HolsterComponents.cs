@@ -1,29 +1,30 @@
 ﻿using Strawhenge.Inventory.Containers;
 using System.Collections.Generic;
 using UnityEngine;
+using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Components
 {
     public class HolsterComponents
     {
-        readonly List<IHolsterComponent> components = new List<IHolsterComponent>();
-        readonly IHolsters holsters;
-        readonly ILogger logger;
+        readonly List<IHolsterComponent> _components = new List<IHolsterComponent>();
+        readonly IHolsters _holsters;
+        readonly ILogger _logger;
 
         public HolsterComponents(IHolsters holsters, ILogger logger)
         {
-            this.holsters = holsters;
-            this.logger = logger;
+            _holsters = holsters;
+            _logger = logger;
         }
 
-        public IEnumerable<IHolsterComponent> Components => components;
+        public IEnumerable<IHolsterComponent> Components => _components;
 
         public void Add(string name, Transform transform)
         {
-            components.Add(
-                new HolsterComponent(name, transform, logger));
+            _components.Add(
+                new HolsterComponent(name, transform, _logger));
 
-            holsters.Add(name);
+            _holsters.Add(name);
         }
     }
 }

@@ -2,48 +2,52 @@
 using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Items;
 using System;
+using FunctionalUtilities;
 using UnityEngine;
+using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Components
 {
     public class HandComponent : IHandComponent
     {
-        private readonly IHoldItemAnimationHandler animationHandler;
-        private readonly Transform transform;
-        private readonly ILogger logger;
-        private readonly Func<IItemHelper, IHoldItemData> getHoldItemData;
+        readonly IHoldItemAnimationHandler _animationHandler;
+        readonly Transform _transform;
+        readonly ILogger _logger;
+        readonly Func<IItemHelper, IHoldItemData> _getHoldItemData;
 
-        public HandComponent(IHoldItemAnimationHandler animationHandler, Transform transform, ILogger logger, Func<IItemHelper, IHoldItemData> getHoldItemData)
+        public HandComponent(IHoldItemAnimationHandler animationHandler, Transform transform, ILogger logger,
+            Func<IItemHelper, IHoldItemData> getHoldItemData)
         {
-            this.animationHandler = animationHandler;
-            this.transform = transform;
-            this.logger = logger;
-            this.getHoldItemData = getHoldItemData;
+            _animationHandler = animationHandler;
+            _transform = transform;
+            _logger = logger;
+            _getHoldItemData = getHoldItemData;
         }
 
         public Maybe<IItemHelper> Item { get; private set; } = Maybe.None<IItemHelper>();
 
         public void SetItem(IItemHelper item)
         {
-            var holdData = getHoldItemData(item);
+            var holdData = _getHoldItemData(item);
 
             var itemScript = item.Spawn();
-            itemScript.transform.parent = transform;
-            itemScript.transform.localPosition = holdData.PositionOffset;
-            itemScript.transform.localRotation = holdData.RotationOffset;
+            var itemTransform = itemScript.transform;
+            itemTransform.parent = _transform;
+            itemTransform.localPosition = holdData.PositionOffset;
+            itemTransform.localRotation = holdData.RotationOffset;
 
-            animationHandler.Hold(holdData.AnimationId);
+            _animationHandler.Hold(holdData.AnimationId);
 
             Item = Maybe.Some(item);
         }
 
         public IItemHelper TakeItem()
         {
-            animationHandler.Unhold();
+            _animationHandler.Unhold();
 
             var item = Item.Reduce(() =>
             {
-                logger.LogError("No item in hand.");
+                _logger.LogError("No item in hand.");
                 return new NullItemHelper();
             });
 

@@ -1,4 +1,6 @@
-﻿namespace Strawhenge.Inventory.Unity.Data
+﻿using FunctionalUtilities;
+
+namespace Strawhenge.Inventory.Unity.Data
 {
     public interface IItemRepository
     {

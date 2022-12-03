@@ -4,37 +4,37 @@ namespace Strawhenge.Inventory.TransientItems
 {
     public class TransientItemHolder : ITransientItemHolder
     {
-        private readonly ITransientItemLocator transientItemLocator;
+        readonly ITransientItemLocator _transientItemLocator;
 
-        IItem item;
+        IItem _item;
 
         public TransientItemHolder(ITransientItemLocator transientItemLocator)
         {
-            this.transientItemLocator = transientItemLocator;
+            _transientItemLocator = transientItemLocator;
         }
 
         public void HoldLeftHand(string itemName, Action callback)
         {
-            if (transientItemLocator.GetItemByName(itemName).HasSome(out item))
-                item.HoldLeftHand(callback);
+            if (_transientItemLocator.GetItemByName(itemName).HasSome(out _item))
+                _item.HoldLeftHand(callback);
             else
                 callback();
         }
 
         public void HoldRightHand(string itemName, Action callback)
         {
-            if (transientItemLocator.GetItemByName(itemName).HasSome(out item))
-                item.HoldRightHand(callback);
+            if (_transientItemLocator.GetItemByName(itemName).HasSome(out _item))
+                _item.HoldRightHand(callback);
             else
                 callback();
         }
 
         public void Unhold(Action callback)
         {
-            if (item == null)
+            if (_item == null)
                 callback();
             else
-                item.ClearFromHands(callback);
+                _item.ClearFromHands(callback);
         }
     }
 }

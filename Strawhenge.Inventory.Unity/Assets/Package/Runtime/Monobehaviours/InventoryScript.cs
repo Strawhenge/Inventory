@@ -4,16 +4,23 @@ using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Strawhenge.Inventory.Unity.Monobehaviours
 {
     public class InventoryScript : MonoBehaviour
     {
-        public Transform LeftHand;
-        public Transform RightHand;
+        [FormerlySerializedAs("LeftHand"), SerializeField]
+        Transform _leftHand;
 
-        [SerializeField] ItemsInHolsters[] itemsInHolsters;
-        [SerializeField] ApparelPieceScriptableObject[] apparel;
+        [FormerlySerializedAs("RightHand"), SerializeField]
+        Transform _rightHand;
+
+        [FormerlySerializedAs("itemsInHolsters"), SerializeField]
+        ItemsInHolsters[] _itemsInHolsters;
+
+        [FormerlySerializedAs("apparel"), SerializeField]
+        ApparelPieceScriptableObject[] _apparel;
 
         public IItemManager ItemManager { get; set; }
 
@@ -23,52 +30,52 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 
         public HolsterComponents HolsterComponents { private get; set; }
 
-        private void Start()
+        void Start()
         {
-            if (LeftHand == null || RightHand == null)
+            if (_leftHand == null || _rightHand == null)
             {
                 var animator = GetComponent<Animator>();
 
-                if (LeftHand == null)
+                if (_leftHand == null)
                 {
                     Debug.Log($"Left hand Transform not set. Getting from animator.", this);
-                    LeftHand = animator.GetBoneTransform(HumanBodyBones.LeftHand);
+                    _leftHand = animator.GetBoneTransform(HumanBodyBones.LeftHand);
                 }
 
-                if (RightHand == null)
+                if (_rightHand == null)
                 {
                     Debug.Log($"Right hand Transform not set. Getting from animator.", this);
-                    RightHand = animator.GetBoneTransform(HumanBodyBones.RightHand);
+                    _rightHand = animator.GetBoneTransform(HumanBodyBones.RightHand);
                 }
             }
 
-            if (LeftHand != null && RightHand != null)
-                HandComponents.Initialize(LeftHand, RightHand);
+            if (_leftHand != null && _rightHand != null)
+                HandComponents.Initialize(_leftHand, _rightHand);
 
             foreach (var holster in GetComponentsInChildren<HolsterScript>())
                 HolsterComponents.Add(holster.HolsterName, holster.transform);
 
-            foreach (var item in itemsInHolsters.Where(x => x != null && x.item != null && x.holster != null))
+            foreach (var item in _itemsInHolsters.Where(x => x != null && x._item != null && x._holster != null))
             {
                 ItemManager
-                    .Manage(item.item)
+                    .Manage(item._item)
                     .Holsters
-                    .FirstOrDefault(x => x.HolsterName.Equals(item.holster.Name))?
+                    .FirstOrDefault(x => x.HolsterName.Equals(item._holster.Name))?
                     .Equip();
             }
 
             foreach (var apparelSlot in GetComponentsInChildren<ApparelSlotScript>())
                 ApparelManager.AddSlot(apparelSlot);
 
-            foreach (var apparelPiece in apparel)
+            foreach (var apparelPiece in _apparel)
                 ApparelManager.Create(apparelPiece).Equip();
         }
 
         [Serializable]
         class ItemsInHolsters
         {
-            public ItemScriptableObject item;
-            public HolsterScriptableObject holster;
+            [FormerlySerializedAs("item")] public ItemScriptableObject _item;
+            [FormerlySerializedAs("holster")] public HolsterScriptableObject _holster;
         }
     }
 }

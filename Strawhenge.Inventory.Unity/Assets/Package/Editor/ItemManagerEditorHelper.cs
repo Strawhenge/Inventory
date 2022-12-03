@@ -3,6 +3,7 @@ using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
 using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using System.Linq;
+using FunctionalUtilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,43 +11,45 @@ namespace Strawhenge.Inventory.Unity.Editor
 {
     public class ItemManagerEditorHelper
     {
-        private readonly EditorTarget<IItemManager> target;
+        readonly EditorTarget<IItemManager> _target;
 
-        IItem item;
-        bool displayLeftHand;
-        bool displayRightHand;
-        bool displayHolsters;
-        bool displayInventory;
-        IItem displayItem;
+        IItem _item;
+        bool _displayLeftHand;
+        bool _displayRightHand;
+        bool _displayHolsters;
+        bool _displayInventory;
+        IItem _displayItem;
 
         public ItemManagerEditorHelper(Func<IItemManager> getTarget)
         {
-            target = new EditorTarget<IItemManager>(getTarget);
+            _target = new EditorTarget<IItemManager>(getTarget);
         }
 
         public void Inspect()
         {
             EditorGUILayout.LabelField("Item Manager", EditorStyles.boldLabel);
-            EditorGUI.BeginDisabledGroup(!target.HasInstance);
+            EditorGUI.BeginDisabledGroup(!_target.HasInstance);
 
-            if (item != null)
+            if (_item != null)
             {
                 if (GUILayout.Button("Clear"))
-                    item = null;
+                    _item = null;
                 else
-                    InspectItem(item);
+                    InspectItem(_item);
             }
             else
             {
                 EditorGUILayout.BeginHorizontal();
                 var script = (ItemScript)EditorGUILayout.ObjectField(null, typeof(ItemScript), allowSceneObjects: true);
-                var scriptableObject = (ItemScriptableObject)EditorGUILayout.ObjectField(null, typeof(ItemScriptableObject), allowSceneObjects: true);
+                var scriptableObject =
+                    (ItemScriptableObject)EditorGUILayout.ObjectField(null, typeof(ItemScriptableObject),
+                        allowSceneObjects: true);
                 EditorGUILayout.EndHorizontal();
 
                 if (script != null)
-                    item = target.Instance.Manage(script);
+                    _item = _target.Instance.Manage(script);
                 else if (scriptableObject != null)
-                    item = target.Instance.Manage(scriptableObject);
+                    _item = _target.Instance.Manage(scriptableObject);
             }
 
             InspectHands();
@@ -56,74 +59,78 @@ namespace Strawhenge.Inventory.Unity.Editor
             EditorGUI.EndDisabledGroup();
         }
 
-        private void InspectHands()
+        void InspectHands()
         {
-            displayLeftHand = EditorGUILayout.Foldout(displayLeftHand, $"In Left Hand ({GetLeftHandItemString()})", toggleOnLabelClick: true);
-            if (displayLeftHand && target.HasInstance)
+            _displayLeftHand = EditorGUILayout.Foldout(_displayLeftHand, $"In Left Hand ({GetLeftHandItemString()})",
+                toggleOnLabelClick: true);
+            if (_displayLeftHand && _target.HasInstance)
             {
-                target.Instance
+                _target.Instance
                     .ItemInLeftHand.Do(InspectItem);
             }
 
-            displayRightHand = EditorGUILayout.Foldout(displayRightHand, $"In Right Hand ({GetRightHandItemString()})", toggleOnLabelClick: true);
-            if (displayRightHand && target.HasInstance)
+            _displayRightHand = EditorGUILayout.Foldout(_displayRightHand, $"In Right Hand ({GetRightHandItemString()})",
+                toggleOnLabelClick: true);
+            if (_displayRightHand && _target.HasInstance)
             {
-                target.Instance
+                _target.Instance
                     .ItemInRightHand.Do(InspectItem);
             }
         }
 
-        private void InspectHolsters()
+        void InspectHolsters()
         {
-            displayHolsters = EditorGUILayout.Foldout(displayHolsters, $"In Holsters ({GetHolsterItemCount()})", toggleOnLabelClick: true);
-            if (displayHolsters)
+            _displayHolsters = EditorGUILayout.Foldout(_displayHolsters, $"In Holsters ({GetHolsterItemCount()})",
+                toggleOnLabelClick: true);
+            if (_displayHolsters)
             {
-                foreach (var item in target.Instance.ItemsInHolsters)
+                foreach (var item in _target.Instance.ItemsInHolsters)
                 {
                     InspectItemWithToggle(item);
                 }
             }
         }
 
-        private void InspectInventory()
+        void InspectInventory()
         {
-            displayInventory = EditorGUILayout.Foldout(displayInventory, $"In Inventory ({GetInventoryCountString()})", toggleOnLabelClick: true);
+            _displayInventory = EditorGUILayout.Foldout(_displayInventory, $"In Inventory ({GetInventoryCountString()})",
+                toggleOnLabelClick: true);
 
-            if (displayInventory)
+            if (_displayInventory)
             {
-                foreach (var item in target.Instance.ItemsInInventory)
+                foreach (var item in _target.Instance.ItemsInInventory)
                     InspectItemWithToggle(item);
             }
         }
 
-        private void InspectItemWithToggle(IItem item)
+        void InspectItemWithToggle(IItem item)
         {
-            bool show = EditorGUILayout.Foldout(item == displayItem, item.Name, toggleOnLabelClick: true);
+            bool show = EditorGUILayout.Foldout(item == _displayItem, item.Name, toggleOnLabelClick: true);
 
             if (show)
             {
-                displayItem = item;
+                _displayItem = item;
             }
-            else if (item == displayItem)
+            else if (item == _displayItem)
             {
-                displayItem = null;
+                _displayItem = null;
             }
 
             if (show)
                 InspectItem(item);
         }
 
-        private void InspectItem(IItem item)
+        void InspectItem(IItem item)
         {
             EditorGUILayout.HelpBox(GetItemInfoString(item), MessageType.Info);
 
             EditorGUILayout.BeginHorizontal();
 
             if (GUILayout.Button(nameof(IItemManager.AddItemToInventory)))
-                target.Instance.AddItemToInventory(item);
+                _target.Instance.AddItemToInventory(item);
 
             if (GUILayout.Button(nameof(IItemManager.RemoveItemFromInventory)))
-                target.Instance.RemoveItemFromInventory(item);
+                _target.Instance.RemoveItemFromInventory(item);
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
@@ -165,9 +172,9 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
         }
 
-        private string GetItemInfoString(IItem item)
+        string GetItemInfoString(IItem item)
         {
-            var lines = new string[]
+            var lines = new[]
             {
                 item.Name,
                 item.IsTwoHanded ? "Two Handed" : "One Handed",
@@ -177,23 +184,23 @@ namespace Strawhenge.Inventory.Unity.Editor
             return string.Join(Environment.NewLine, lines);
         }
 
-        private string GetHolsterItemCount() => target.HasInstance
-          ? target.Instance.ItemsInHolsters.Count().ToString()
-          : "NA";
-
-        private string GetInventoryCountString() => target.HasInstance
-            ? target.Instance.ItemsInInventory.Count().ToString()
+        string GetHolsterItemCount() => _target.HasInstance
+            ? _target.Instance.ItemsInHolsters.Count().ToString()
             : "NA";
 
-        private string GetLeftHandItemString() => target.HasInstance
-          ? GetItemInHandString(target.Instance.ItemInLeftHand)
-          : "NA";
-
-        private string GetRightHandItemString() => target.HasInstance
-            ? GetItemInHandString(target.Instance.ItemInRightHand)
+        string GetInventoryCountString() => _target.HasInstance
+            ? _target.Instance.ItemsInInventory.Count().ToString()
             : "NA";
 
-        private string GetItemInHandString(Maybe<IItem> item) => item
+        string GetLeftHandItemString() => _target.HasInstance
+            ? GetItemInHandString(_target.Instance.ItemInLeftHand)
+            : "NA";
+
+        string GetRightHandItemString() => _target.HasInstance
+            ? GetItemInHandString(_target.Instance.ItemInRightHand)
+            : "NA";
+
+        string GetItemInHandString(Maybe<IItem> item) => item
             .Map(x => x.Name)
             .Reduce(() => "none");
     }

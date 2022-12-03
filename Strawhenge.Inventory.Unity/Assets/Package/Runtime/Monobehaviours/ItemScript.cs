@@ -2,26 +2,33 @@ using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Strawhenge.Inventory.Unity.Monobehaviours
 {
     public class ItemScript : MonoBehaviour
     {
-        [SerializeField] ItemScriptableObject data;
-        [SerializeField] EventScriptableObject[] onFixatedEvents;
-        [SerializeField] EventScriptableObject[] onUnfixatedEvents;
+        [FormerlySerializedAs("data"), SerializeField] 
+        ItemScriptableObject _data;
 
-        readonly List<Collider> ignoredColliders = new List<Collider>();
-        IEnumerable<Collider> colliders;
+        [FormerlySerializedAs("onFixatedEvents"), SerializeField] 
+        EventScriptableObject[] _onFixatedEvents;
+
+        [FormerlySerializedAs("onUnfixatedEvents"), SerializeField] 
+        EventScriptableObject[] _onUnfixatedEvents;
+
+        readonly List<Collider> _ignoredColliders = new List<Collider>();
+        IEnumerable<Collider> _colliders;
 
         void Awake()
         {
-            colliders = GetComponentsInChildren<Collider>();
+            _colliders = GetComponentsInChildren<Collider>();
 
-            if (data != null)
+            if (_data != null)
             {
-                Data = data;
+                Data = _data;
                 return;
             }
 
@@ -36,7 +43,7 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
             ResetIgnoredColliders();
             IgnoreColliders(bindToColliders);
 
-            foreach (var onFixate in onFixatedEvents)
+            foreach (var onFixate in _onFixatedEvents)
             {
                 if (onFixate != null)
                     onFixate.Invoke(gameObject);
@@ -47,29 +54,31 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
         {
             ResetIgnoredColliders();
 
-            foreach (var onUnfixate in onUnfixatedEvents)
+            foreach (var onUnfixate in _onUnfixatedEvents)
             {
                 if (onUnfixate != null)
                     onUnfixate.Invoke(gameObject);
             }
         }
 
-        void IgnoreColliders(IEnumerable<Collider> bindToColliders)
+        void IgnoreColliders(IEnumerable<Collider> colliders)
         {
-            foreach (var collider in colliders)
-                foreach (var bindTo in bindToColliders)
-                    Physics.IgnoreCollision(collider, bindTo, ignore: true);
+            var bindToColliders = colliders.ToArray();
 
-            ignoredColliders.AddRange(bindToColliders);
+            foreach (var collider in _colliders)
+            foreach (var bindTo in bindToColliders)
+                Physics.IgnoreCollision(collider, bindTo, ignore: true);
+
+            _ignoredColliders.AddRange(bindToColliders);
         }
 
         void ResetIgnoredColliders()
         {
-            foreach (var collider in colliders)
-                foreach (var bindTo in ignoredColliders)
-                    Physics.IgnoreCollision(collider, bindTo, ignore: false);
+            foreach (var collider in _colliders)
+            foreach (var bindTo in _ignoredColliders)
+                Physics.IgnoreCollision(collider, bindTo, ignore: false);
 
-            ignoredColliders.Clear();
+            _ignoredColliders.Clear();
         }
     }
 }

@@ -1,31 +1,32 @@
 ﻿using Strawhenge.Inventory.Unity.Animation;
 using System;
 using UnityEngine;
+using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Components
 {
     public class HandComponents : IHandComponents
     {
-        readonly IHoldItemAnimationHandler holdItemAnimationHandler;
-        readonly ILogger logger;
+        readonly IHoldItemAnimationHandler _holdItemAnimationHandler;
+        readonly ILogger _logger;
 
-        IHandComponent left;
-        IHandComponent right;
+        IHandComponent _left;
+        IHandComponent _right;
 
         public HandComponents(IHoldItemAnimationHandler holdItemAnimationHandler, ILogger logger)
         {
-            this.holdItemAnimationHandler = holdItemAnimationHandler;
-            this.logger = logger;
+            _holdItemAnimationHandler = holdItemAnimationHandler;
+            _logger = logger;
         }
 
-        public IHandComponent Left => left ?? throw new InvalidOperationException($"'{nameof(HandComponents)}' has not been initialized.");
+        public IHandComponent Left => _left ?? throw new InvalidOperationException($"'{nameof(HandComponents)}' has not been initialized.");
 
-        public IHandComponent Right => right ?? throw new InvalidOperationException($"'{nameof(HandComponents)}' has not been initialized.");
+        public IHandComponent Right => _right ?? throw new InvalidOperationException($"'{nameof(HandComponents)}' has not been initialized.");
 
         public void Initialize(Transform left, Transform right)
         {
-            this.left = new HandComponent(holdItemAnimationHandler, left, logger, x => x.Data.LeftHandHoldData);
-            this.right = new HandComponent(holdItemAnimationHandler, right, logger, x => x.Data.RightHandHoldData);
+            _left = new HandComponent(_holdItemAnimationHandler, left, _logger, x => x.Data.LeftHandHoldData);
+            _right = new HandComponent(_holdItemAnimationHandler, right, _logger, x => x.Data.RightHandHoldData);
         }
     }
 }

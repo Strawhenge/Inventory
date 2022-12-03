@@ -1,29 +1,42 @@
 ﻿using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Strawhenge.Inventory.Unity.Data
 {
     [Serializable]
     public class SerializedItemData : IItemData
     {
-        public string Name;
-        public ItemScript Prefab;
-        public ItemSize Size;
-        public SerializedHoldItemData LeftHandHoldData;
-        public SerializedHoldItemData RightHandHoldData;
-        public SerializedHolsterItemData[] HolsterItemData;
+        [FormerlySerializedAs("Name"), SerializeField] 
+        string _name;
 
-        string IItemData.Name => Name;
+        [FormerlySerializedAs("Prefab"), SerializeField] 
+        ItemScript _prefab;
 
-        ItemScript IItemData.Prefab => Prefab;
+        [FormerlySerializedAs("Size"), SerializeField] 
+        ItemSize _size;
 
-        ItemSize IItemData.Size => Size;
+        [FormerlySerializedAs("LeftHandHoldData"), SerializeField] 
+        SerializedHoldItemData _leftHandHoldData;
 
-        IHoldItemData IItemData.LeftHandHoldData => LeftHandHoldData;
+        [FormerlySerializedAs("RightHandHoldData"), SerializeField] 
+        SerializedHoldItemData _rightHandHoldData;
 
-        IHoldItemData IItemData.RightHandHoldData => RightHandHoldData;
+        [FormerlySerializedAs("HolsterItemData"), SerializeField] 
+        SerializedHolsterItemData[] _holsterItemData;
 
-        IEnumerable<IHolsterItemData> IItemData.HolsterItemData => HolsterItemData;
+        string IItemData.Name => _name;
+
+        ItemScript IItemData.Prefab => _prefab;
+
+        ItemSize IItemData.Size => _size;
+
+        IHoldItemData IItemData.LeftHandHoldData => _leftHandHoldData;
+
+        IHoldItemData IItemData.RightHandHoldData => _rightHandHoldData;
+
+        IEnumerable<IHolsterItemData> IItemData.HolsterItemData => _holsterItemData;
     }
 }

@@ -7,23 +7,23 @@ namespace Strawhenge.Inventory.Tests
     {
         public static implicit operator Action(AssertableCallback callback) => callback.Invoke;
 
-        int invokeCount;
+        int _invokeCount;
 
         public void AssertNeverCalled()
         {
-            Assert.Equal(0, invokeCount);
+            Assert.Equal(0, _invokeCount);
         }
 
         public void AssertCalledOnce()
         {
-            Assert.Equal(1, invokeCount);
+            Assert.Equal(1, _invokeCount);
         }
 
         public void AssertCalledTimes(int times)
         {
-            Assert.Equal(times, invokeCount);
+            Assert.Equal(times, _invokeCount);
         }
 
-        void Invoke() => invokeCount++;
+        void Invoke() => _invokeCount++;
     }
 }

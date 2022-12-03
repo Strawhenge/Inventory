@@ -6,23 +6,23 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 {
     public class Hands_Tests
     {
-        readonly Hands hands;
-        readonly Mock<IItem> itemMock;
-        readonly IItem item;
+        readonly Hands _hands;
+        readonly Mock<IItem> _itemMock;
+        readonly IItem _item;
 
         public Hands_Tests()
         {
-            hands = new Hands();
+            _hands = new Hands();
 
-            itemMock = new Mock<IItem>();
-            item = itemMock.Object;
+            _itemMock = new Mock<IItem>();
+            _item = _itemMock.Object;
         }
 
         [Fact]
         public void Init()
         {
-            AssertMaybe.IsNone(hands.ItemInLeftHand);
-            AssertMaybe.IsNone(hands.ItemInRightHand);
+            AssertMaybe.IsNone(_hands.ItemInLeftHand);
+            AssertMaybe.IsNone(_hands.ItemInRightHand);
             AssertDoesNotHaveTwoHandedItem();
             AssertDoesNotHaveItemInLeftHand();
             AssertDoesNotHaveItemInRightHand();
@@ -31,10 +31,10 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         [Fact]
         public void SetItemLeftHand()
         {
-            hands.SetItemLeftHand(item);
+            _hands.SetItemLeftHand(_item);
 
-            AssertMaybe.IsSome(hands.ItemInLeftHand, item);
-            AssertMaybe.IsNone(hands.ItemInRightHand);
+            AssertMaybe.IsSome(_hands.ItemInLeftHand, _item);
+            AssertMaybe.IsNone(_hands.ItemInRightHand);
             AssertDoesNotHaveItemInRightHand();
             AssertDoesNotHaveTwoHandedItem();
         }
@@ -42,10 +42,10 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         [Fact]
         public void SetItemRightHand()
         {
-            hands.SetItemRightHand(item);
+            _hands.SetItemRightHand(_item);
 
-            AssertMaybe.IsSome(hands.ItemInRightHand, item);
-            AssertMaybe.IsNone(hands.ItemInLeftHand);
+            AssertMaybe.IsSome(_hands.ItemInRightHand, _item);
+            AssertMaybe.IsNone(_hands.ItemInLeftHand);
             AssertDoesNotHaveItemInLeftHand();
             AssertDoesNotHaveTwoHandedItem();
         }
@@ -55,10 +55,10 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         {
             ArrangeItemIsTwoHanded();
 
-            hands.SetItemLeftHand(item);
+            _hands.SetItemLeftHand(_item);
 
-            AssertMaybe.IsSome(hands.ItemInLeftHand, item);
-            AssertMaybe.IsNone(hands.ItemInRightHand);
+            AssertMaybe.IsSome(_hands.ItemInLeftHand, _item);
+            AssertMaybe.IsNone(_hands.ItemInRightHand);
             AssertDoesNotHaveItemInRightHand();
             AssertDoesHaveTwoHandedItem();
         }
@@ -68,30 +68,30 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         {
             ArrangeItemIsTwoHanded();
 
-            hands.SetItemRightHand(item);
+            _hands.SetItemRightHand(_item);
 
-            AssertMaybe.IsSome(hands.ItemInRightHand, item);
-            AssertMaybe.IsNone(hands.ItemInLeftHand);
+            AssertMaybe.IsSome(_hands.ItemInRightHand, _item);
+            AssertMaybe.IsNone(_hands.ItemInLeftHand);
             AssertDoesNotHaveItemInLeftHand();
             AssertDoesHaveTwoHandedItem();
         }
 
-        void ArrangeItemIsTwoHanded() => itemMock.SetupGet(x => x.IsTwoHanded).Returns(true);
+        void ArrangeItemIsTwoHanded() => _itemMock.SetupGet(x => x.IsTwoHanded).Returns(true);
 
-        void AssertDoesNotHaveItemInLeftHand() => Assert.False(hands.IsInLeftHand(item));
+        void AssertDoesNotHaveItemInLeftHand() => Assert.False(_hands.IsInLeftHand(_item));
 
-        void AssertDoesNotHaveItemInRightHand() => Assert.False(hands.IsInRightHand(item));
+        void AssertDoesNotHaveItemInRightHand() => Assert.False(_hands.IsInRightHand(_item));
 
         void AssertDoesNotHaveTwoHandedItem()
         {
-            Assert.False(hands.HasTwoHandedItem(out var item));
+            Assert.False(_hands.HasTwoHandedItem(out var item));
             Assert.Null(item);
         }
 
         void AssertDoesHaveTwoHandedItem()
         {
-            Assert.True(hands.HasTwoHandedItem(out var item));
-            Assert.Same(this.item, item);
+            Assert.True(_hands.HasTwoHandedItem(out var item));
+            Assert.Same(_item, item);
         }
     }
 }

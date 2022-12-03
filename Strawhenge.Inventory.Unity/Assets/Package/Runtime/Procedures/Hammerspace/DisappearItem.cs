@@ -7,15 +7,15 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 {
     public class DisappearItem : Procedure
     {
-        private readonly IItemHelper item;
-        private readonly IHandComponent leftHand;
-        private readonly IHandComponent rightHand;
+        readonly IItemHelper _item;
+        readonly IHandComponent _leftHand;
+        readonly IHandComponent _rightHand;
 
         public DisappearItem(IItemHelper item, IHandComponent leftHand, IHandComponent rightHand)
         {
-            this.item = item;
-            this.leftHand = leftHand;
-            this.rightHand = rightHand;
+            _item = item;
+            _leftHand = leftHand;
+            _rightHand = rightHand;
         }
 
         protected override void OnBegin(Action endProcedure)
@@ -29,15 +29,15 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
             Disapper();
         }
 
-        private void Disapper()
+        void Disapper()
         {
-            item.Despawn();
+            _item.Despawn();
 
-            if (leftHand.Item.HasSome(out var leftItem) && leftItem == item)
-                leftHand.TakeItem();
+            if (_leftHand.Item.HasSome(out var leftItem) && leftItem == _item)
+                _leftHand.TakeItem();
 
-            if (rightHand.Item.HasSome(out var rightItem) && rightItem == item)
-                rightHand.TakeItem();
+            if (_rightHand.Item.HasSome(out var rightItem) && rightItem == _item)
+                _rightHand.TakeItem();
         }
     }
 }

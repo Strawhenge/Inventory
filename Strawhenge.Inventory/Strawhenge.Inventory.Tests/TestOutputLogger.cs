@@ -1,18 +1,24 @@
-﻿using Xunit.Abstractions;
+﻿using System;
+using Strawhenge.Common.Logging;
+using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests
 {
     public class TestOutputLogger : ILogger
     {
-        private readonly ITestOutputHelper testOutput;
+        readonly ITestOutputHelper _testOutput;
 
         public TestOutputLogger(ITestOutputHelper testOutput)
         {
-            this.testOutput = testOutput;
+            _testOutput = testOutput;
         }
 
-        public void LogWarning(string message) => testOutput.WriteLine($"[Warning] {message}");
+        public void LogInformation(string message) => _testOutput.WriteLine($"[Information] {message}");
 
-        public void LogError(string message) => testOutput.WriteLine($"[Error] {message}");
+        public void LogWarning(string message) => _testOutput.WriteLine($"[Warning] {message}");
+
+        public void LogError(string message) => _testOutput.WriteLine($"[Error] {message}");
+
+        public void LogException(Exception exception) => _testOutput.WriteLine($"[Exception] {exception}");
     }
 }

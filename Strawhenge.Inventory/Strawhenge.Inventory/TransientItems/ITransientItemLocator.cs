@@ -1,4 +1,6 @@
-﻿namespace Strawhenge.Inventory.TransientItems
+﻿using FunctionalUtilities;
+
+namespace Strawhenge.Inventory.TransientItems
 {
     public interface ITransientItemLocator
     {

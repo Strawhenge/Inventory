@@ -7,24 +7,24 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 {
     public class Holster_Tests
     {
-        const string holsterName = "Test Holster";
+        const string HolsterName = "Test Holster";
 
-        readonly Holster holster;
-        readonly IItem item;
-        readonly IItem otherItem;
+        readonly Holster _holster;
+        readonly IItem _item;
+        readonly IItem _otherItem;
 
         public Holster_Tests()
         {
-            holster = new Holster(holsterName);
+            _holster = new Holster(HolsterName);
 
-            item = new Mock<IItem>().Object;
-            otherItem = new Mock<IItem>().Object;
+            _item = new Mock<IItem>().Object;
+            _otherItem = new Mock<IItem>().Object;
         }
 
         [Fact]
         public void Init_CurrentItemShouldBeNone()
         {
-            var currentItem = holster.CurrentItem;
+            var currentItem = _holster.CurrentItem;
 
             Assert.NotNull(currentItem);
             AssertMaybe.IsNone(currentItem);
@@ -33,27 +33,27 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         [Fact]
         public void SetItem_CurrentItemShouldBeItem()
         {
-            holster.SetItem(item);
+            _holster.SetItem(_item);
 
-            var currentItem = holster.CurrentItem;
+            var currentItem = _holster.CurrentItem;
 
             Assert.NotNull(currentItem);
-            AssertMaybe.IsSome(currentItem, expectedValue: item);
+            AssertMaybe.IsSome(currentItem, expectedValue: _item);
         }
 
         [Fact]
         public void SetItem_ShouldThrowArgumentNullException_WhenPassingNull()
         {
             Assert.Throws<ArgumentNullException>(
-                () => holster.SetItem(null));
+                () => _holster.SetItem(null));
         }
 
         [Fact]
         public void UnsetItem_CurrentItemShouldBeNone_WhenItemNotSet()
         {
-            holster.UnsetItem();
+            _holster.UnsetItem();
 
-            var currentItem = holster.CurrentItem;
+            var currentItem = _holster.CurrentItem;
 
             Assert.NotNull(currentItem);
             AssertMaybe.IsNone(currentItem);
@@ -62,10 +62,10 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         [Fact]
         public void UnsetItem_CurrentItemShouldBeNone_WhenItemSet()
         {
-            holster.SetItem(item);
-            holster.UnsetItem();
+            _holster.SetItem(_item);
+            _holster.UnsetItem();
 
-            var currentItem = holster.CurrentItem;
+            var currentItem = _holster.CurrentItem;
 
             Assert.NotNull(currentItem);
             AssertMaybe.IsNone(currentItem);
@@ -75,25 +75,25 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         public void IsCurrentItem_ShouldBeFalse_WhenCurrentItemIsNone()
         {
             Assert.False(
-                holster.IsCurrentItem(item));
+                _holster.IsCurrentItem(_item));
         }
 
         [Fact]
         public void IsCurrentItem_ShouldBeTrue_WhenCurrentItemIsSet()
         {
-            holster.SetItem(item);
+            _holster.SetItem(_item);
 
             Assert.True(
-                holster.IsCurrentItem(item));
+                _holster.IsCurrentItem(_item));
         }
 
         [Fact]
         public void IsCurrentItem_ShouldBeFalse_WhenCurrentItemIsOtherItem()
         {
-            holster.SetItem(otherItem);
+            _holster.SetItem(_otherItem);
 
             Assert.False(
-                holster.IsCurrentItem(item));
+                _holster.IsCurrentItem(_item));
         }
     }
 }

@@ -8,50 +8,59 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 {
     public partial class Item_Tests
     {
-        const string itemName = "Test Item";
+        const string ItemName = "Test Item";
 
-        readonly Item item;
-        readonly Mock<IHands> handsMock;
-        readonly Mock<IItemView> itemViewMock;
-        readonly Mock<IHolstersForItem> holstersMock;
-        readonly Mock<ItemSize> itemSizeMock;
-        readonly AssertableCallback callback;
+        readonly Item _item;
+        readonly Mock<IHands> _handsMock;
+        readonly Mock<IItemView> _itemViewMock;
+        readonly Mock<IHolstersForItem> _holstersMock;
+        readonly Mock<ItemSize> _itemSizeMock;
+        readonly AssertableCallback _callback;
 
         public Item_Tests()
         {
-            handsMock = new Mock<IHands>();
-            handsMock.SetupGetNone(x => x.ItemInLeftHand);
-            handsMock.SetupGetNone(x => x.ItemInRightHand);
+            _handsMock = new Mock<IHands>();
+            _handsMock.SetupGetNone(x => x.ItemInLeftHand);
+            _handsMock.SetupGetNone(x => x.ItemInRightHand);
 
-            itemViewMock = new Mock<IItemView>();
-            itemViewMock.Setup(x => x.Disappear(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            itemViewMock.Setup(x => x.DrawLeftHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            itemViewMock.Setup(x => x.DrawRightHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            itemViewMock.Setup(x => x.DropLeftHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            itemViewMock.Setup(x => x.DropRightHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            itemViewMock.Setup(x => x.LeftHandToRightHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            itemViewMock.Setup(x => x.PutAwayLeftHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            itemViewMock.Setup(x => x.PutAwayRightHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            itemViewMock.Setup(x => x.RightHandToLeftHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            itemViewMock.Setup(x => x.SpawnAndDrop(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
+            _itemViewMock = new Mock<IItemView>();
+            _itemViewMock.Setup(x => x.Disappear(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
+            _itemViewMock.Setup(x => x.DrawLeftHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _itemViewMock.Setup(x => x.DrawRightHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _itemViewMock.Setup(x => x.DropLeftHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _itemViewMock.Setup(x => x.DropRightHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _itemViewMock.Setup(x => x.LeftHandToRightHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _itemViewMock.Setup(x => x.PutAwayLeftHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _itemViewMock.Setup(x => x.PutAwayRightHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _itemViewMock.Setup(x => x.RightHandToLeftHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _itemViewMock.Setup(x => x.SpawnAndDrop(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
 
-            holstersMock = new Mock<IHolstersForItem>();
-            itemSizeMock = new Mock<ItemSize>();
+            _holstersMock = new Mock<IHolstersForItem>();
+            _itemSizeMock = new Mock<ItemSize>();
 
-            item = new Item(
-                itemName,
-                handsMock.Object,
-                itemViewMock.Object,
-                itemSizeMock.Object,
-                _ => holstersMock.Object);
+            _item = new Item(
+                ItemName,
+                _handsMock.Object,
+                _itemViewMock.Object,
+                _itemSizeMock.Object,
+                _ => _holstersMock.Object);
 
-            callback = new AssertableCallback();
+            _callback = new AssertableCallback();
         }
 
         void ArrangeItemInLeftHand()
         {
-            handsMock
-                .Setup(x => x.IsInLeftHand(item))
+            _handsMock
+                .Setup(x => x.IsInLeftHand(_item))
                 .Returns(true);
         }
 
@@ -60,14 +69,14 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             ArrangeItemInLeftHand();
             ArrangeTwoHanded();
 
-            IItem item = this.item;
-            handsMock.Setup(x => x.HasTwoHandedItem(out item)).Returns(true);
+            IItem item = _item;
+            _handsMock.Setup(x => x.HasTwoHandedItem(out item)).Returns(true);
         }
 
         void ArrangeItemInRightHand()
         {
-            handsMock
-                .Setup(x => x.IsInRightHand(item))
+            _handsMock
+                .Setup(x => x.IsInRightHand(_item))
                 .Returns(true);
         }
 
@@ -76,8 +85,8 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             ArrangeItemInRightHand();
             ArrangeTwoHanded();
 
-            IItem item = this.item;
-            handsMock.Setup(x => x.HasTwoHandedItem(out item)).Returns(true);
+            IItem item = _item;
+            _handsMock.Setup(x => x.HasTwoHandedItem(out item)).Returns(true);
         }
 
         Mock<IHolsterForItemView> ArrangeEquippedToHolster()
@@ -87,7 +96,8 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             viewMock.Setup(x => x.DrawRightHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
             viewMock.Setup(x => x.Hide(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
             viewMock.Setup(x => x.PutAwayLeftHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            viewMock.Setup(x => x.PutAwayRightHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
+            viewMock.Setup(x => x.PutAwayRightHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
             viewMock.Setup(x => x.Show(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
 
             var holsterMock = new Mock<IHolsterForItem>();
@@ -99,13 +109,13 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             IHolsterForItem holster = holsterMock.Object;
 
-            holstersMock
+            _holstersMock
                 .Setup(x => x.IsEquippedToHolster(out holster))
                 .Returns(true);
 
             IHolsterForItemView view = viewMock.Object;
 
-            holstersMock
+            _holstersMock
                 .Setup(x => x.IsEquippedToHolster(out view))
                 .Returns(true);
 
@@ -114,17 +124,17 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
         void ArrangeClearFromHandsSetToDrop()
         {
-            item.ClearFromHandsPreference = ClearFromHandsPreference.Drop;
+            _item.ClearFromHandsPreference = ClearFromHandsPreference.Drop;
         }
 
         void ArrangeClearFromHandsSetToPutAway()
         {
-            item.ClearFromHandsPreference = ClearFromHandsPreference.PutAway;
+            _item.ClearFromHandsPreference = ClearFromHandsPreference.PutAway;
         }
 
         void ArrangeTwoHanded()
         {
-            itemSizeMock.SetupGet(x => x.IsTwoHanded).Returns(true);
+            _itemSizeMock.SetupGet(x => x.IsTwoHanded).Returns(true);
         }
 
         Mock<IItem> ArrangeOtherItemInRightHand(bool isTwoHanded = false)
@@ -133,10 +143,10 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             otherItemMock.SetupGet(x => x.IsTwoHanded).Returns(isTwoHanded);
             var otherItem = otherItemMock.Object;
 
-            handsMock.SetupGetSome(x => x.ItemInRightHand, otherItem);
+            _handsMock.SetupGetSome(x => x.ItemInRightHand, otherItem);
 
             if (isTwoHanded)
-                handsMock.Setup(x => x.HasTwoHandedItem(out otherItem)).Returns(true);
+                _handsMock.Setup(x => x.HasTwoHandedItem(out otherItem)).Returns(true);
 
             return otherItemMock;
         }
@@ -147,47 +157,47 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             otherItemMock.SetupGet(x => x.IsTwoHanded).Returns(isTwoHanded);
             var otherItem = otherItemMock.Object;
 
-            handsMock.SetupGetSome(x => x.ItemInLeftHand, otherItemMock.Object);
+            _handsMock.SetupGetSome(x => x.ItemInLeftHand, otherItemMock.Object);
 
             if (isTwoHanded)
-                handsMock.Setup(x => x.HasTwoHandedItem(out otherItem)).Returns(true);
+                _handsMock.Setup(x => x.HasTwoHandedItem(out otherItem)).Returns(true);
 
             return otherItemMock;
         }
 
         void VerifyItemWasSetToLeftHand()
         {
-            handsMock.VerifyOnce(
-                x => x.SetItemLeftHand(item));
+            _handsMock.VerifyOnce(
+                x => x.SetItemLeftHand(_item));
         }
 
         void VerifyItemWasSetToRightHand()
         {
-            handsMock.VerifyOnce(
-                x => x.SetItemRightHand(item));
+            _handsMock.VerifyOnce(
+                x => x.SetItemRightHand(_item));
         }
 
         void VerifyItemWasUnsetFromLeftHand()
         {
-            handsMock.VerifyOnce(
+            _handsMock.VerifyOnce(
                 x => x.UnsetItemLeftHand());
         }
 
         void VerifyItemWasUnsetFromRightHand()
         {
-            handsMock.VerifyOnce(
+            _handsMock.VerifyOnce(
                 x => x.UnsetItemRightHand());
         }
 
         void VerifyNoOtherViewCalls()
         {
-            itemViewMock.VerifyAdd(x => x.Released += It.IsAny<Action>(), Times.AtMostOnce());
-            itemViewMock.VerifyNoOtherCalls();
+            _itemViewMock.VerifyAdd(x => x.Released += It.IsAny<Action>(), Times.AtMostOnce());
+            _itemViewMock.VerifyNoOtherCalls();
         }
 
         void VerifyCallbackWasInvoked()
         {
-            callback.AssertCalledOnce();
+            _callback.AssertCalledOnce();
         }
     }
 }
