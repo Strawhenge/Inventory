@@ -91,7 +91,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         void AssertDoesHaveTwoHandedItem()
         {
             Assert.True(_hands.HasTwoHandedItem(out var item));
-            Assert.Same(this._item, item);
+            Assert.Same(_item, item);
         }
     }
 }

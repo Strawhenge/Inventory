@@ -7,10 +7,10 @@ namespace Strawhenge.Inventory.Items
 {
     public class Item : IItem
     {
-        readonly IHands hands;
-        readonly IItemView itemView;
-        readonly ItemSize size;
-        readonly IHolstersForItem holsters;
+        readonly IHands _hands;
+        readonly IItemView _itemView;
+        readonly ItemSize _size;
+        readonly IHolstersForItem _holsters;
 
         public event Action<IItem> Dropped;
 
@@ -23,22 +23,22 @@ namespace Strawhenge.Inventory.Items
         {
             Name = name;
 
-            this.hands = hands;
-            this.itemView = itemView;
-            this.size = size;
+            _hands = hands;
+            _itemView = itemView;
+            _size = size;
 
-            holsters = getHolstersForItem(this);
+            _holsters = getHolstersForItem(this);
 
             itemView.Released += OnRemoved;
         }
 
         public string Name { get; }
 
-        public IEnumerable<IHolsterForItem> Holsters => holsters;
+        public IEnumerable<IHolsterForItem> Holsters => _holsters;
 
         public bool IsInHand => IsInLeftHand() || IsInRightHand();
 
-        public bool IsTwoHanded => size.IsTwoHanded;
+        public bool IsTwoHanded => _size.IsTwoHanded;
 
         public ClearFromHandsPreference ClearFromHandsPreference { get; set; } = ClearFromHandsPreference.Disappear;
 
@@ -46,17 +46,17 @@ namespace Strawhenge.Inventory.Items
         {
             if (IsInLeftHand())
             {
-                hands.UnsetItemLeftHand();
-                itemView.DropLeftHand(callback);
+                _hands.UnsetItemLeftHand();
+                _itemView.DropLeftHand(callback);
             }
             else if (IsInRightHand())
             {
-                hands.UnsetItemRightHand();
-                itemView.DropRightHand(callback);
+                _hands.UnsetItemRightHand();
+                _itemView.DropRightHand(callback);
             }
             else
             {
-                itemView.SpawnAndDrop(callback);
+                _itemView.SpawnAndDrop(callback);
             }
 
             Dropped?.Invoke(this);
@@ -74,10 +74,10 @@ namespace Strawhenge.Inventory.Items
 
             if (IsInRightHand())
             {
-                hands.UnsetItemRightHand();
-                hands.SetItemLeftHand(this);
+                _hands.UnsetItemRightHand();
+                _hands.SetItemLeftHand(this);
 
-                itemView.RightHandToLeftHand(callback);
+                _itemView.RightHandToLeftHand(callback);
                 return;
             }
 
@@ -86,14 +86,14 @@ namespace Strawhenge.Inventory.Items
 
             if (IsEquippedToHolster(out var holsterItemView))
             {
-                hands.SetItemLeftHand(this);
+                _hands.SetItemLeftHand(this);
 
                 holsterItemView.DrawLeftHand(callback);
                 return;
             }
 
-            hands.SetItemLeftHand(this);
-            itemView.DrawLeftHand(callback);
+            _hands.SetItemLeftHand(this);
+            _itemView.DrawLeftHand(callback);
         }
 
         public void HoldRightHand(Action callback = null)
@@ -108,10 +108,10 @@ namespace Strawhenge.Inventory.Items
 
             if (IsInLeftHand())
             {
-                hands.UnsetItemLeftHand();
-                hands.SetItemRightHand(this);
+                _hands.UnsetItemLeftHand();
+                _hands.SetItemRightHand(this);
 
-                itemView.LeftHandToRightHand(callback);
+                _itemView.LeftHandToRightHand(callback);
                 return;
             }
 
@@ -120,38 +120,38 @@ namespace Strawhenge.Inventory.Items
 
             if (IsEquippedToHolster(out var holsterItemView))
             {
-                hands.SetItemRightHand(this);
+                _hands.SetItemRightHand(this);
 
                 holsterItemView.DrawRightHand(callback);
                 return;
             }
 
-            hands.SetItemRightHand(this);
-            itemView.DrawRightHand(callback);
+            _hands.SetItemRightHand(this);
+            _itemView.DrawRightHand(callback);
         }
 
         public void PutAway(Action callback = null)
         {
             if (IsInLeftHand())
             {
-                hands.UnsetItemLeftHand();
+                _hands.UnsetItemLeftHand();
 
                 if (IsEquippedToHolster(out var holsterItemView))
                     holsterItemView.PutAwayLeftHand(callback);
                 else
-                    itemView.PutAwayLeftHand(callback);
+                    _itemView.PutAwayLeftHand(callback);
 
                 return;
             }
 
             if (IsInRightHand())
             {
-                hands.UnsetItemRightHand();
+                _hands.UnsetItemRightHand();
 
                 if (IsEquippedToHolster(out var holsterItemView))
                     holsterItemView.PutAwayRightHand(callback);
                 else
-                    itemView.PutAwayRightHand(callback);
+                    _itemView.PutAwayRightHand(callback);
 
                 return;
             }
@@ -161,7 +161,7 @@ namespace Strawhenge.Inventory.Items
 
         public void UnequipFromHolster(Action callback = null)
         {
-            if (holsters.IsEquippedToHolster(out IHolsterForItem holster))
+            if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
             {
                 holster.Unequip(callback);
                 return;
@@ -174,24 +174,24 @@ namespace Strawhenge.Inventory.Items
         {
             if (IsInLeftHand())
             {
-                hands.UnsetItemLeftHand();
+                _hands.UnsetItemLeftHand();
 
                 if (IsEquippedToHolster(out var holster))
                     holster.PutAwayLeftHand(callback);
                 else
-                    ClearFromHandsPreference.PerformClearLeftHand(itemView, callback);
+                    ClearFromHandsPreference.PerformClearLeftHand(_itemView, callback);
 
                 return;
             }
 
             if (IsInRightHand())
             {
-                hands.UnsetItemRightHand();
+                _hands.UnsetItemRightHand();
 
                 if (IsEquippedToHolster(out var holster))
                     holster.PutAwayRightHand(callback);
                 else
-                    ClearFromHandsPreference.PerformClearRightHand(itemView, callback);
+                    ClearFromHandsPreference.PerformClearRightHand(_itemView, callback);
 
                 return;
             }
@@ -201,40 +201,40 @@ namespace Strawhenge.Inventory.Items
 
         void ClearLeftHand()
         {
-            if (hands.HasTwoHandedItem(out var twoHandedItem) && twoHandedItem != this)
+            if (_hands.HasTwoHandedItem(out var twoHandedItem) && twoHandedItem != this)
             {
                 twoHandedItem.ClearFromHands();
                 return;
             }
 
-            hands.ItemInLeftHand.Do(x => x.ClearFromHands());
+            _hands.ItemInLeftHand.Do(x => x.ClearFromHands());
         }
 
         void ClearRightHand()
         {
-            if (hands.HasTwoHandedItem(out var twoHandedItem) && twoHandedItem != this)
+            if (_hands.HasTwoHandedItem(out var twoHandedItem) && twoHandedItem != this)
             {
                 twoHandedItem.ClearFromHands();
                 return;
             }
 
-            hands.ItemInRightHand.Do(x => x.ClearFromHands());
+            _hands.ItemInRightHand.Do(x => x.ClearFromHands());
         }
 
-        bool IsInLeftHand() => hands.IsInLeftHand(this);
+        bool IsInLeftHand() => _hands.IsInLeftHand(this);
 
-        bool IsInRightHand() => hands.IsInRightHand(this);
+        bool IsInRightHand() => _hands.IsInRightHand(this);
 
         bool IsEquippedToHolster(out IHolsterForItemView holsterItemView) =>
-            holsters.IsEquippedToHolster(out holsterItemView);
+            _holsters.IsEquippedToHolster(out holsterItemView);
 
         void OnRemoved()
         {
             if (IsInLeftHand())
-                hands.UnsetItemLeftHand();
+                _hands.UnsetItemLeftHand();
 
             if (IsInRightHand())
-                hands.UnsetItemRightHand();         
+                _hands.UnsetItemRightHand();
         }
     }
 }

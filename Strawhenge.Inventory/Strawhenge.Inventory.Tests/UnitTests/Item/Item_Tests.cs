@@ -69,7 +69,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             ArrangeItemInLeftHand();
             ArrangeTwoHanded();
 
-            IItem item = this._item;
+            IItem item = _item;
             _handsMock.Setup(x => x.HasTwoHandedItem(out item)).Returns(true);
         }
 
@@ -85,7 +85,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             ArrangeItemInRightHand();
             ArrangeTwoHanded();
 
-            IItem item = this._item;
+            IItem item = _item;
             _handsMock.Setup(x => x.HasTwoHandedItem(out item)).Returns(true);
         }
 

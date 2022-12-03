@@ -7,21 +7,21 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
 {
     public class HolstersForItem : IHolstersForItem
     {
-        readonly IEnumerable<IHolsterForItem> inner;
-        readonly ILogger logger;
+        readonly IEnumerable<IHolsterForItem> _inner;
+        readonly ILogger _logger;
 
         public HolstersForItem(IEnumerable<IHolsterForItem> inner, ILogger logger)
         {
-            this.inner = inner.ToArray();
-            this.logger = logger;
+            _inner = inner.ToArray();
+            _logger = logger;
         }
 
         public bool IsEquippedToHolster(out IHolsterForItem holsterItem)
         {
-            var equipped = inner.Where(x => x.IsEquipped);
+            var equipped = _inner.Where(x => x.IsEquipped);
 
             if (equipped.Count() > 1)
-                logger.LogError("Item equipped to more than one holster.");
+                _logger.LogError("Item equipped to more than one holster.");
 
             holsterItem = equipped.FirstOrDefault();
             return holsterItem != null;
@@ -34,8 +34,8 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
             return isEquipped;
         }
 
-        IEnumerator<IHolsterForItem> IEnumerable<IHolsterForItem>.GetEnumerator() => inner.GetEnumerator();
+        IEnumerator<IHolsterForItem> IEnumerable<IHolsterForItem>.GetEnumerator() => _inner.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => (inner as IEnumerable).GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => (_inner as IEnumerable).GetEnumerator();
     }
 }
