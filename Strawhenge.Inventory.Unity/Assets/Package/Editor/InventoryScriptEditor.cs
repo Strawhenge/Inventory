@@ -6,27 +6,27 @@ namespace Strawhenge.Inventory.Unity.Editor
     [CustomEditor(typeof(InventoryScript))]
     public class InventoryScriptEditor : UnityEditor.Editor
     {
-        new InventoryScript target;
-        ItemManagerEditorHelper itemManager;
-        ApparelManagerEditorHelper apparelManager;
+        InventoryScript _target;
+        ItemManagerEditorHelper _itemManager;
+        ApparelManagerEditorHelper _apparelManager;
 
         void OnEnable()
         {
-            target ??= base.target as InventoryScript;
+            _target ??= target as InventoryScript;
 
-            itemManager ??= new ItemManagerEditorHelper(
-                () => target.ItemManager);
+            _itemManager ??= new ItemManagerEditorHelper(
+                () => _target.ItemManager);
 
-            apparelManager ??= new ApparelManagerEditorHelper(
-                () => target.ApparelManager);
+            _apparelManager ??= new ApparelManagerEditorHelper(
+                () => _target.ApparelManager);
         }
 
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
-            itemManager.Inspect();
-            apparelManager.Inspect();
+            _itemManager.Inspect();
+            _apparelManager.Inspect();
         }
     }
 }

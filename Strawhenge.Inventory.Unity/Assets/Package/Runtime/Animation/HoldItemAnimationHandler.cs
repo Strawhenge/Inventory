@@ -4,16 +4,15 @@ namespace Strawhenge.Inventory.Unity.Animation
 {
     public class HoldItemAnimationHandler : IHoldItemAnimationHandler
     {
-        readonly Animator animator;
+        readonly Animator _animator;
 
         public HoldItemAnimationHandler(Animator animator)
         {
-            this.animator = animator;
+            _animator = animator;
         }
 
-        public void Hold(int animationId) => animator.SetInteger(AnimatorParameters.HoldItem_AnimationId, animationId);
+        public void Hold(int animationId) => _animator.SetInteger(AnimatorParameters.HoldItemAnimationId, animationId);
 
-        public void Unhold() => animator.SetInteger(AnimatorParameters.HoldItem_AnimationId, 0);
+        public void Unhold() => _animator.SetInteger(AnimatorParameters.HoldItemAnimationId, 0);
     }
-
 }

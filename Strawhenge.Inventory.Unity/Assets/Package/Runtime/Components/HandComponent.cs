@@ -10,43 +10,43 @@ namespace Strawhenge.Inventory.Unity.Components
 {
     public class HandComponent : IHandComponent
     {
-        readonly IHoldItemAnimationHandler animationHandler;
-        readonly Transform transform;
-        readonly ILogger logger;
-        readonly Func<IItemHelper, IHoldItemData> getHoldItemData;
+        readonly IHoldItemAnimationHandler _animationHandler;
+        readonly Transform _transform;
+        readonly ILogger _logger;
+        readonly Func<IItemHelper, IHoldItemData> _getHoldItemData;
 
         public HandComponent(IHoldItemAnimationHandler animationHandler, Transform transform, ILogger logger,
             Func<IItemHelper, IHoldItemData> getHoldItemData)
         {
-            this.animationHandler = animationHandler;
-            this.transform = transform;
-            this.logger = logger;
-            this.getHoldItemData = getHoldItemData;
+            _animationHandler = animationHandler;
+            _transform = transform;
+            _logger = logger;
+            _getHoldItemData = getHoldItemData;
         }
 
         public Maybe<IItemHelper> Item { get; private set; } = Maybe.None<IItemHelper>();
 
         public void SetItem(IItemHelper item)
         {
-            var holdData = getHoldItemData(item);
+            var holdData = _getHoldItemData(item);
 
             var itemScript = item.Spawn();
-            itemScript.transform.parent = transform;
+            itemScript.transform.parent = _transform;
             itemScript.transform.localPosition = holdData.PositionOffset;
             itemScript.transform.localRotation = holdData.RotationOffset;
 
-            animationHandler.Hold(holdData.AnimationId);
+            _animationHandler.Hold(holdData.AnimationId);
 
             Item = Maybe.Some(item);
         }
 
         public IItemHelper TakeItem()
         {
-            animationHandler.Unhold();
+            _animationHandler.Unhold();
 
             var item = Item.Reduce(() =>
             {
-                logger.LogError("No item in hand.");
+                _logger.LogError("No item in hand.");
                 return new NullItemHelper();
             });
 

@@ -11,31 +11,31 @@ namespace Strawhenge.Inventory.Unity.Editor
 {
     public class ItemManagerEditorHelper
     {
-        readonly EditorTarget<IItemManager> target;
+        readonly EditorTarget<IItemManager> _target;
 
-        IItem item;
-        bool displayLeftHand;
-        bool displayRightHand;
-        bool displayHolsters;
-        bool displayInventory;
-        IItem displayItem;
+        IItem _item;
+        bool _displayLeftHand;
+        bool _displayRightHand;
+        bool _displayHolsters;
+        bool _displayInventory;
+        IItem _displayItem;
 
         public ItemManagerEditorHelper(Func<IItemManager> getTarget)
         {
-            target = new EditorTarget<IItemManager>(getTarget);
+            _target = new EditorTarget<IItemManager>(getTarget);
         }
 
         public void Inspect()
         {
             EditorGUILayout.LabelField("Item Manager", EditorStyles.boldLabel);
-            EditorGUI.BeginDisabledGroup(!target.HasInstance);
+            EditorGUI.BeginDisabledGroup(!_target.HasInstance);
 
-            if (item != null)
+            if (_item != null)
             {
                 if (GUILayout.Button("Clear"))
-                    item = null;
+                    _item = null;
                 else
-                    InspectItem(item);
+                    InspectItem(_item);
             }
             else
             {
@@ -47,9 +47,9 @@ namespace Strawhenge.Inventory.Unity.Editor
                 EditorGUILayout.EndHorizontal();
 
                 if (script != null)
-                    item = target.Instance.Manage(script);
+                    _item = _target.Instance.Manage(script);
                 else if (scriptableObject != null)
-                    item = target.Instance.Manage(scriptableObject);
+                    _item = _target.Instance.Manage(scriptableObject);
             }
 
             InspectHands();
@@ -61,30 +61,30 @@ namespace Strawhenge.Inventory.Unity.Editor
 
         void InspectHands()
         {
-            displayLeftHand = EditorGUILayout.Foldout(displayLeftHand, $"In Left Hand ({GetLeftHandItemString()})",
+            _displayLeftHand = EditorGUILayout.Foldout(_displayLeftHand, $"In Left Hand ({GetLeftHandItemString()})",
                 toggleOnLabelClick: true);
-            if (displayLeftHand && target.HasInstance)
+            if (_displayLeftHand && _target.HasInstance)
             {
-                target.Instance
+                _target.Instance
                     .ItemInLeftHand.Do(InspectItem);
             }
 
-            displayRightHand = EditorGUILayout.Foldout(displayRightHand, $"In Right Hand ({GetRightHandItemString()})",
+            _displayRightHand = EditorGUILayout.Foldout(_displayRightHand, $"In Right Hand ({GetRightHandItemString()})",
                 toggleOnLabelClick: true);
-            if (displayRightHand && target.HasInstance)
+            if (_displayRightHand && _target.HasInstance)
             {
-                target.Instance
+                _target.Instance
                     .ItemInRightHand.Do(InspectItem);
             }
         }
 
         void InspectHolsters()
         {
-            displayHolsters = EditorGUILayout.Foldout(displayHolsters, $"In Holsters ({GetHolsterItemCount()})",
+            _displayHolsters = EditorGUILayout.Foldout(_displayHolsters, $"In Holsters ({GetHolsterItemCount()})",
                 toggleOnLabelClick: true);
-            if (displayHolsters)
+            if (_displayHolsters)
             {
-                foreach (var item in target.Instance.ItemsInHolsters)
+                foreach (var item in _target.Instance.ItemsInHolsters)
                 {
                     InspectItemWithToggle(item);
                 }
@@ -93,27 +93,27 @@ namespace Strawhenge.Inventory.Unity.Editor
 
         void InspectInventory()
         {
-            displayInventory = EditorGUILayout.Foldout(displayInventory, $"In Inventory ({GetInventoryCountString()})",
+            _displayInventory = EditorGUILayout.Foldout(_displayInventory, $"In Inventory ({GetInventoryCountString()})",
                 toggleOnLabelClick: true);
 
-            if (displayInventory)
+            if (_displayInventory)
             {
-                foreach (var item in target.Instance.ItemsInInventory)
+                foreach (var item in _target.Instance.ItemsInInventory)
                     InspectItemWithToggle(item);
             }
         }
 
         void InspectItemWithToggle(IItem item)
         {
-            bool show = EditorGUILayout.Foldout(item == displayItem, item.Name, toggleOnLabelClick: true);
+            bool show = EditorGUILayout.Foldout(item == _displayItem, item.Name, toggleOnLabelClick: true);
 
             if (show)
             {
-                displayItem = item;
+                _displayItem = item;
             }
-            else if (item == displayItem)
+            else if (item == _displayItem)
             {
-                displayItem = null;
+                _displayItem = null;
             }
 
             if (show)
@@ -127,10 +127,10 @@ namespace Strawhenge.Inventory.Unity.Editor
             EditorGUILayout.BeginHorizontal();
 
             if (GUILayout.Button(nameof(IItemManager.AddItemToInventory)))
-                target.Instance.AddItemToInventory(item);
+                _target.Instance.AddItemToInventory(item);
 
             if (GUILayout.Button(nameof(IItemManager.RemoveItemFromInventory)))
-                target.Instance.RemoveItemFromInventory(item);
+                _target.Instance.RemoveItemFromInventory(item);
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
@@ -174,7 +174,7 @@ namespace Strawhenge.Inventory.Unity.Editor
 
         string GetItemInfoString(IItem item)
         {
-            var lines = new string[]
+            var lines = new[]
             {
                 item.Name,
                 item.IsTwoHanded ? "Two Handed" : "One Handed",
@@ -184,20 +184,20 @@ namespace Strawhenge.Inventory.Unity.Editor
             return string.Join(Environment.NewLine, lines);
         }
 
-        string GetHolsterItemCount() => target.HasInstance
-            ? target.Instance.ItemsInHolsters.Count().ToString()
+        string GetHolsterItemCount() => _target.HasInstance
+            ? _target.Instance.ItemsInHolsters.Count().ToString()
             : "NA";
 
-        string GetInventoryCountString() => target.HasInstance
-            ? target.Instance.ItemsInInventory.Count().ToString()
+        string GetInventoryCountString() => _target.HasInstance
+            ? _target.Instance.ItemsInInventory.Count().ToString()
             : "NA";
 
-        string GetLeftHandItemString() => target.HasInstance
-            ? GetItemInHandString(target.Instance.ItemInLeftHand)
+        string GetLeftHandItemString() => _target.HasInstance
+            ? GetItemInHandString(_target.Instance.ItemInLeftHand)
             : "NA";
 
-        string GetRightHandItemString() => target.HasInstance
-            ? GetItemInHandString(target.Instance.ItemInRightHand)
+        string GetRightHandItemString() => _target.HasInstance
+            ? GetItemInHandString(_target.Instance.ItemInRightHand)
             : "NA";
 
         string GetItemInHandString(Maybe<IItem> item) => item

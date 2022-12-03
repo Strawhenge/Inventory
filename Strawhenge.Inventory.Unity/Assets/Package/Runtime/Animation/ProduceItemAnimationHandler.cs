@@ -6,7 +6,7 @@ namespace Strawhenge.Inventory.Unity.Animation
 {
     public class ProduceItemAnimationHandler : IProduceItemAnimationHandler
     {
-        readonly Animator animator;
+        readonly Animator _animator;
         public event Action GrabItem;
         public event Action ReleaseItem;
         public event Action DrawEnded;
@@ -14,7 +14,7 @@ namespace Strawhenge.Inventory.Unity.Animation
 
         public ProduceItemAnimationHandler(Animator animator)
         {
-            this.animator = animator;
+            _animator = animator;
 
             var eventsScript = animator.GetOrAddComponent<AnimationEventReceiverScript>();
             eventsScript.GrabItemFromHolster += OnGrabItem;
@@ -29,20 +29,20 @@ namespace Strawhenge.Inventory.Unity.Animation
 
         public void DrawItem(int animationId)
         {
-            animator.SetInteger(AnimatorParameters.DrawItem_AnimationId, animationId);
-            animator.SetTrigger(AnimatorParameters.DrawItem);
+            _animator.SetInteger(AnimatorParameters.DrawItemAnimationId, animationId);
+            _animator.SetTrigger(AnimatorParameters.DrawItem);
         }
 
         public void PutAwayItem(int animationId)
         {
-            animator.SetInteger(AnimatorParameters.PutAwayItem_AnimationId, animationId);
-            animator.SetTrigger(AnimatorParameters.PutAwayItem);
+            _animator.SetInteger(AnimatorParameters.PutAwayItemAnimationId, animationId);
+            _animator.SetTrigger(AnimatorParameters.PutAwayItem);
         }
 
         public void Interupt()
         {
-            animator.ResetTrigger(AnimatorParameters.Interupt);
-            animator.SetTrigger(AnimatorParameters.Interupt);
+            _animator.ResetTrigger(AnimatorParameters.Interrupt);
+            _animator.SetTrigger(AnimatorParameters.Interrupt);
         }
 
         void OnGrabItem() => GrabItem?.Invoke();
