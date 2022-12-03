@@ -2,28 +2,54 @@ name: Release
 
 on:
   workflow_dispatch:  
+  
+env:
+  VERSION: 1.1.${{ github.run_number }}
         
 jobs: 
   Release:    
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-    - name: Git
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
       with:
-        fetch-depth: '0'
-        
-    - name: Release
+          dotnet-version: 3.1.200
+          
+    - name: Restore
       run: |        
-        git --version
-        git config user.name "GitHub Actions Bot"
-        git config user.email "<>"   
-        git checkout -b temp-${{ github.run_number }}
-        echo "`jq '.version="1.0.${{ github.run_number }}"' 'Strawhenge.Inventory.Unity/Assets/Package/package.json'`" > 'Strawhenge.Inventory.Unity/Assets/Package/package.json'       
-        git add .
-        git commit -m'Prepare Release ${{ github.run_number }}'
-        git push --set-upstream origin temp-${{ github.run_number }}
-        git push --delete origin release
-        git checkout -b release
-        git push --set-upstream origin release
-        git push --delete origin temp-${{ github.run_number }}
+        dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Strawhenge/index.json"
+        dotnet restore Strawhenge.Inventory
+          
+    - name: Build
+      run: dotnet build Strawhenge.Inventory -p:Version=${{ env.VERSION }} --configuration Release
+      
+    - name: Test
+      run: dotnet test Strawhenge.Inventory
+        
+    - name: Release Unity Package
+      run: |
+          git --version
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git checkout -b ${{ env.TEMP_BRANCH }}          
+          
+          Copy-Item "Strawhenge.Inventory\Strawhenge.Inventory\bin\Release\netstandard2.0\Strawhenge.Inventory.dll" -Destination "Strawhenge.Inventory.Unity\Assets\Package\Runtime"
+          
+          $package = Get-Content 'Strawhenge.Inventory.Unity\Assets\Package\package.json' -raw | ConvertFrom-Json
+          $package.version = '${{ env.VERSION }}'
+          $package | ConvertTo-Json | set-content 'Strawhenge.Inventory.Unity\Assets\Package\package.json'
+          
+          git add Strawhenge.Inventory.Unity\Assets\Package\Runtime\Strawhenge.Inventory.dll -f
+          git add Strawhenge.Inventory.Unity\Assets\Package\package.json        
+          git commit -m 'Prepare Release ${{ env.VERSION }}'
+          git push --set-upstream origin ${{ env.TEMP_BRANCH }}
+          
+          git push --delete origin prerelease
+          git checkout -b prerelease
+          git push --set-upstream origin prerelease
+          git push --delete origin ${{ env.TEMP_BRANCH }}
+      env:
+          TEMP_BRANCH: temp-${{ github.run_number }}
