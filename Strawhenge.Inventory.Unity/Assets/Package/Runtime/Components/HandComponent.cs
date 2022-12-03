@@ -31,9 +31,10 @@ namespace Strawhenge.Inventory.Unity.Components
             var holdData = _getHoldItemData(item);
 
             var itemScript = item.Spawn();
-            itemScript.transform.parent = _transform;
-            itemScript.transform.localPosition = holdData.PositionOffset;
-            itemScript.transform.localRotation = holdData.RotationOffset;
+            var itemTransform = itemScript.transform;
+            itemTransform.parent = _transform;
+            itemTransform.localPosition = holdData.PositionOffset;
+            itemTransform.localRotation = holdData.RotationOffset;
 
             _animationHandler.Hold(holdData.AnimationId);
 
