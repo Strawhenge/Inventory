@@ -2,6 +2,7 @@ using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Monobehaviours
@@ -12,12 +13,12 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
         [SerializeField] EventScriptableObject[] onFixatedEvents;
         [SerializeField] EventScriptableObject[] onUnfixatedEvents;
 
-        readonly List<Collider> ignoredColliders = new List<Collider>();
-        IEnumerable<Collider> colliders;
+        readonly List<Collider> _ignoredColliders = new List<Collider>();
+        IEnumerable<Collider> _colliders;
 
         void Awake()
         {
-            colliders = GetComponentsInChildren<Collider>();
+            _colliders = GetComponentsInChildren<Collider>();
 
             if (data != null)
             {
@@ -54,22 +55,24 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
             }
         }
 
-        void IgnoreColliders(IEnumerable<Collider> bindToColliders)
+        void IgnoreColliders(IEnumerable<Collider> colliders)
         {
-            foreach (var collider in colliders)
-                foreach (var bindTo in bindToColliders)
-                    Physics.IgnoreCollision(collider, bindTo, ignore: true);
+            var bindToColliders = colliders.ToArray();
 
-            ignoredColliders.AddRange(bindToColliders);
+            foreach (var collider in _colliders)
+            foreach (var bindTo in bindToColliders)
+                Physics.IgnoreCollision(collider, bindTo, ignore: true);
+
+            _ignoredColliders.AddRange(bindToColliders);
         }
 
         void ResetIgnoredColliders()
         {
-            foreach (var collider in colliders)
-                foreach (var bindTo in ignoredColliders)
-                    Physics.IgnoreCollision(collider, bindTo, ignore: false);
+            foreach (var collider in _colliders)
+            foreach (var bindTo in _ignoredColliders)
+                Physics.IgnoreCollision(collider, bindTo, ignore: false);
 
-            ignoredColliders.Clear();
+            _ignoredColliders.Clear();
         }
     }
 }
