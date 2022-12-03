@@ -1,32 +1,46 @@
 ﻿using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Strawhenge.Inventory.Unity.Data
 {
     [Serializable]
     public class SerializedHolsterItemData : IHolsterItemData
     {
-        [SerializeField] HolsterScriptableObject holster;
-        [SerializeField] Vector3 positionOffset;
-        [SerializeField] Vector3 rotationOffset;
-        [SerializeField] int drawFromHolsterRightHandId;
-        [SerializeField] int putInHolsterRightHandId;
-        [SerializeField] int drawFromHolsterLeftHandId;
-        [SerializeField] int putInHolsterLeftHandId;
+        [FormerlySerializedAs("holster"), SerializeField] 
+        HolsterScriptableObject _holster;
 
-        public string HolsterName => holster.Name;
+        [FormerlySerializedAs("positionOffset"), SerializeField] 
+        Vector3 _positionOffset;
 
-        public Vector3 PositionOffset => positionOffset;
+        [FormerlySerializedAs("rotationOffset"), SerializeField] 
+        Vector3 _rotationOffset;
 
-        public Quaternion RotationOffset => Quaternion.Euler(rotationOffset);
+        [FormerlySerializedAs("drawFromHolsterRightHandId"), SerializeField] 
+        int _drawFromHolsterRightHandId;
 
-        public int DrawFromHolsterRightHandId => drawFromHolsterRightHandId;
+        [FormerlySerializedAs("putInHolsterRightHandId"), SerializeField] 
+        int _putInHolsterRightHandId;
 
-        public int PutInHolsterRightHandId => putInHolsterRightHandId;
+        [FormerlySerializedAs("drawFromHolsterLeftHandId"), SerializeField] 
+        int _drawFromHolsterLeftHandId;
 
-        public int DrawFromHolsterLeftHandId => drawFromHolsterLeftHandId;
+        [FormerlySerializedAs("putInHolsterLeftHandId"), SerializeField] 
+        int _putInHolsterLeftHandId;
 
-        public int PutInHolsterLeftHandId => putInHolsterLeftHandId;
+        public string HolsterName => _holster.Name;
+
+        public Vector3 PositionOffset => _positionOffset;
+
+        public Quaternion RotationOffset => Quaternion.Euler(_rotationOffset);
+
+        public int DrawFromHolsterRightHandId => _drawFromHolsterRightHandId;
+
+        public int PutInHolsterRightHandId => _putInHolsterRightHandId;
+
+        public int DrawFromHolsterLeftHandId => _drawFromHolsterLeftHandId;
+
+        public int PutInHolsterLeftHandId => _putInHolsterLeftHandId;
     }
 }
