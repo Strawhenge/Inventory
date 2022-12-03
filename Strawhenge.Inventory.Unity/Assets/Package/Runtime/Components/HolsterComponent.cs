@@ -28,9 +28,10 @@ namespace Strawhenge.Inventory.Unity.Components
             var data = item.GetHolsterData(this, _logger);
 
             var itemScript = item.Spawn();
-            itemScript.transform.parent = _transform;
-            itemScript.transform.localPosition = data.PositionOffset;
-            itemScript.transform.localRotation = data.RotationOffset;
+            var itemTransform = itemScript.transform;
+            itemTransform.parent = _transform;
+            itemTransform.localPosition = data.PositionOffset;
+            itemTransform.localRotation = data.RotationOffset;
         }
 
         public IItemHelper TakeItem()

@@ -10,18 +10,19 @@ namespace Strawhenge.Inventory.Unity.Items
     public class ItemHelper : IItemHelper
     {
         readonly ISpawner _spawner;
-        readonly IEnumerable<Collider> _bindToColliders;
+        readonly IReadOnlyList<Collider> _bindToColliders;
 
         ItemScript _script;
         bool _isFixated;
 
-        public ItemHelper(ISpawner spawner, IEnumerable<Collider> bindToColliders, ItemScript script) : this(spawner, bindToColliders, script.Data)
+        public ItemHelper(ISpawner spawner, IReadOnlyList<Collider> bindToColliders, ItemScript script)
+            : this(spawner, bindToColliders, script.Data)
         {
             _script = script;
             script.Fixate(bindToColliders);
         }
 
-        public ItemHelper(ISpawner spawner, IEnumerable<Collider> bindToColliders, IItemData data)
+        public ItemHelper(ISpawner spawner, IReadOnlyList<Collider> bindToColliders, IItemData data)
         {
             _spawner = spawner;
             _bindToColliders = bindToColliders;

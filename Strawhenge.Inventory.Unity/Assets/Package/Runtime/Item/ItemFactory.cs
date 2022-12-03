@@ -14,7 +14,7 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemFactory : IItemFactory
     {
-        readonly IEnumerable<Collider> _colliders;
+        readonly IReadOnlyList<Collider> _colliders;
         readonly IHands _hands;
         readonly IHolsters _holsters;
         readonly HolsterComponents _holsterComponents;
