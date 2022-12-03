@@ -7,9 +7,9 @@ namespace Strawhenge.Inventory.TransientItems
 {
     public class TransientItemLocator : ITransientItemLocator
     {
-        private readonly IEquippedItems equippedItems;
-        private readonly IItemInventory inventory;
-        private readonly IItemGenerator itemGenerator;
+        readonly IEquippedItems equippedItems;
+        readonly IItemInventory inventory;
+        readonly IItemGenerator itemGenerator;
 
         public TransientItemLocator(IEquippedItems equippedItems, IItemInventory inventory, IItemGenerator itemGenerator)
         {
@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.TransientItems
             return TryGenerateItem(name);
         }
 
-        private Maybe<IItem> TryGenerateItem(string name)
+        Maybe<IItem> TryGenerateItem(string name)
         {
             var item = itemGenerator.GenerateByName(name);
 
@@ -44,21 +44,21 @@ namespace Strawhenge.Inventory.TransientItems
             return item;
         }
 
-        private bool IsItemInLeftHand(string name, out IItem item)
+        bool IsItemInLeftHand(string name, out IItem item)
         {
             var left = equippedItems.GetItemInLeftHand();
 
             return left.HasSome(out item) && IsItemName(item, name);
         }
 
-        private bool IsItemInRightHand(string name, out IItem item)
+        bool IsItemInRightHand(string name, out IItem item)
         {
             var right = equippedItems.GetItemInRightHand();
 
             return right.HasSome(out item) && IsItemName(item, name);
         }
 
-        private bool IsItemInHolster(string name, out IItem item)
+        bool IsItemInHolster(string name, out IItem item)
         {
             item = equippedItems.GetItemsInHolsters()
                 .FirstOrDefault(x => IsItemName(x, name));
@@ -66,7 +66,7 @@ namespace Strawhenge.Inventory.TransientItems
             return item != null;
         }
 
-        private bool IsItemInInventory(string name, out IItem item)
+        bool IsItemInInventory(string name, out IItem item)
         {
             item = inventory.AllItems
                 .FirstOrDefault(x => IsItemName(x, name));
@@ -74,7 +74,7 @@ namespace Strawhenge.Inventory.TransientItems
             return item != null;
         }
 
-        private bool IsItemName(IItem item, string name) =>
+        bool IsItemName(IItem item, string name) =>
             item.Name.Equals(name, StringComparison.OrdinalIgnoreCase);
     }
 }

@@ -29,7 +29,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             ClearFromHands(shouldTestCallback);
 
-            itemViewMock.VerifyOnce(x => x.DropLeftHand(It.IsAny<Action>()));
+            _itemViewMock.VerifyOnce(x => x.DropLeftHand(It.IsAny<Action>()));
             VerifyNoOtherViewCalls();
 
             if (shouldTestCallback)
@@ -46,7 +46,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             ClearFromHands(shouldTestCallback);
 
-            itemViewMock.VerifyOnce(x => x.DropRightHand(It.IsAny<Action>()));
+            _itemViewMock.VerifyOnce(x => x.DropRightHand(It.IsAny<Action>()));
             VerifyNoOtherViewCalls();
 
             if (shouldTestCallback)
@@ -63,7 +63,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             ClearFromHands(shouldTestCallback);
 
-            itemViewMock.VerifyOnce(x => x.PutAwayLeftHand(It.IsAny<Action>()));
+            _itemViewMock.VerifyOnce(x => x.PutAwayLeftHand(It.IsAny<Action>()));
             VerifyNoOtherViewCalls();
 
             if (shouldTestCallback)
@@ -80,7 +80,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             ClearFromHands(shouldTestCallback);
 
-            itemViewMock.VerifyOnce(x => x.PutAwayRightHand(It.IsAny<Action>()));
+            _itemViewMock.VerifyOnce(x => x.PutAwayRightHand(It.IsAny<Action>()));
             VerifyNoOtherViewCalls();
 
             if (shouldTestCallback)
@@ -124,9 +124,9 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         void ClearFromHands(bool shouldTestCallback)
         {
             if (shouldTestCallback)
-                item.ClearFromHands(callback);
+                _item.ClearFromHands(_callback);
             else
-                item.ClearFromHands();
+                _item.ClearFromHands();
         }
     }
 }

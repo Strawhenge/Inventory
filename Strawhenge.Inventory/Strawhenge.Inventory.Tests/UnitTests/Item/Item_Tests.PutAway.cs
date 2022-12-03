@@ -28,7 +28,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             PutAway(shouldTestCallback);
 
-            itemViewMock.VerifyOnce(
+            _itemViewMock.VerifyOnce(
                 x => x.PutAwayLeftHand(It.IsAny<Action>()));
 
             VerifyItemWasUnsetFromLeftHand();
@@ -47,7 +47,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             PutAway(shouldTestCallback);
 
-            itemViewMock.VerifyOnce(
+            _itemViewMock.VerifyOnce(
                 x => x.PutAwayRightHand(It.IsAny<Action>()));
 
             VerifyItemWasUnsetFromRightHand();
@@ -104,9 +104,9 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         void PutAway(bool shouldTestCallback)
         {
             if (shouldTestCallback)
-                item.PutAway(callback);
+                _item.PutAway(_callback);
             else
-                item.PutAway();
+                _item.PutAway();
         }
     }
 }

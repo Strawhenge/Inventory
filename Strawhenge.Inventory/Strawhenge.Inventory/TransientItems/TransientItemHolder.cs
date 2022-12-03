@@ -4,7 +4,7 @@ namespace Strawhenge.Inventory.TransientItems
 {
     public class TransientItemHolder : ITransientItemHolder
     {
-        private readonly ITransientItemLocator transientItemLocator;
+        readonly ITransientItemLocator transientItemLocator;
 
         IItem item;
 

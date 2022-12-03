@@ -5,18 +5,18 @@ namespace Strawhenge.Inventory.Tests.Fakes
 {
     public class ProcedureFake : Procedure
     {
-        Action endProcedure;
+        Action _endProcedure;
 
-        public bool HasBegan { get; private set; } = false;
+        public bool HasBegan { get; private set; }
 
-        public bool HasSkipped { get; private set; } = false;
+        public bool HasSkipped { get; private set; }
 
-        public void End() => endProcedure();
+        public void End() => _endProcedure();
 
         protected override void OnBegin(Action endProcedure)
         {
             HasBegan = true;
-            this.endProcedure = endProcedure;
+            _endProcedure = endProcedure;
         }
 
         protected override void OnSkip()

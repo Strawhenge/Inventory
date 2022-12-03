@@ -27,7 +27,7 @@ namespace Strawhenge.Inventory.Tests
             Assert.Equal(expectedValue, maybe.ReduceUnsafe());
         }
 
-        private static bool HasValue<T>(Maybe<T> maybe) => maybe
+        static bool HasValue<T>(Maybe<T> maybe) => maybe
             .Map(_ => true)
             .Reduce(() => false);
     }

@@ -7,10 +7,10 @@ namespace Strawhenge.Inventory.Procedures
 {
     public class ProcedureQueue
     {
-        private readonly Queue<Func<Procedure>> procedures = new Queue<Func<Procedure>>();
+        readonly Queue<Func<Procedure>> procedures = new Queue<Func<Procedure>>();
 
-        private Maybe<ProcedureProgress> currentProgress = Maybe.None<ProcedureProgress>();
-        private bool isPaused = false;
+        Maybe<ProcedureProgress> currentProgress = Maybe.None<ProcedureProgress>();
+        bool isPaused = false;
 
         public void Schedule(Procedure procedure) => Schedule(() => procedure);
 
@@ -51,7 +51,7 @@ namespace Strawhenge.Inventory.Procedures
             procedures.Clear();
         }
 
-        private void Next()
+        void Next()
         {
             if (isPaused || !procedures.Any() || IsProcedureInProgress) return;
 
@@ -67,7 +67,7 @@ namespace Strawhenge.Inventory.Procedures
             }
         }
 
-        private bool IsProcedureInProgress => currentProgress
+        bool IsProcedureInProgress => currentProgress
             .Map(_ => true)
             .Reduce(() => false);
     }

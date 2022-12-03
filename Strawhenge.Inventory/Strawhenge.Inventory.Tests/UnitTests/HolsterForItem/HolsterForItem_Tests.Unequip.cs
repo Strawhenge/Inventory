@@ -43,7 +43,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             Unequip(shouldTestCallback);
 
-            holsterItemViewMock.VerifyOnce(
+            _holsterItemViewMock.VerifyOnce(
                 x => x.Hide(It.IsAny<Action>()));
 
             VerifyNoOtherViewCalls();
@@ -73,9 +73,9 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         void Unequip(bool shouldTestCallback)
         {
             if (shouldTestCallback)
-                holsterForItem.Unequip(callback);
+                _holsterForItem.Unequip(_callback);
             else
-                holsterForItem.Unequip();
+                _holsterForItem.Unequip();
         }
     }
 }

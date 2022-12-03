@@ -7,8 +7,8 @@ namespace Strawhenge.Inventory
 {
     public class EquippedItems : IEquippedItems
     {
-        private readonly IHands hands;
-        private readonly IHolsters holsters;
+        readonly IHands hands;
+        readonly IHolsters holsters;
 
         public EquippedItems(IHands hands, IHolsters holsters)
         {

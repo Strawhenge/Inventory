@@ -7,8 +7,8 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
 {
     public class HolstersForItem : IHolstersForItem
     {
-        private readonly IEnumerable<IHolsterForItem> inner;
-        private readonly ILogger logger;
+        readonly IEnumerable<IHolsterForItem> inner;
+        readonly ILogger logger;
 
         public HolstersForItem(IEnumerable<IHolsterForItem> inner, ILogger logger)
         {

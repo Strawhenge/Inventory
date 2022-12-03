@@ -9,25 +9,25 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 {
     public class HolstersForItem_Tests
     {
-        readonly Lazy<HolstersForItem> holsterForItems;
-        readonly List<IHolsterForItem> holsters;
-        readonly Mock<ILogger> loggerMock;
+        readonly Lazy<HolstersForItem> _holsterForItems;
+        readonly List<IHolsterForItem> _holsters;
+        readonly Mock<ILogger> _loggerMock;
 
         public HolstersForItem_Tests()
         {
-            holsters = new List<IHolsterForItem>();
-            loggerMock = new Mock<ILogger>();
+            _holsters = new List<IHolsterForItem>();
+            _loggerMock = new Mock<ILogger>();
 
-            holsterForItems = new Lazy<HolstersForItem>(
-                () => new HolstersForItem(holsters, loggerMock.Object));
+            _holsterForItems = new Lazy<HolstersForItem>(
+                () => new HolstersForItem(_holsters, _loggerMock.Object));
         }
 
         [Fact]
         public void IsEquippedToHolster_ShouldReturnFalse_WhenEmpty()
         {
             Assert.False(
-                holsterForItems.Value.IsEquippedToHolster(out IHolsterForItem holsterItem));
-            
+                _holsterForItems.Value.IsEquippedToHolster(out IHolsterForItem holsterItem));
+
             Assert.Null(holsterItem);
         }
 
@@ -39,7 +39,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             ArrangeHolster(equipped: false);
 
             Assert.False(
-                holsterForItems.Value.IsEquippedToHolster(out IHolsterForItem holsterItem));
+                _holsterForItems.Value.IsEquippedToHolster(out IHolsterForItem holsterItem));
 
             Assert.Null(holsterItem);
         }
@@ -52,7 +52,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             ArrangeHolster(equipped: false);
 
             Assert.True(
-                holsterForItems.Value.IsEquippedToHolster(out IHolsterForItem holsterItem));
+                _holsterForItems.Value.IsEquippedToHolster(out IHolsterForItem holsterItem));
 
             Assert.Same(expectedHolster, holsterItem);
         }
@@ -71,11 +71,11 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             ArrangeHolster(equipped: false);
 
             Assert.True(
-                holsterForItems.Value.IsEquippedToHolster(out IHolsterForItem holsterItem));
+                _holsterForItems.Value.IsEquippedToHolster(out IHolsterForItem holsterItem));
 
             Assert.Contains(holsterItem, possibleExpectedHolsters);
 
-            loggerMock.VerifyOnce(
+            _loggerMock.VerifyOnce(
                 x => x.LogError(It.IsAny<string>()));
         }
 
@@ -84,7 +84,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             var holsterMock = new Mock<IHolsterForItem>();
             holsterMock.SetupGet(x => x.IsEquipped).Returns(equipped);
 
-            holsters.Add(holsterMock.Object);
+            _holsters.Add(holsterMock.Object);
 
             return holsterMock.Object;
         }

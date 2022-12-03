@@ -8,56 +8,56 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
     public abstract class TransientItemLocator_Tests
     {
-        private const string targetItemName = "Test Item";
+        const string TargetItemName = "Test Item";
 
-        private readonly TransientItemLocator sut;
-        private readonly Mock<IItem> targetItemMock;
-        private readonly Mock<IEquippedItems> equippedItemsMock;
-        private readonly Mock<IItemInventory> inventoryMock;
-        private readonly Mock<IItemGenerator> itemGeneratorMock;
+        readonly TransientItemLocator _sut;
+        readonly Mock<IItem> _targetItemMock;
+        readonly Mock<IEquippedItems> _equippedItemsMock;
+        readonly Mock<IItemInventory> _inventoryMock;
+        readonly Mock<IItemGenerator> _itemGeneratorMock;
 
-        ClearFromHandsPreference clearFromHandsPreference;
+        ClearFromHandsPreference _clearFromHandsPreference;
 
         public TransientItemLocator_Tests()
         {
-            targetItemMock = new Mock<IItem>();
-            targetItemMock.SetupGet(x => x.Name).Returns(targetItemName);
+            _targetItemMock = new Mock<IItem>();
+            _targetItemMock.SetupGet(x => x.Name).Returns(TargetItemName);
 
-            targetItemMock
+            _targetItemMock
                 .SetupSet(x => x.ClearFromHandsPreference = It.IsAny<ClearFromHandsPreference>())
-                .Callback<ClearFromHandsPreference>(x => clearFromHandsPreference = x);
+                .Callback<ClearFromHandsPreference>(x => _clearFromHandsPreference = x);
 
-            equippedItemsMock = new Mock<IEquippedItems>();
-            equippedItemsMock.SetupNone(x => x.GetItemInLeftHand());
-            equippedItemsMock.SetupNone(x => x.GetItemInRightHand());
+            _equippedItemsMock = new Mock<IEquippedItems>();
+            _equippedItemsMock.SetupNone(x => x.GetItemInLeftHand());
+            _equippedItemsMock.SetupNone(x => x.GetItemInRightHand());
 
-            inventoryMock = new Mock<IItemInventory>();
+            _inventoryMock = new Mock<IItemInventory>();
 
-            itemGeneratorMock = new Mock<IItemGenerator>();
-            itemGeneratorMock.SetupNone(x => x.GenerateByName(targetItemName));
+            _itemGeneratorMock = new Mock<IItemGenerator>();
+            _itemGeneratorMock.SetupNone(x => x.GenerateByName(TargetItemName));
 
-            sut = new TransientItemLocator(
-                equippedItemsMock.Object,
-                inventoryMock.Object,
-                itemGeneratorMock.Object);
+            _sut = new TransientItemLocator(
+                _equippedItemsMock.Object,
+                _inventoryMock.Object,
+                _itemGeneratorMock.Object);
 
             if (ItemInLeftHand is IItem left)
-                equippedItemsMock.SetupSome(x => x.GetItemInLeftHand(), left);
+                _equippedItemsMock.SetupSome(x => x.GetItemInLeftHand(), left);
 
             if (ItemInRightHand is IItem right)
-                equippedItemsMock.SetupSome(x => x.GetItemInRightHand(), right);
+                _equippedItemsMock.SetupSome(x => x.GetItemInRightHand(), right);
 
             if (ItemsInHolsters() is IEnumerable<IItem> holster)
-                equippedItemsMock.Setup(x => x.GetItemsInHolsters()).Returns(holster);
+                _equippedItemsMock.Setup(x => x.GetItemsInHolsters()).Returns(holster);
 
             if (ItemsInInventory() is IEnumerable<IItem> inventory)
-                inventoryMock.SetupGet(x => x.AllItems).Returns(inventory);
+                _inventoryMock.SetupGet(x => x.AllItems).Returns(inventory);
 
             if (GenerateItem() is IItem generatedItem)
-                itemGeneratorMock.SetupSome(x => x.GenerateByName(targetItemName), generatedItem);
+                _itemGeneratorMock.SetupSome(x => x.GenerateByName(TargetItemName), generatedItem);
         }
 
-        protected IItem TargetItem => targetItemMock.Object;
+        protected IItem TargetItem => _targetItemMock.Object;
 
         protected abstract bool GetItemByName_ShouldReturnTargetItem { get; }
 
@@ -70,7 +70,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
         [Fact]
         public void GetItemByName()
         {
-            var result = sut.GetItemByName(targetItemName);
+            var result = _sut.GetItemByName(TargetItemName);
 
             if (!GetItemByName_ShouldReturnTargetItem)
             {
@@ -78,15 +78,15 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
                 return;
             }
 
-            AssertMaybe.IsSome(result, targetItemMock.Object);
+            AssertMaybe.IsSome(result, _targetItemMock.Object);
 
             if (ExpectedClearFromHandsPreference is ClearFromHandsPreference expected)
             {
-                Assert.IsType(expected.GetType(), clearFromHandsPreference);
+                Assert.IsType(expected.GetType(), _clearFromHandsPreference);
             }
             else
             {
-                targetItemMock.VerifySet(
+                _targetItemMock.VerifySet(
                     x => x.ClearFromHandsPreference = It.IsAny<ClearFromHandsPreference>(), Times.Never);
             }
         }

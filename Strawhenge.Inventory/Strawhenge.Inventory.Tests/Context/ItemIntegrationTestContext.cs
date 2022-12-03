@@ -9,23 +9,24 @@ namespace Strawhenge.Inventory.Tests.Context
 {
     public class ItemIntegrationTestContext
     {
-        static int itemCount = 0;
+        static int _itemCount;
 
-        readonly Hands hands = new Hands();
-        readonly Holster firstHolster = new Holster("First");
-        readonly Holster secondHolster = new Holster("Second");
-        readonly Holster thirdHolster = new Holster("Third");
-        readonly ILogger logger;
+        readonly Hands _hands = new Hands();
+        readonly Holster _firstHolster = new Holster("First");
+        readonly Holster _secondHolster = new Holster("Second");
+        readonly Holster _thirdHolster = new Holster("Third");
+        readonly ILogger _logger;
 
-        public ItemIntegrationTestContext(ITestOutputHelper testOutputHelper) => logger = new TestOutputLogger(testOutputHelper);
+        public ItemIntegrationTestContext(ITestOutputHelper testOutputHelper) =>
+            _logger = new TestOutputLogger(testOutputHelper);
 
         public ItemContext CreateOneHandedItem() => CreateItem(ItemSize.OneHanded);
 
         public ItemContext CreateTwoHandedItem() => CreateItem(ItemSize.TwoHanded);
 
-        private ItemContext CreateItem(ItemSize itemSize)
+        ItemContext CreateItem(ItemSize itemSize)
         {
-            itemCount++;
+            _itemCount++;
 
             var itemViewMock = new Mock<IItemView>(MockBehavior.Strict);
             var firstHolsterViewMock = new Mock<IHolsterForItemView>(MockBehavior.Strict);
@@ -33,8 +34,8 @@ namespace Strawhenge.Inventory.Tests.Context
             var thirdHolsterViewMock = new Mock<IHolsterForItemView>(MockBehavior.Strict);
 
             var instance = new Item(
-                $"Test Item {itemCount}",
-                hands,
+                $"Test Item {_itemCount}",
+                _hands,
                 itemViewMock.Object,
                 itemSize,
                 GetHolstersForItem)
@@ -46,12 +47,12 @@ namespace Strawhenge.Inventory.Tests.Context
             {
                 var holstersForItem = new IHolsterForItem[]
                 {
-                    new HolsterForItem(item, firstHolster, firstHolsterViewMock.Object),
-                    new HolsterForItem(item, secondHolster, secondHolsterViewMock.Object),
-                    new HolsterForItem(item, thirdHolster, thirdHolsterViewMock.Object)
+                    new HolsterForItem(item, _firstHolster, firstHolsterViewMock.Object),
+                    new HolsterForItem(item, _secondHolster, secondHolsterViewMock.Object),
+                    new HolsterForItem(item, _thirdHolster, thirdHolsterViewMock.Object)
                 };
 
-                return new HolstersForItem(holstersForItem, logger);
+                return new HolstersForItem(holstersForItem, _logger);
             }
 
             return new ItemContext

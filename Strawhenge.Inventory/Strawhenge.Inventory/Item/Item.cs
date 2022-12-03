@@ -7,10 +7,10 @@ namespace Strawhenge.Inventory.Items
 {
     public class Item : IItem
     {
-        private readonly IHands hands;
-        private readonly IItemView itemView;
-        private readonly ItemSize size;
-        private readonly IHolstersForItem holsters;
+        readonly IHands hands;
+        readonly IItemView itemView;
+        readonly ItemSize size;
+        readonly IHolstersForItem holsters;
 
         public event Action<IItem> Dropped;
 

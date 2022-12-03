@@ -7,73 +7,73 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 {
     public partial class HolsterForItem_Tests
     {
-        readonly HolsterForItem holsterForItem;
-        readonly Mock<IItem> itemMock;
-        readonly Mock<IHolster> holsterMock;
-        readonly Mock<IHolsterForItemView> holsterItemViewMock;
-        readonly AssertableCallback callback;
+        readonly HolsterForItem _holsterForItem;
+        readonly Mock<IItem> _itemMock;
+        readonly Mock<IHolster> _holsterMock;
+        readonly Mock<IHolsterForItemView> _holsterItemViewMock;
+        readonly AssertableCallback _callback;
 
         public HolsterForItem_Tests()
         {
-            itemMock = new Mock<IItem>();
-            holsterItemViewMock = new Mock<IHolsterForItemView>();
-            holsterItemViewMock.Setup(x => x.DrawLeftHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            holsterItemViewMock.Setup(x => x.DrawRightHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            holsterItemViewMock.Setup(x => x.Hide(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            holsterItemViewMock.Setup(x => x.PutAwayLeftHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            holsterItemViewMock.Setup(x => x.PutAwayRightHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            holsterItemViewMock.Setup(x => x.Show(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
+            _itemMock = new Mock<IItem>();
+            _holsterItemViewMock = new Mock<IHolsterForItemView>();
+            _holsterItemViewMock.Setup(x => x.DrawLeftHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
+            _holsterItemViewMock.Setup(x => x.DrawRightHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
+            _holsterItemViewMock.Setup(x => x.Hide(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
+            _holsterItemViewMock.Setup(x => x.PutAwayLeftHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
+            _holsterItemViewMock.Setup(x => x.PutAwayRightHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
+            _holsterItemViewMock.Setup(x => x.Show(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
 
-            holsterMock = new Mock<IHolster>();
-            holsterMock.SetupGetNone(x => x.CurrentItem);
+            _holsterMock = new Mock<IHolster>();
+            _holsterMock.SetupGetNone(x => x.CurrentItem);
 
-            holsterForItem = new HolsterForItem(
-                itemMock.Object,
-                holsterMock.Object,
-                holsterItemViewMock.Object);
+            _holsterForItem = new HolsterForItem(
+                _itemMock.Object,
+                _holsterMock.Object,
+                _holsterItemViewMock.Object);
 
-            callback = new AssertableCallback();
+            _callback = new AssertableCallback();
         }
 
         void ArrangeInHand()
         {
-            itemMock.SetupGet(x => x.IsInHand)
+            _itemMock.SetupGet(x => x.IsInHand)
                 .Returns(true);
         }
 
         void ArrangeEquipped()
         {
-            holsterMock.Setup(x => x.IsCurrentItem(itemMock.Object))
+            _holsterMock.Setup(x => x.IsCurrentItem(_itemMock.Object))
                 .Returns(true);
         }
 
         void VerifyItemWasSetToContainer()
         {
-            holsterMock.VerifyOnce(
-                x => x.SetItem(itemMock.Object));
+            _holsterMock.VerifyOnce(
+                x => x.SetItem(_itemMock.Object));
         }
 
         void VerifyItemWasUnsetFromContainer()
         {
-            holsterMock.VerifyOnce(
+            _holsterMock.VerifyOnce(
                 x => x.UnsetItem());
         }
 
         void VerifyNoOtherViewCalls()
         {
-            holsterItemViewMock.VerifyAdd(x => x.Released += It.IsAny<Action>(), Times.AtMostOnce());
-            holsterItemViewMock.VerifyNoOtherCalls();
+            _holsterItemViewMock.VerifyAdd(x => x.Released += It.IsAny<Action>(), Times.AtMostOnce());
+            _holsterItemViewMock.VerifyNoOtherCalls();
         }
 
         void VerifyItemWasUnequippedFromAnyOtherHolsters()
         {
-            itemMock.VerifyOnce(
+            _itemMock.VerifyOnce(
                 x => x.UnequipFromHolster(It.IsAny<Action>()));
         }
 
         void VerifyCallbackWasInvoked()
         {
-            callback.AssertCalledOnce();
+            _callback.AssertCalledOnce();
         }
     }
 }

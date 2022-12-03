@@ -13,7 +13,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         {
             Drop(shouldTestCallback);
 
-            itemViewMock.VerifyOnce(
+            _itemViewMock.VerifyOnce(
                 x => x.SpawnAndDrop(It.IsAny<Action>()));
 
             if (shouldTestCallback)
@@ -29,7 +29,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             Drop(shouldTestCallback);
 
-            itemViewMock.VerifyOnce(
+            _itemViewMock.VerifyOnce(
                 x => x.DropLeftHand(It.IsAny<Action>()));
 
             VerifyItemWasUnsetFromLeftHand();
@@ -47,7 +47,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             Drop(shouldTestCallback);
 
-            itemViewMock.VerifyOnce(
+            _itemViewMock.VerifyOnce(
                 x => x.DropRightHand(It.IsAny<Action>()));
 
             VerifyItemWasUnsetFromRightHand();
@@ -59,9 +59,9 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         void Drop(bool shouldTestCallback)
         {
             if (shouldTestCallback)
-                item.Drop(callback);
+                _item.Drop(_callback);
             else
-                item.Drop();
+                _item.Drop();
         }
     }
 }

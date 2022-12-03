@@ -5,9 +5,9 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
 {
     public class HolsterForItem : IHolsterForItem
     {
-        private readonly IItem item;
-        private readonly IHolster holster;
-        private readonly IHolsterForItemView view;
+        readonly IItem item;
+        readonly IHolster holster;
+        readonly IHolsterForItemView view;
 
         public HolsterForItem(IItem item, IHolster holster, IHolsterForItemView view)
         {
@@ -63,7 +63,7 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
             return view;
         }
 
-        private void ClearHolster()
+        void ClearHolster()
         {
             holster.CurrentItem.Do(
                 x => x.UnequipFromHolster());

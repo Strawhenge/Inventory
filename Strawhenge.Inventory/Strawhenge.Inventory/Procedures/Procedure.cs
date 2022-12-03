@@ -14,7 +14,7 @@ namespace Strawhenge.Inventory.Procedures
 
         protected abstract void OnSkip();
 
-        private class CompletedProcedure : Procedure
+        class CompletedProcedure : Procedure
         {
             protected override void OnBegin(Action endProcedure) => endProcedure();
 

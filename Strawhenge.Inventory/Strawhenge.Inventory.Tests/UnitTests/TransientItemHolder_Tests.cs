@@ -6,29 +6,29 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 {
     public class TransientItemHolder_Tests
     {
-        readonly Mock<ITransientItemLocator> itemLocatorMock;
-        readonly Mock<IItem> itemMock;
-        readonly ITransientItemHolder transientItemHolder;
-        readonly AssertableCallback assertableCallback;
+        readonly Mock<ITransientItemLocator> _itemLocatorMock;
+        readonly Mock<IItem> _itemMock;
+        readonly ITransientItemHolder _transientItemHolder;
+        readonly AssertableCallback _assertableCallback;
 
         public TransientItemHolder_Tests()
         {
-            itemMock = new Mock<IItem>();
+            _itemMock = new Mock<IItem>();
 
-            itemLocatorMock = new Mock<ITransientItemLocator>();
-            itemLocatorMock.SetupNone(x => x.GetItemByName(It.IsAny<string>()));
+            _itemLocatorMock = new Mock<ITransientItemLocator>();
+            _itemLocatorMock.SetupNone(x => x.GetItemByName(It.IsAny<string>()));
 
-            transientItemHolder = new TransientItemHolder(itemLocatorMock.Object);
+            _transientItemHolder = new TransientItemHolder(_itemLocatorMock.Object);
 
-            assertableCallback = new AssertableCallback();
+            _assertableCallback = new AssertableCallback();
         }
 
         [Fact]
         public void HoldLeftHand_WhenItemNotLocated()
         {
-            transientItemHolder.HoldLeftHand(It.IsAny<string>(), assertableCallback);
+            _transientItemHolder.HoldLeftHand(It.IsAny<string>(), _assertableCallback);
 
-            assertableCallback.AssertCalledOnce();
+            _assertableCallback.AssertCalledOnce();
         }
 
         [Fact]
@@ -36,18 +36,18 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         {
             ArrangeItemLocatorReturnsItem();
 
-            transientItemHolder.HoldLeftHand(It.IsAny<string>(), assertableCallback);
+            _transientItemHolder.HoldLeftHand(It.IsAny<string>(), _assertableCallback);
 
-            itemMock.VerifyOnce(x => x.HoldLeftHand(assertableCallback));
-            assertableCallback.AssertNeverCalled();
+            _itemMock.VerifyOnce(x => x.HoldLeftHand(_assertableCallback));
+            _assertableCallback.AssertNeverCalled();
         }
 
         [Fact]
         public void HoldRightHand_WhenItemNotLocated()
         {
-            transientItemHolder.HoldRightHand(It.IsAny<string>(), assertableCallback);
+            _transientItemHolder.HoldRightHand(It.IsAny<string>(), _assertableCallback);
 
-            assertableCallback.AssertCalledOnce();
+            _assertableCallback.AssertCalledOnce();
         }
 
         [Fact]
@@ -55,18 +55,18 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         {
             ArrangeItemLocatorReturnsItem();
 
-            transientItemHolder.HoldRightHand(It.IsAny<string>(), assertableCallback);
+            _transientItemHolder.HoldRightHand(It.IsAny<string>(), _assertableCallback);
 
-            itemMock.VerifyOnce(x => x.HoldRightHand(assertableCallback));
-            assertableCallback.AssertNeverCalled();
+            _itemMock.VerifyOnce(x => x.HoldRightHand(_assertableCallback));
+            _assertableCallback.AssertNeverCalled();
         }
 
         [Fact]
         public void Unhold()
         {
-            transientItemHolder.Unhold(assertableCallback);
+            _transientItemHolder.Unhold(_assertableCallback);
 
-            assertableCallback.AssertCalledOnce();
+            _assertableCallback.AssertCalledOnce();
         }
 
         [Theory]
@@ -77,20 +77,20 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             ArrangeItemLocatorReturnsItem();
 
             if (leftHand)
-                transientItemHolder.HoldLeftHand(It.IsAny<string>());
+                _transientItemHolder.HoldLeftHand(It.IsAny<string>());
             else
-                transientItemHolder.HoldRightHand(It.IsAny<string>());
+                _transientItemHolder.HoldRightHand(It.IsAny<string>());
 
-            transientItemHolder.Unhold(assertableCallback);
+            _transientItemHolder.Unhold(_assertableCallback);
 
-            itemMock.VerifyOnce(x => x.ClearFromHands(assertableCallback));
-            assertableCallback.AssertNeverCalled();
+            _itemMock.VerifyOnce(x => x.ClearFromHands(_assertableCallback));
+            _assertableCallback.AssertNeverCalled();
         }
 
         void ArrangeItemLocatorReturnsItem()
         {
-            itemLocatorMock
-                .SetupSome(x => x.GetItemByName(It.IsAny<string>()), itemMock.Object);
+            _itemLocatorMock
+                .SetupSome(x => x.GetItemByName(It.IsAny<string>()), _itemMock.Object);
         }
     }
 }
