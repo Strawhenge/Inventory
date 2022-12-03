@@ -18,9 +18,9 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
 
         public bool IsEquippedToHolster(out IHolsterForItem holsterItem)
         {
-            var equipped = _inner.Where(x => x.IsEquipped);
+            var equipped = _inner.Where(x => x.IsEquipped).ToArray();
 
-            if (equipped.Count() > 1)
+            if (equipped.Length > 1)
                 _logger.LogError("Item equipped to more than one holster.");
 
             holsterItem = equipped.FirstOrDefault();
