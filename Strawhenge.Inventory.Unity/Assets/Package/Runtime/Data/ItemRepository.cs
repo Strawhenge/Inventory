@@ -7,17 +7,17 @@ namespace Strawhenge.Inventory.Unity.Data
 {
     public class ItemRepository : IItemRepository
     {
-        readonly IItemData[] scriptableObjects;
+        readonly IItemData[] _scriptableObjects;
 
         public ItemRepository(ISettings settings)
         {
-            scriptableObjects = Resources.LoadAll<ItemScriptableObject>(
+            _scriptableObjects = Resources.LoadAll<ItemScriptableObject>(
                 path: settings.ItemScriptableObjectsPath);
         }
 
         public Maybe<IItemData> FindByName(string name)
         {
-            var first = scriptableObjects.FirstOrDefault(x => x.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase));
+            var first = _scriptableObjects.FirstOrDefault(x => x.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase));
 
             if (first == null)
                 return Maybe.None<IItemData>();

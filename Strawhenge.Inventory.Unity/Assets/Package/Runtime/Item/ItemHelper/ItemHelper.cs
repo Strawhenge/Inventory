@@ -9,22 +9,22 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemHelper : IItemHelper
     {
-        readonly ISpawner spawner;
-        readonly IEnumerable<Collider> bindToColliders;
+        readonly ISpawner _spawner;
+        readonly IEnumerable<Collider> _bindToColliders;
 
-        ItemScript script;
-        bool isFixated;
+        ItemScript _script;
+        bool _isFixated;
 
         public ItemHelper(ISpawner spawner, IEnumerable<Collider> bindToColliders, ItemScript script) : this(spawner, bindToColliders, script.Data)
         {
-            this.script = script;
+            _script = script;
             script.Fixate(bindToColliders);
         }
 
         public ItemHelper(ISpawner spawner, IEnumerable<Collider> bindToColliders, IItemData data)
         {
-            this.spawner = spawner;
-            this.bindToColliders = bindToColliders;
+            _spawner = spawner;
+            _bindToColliders = bindToColliders;
             Data = data;
         }
 
@@ -34,38 +34,38 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public ItemScript Spawn()
         {
-            if (script == null)
+            if (_script == null)
             {
-                script = spawner.Spawn(Data);
+                _script = _spawner.Spawn(Data);
             }
 
-            if (!isFixated)
+            if (!_isFixated)
             {
-                isFixated = true;
-                script.Fixate(bindToColliders);
+                _isFixated = true;
+                _script.Fixate(_bindToColliders);
             }
 
-            return script;
+            return _script;
         }
 
         public void Despawn()
         {
-            isFixated = false;
-            spawner.Despawn(script);
-            script = null;
+            _isFixated = false;
+            _spawner.Despawn(_script);
+            _script = null;
         }
 
         public Maybe<ItemScript> Release()
         {
-            if (script == null)
+            if (_script == null)
                 return Maybe.None<ItemScript>();
 
-            script.transform.parent = null;
-            script.Unfixate();
-            isFixated = false;
+            _script.transform.parent = null;
+            _script.Unfixate();
+            _isFixated = false;
             Released?.Invoke();
 
-            return script;
+            return _script;
         }
     }
 }

@@ -6,19 +6,19 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemGenerator : IItemGenerator
     {
-        readonly IItemFactory itemFactory;
-        readonly IItemRepository itemRepository;
+        readonly IItemFactory _itemFactory;
+        readonly IItemRepository _itemRepository;
 
         public ItemGenerator(IItemFactory itemFactory, IItemRepository itemRepository)
         {
-            this.itemFactory = itemFactory;
-            this.itemRepository = itemRepository;
+            _itemFactory = itemFactory;
+            _itemRepository = itemRepository;
         }
 
         public Maybe<IItem> GenerateByName(string name)
         {
-            return itemRepository.FindByName(name)
-                .Map(itemFactory.Create);
+            return _itemRepository.FindByName(name)
+                .Map(_itemFactory.Create);
         }
     }
 }

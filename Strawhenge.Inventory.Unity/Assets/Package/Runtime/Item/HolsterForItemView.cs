@@ -8,17 +8,17 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public class HolsterForItemView : IHolsterForItemView
     {
-        readonly IItemHelper item;
-        readonly IHolsterComponent holster;
-        readonly ProcedureQueue procedureQueue;
-        readonly IProcedureFactory procedureFactory;
+        readonly IItemHelper _item;
+        readonly IHolsterComponent _holster;
+        readonly ProcedureQueue _procedureQueue;
+        readonly IProcedureFactory _procedureFactory;
 
         public HolsterForItemView(IItemHelper item, IHolsterComponent holster, ProcedureQueue procedureQueue, IProcedureFactory procedureFactory)
         {
-            this.item = item;
-            this.holster = holster;
-            this.procedureQueue = procedureQueue;
-            this.procedureFactory = procedureFactory;
+            _item = item;
+            _holster = holster;
+            _procedureQueue = procedureQueue;
+            _procedureFactory = procedureFactory;
 
             item.Released += () => Released?.Invoke();
         }
@@ -28,46 +28,46 @@ namespace Strawhenge.Inventory.Unity.Items
         public void DrawLeftHand(Action callback = null)
         {
             Schedule(
-                procedureFactory.DrawLeftHandFromHolster(item, holster), callback);
+                _procedureFactory.DrawLeftHandFromHolster(_item, _holster), callback);
         }
 
         public void DrawRightHand(Action callback = null)
         {
             Schedule(
-                procedureFactory.DrawRightHandFromHolster(item, holster), callback);
+                _procedureFactory.DrawRightHandFromHolster(_item, _holster), callback);
         }
 
         public void Hide(Action callback = null)
         {
             Schedule(
-                procedureFactory.HideInHolster(item, holster), callback);
+                _procedureFactory.HideInHolster(_item, _holster), callback);
         }
 
         public void PutAwayLeftHand(Action callback = null)
         {
             Schedule(
-                procedureFactory.PutAwayLeftHandToHolster(item, holster), callback);
+                _procedureFactory.PutAwayLeftHandToHolster(_item, _holster), callback);
         }
 
         public void PutAwayRightHand(Action callback = null)
         {
             Schedule(
-                procedureFactory.PutAwayRightHandToHolster(item, holster), callback);
+                _procedureFactory.PutAwayRightHandToHolster(_item, _holster), callback);
         }
 
         public void Show(Action callback = null)
         {
             Schedule(
-                procedureFactory.ShowInHolster(item, holster), callback);
+                _procedureFactory.ShowInHolster(_item, _holster), callback);
         }
 
         void Schedule(Procedure procedure, Action callback)
         {
-            procedureQueue.Schedule(procedure);
+            _procedureQueue.Schedule(procedure);
 
             if (callback != null)
             {
-                procedureQueue.Schedule(() =>
+                _procedureQueue.Schedule(() =>
                 {
                     callback();
                     return Procedure.Completed;
