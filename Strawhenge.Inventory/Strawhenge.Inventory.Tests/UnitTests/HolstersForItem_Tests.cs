@@ -2,6 +2,7 @@
 using Strawhenge.Inventory.Items.HolsterForItem;
 using System;
 using System.Collections.Generic;
+using Strawhenge.Common.Logging;
 using Xunit;
 
 namespace Strawhenge.Inventory.Tests.UnitTests

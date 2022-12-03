@@ -1,4 +1,6 @@
-﻿namespace Strawhenge.Inventory.Containers
+﻿using FunctionalUtilities;
+
+namespace Strawhenge.Inventory.Containers
 {
     public interface IHolster
     {

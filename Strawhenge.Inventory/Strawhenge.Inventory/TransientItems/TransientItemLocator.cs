@@ -1,6 +1,7 @@
 ﻿using Strawhenge.Inventory.Items;
 using System;
 using System.Linq;
+using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.TransientItems
 {

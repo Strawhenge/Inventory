@@ -1,4 +1,5 @@
 ﻿using Moq;
+using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.HolsterForItem;

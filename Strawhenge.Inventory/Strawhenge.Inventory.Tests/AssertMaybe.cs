@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using FunctionalUtilities;
+using Xunit;
 
 namespace Strawhenge.Inventory.Tests
 {
@@ -23,7 +24,7 @@ namespace Strawhenge.Inventory.Tests
         public static void IsSome<T>(Maybe<T> maybe, T expectedValue)
         {
             IsSome(maybe);
-            Assert.Equal(expectedValue, (T)maybe);
+            Assert.Equal(expectedValue, maybe.ReduceUnsafe());
         }
 
         private static bool HasValue<T>(Maybe<T> maybe) => maybe
