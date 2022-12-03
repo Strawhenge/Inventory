@@ -2,6 +2,7 @@
 using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using System.Collections.Generic;
+using FunctionalUtilities;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Items

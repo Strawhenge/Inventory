@@ -8,6 +8,7 @@ using Strawhenge.Inventory.Unity.Monobehaviours;
 using Strawhenge.Inventory.Unity.Procedures;
 using System.Collections.Generic;
 using UnityEngine;
+using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
@@ -78,7 +79,8 @@ namespace Strawhenge.Inventory.Unity.Items
 
                 holster.Do(x =>
                 {
-                    var view = new HolsterForItemView(itemComponent, holsterComponent, procedureQueue, procedureFactory);
+                    var view = new HolsterForItemView(itemComponent, holsterComponent, procedureQueue,
+                        procedureFactory);
                     holstersForItem.Add(new HolsterForItem(item, x, view));
                 });
             }

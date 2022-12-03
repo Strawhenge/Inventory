@@ -1,5 +1,6 @@
 ﻿using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
 using System.Linq;
+using FunctionalUtilities;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Data

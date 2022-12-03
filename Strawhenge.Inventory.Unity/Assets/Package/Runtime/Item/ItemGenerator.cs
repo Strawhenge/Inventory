@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.TransientItems;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.TransientItems;
 using Strawhenge.Inventory.Unity.Data;
 
 namespace Strawhenge.Inventory.Unity.Items

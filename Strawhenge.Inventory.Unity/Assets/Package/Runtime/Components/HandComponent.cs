@@ -2,7 +2,9 @@
 using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Items;
 using System;
+using FunctionalUtilities;
 using UnityEngine;
+using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Components
 {
@@ -13,7 +15,8 @@ namespace Strawhenge.Inventory.Unity.Components
         private readonly ILogger logger;
         private readonly Func<IItemHelper, IHoldItemData> getHoldItemData;
 
-        public HandComponent(IHoldItemAnimationHandler animationHandler, Transform transform, ILogger logger, Func<IItemHelper, IHoldItemData> getHoldItemData)
+        public HandComponent(IHoldItemAnimationHandler animationHandler, Transform transform, ILogger logger,
+            Func<IItemHelper, IHoldItemData> getHoldItemData)
         {
             this.animationHandler = animationHandler;
             this.transform = transform;

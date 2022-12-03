@@ -3,6 +3,7 @@ using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
 using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using System.Linq;
+using FunctionalUtilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -40,7 +41,9 @@ namespace Strawhenge.Inventory.Unity.Editor
             {
                 EditorGUILayout.BeginHorizontal();
                 var script = (ItemScript)EditorGUILayout.ObjectField(null, typeof(ItemScript), allowSceneObjects: true);
-                var scriptableObject = (ItemScriptableObject)EditorGUILayout.ObjectField(null, typeof(ItemScriptableObject), allowSceneObjects: true);
+                var scriptableObject =
+                    (ItemScriptableObject)EditorGUILayout.ObjectField(null, typeof(ItemScriptableObject),
+                        allowSceneObjects: true);
                 EditorGUILayout.EndHorizontal();
 
                 if (script != null)
@@ -58,14 +61,16 @@ namespace Strawhenge.Inventory.Unity.Editor
 
         private void InspectHands()
         {
-            displayLeftHand = EditorGUILayout.Foldout(displayLeftHand, $"In Left Hand ({GetLeftHandItemString()})", toggleOnLabelClick: true);
+            displayLeftHand = EditorGUILayout.Foldout(displayLeftHand, $"In Left Hand ({GetLeftHandItemString()})",
+                toggleOnLabelClick: true);
             if (displayLeftHand && target.HasInstance)
             {
                 target.Instance
                     .ItemInLeftHand.Do(InspectItem);
             }
 
-            displayRightHand = EditorGUILayout.Foldout(displayRightHand, $"In Right Hand ({GetRightHandItemString()})", toggleOnLabelClick: true);
+            displayRightHand = EditorGUILayout.Foldout(displayRightHand, $"In Right Hand ({GetRightHandItemString()})",
+                toggleOnLabelClick: true);
             if (displayRightHand && target.HasInstance)
             {
                 target.Instance
@@ -75,7 +80,8 @@ namespace Strawhenge.Inventory.Unity.Editor
 
         private void InspectHolsters()
         {
-            displayHolsters = EditorGUILayout.Foldout(displayHolsters, $"In Holsters ({GetHolsterItemCount()})", toggleOnLabelClick: true);
+            displayHolsters = EditorGUILayout.Foldout(displayHolsters, $"In Holsters ({GetHolsterItemCount()})",
+                toggleOnLabelClick: true);
             if (displayHolsters)
             {
                 foreach (var item in target.Instance.ItemsInHolsters)
@@ -87,7 +93,8 @@ namespace Strawhenge.Inventory.Unity.Editor
 
         private void InspectInventory()
         {
-            displayInventory = EditorGUILayout.Foldout(displayInventory, $"In Inventory ({GetInventoryCountString()})", toggleOnLabelClick: true);
+            displayInventory = EditorGUILayout.Foldout(displayInventory, $"In Inventory ({GetInventoryCountString()})",
+                toggleOnLabelClick: true);
 
             if (displayInventory)
             {
@@ -178,16 +185,16 @@ namespace Strawhenge.Inventory.Unity.Editor
         }
 
         private string GetHolsterItemCount() => target.HasInstance
-          ? target.Instance.ItemsInHolsters.Count().ToString()
-          : "NA";
+            ? target.Instance.ItemsInHolsters.Count().ToString()
+            : "NA";
 
         private string GetInventoryCountString() => target.HasInstance
             ? target.Instance.ItemsInInventory.Count().ToString()
             : "NA";
 
         private string GetLeftHandItemString() => target.HasInstance
-          ? GetItemInHandString(target.Instance.ItemInLeftHand)
-          : "NA";
+            ? GetItemInHandString(target.Instance.ItemInLeftHand)
+            : "NA";
 
         private string GetRightHandItemString() => target.HasInstance
             ? GetItemInHandString(target.Instance.ItemInRightHand)

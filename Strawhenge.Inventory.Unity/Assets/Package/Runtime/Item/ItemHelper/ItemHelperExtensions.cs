@@ -1,6 +1,7 @@
 ﻿using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Data;
 using System.Linq;
+using Strawhenge.Common.Logging;
 
 namespace Strawhenge.Inventory.Unity.Items
 {

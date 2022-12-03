@@ -1,6 +1,7 @@
 ﻿using Strawhenge.Inventory.Unity.Animation;
 using System;
 using UnityEngine;
+using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Components
 {
