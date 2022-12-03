@@ -10,10 +10,10 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 {
     public class InventoryScript : MonoBehaviour
     {
-        [FormerlySerializedAs("LeftHand"), SerializeField] 
+        [FormerlySerializedAs("LeftHand"), SerializeField]
         Transform _leftHand;
 
-        [FormerlySerializedAs("RightHand"), SerializeField] 
+        [FormerlySerializedAs("RightHand"), SerializeField]
         Transform _rightHand;
 
         [FormerlySerializedAs("itemsInHolsters"), SerializeField]
@@ -55,12 +55,12 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
             foreach (var holster in GetComponentsInChildren<HolsterScript>())
                 HolsterComponents.Add(holster.HolsterName, holster.transform);
 
-            foreach (var item in _itemsInHolsters.Where(x => x != null && x.item != null && x.holster != null))
+            foreach (var item in _itemsInHolsters.Where(x => x != null && x._item != null && x._holster != null))
             {
                 ItemManager
-                    .Manage(item.item)
+                    .Manage(item._item)
                     .Holsters
-                    .FirstOrDefault(x => x.HolsterName.Equals(item.holster.Name))?
+                    .FirstOrDefault(x => x.HolsterName.Equals(item._holster.Name))?
                     .Equip();
             }
 
@@ -74,8 +74,8 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
         [Serializable]
         class ItemsInHolsters
         {
-            public ItemScriptableObject item;
-            public HolsterScriptableObject holster;
+            [FormerlySerializedAs("item")] public ItemScriptableObject _item;
+            [FormerlySerializedAs("holster")] public HolsterScriptableObject _holster;
         }
     }
 }
