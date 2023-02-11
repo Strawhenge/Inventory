@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Unity.Monobehaviours;
+﻿using Strawhenge.Common.Unity.AnimatorBehaviours;
+using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ namespace Strawhenge.Inventory.Unity.Animation
     public class ProduceItemAnimationHandler : IProduceItemAnimationHandler
     {
         readonly Animator _animator;
+        readonly StateMachineEvents<DrawItemStateMachine> _drawItemEvents;
+        readonly StateMachineEvents<PutAwayItemStateMachine> _putAwayItemEvents;
+
         public event Action GrabItem;
         public event Action ReleaseItem;
         public event Action DrawEnded;
@@ -20,21 +24,27 @@ namespace Strawhenge.Inventory.Unity.Animation
             eventsScript.GrabItemFromHolster += OnGrabItem;
             eventsScript.ReleaseItemIntoHolster += OnReleaseItem;
 
-            var drawItemStateMachine = animator.GetBehaviour<DrawItemStateMachine>();
-            drawItemStateMachine.OnEnded = OnDrawItemEnded;
+            _drawItemEvents = animator.AddEvents<DrawItemStateMachine>(
+                subscribe: stateMachine => stateMachine.OnEnded = OnDrawItemEnded,
+                unsubscribe: _ => { });
 
-            var putAwayItemStateMachine = animator.GetBehaviour<PutAwayItemStateMachine>();
-            putAwayItemStateMachine.OnEnded = OnPutAwayItemEnded;
+            _putAwayItemEvents = animator.AddEvents<PutAwayItemStateMachine>(
+                subscribe: stateMachine => stateMachine.OnEnded = OnPutAwayItemEnded,
+                unsubscribe: _ => { });
         }
 
         public void DrawItem(int animationId)
         {
+            _drawItemEvents.PrepareIfRequired();
+
             _animator.SetInteger(AnimatorParameters.DrawItemAnimationId, animationId);
             _animator.SetTrigger(AnimatorParameters.DrawItem);
         }
 
         public void PutAwayItem(int animationId)
         {
+            _putAwayItemEvents.PrepareIfRequired();
+
             _animator.SetInteger(AnimatorParameters.PutAwayItemAnimationId, animationId);
             _animator.SetTrigger(AnimatorParameters.PutAwayItem);
         }
