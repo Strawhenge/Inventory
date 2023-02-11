@@ -7,6 +7,6 @@ namespace Strawhenge.Inventory.Unity.Animation
     {
         public Action OnEnded = () => { };
 
-        override public void OnStateMachineExit(Animator animator, int stateMachinePathHash) => OnEnded();
+        public override void OnStateMachineExit(Animator animator, int stateMachinePathHash) => OnEnded();
     }
 }
