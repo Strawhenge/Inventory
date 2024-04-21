@@ -6,14 +6,14 @@ namespace Strawhenge.Inventory.Unity.Loader
 {
     public class InventoryLoader
     {
-        readonly ItemManager _itemManager;
+        readonly IItemManager _itemManager;
         readonly ApparelManager _apparelManager;
         readonly IItemRepository _itemRepository;
         readonly IApparelRepository _apparelRepository;
         readonly ILogger _logger;
 
         public InventoryLoader(
-            ItemManager itemManager,
+            IItemManager itemManager,
             ApparelManager apparelManager,
             IItemRepository itemRepository,
             IApparelRepository apparelRepository,
