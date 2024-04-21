@@ -1,6 +1,7 @@
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
+using Strawhenge.Inventory.Unity.Loader;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -29,6 +30,10 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
         public HandComponents HandComponents { private get; set; }
 
         public HolsterComponents HolsterComponents { private get; set; }
+
+        public InventoryLoader Loader { private get; set; }
+
+        public void Load(InventoryLoadData data) => Loader.Load(data);
 
         void Start()
         {
