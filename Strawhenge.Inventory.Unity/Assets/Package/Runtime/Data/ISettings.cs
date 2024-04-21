@@ -3,5 +3,7 @@
     public interface ISettings
     {
         string ItemScriptableObjectsPath { get; }
+     
+        string ApparelScriptableObjectsPath { get; }
     }
 }

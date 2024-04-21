@@ -28,12 +28,12 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         public IReadOnlyList<ApparelSlot> Slots => _slots.AsReadOnly();
 
-        public ApparelPiece Create(ApparelPieceScriptableObject data)
+        public ApparelPiece Create(IApparelPieceData data)
         {
             if (!_slotsByName.TryGetValue(data.Slot, out var slotScript))
             {
                 _logger.LogWarning($"Missing apparel slot: '{data.Slot}'.");
-                return new ApparelPiece(data.name, _defaultSlot, new NullApparelView());
+                return new ApparelPiece(data.Name, _defaultSlot, new NullApparelView());
             }
 
             var view = new ApparelView(
@@ -45,7 +45,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
                 data.Rotation,
                 data.Scale);
 
-            return new ApparelPiece(data.name, slotScript.ApparelSlot, view);
+            return new ApparelPiece(data.Name, slotScript.ApparelSlot, view);
         }
 
         internal void AddSlot(ApparelSlotScript slot)
