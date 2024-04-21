@@ -23,6 +23,8 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
         [FormerlySerializedAs("apparel"), SerializeField]
         ApparelPieceScriptableObject[] _apparel;
 
+        public bool IsConfigurationComplete { get; private set; }
+
         public IItemManager ItemManager { get; set; }
 
         public ApparelManager ApparelManager { get; set; }
@@ -74,6 +76,8 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 
             foreach (var apparelPiece in _apparel)
                 ApparelManager.Create(apparelPiece).Equip();
+
+            IsConfigurationComplete = true;
         }
 
         [Serializable]
