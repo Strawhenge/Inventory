@@ -1,7 +1,6 @@
 ﻿using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Data;
-using System;
 
 namespace Strawhenge.Inventory.Unity.Loader
 {
