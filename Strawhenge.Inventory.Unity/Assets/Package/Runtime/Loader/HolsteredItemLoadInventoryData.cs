@@ -1,8 +1,8 @@
 ﻿namespace Strawhenge.Inventory.Unity.Loader
 {
-    public class HolsteredItemLoadDataEntry
+    public class HolsteredItemLoadInventoryData
     {
-        public HolsteredItemLoadDataEntry(string itemName, string holsterName)
+        public HolsteredItemLoadInventoryData(string itemName, string holsterName)
         {
             ItemName = itemName;
             HolsterName = holsterName;

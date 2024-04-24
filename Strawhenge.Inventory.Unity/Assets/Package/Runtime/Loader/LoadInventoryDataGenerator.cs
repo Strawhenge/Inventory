@@ -5,32 +5,32 @@ using System.Linq;
 
 namespace Strawhenge.Inventory.Unity.Loader
 {
-    public class InventoryLoadDataGenerator
+    public class LoadInventoryDataGenerator
     {
         readonly IHolsters _holsters;
         readonly ApparelManager _apparelManager;
 
-        public InventoryLoadDataGenerator(IHolsters holsters, ApparelManager apparelManager)
+        public LoadInventoryDataGenerator(IHolsters holsters, ApparelManager apparelManager)
         {
             _holsters = holsters;
             _apparelManager = apparelManager;
         }
 
-        public InventoryLoadData GenerateCurrentLoadData()
+        public LoadInventoryData GenerateCurrentLoadData()
         {
-            return new InventoryLoadData
+            return new LoadInventoryData
             {
                 HolsteredItems = GetHolsteredItems().ToArray(),
                 EquippedApparel = GetEquippedApparelNames().ToArray()
             };
         }
 
-        IEnumerable<HolsteredItemLoadDataEntry> GetHolsteredItems()
+        IEnumerable<HolsteredItemLoadInventoryData> GetHolsteredItems()
         {
             foreach (var holster in _holsters.GetAll())
             {
                 if (holster.CurrentItem.HasSome(out var item))
-                    yield return new HolsteredItemLoadDataEntry(item.Name, holster.Name);
+                    yield return new HolsteredItemLoadInventoryData(item.Name, holster.Name);
             }
         }
 

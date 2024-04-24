@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 
         public InventoryLoader Loader { private get; set; }
 
-        public void Load(InventoryLoadData data) => Loader.Load(data);
+        public void Load(LoadInventoryData data) => Loader.Load(data);
 
         void Start()
         {
