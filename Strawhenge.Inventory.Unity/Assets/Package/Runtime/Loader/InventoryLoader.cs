@@ -26,13 +26,13 @@ namespace Strawhenge.Inventory.Unity.Loader
             _logger = logger;
         }
 
-        public void Load(InventoryLoadData data)
+        public void Load(LoadInventoryData data)
         {
             LoadHolsteredItems(data.HolsteredItems);
             LoadEquippedApparel(data.EquippedApparel);
         }
 
-        void LoadHolsteredItems(HolsteredItemLoadDataEntry[] itemsData)
+        void LoadHolsteredItems(HolsteredItemLoadInventoryData[] itemsData)
         {
             _logger.LogInformation("Loading holstered items.");
 
