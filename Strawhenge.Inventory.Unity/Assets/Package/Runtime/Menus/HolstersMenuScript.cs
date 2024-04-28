@@ -1,6 +1,7 @@
 using Strawhenge.Inventory.Containers;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity
@@ -19,12 +20,14 @@ namespace Strawhenge.Inventory.Unity
             _container = new PanelContainer(_entryContainer, rectTransform);
         }
 
-        [ContextMenu("Add")]
-        public void Add()
+        internal void Set(IEnumerable<IItemContainer> holsters)
         {
-            var menuEntry = Instantiate(_menuEntryPrefab);
-
-            _container.Add(menuEntry.GetComponent<RectTransform>());
+            foreach (var holster in holsters)
+            {
+                var menuEntry = Instantiate(_menuEntryPrefab);
+                _container.Add(menuEntry.GetComponent<RectTransform>());
+                menuEntry.Set(holster);
+            }
         }
     }
 }

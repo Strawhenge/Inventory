@@ -293,6 +293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _holsterNameText: {fileID: 6598274367431420536}
   _itemNameText: {fileID: 6598274367267163958}
+  _removeButton: {fileID: 6598274365618113032}
 --- !u!1 &6598274367267163956
 GameObject:
   m_ObjectHideFlags: 0

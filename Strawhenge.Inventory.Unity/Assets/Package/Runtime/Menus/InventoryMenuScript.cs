@@ -24,6 +24,7 @@ namespace Strawhenge.Inventory.Unity
             yield return new WaitUntil(() => _inventoryScript.IsConfigurationComplete);
 
             _apparelSlotsMenu.Set(_inventoryScript.Inventory.ApparelSlots);
+            _holstersMenu.Set(_inventoryScript.Inventory.Holsters);
             _handsMenu.Set(_inventoryScript.Inventory.LeftHand, _inventoryScript.Inventory.RightHand);
         }
     }
