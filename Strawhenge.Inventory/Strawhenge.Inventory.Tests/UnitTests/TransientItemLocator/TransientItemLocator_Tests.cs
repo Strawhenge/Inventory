@@ -13,7 +13,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
         readonly TransientItemLocator _sut;
         readonly Mock<IItem> _targetItemMock;
         readonly Mock<IEquippedItems> _equippedItemsMock;
-        readonly Mock<IItemInventory> _inventoryMock;
+        readonly Mock<IStoredItems> _inventoryMock;
         readonly Mock<IItemGenerator> _itemGeneratorMock;
 
         ClearFromHandsPreference _clearFromHandsPreference;
@@ -31,7 +31,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
             _equippedItemsMock.SetupNone(x => x.GetItemInLeftHand());
             _equippedItemsMock.SetupNone(x => x.GetItemInRightHand());
 
-            _inventoryMock = new Mock<IItemInventory>();
+            _inventoryMock = new Mock<IStoredItems>();
 
             _itemGeneratorMock = new Mock<IItemGenerator>();
             _itemGeneratorMock.SetupNone(x => x.GenerateByName(TargetItemName));

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Strawhenge.Inventory
 {
-    public class ItemInventory : IItemInventory
+    public class StoredItems : IStoredItems
     {
         readonly List<IItem> _items = new List<IItem>();
 

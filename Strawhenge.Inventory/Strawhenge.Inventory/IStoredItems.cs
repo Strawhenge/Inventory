@@ -2,7 +2,7 @@
 
 namespace Strawhenge.Inventory
 {
-    public interface IItemInventory
+    public interface IStoredItems
     {
         IEnumerable<IItem> AllItems { get; }
 
