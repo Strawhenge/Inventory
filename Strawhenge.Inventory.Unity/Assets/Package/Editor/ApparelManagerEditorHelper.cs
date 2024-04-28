@@ -31,7 +31,8 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
             else
             {
-                var scriptableObject = (ApparelPieceScriptableObject)EditorGUILayout.ObjectField(null, typeof(ApparelPieceScriptableObject), allowSceneObjects: true);
+                var scriptableObject = (ApparelPieceScriptableObject)EditorGUILayout.ObjectField(null,
+                    typeof(ApparelPieceScriptableObject), allowSceneObjects: true);
                 if (scriptableObject != null)
                     _piece = _target.Instance.Create(scriptableObject);
             }
@@ -53,11 +54,11 @@ namespace Strawhenge.Inventory.Unity.Editor
                 EditorGUILayout.LabelField($"{slot.Name}:");
 
                 slot.CurrentPiece
-                    .Do(x => InspectPiece(x));
+                    .Do(InspectPiece);
             }
         }
 
-        void InspectPiece(ApparelPiece piece)
+        void InspectPiece(IApparelPiece piece)
         {
             var info = $"{piece.Name}{Environment.NewLine}Slot: {piece.SlotName}";
 
