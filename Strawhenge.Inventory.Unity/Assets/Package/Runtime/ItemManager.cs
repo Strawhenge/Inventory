@@ -9,13 +9,13 @@ namespace Strawhenge.Inventory.Unity
     public class ItemManager : IItemManager
     {
         readonly IEquippedItems _equippedItems;
-        readonly IItemInventory _inventory;
+        readonly IStoredItems _storedItems;
         readonly IItemFactory _itemFactory;
 
-        public ItemManager(IEquippedItems equippedItems, IItemInventory inventory, IItemFactory itemFactory)
+        public ItemManager(IEquippedItems equippedItems, IStoredItems storedItems, IItemFactory itemFactory)
         {
             _equippedItems = equippedItems;
-            _inventory = inventory;
+            _storedItems = storedItems;
             _itemFactory = itemFactory;
         }
 
@@ -25,7 +25,7 @@ namespace Strawhenge.Inventory.Unity
 
         public IEnumerable<IItem> ItemsInHolsters => _equippedItems.GetItemsInHolsters();
 
-        public IEnumerable<IItem> ItemsInInventory => _inventory.AllItems;
+        public IEnumerable<IItem> ItemsInInventory => _storedItems.AllItems;
 
         public IItem AddItemToInventory(ItemScript itemScript)
         {
@@ -41,13 +41,13 @@ namespace Strawhenge.Inventory.Unity
 
         public IItem AddItemToInventory(IItem item)
         {
-            _inventory.Add(item);
+            _storedItems.Add(item);
             return item;
         }
 
         public void RemoveItemFromInventory(IItem item)
         {
-            _inventory.Remove(item);
+            _storedItems.Remove(item);
         }
 
         public IItem Manage(ItemScript itemScript)
