@@ -2,9 +2,9 @@
 
 namespace Strawhenge.Inventory.Containers
 {
-    public class Holster : IHolster
+    public class ItemContainer : IItemContainer
     {
-        public Holster(string name)
+        public ItemContainer(string name)
         {
             Name = name;
             CurrentItem = Maybe.None<IItem>();

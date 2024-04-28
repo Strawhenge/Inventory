@@ -12,9 +12,9 @@ namespace Strawhenge.Inventory.Tests.Context
         static int _itemCount;
 
         readonly Hands _hands = new Hands();
-        readonly Holster _firstHolster = new Holster("First");
-        readonly Holster _secondHolster = new Holster("Second");
-        readonly Holster _thirdHolster = new Holster("Third");
+        readonly ItemContainer _firstItemContainer = new ItemContainer("First");
+        readonly ItemContainer _secondItemContainer = new ItemContainer("Second");
+        readonly ItemContainer _thirdItemContainer = new ItemContainer("Third");
         readonly ILogger _logger;
 
         public ItemIntegrationTestContext(ITestOutputHelper testOutputHelper) =>
@@ -47,9 +47,9 @@ namespace Strawhenge.Inventory.Tests.Context
             {
                 var holstersForItem = new IHolsterForItem[]
                 {
-                    new HolsterForItem(item, _firstHolster, firstHolsterViewMock.Object),
-                    new HolsterForItem(item, _secondHolster, secondHolsterViewMock.Object),
-                    new HolsterForItem(item, _thirdHolster, thirdHolsterViewMock.Object)
+                    new HolsterForItem(item, _firstItemContainer, firstHolsterViewMock.Object),
+                    new HolsterForItem(item, _secondItemContainer, secondHolsterViewMock.Object),
+                    new HolsterForItem(item, _thirdItemContainer, thirdHolsterViewMock.Object)
                 };
 
                 return new HolstersForItem(holstersForItem, _logger);

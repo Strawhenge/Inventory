@@ -6,21 +6,21 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
     public class HolsterForItem : IHolsterForItem
     {
         readonly IItem _item;
-        readonly IHolster _holster;
+        readonly ItemContainer _itemContainer;
         readonly IHolsterForItemView _view;
 
-        public HolsterForItem(IItem item, IHolster holster, IHolsterForItemView view)
+        public HolsterForItem(IItem item, ItemContainer itemContainer, IHolsterForItemView view)
         {
             _item = item;
-            _holster = holster;
+            _itemContainer = itemContainer;
             _view = view;
 
             view.Released += OnRemoved;
         }
 
-        public string HolsterName => _holster.Name;
+        public string HolsterName => _itemContainer.Name;
 
-        public bool IsEquipped => _holster.IsCurrentItem(_item);
+        public bool IsEquipped => _itemContainer.IsCurrentItem(_item);
 
         public void Equip(Action callback = null)
         {
@@ -33,7 +33,7 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
             ClearHolster();
 
             _item.UnequipFromHolster();
-            _holster.SetItem(_item);
+            _itemContainer.SetItem(_item);
 
             if (_item.IsInHand)
                 callback?.Invoke();
@@ -49,7 +49,7 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
                 return;
             }
 
-            _holster.UnsetItem();
+            _itemContainer.UnsetItem();
 
             if (_item.IsInHand)
                 callback?.Invoke();
@@ -64,14 +64,14 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
 
         void ClearHolster()
         {
-            _holster.CurrentItem.Do(
+            _itemContainer.CurrentItem.Do(
                 x => x.UnequipFromHolster());
         }
 
         void OnRemoved()
         {
-            if (_holster.IsCurrentItem(_item))
-                _holster.UnsetItem();
+            if (_itemContainer.IsCurrentItem(_item))
+                _itemContainer.UnsetItem();
         }
     }
 }

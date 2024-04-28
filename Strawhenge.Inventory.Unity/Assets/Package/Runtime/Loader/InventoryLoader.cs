@@ -6,21 +6,18 @@ namespace Strawhenge.Inventory.Unity.Loader
 {
     public class InventoryLoader
     {
-        readonly IItemManager _itemManager;
-        readonly ApparelManager _apparelManager;
+        readonly IInventory _inventory;
         readonly IItemRepository _itemRepository;
         readonly IApparelRepository _apparelRepository;
         readonly ILogger _logger;
 
         public InventoryLoader(
-            IItemManager itemManager,
-            ApparelManager apparelManager,
+            IInventory inventory,
             IItemRepository itemRepository,
             IApparelRepository apparelRepository,
             ILogger logger)
         {
-            _itemManager = itemManager;
-            _apparelManager = apparelManager;
+            _inventory = inventory;
             _itemRepository = itemRepository;
             _apparelRepository = apparelRepository;
             _logger = logger;
@@ -46,8 +43,8 @@ namespace Strawhenge.Inventory.Unity.Loader
                     continue;
                 }
 
-                _itemManager
-                    .Manage(item)
+                _inventory
+                    .CreateItem(item)
                     .Holsters
                     .FirstOrNone(x => x.HolsterName == itemData.HolsterName)
                     .Do(x => x.Equip());
@@ -66,8 +63,8 @@ namespace Strawhenge.Inventory.Unity.Loader
                     continue;
                 }
 
-                _apparelManager
-                    .Create(apparel)
+                _inventory
+                    .CreateApparelPiece(apparel)
                     .Equip();
             }
         }

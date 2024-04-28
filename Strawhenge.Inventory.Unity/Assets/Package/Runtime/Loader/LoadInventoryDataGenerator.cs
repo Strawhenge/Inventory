@@ -1,19 +1,15 @@
-﻿using Strawhenge.Inventory.Containers;
-using Strawhenge.Inventory.Unity.Apparel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Strawhenge.Inventory.Unity.Loader
 {
     public class LoadInventoryDataGenerator
     {
-        readonly IHolsters _holsters;
-        readonly ApparelManager _apparelManager;
+        readonly IInventory _inventory;
 
-        public LoadInventoryDataGenerator(IHolsters holsters, ApparelManager apparelManager)
+        public LoadInventoryDataGenerator(IInventory inventory)
         {
-            _holsters = holsters;
-            _apparelManager = apparelManager;
+            _inventory = inventory;
         }
 
         public LoadInventoryData GenerateCurrentLoadData()
@@ -27,7 +23,7 @@ namespace Strawhenge.Inventory.Unity.Loader
 
         IEnumerable<HolsteredItemLoadInventoryData> GetHolsteredItems()
         {
-            foreach (var holster in _holsters.GetAll())
+            foreach (var holster in _inventory.Holsters)
             {
                 if (holster.CurrentItem.HasSome(out var item))
                     yield return new HolsteredItemLoadInventoryData(item.Name, holster.Name);
@@ -36,7 +32,7 @@ namespace Strawhenge.Inventory.Unity.Loader
 
         IEnumerable<string> GetEquippedApparelNames()
         {
-            foreach (var slot in _apparelManager.Slots)
+            foreach (var slot in _inventory.ApparelSlots)
             {
                 if (slot.CurrentPiece.HasSome(out var apparelPiece))
                     yield return apparelPiece.Name;

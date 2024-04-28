@@ -4,19 +4,26 @@ namespace Strawhenge.Inventory.Containers
 {
     public class Hands : IHands
     {
-        public Maybe<IItem> ItemInLeftHand { get; private set; } = Maybe.None<IItem>();
+        readonly ItemContainer _leftHand = new ItemContainer("Left Hand");
+        readonly ItemContainer _rightHand = new ItemContainer("Right Hand");
 
-        public Maybe<IItem> ItemInRightHand { get; private set; } = Maybe.None<IItem>();
+        public IItemContainer LeftHand => _leftHand;
+
+        public IItemContainer RightHand => _rightHand;
+
+        public Maybe<IItem> ItemInLeftHand => _leftHand.CurrentItem;
+
+        public Maybe<IItem> ItemInRightHand => _rightHand.CurrentItem;
 
         public bool HasTwoHandedItem(out IItem item)
         {
-            if (ItemInLeftHand.HasSome(out var leftItem) && leftItem.IsTwoHanded)
+            if (_leftHand.CurrentItem.HasSome(out var leftItem) && leftItem.IsTwoHanded)
             {
                 item = leftItem;
                 return true;
             }
 
-            if (ItemInRightHand.HasSome(out var rightItem) && rightItem.IsTwoHanded)
+            if (_rightHand.CurrentItem.HasSome(out var rightItem) && rightItem.IsTwoHanded)
             {
                 item = rightItem;
                 return true;
@@ -26,36 +33,28 @@ namespace Strawhenge.Inventory.Containers
             return false;
         }
 
-        public bool IsInLeftHand(IItem item)
-        {
-            return ItemInLeftHand.HasSome(out var leftItem) &&
-                leftItem == item;
-        }
+        public bool IsInLeftHand(IItem item) => _leftHand.IsCurrentItem(item);
 
-        public bool IsInRightHand(IItem item)
-        {
-            return ItemInRightHand.HasSome(out var rightItem) &&
-                rightItem == item;
-        }
+        public bool IsInRightHand(IItem item) => _rightHand.IsCurrentItem(item);
 
         public void SetItemLeftHand(IItem item)
         {
-            ItemInLeftHand = Maybe.Some(item);
+            _leftHand.SetItem(item);
         }
 
         public void SetItemRightHand(IItem item)
         {
-            ItemInRightHand = Maybe.Some(item);
+            _rightHand.SetItem(item);
         }
 
         public void UnsetItemLeftHand()
         {
-            ItemInLeftHand = Maybe.None<IItem>();
+            _leftHand.UnsetItem();
         }
 
         public void UnsetItemRightHand()
         {
-            ItemInRightHand = Maybe.None<IItem>();
+            _rightHand.UnsetItem();
         }
     }
 }
