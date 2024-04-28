@@ -24,7 +24,7 @@ namespace Strawhenge.Inventory.Unity
         {
             _container.Add(_dropButton.GetComponent<RectTransform>());
         }
-        
+
         [ContextMenu("Add")]
         public void Add()
         {
