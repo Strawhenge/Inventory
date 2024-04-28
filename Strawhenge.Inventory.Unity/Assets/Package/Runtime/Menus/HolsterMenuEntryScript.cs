@@ -10,10 +10,5 @@ namespace Strawhenge.Inventory.Unity
     {
         [SerializeField] Text _holsterNameText;
         [SerializeField] Text _itemNameText;
-
-        public void SetHolster(IHolster holster)
-        {
-            _holsterNameText.text = holster.Name;
-        }
     }
 }

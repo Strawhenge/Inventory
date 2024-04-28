@@ -1,8 +1,6 @@
 using Strawhenge.Inventory.Containers;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity
@@ -13,51 +11,31 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] HolsterMenuEntryScript _menuEntryPrefab;
         [SerializeField] RectTransform _entryContainer;
 
-        readonly List<RectTransform> _entries = new List<RectTransform>();
-
         RectTransform _rectTransform;
+        PanelContainer _container;
 
         void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
+            _container = new PanelContainer(_entryContainer);
         }
 
         [ContextMenu("Add")]
         public void Add()
         {
-            Add(new Holster("Holster " + (_entries.Count + 1)));
+            var menuEntry = Instantiate(_menuEntryPrefab);
+
+            _container.Add(menuEntry.GetComponent<RectTransform>());
 
             Resize();
         }
 
-        void Add(IHolster holster)
-        {
-            var menuEntry = Instantiate(_menuEntryPrefab, _entryContainer);
-            menuEntry.SetHolster(holster);
-
-            AddMenuEntry(menuEntry.gameObject);
-        }
-
-        void AddMenuEntry(GameObject menuEntry)
-        {
-            var rectTransform = menuEntry.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = Vector2.zero;
-            var height = rectTransform.rect.height;
-
-            var y = _entries.Sum(x => -x.rect.height);
-
-            rectTransform.offsetMin = new Vector2(0, y - height);
-            rectTransform.offsetMax = new Vector2(0, y);
-
-            _entries.Add(rectTransform);
-        }
-
         void Resize()
         {
-            var entriesHeight = _entries.Sum(x => x.rect.height);
+            var entriesHeight = _container.EntriesHeight;
 
             _rectTransform.offsetMin =
-                new Vector2(_rectTransform.offsetMin.x, _entryContainer.offsetMax.y - entriesHeight);
+                new Vector2(_rectTransform.offsetMin.x, _container.PositionY - entriesHeight);
         }
     }
 }
