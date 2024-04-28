@@ -34,8 +34,10 @@ namespace Strawhenge.Inventory.Unity
 
         void ResizeParent()
         {
+            var entriesHeight = GetEntriesHeight();
+
             _parent.offsetMin =
-                new Vector2(_parent.offsetMin.x, _container.offsetMax.y - GetEntriesHeight());
+                new Vector2(_parent.offsetMin.x, _parent.offsetMax.y + _container.offsetMax.y - GetEntriesHeight());
         }
 
         float GetEntriesHeight() => _entries.Sum(x => x.rect.height);
