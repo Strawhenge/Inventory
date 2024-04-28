@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
-    public class ApparelPieceFactory : IApparelPieceFactory<IApparelPieceData>
+    public class ApparelPieceFactory : IApparelPieceFactory
     {
         readonly ApparelSlot _defaultSlot = new ApparelSlot("Default");
         readonly ApparelSlotScripts _apparelSlotScripts;

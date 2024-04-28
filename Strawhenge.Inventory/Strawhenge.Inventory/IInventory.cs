@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using FunctionalUtilities;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
 
 namespace Strawhenge.Inventory
 {
-    public interface IInventory<TItemSource, TApparelSource>
+    public interface IInventory
     {
         IItemContainer LeftHand { get; }
 
@@ -17,14 +16,8 @@ namespace Strawhenge.Inventory
 
         IEnumerable<IApparelSlot> ApparelSlots { get; }
 
-        IItem AddItemToStorage(IItem item);
+        IItem AddToStorage(IItem item);
 
-        IItem AddItemToStorage(TItemSource itemSource);
-
-        void RemoveItemFromStorage(IItem item);
-
-        IItem CreateItem(TItemSource itemSource);
-
-        IApparelPiece CreateApparelPiece(TApparelSource apparelSource);
+        void RemoveFromStorage(IItem item);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Containers;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.HolsterForItem;
 using Strawhenge.Inventory.Procedures;
@@ -88,16 +89,16 @@ namespace Strawhenge.Inventory.Unity.Items
             return new HolstersForItem(holstersForItem, _logger);
         }
 
-        Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)
+        Strawhenge.Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)
         {
             switch (size)
             {
                 case Data.ItemSize.OneHanded:
-                    return Inventory.Items.ItemSize.OneHanded;
+                    return Strawhenge.Inventory.Items.ItemSize.OneHanded;
 
                 default:
                 case Data.ItemSize.TwoHanded:
-                    return Inventory.Items.ItemSize.TwoHanded;
+                    return Strawhenge.Inventory.Items.ItemSize.TwoHanded;
             }
         }
     }

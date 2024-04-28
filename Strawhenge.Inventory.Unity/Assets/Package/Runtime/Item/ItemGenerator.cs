@@ -17,7 +17,8 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public Maybe<IItem> GenerateByName(string name)
         {
-            return _itemRepository.FindByName(name)
+            return _itemRepository
+                .FindByName(name)
                 .Map(_itemFactory.Create);
         }
     }
