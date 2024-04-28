@@ -32,6 +32,15 @@ namespace Strawhenge.Inventory.Unity
             ResizeParent();
         }
 
+        public void Clear()
+        {
+            foreach (var entry in _entries)
+                Object.Destroy(entry.gameObject);
+
+            _entries.Clear();
+            ResizeParent();
+        }
+
         void ResizeParent()
         {
             var entriesHeight = GetEntriesHeight();

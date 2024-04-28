@@ -1,3 +1,4 @@
+using Strawhenge.Inventory.Containers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,27 +11,57 @@ namespace Strawhenge.Inventory.Unity
     {
         [SerializeField] ItemInHandHolsterMenuEntryScript _holsterMenuEntryPrefab;
         [SerializeField] RectTransform _entryContainer;
-        [SerializeField] RectTransform _dropButton;
+        [SerializeField] Button _dropButton;
+        [SerializeField] Text _itemNameText;
 
         PanelContainer _container;
+        IItemContainer _hand;
 
         void Awake()
         {
+            _dropButton.onClick.AddListener(OnDropButton);
+
             var rectTransform = GetComponent<RectTransform>();
             _container = new PanelContainer(_entryContainer, rectTransform);
         }
 
-        void Start()
+        public void Set(IItemContainer hand)
         {
-            _container.Add(_dropButton.GetComponent<RectTransform>());
+            _hand = hand;
+            _hand.Changed += OnChanged;
+
+            OnChanged();
         }
 
-        [ContextMenu("Add")]
-        public void Add()
+        void OnChanged()
         {
-            var menuEntry = Instantiate(_holsterMenuEntryPrefab);
+            _container.Clear();
 
-            _container.Add(menuEntry.GetComponent<RectTransform>());
+            if (_hand.CurrentItem.HasSome(out var item))
+            {
+                _itemNameText.text = item.Name;
+                _itemNameText.fontStyle = FontStyle.Normal;
+                _dropButton.gameObject.SetActive(true);
+
+                foreach (var holsterForItem in item.Holsters)
+                {
+                    var menuEntry = Instantiate(_holsterMenuEntryPrefab);
+                    _container.Add(menuEntry.GetComponent<RectTransform>());
+
+                    menuEntry.Set(holsterForItem);
+                }
+            }
+            else
+            {
+                _itemNameText.text = "Unequipped";
+                _itemNameText.fontStyle = FontStyle.Italic;
+                _dropButton.gameObject.SetActive(false);
+            }
+        }
+
+        void OnDropButton()
+        {
+            _hand?.CurrentItem.Do(x => x.Drop());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] ApparelSlotsMenuScript _apparelSlotsMenu;
         [SerializeField] HandsMenuScript _handsMenu;
         [SerializeField] HolstersMenuScript _holstersMenu;
-         [SerializeField] InventoryScript _inventoryScript;
+        [SerializeField] InventoryScript _inventoryScript;
 
         void Start()
         {
@@ -24,7 +24,7 @@ namespace Strawhenge.Inventory.Unity
             yield return new WaitUntil(() => _inventoryScript.IsConfigurationComplete);
 
             _apparelSlotsMenu.Set(_inventoryScript.Inventory.ApparelSlots);
-
+            _handsMenu.Set(_inventoryScript.Inventory.LeftHand, _inventoryScript.Inventory.RightHand);
         }
     }
 }
