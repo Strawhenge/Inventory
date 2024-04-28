@@ -1,5 +1,4 @@
-﻿using FunctionalUtilities;
-using Strawhenge.Inventory.Containers;
+﻿using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.HolsterForItem;
 using Strawhenge.Inventory.Procedures;

@@ -1,8 +1,6 @@
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Components;
-using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
-using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Loader;
 using System;
 using System.Linq;

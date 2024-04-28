@@ -4,9 +4,6 @@ using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using System.Linq;
 using FunctionalUtilities;
-using Strawhenge.Inventory.Unity.Apparel;
-using Strawhenge.Inventory.Unity.Data;
-using Strawhenge.Inventory.Unity.Items;
 using UnityEditor;
 using UnityEngine;
 
