@@ -6,7 +6,7 @@ namespace Strawhenge.Inventory.Containers
 {
     public class Holsters : IHolsters
     {
-        readonly Dictionary<string, IHolster> _holsters = new Dictionary<string, IHolster>();
+        readonly Dictionary<string, ItemContainer> _holsters = new Dictionary<string, ItemContainer>();
         readonly ILogger _logger;
 
         public Holsters(ILogger logger)
@@ -22,20 +22,20 @@ namespace Strawhenge.Inventory.Containers
                 return;
             }
 
-            _holsters.Add(name, new Holster(name));
+            _holsters.Add(name, new ItemContainer(name));
         }
 
-        public Maybe<IHolster> FindByName(string name)
+        public Maybe<ItemContainer> FindByName(string name)
         {
             if (_holsters.TryGetValue(name, out var holster))
             {
                 return Maybe.Some(holster);
             }
 
-            return Maybe.None<IHolster>();
+            return Maybe.None<ItemContainer>();
         }
 
-        public IEnumerable<IHolster> GetAll()
+        public IEnumerable<ItemContainer> GetAll()
         {
             return _holsters.Values;
         }

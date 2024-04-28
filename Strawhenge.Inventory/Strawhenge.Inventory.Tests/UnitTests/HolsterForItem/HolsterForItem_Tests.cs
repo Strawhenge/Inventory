@@ -2,6 +2,7 @@
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items.HolsterForItem;
 using System;
+using Xunit;
 
 namespace Strawhenge.Inventory.Tests.UnitTests
 {
@@ -9,7 +10,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
     {
         readonly HolsterForItem _holsterForItem;
         readonly Mock<IItem> _itemMock;
-        readonly Mock<IHolster> _holsterMock;
+        readonly ItemContainer _itemContainer;
         readonly Mock<IHolsterForItemView> _holsterItemViewMock;
         readonly AssertableCallback _callback;
 
@@ -17,19 +18,24 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         {
             _itemMock = new Mock<IItem>();
             _holsterItemViewMock = new Mock<IHolsterForItemView>();
-            _holsterItemViewMock.Setup(x => x.DrawLeftHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            _holsterItemViewMock.Setup(x => x.DrawRightHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            _holsterItemViewMock.Setup(x => x.Hide(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            _holsterItemViewMock.Setup(x => x.PutAwayLeftHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            _holsterItemViewMock.Setup(x => x.PutAwayRightHand(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
-            _holsterItemViewMock.Setup(x => x.Show(It.IsAny<Action>())).Callback<Action>(callback => callback?.Invoke());
+            _holsterItemViewMock.Setup(x => x.DrawLeftHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _holsterItemViewMock.Setup(x => x.DrawRightHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _holsterItemViewMock.Setup(x => x.Hide(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _holsterItemViewMock.Setup(x => x.PutAwayLeftHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _holsterItemViewMock.Setup(x => x.PutAwayRightHand(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
+            _holsterItemViewMock.Setup(x => x.Show(It.IsAny<Action>()))
+                .Callback<Action>(callback => callback?.Invoke());
 
-            _holsterMock = new Mock<IHolster>();
-            _holsterMock.SetupGetNone(x => x.CurrentItem);
+            _itemContainer = new ItemContainer(nameof(HolsterForItem_Tests));
 
             _holsterForItem = new HolsterForItem(
                 _itemMock.Object,
-                _holsterMock.Object,
+                _itemContainer,
                 _holsterItemViewMock.Object);
 
             _callback = new AssertableCallback();
@@ -43,20 +49,19 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
         void ArrangeEquipped()
         {
-            _holsterMock.Setup(x => x.IsCurrentItem(_itemMock.Object))
-                .Returns(true);
+            _itemContainer.SetItem(_itemMock.Object);
         }
 
         void VerifyItemWasSetToContainer()
         {
-            _holsterMock.VerifyOnce(
-                x => x.SetItem(_itemMock.Object));
+            Assert.True(
+                _itemContainer.IsCurrentItem(_itemMock.Object));
         }
 
         void VerifyItemWasUnsetFromContainer()
         {
-            _holsterMock.VerifyOnce(
-                x => x.UnsetItem());
+            Assert.False(
+                _itemContainer.IsCurrentItem(_itemMock.Object));
         }
 
         void VerifyNoOtherViewCalls()

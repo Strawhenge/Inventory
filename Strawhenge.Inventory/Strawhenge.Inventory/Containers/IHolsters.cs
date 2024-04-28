@@ -5,9 +5,9 @@ namespace Strawhenge.Inventory.Containers
 {
     public interface IHolsters
     {
-        IEnumerable<IHolster> GetAll();
+        IEnumerable<ItemContainer> GetAll();
 
-        Maybe<IHolster> FindByName(string name);
+        Maybe<ItemContainer> FindByName(string name);
 
         void Add(string name);
     }
