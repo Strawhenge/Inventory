@@ -249,6 +249,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8d8f7da6af44f8b054d154f9b7e186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slotNameText: {fileID: 68974334040019951}
+  _itemNameText: {fileID: 68974333682644641}
+  _unequipButton: {fileID: 68974335321731999}
 --- !u!1 &68974334777803800
 GameObject:
   m_ObjectHideFlags: 0
