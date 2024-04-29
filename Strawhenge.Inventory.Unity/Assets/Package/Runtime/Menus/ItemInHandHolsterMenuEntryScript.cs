@@ -1,5 +1,4 @@
 using Strawhenge.Inventory.Items.HolsterForItem;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 

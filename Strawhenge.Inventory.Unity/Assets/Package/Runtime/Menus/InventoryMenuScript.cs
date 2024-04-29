@@ -1,9 +1,6 @@
 using Strawhenge.Inventory.Unity.Monobehaviours;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Strawhenge.Inventory.Unity
 {
@@ -24,6 +21,8 @@ namespace Strawhenge.Inventory.Unity
         {
             yield return new WaitUntil(() => _inventoryScript.IsConfigurationComplete);
 
+            // Sub menus currently must be configured whilst the canvas is enabled, otherwise they are positioned wrong.
+            // Remove this wait when a solution is found.
             yield return new WaitUntil(() => _canvas.enabled);
 
             _apparelSlotsMenu.Set(_inventoryScript.Inventory.ApparelSlots);
