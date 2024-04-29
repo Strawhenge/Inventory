@@ -1,3 +1,5 @@
+using Strawhenge.Common;
+using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using System.Collections;
@@ -11,6 +13,8 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] ApparelSlotsMenuScript _apparelSlotsMenu;
         [SerializeField] HandsMenuScript _handsMenu;
         [SerializeField] HolstersMenuScript _holstersMenu;
+        [SerializeField] EventScriptableObject[] _openEvents;
+        [SerializeField] EventScriptableObject[] _closeEvents;
         [SerializeField] InventoryScript _inventoryScript;
 
         public InventoryMenuScriptContainer Container { private get; set; }
@@ -42,6 +46,7 @@ namespace Strawhenge.Inventory.Unity
         [ContextMenu(nameof(Open))]
         public void Open()
         {
+            _openEvents.ForEach(x => x.Invoke(gameObject));
             _canvas.enabled = true;
         }
 
@@ -49,6 +54,7 @@ namespace Strawhenge.Inventory.Unity
         public void Close()
         {
             _canvas.enabled = false;
+            _closeEvents.ForEach(x => x.Invoke(gameObject));
         }
     }
 }

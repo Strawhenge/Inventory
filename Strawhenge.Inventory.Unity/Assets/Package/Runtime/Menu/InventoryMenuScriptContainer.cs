@@ -1,4 +1,5 @@
 ﻿using Strawhenge.Common.Logging;
+using System;
 
 namespace Strawhenge.Inventory.Unity
 {
@@ -12,17 +13,13 @@ namespace Strawhenge.Inventory.Unity
             _logger = logger;
         }
 
-        internal void Set(InventoryMenuScript menu)
-        {
-            _menu = menu;
-        }
+        public event Action Opened;
 
-        internal void Clear()
-        {
-            _menu = null;
-        }
+        public event Action Closed;
 
-        void IInventoryMenu.Open()
+        public bool IsOpen { get; private set; }
+
+        public void Open()
         {
             if (ReferenceEquals(_menu, null))
             {
@@ -31,9 +28,11 @@ namespace Strawhenge.Inventory.Unity
             }
 
             _menu.Open();
+            IsOpen = true;
+            Opened?.Invoke();
         }
 
-        void IInventoryMenu.Close()
+        public void Close()
         {
             if (ReferenceEquals(_menu, null))
             {
@@ -42,6 +41,18 @@ namespace Strawhenge.Inventory.Unity
             }
 
             _menu.Close();
+            IsOpen = false;
+            Closed?.Invoke();
+        }
+
+        internal void Set(InventoryMenuScript menu)
+        {
+            _menu = menu;
+        }
+
+        internal void Clear()
+        {
+            _menu = null;
         }
     }
 }
