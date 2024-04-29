@@ -125,7 +125,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644332926744604608}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd621f7603ed0af4f8920dfe0c8c6887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 644332926744604615}
   _apparelSlotsMenu: {fileID: 652043029062792566}
   _handsMenu: {fileID: 8452032457824202028}
   _holstersMenu: {fileID: 2175479984164495061}
