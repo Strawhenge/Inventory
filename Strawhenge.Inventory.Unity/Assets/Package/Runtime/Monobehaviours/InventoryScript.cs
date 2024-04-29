@@ -25,9 +25,9 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 
         public bool IsConfigurationComplete { get; private set; }
 
-        public IItemManager ItemManager { get; set; }
+        public IInventory Inventory { get; set; }
 
-        public ApparelManager ApparelManager { get; set; }
+        public ApparelSlotScripts ApparelSlots { private get; set; }
 
         public HandComponents HandComponents { private get; set; }
 
@@ -68,18 +68,18 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 
             foreach (var item in _itemsInHolsters.Where(x => x != null && x._item != null && x._holster != null))
             {
-                ItemManager
-                    .Manage(item._item)
+                Inventory
+                    .CreateItem(item._item)
                     .Holsters
                     .FirstOrDefault(x => x.HolsterName.Equals(item._holster.Name))?
                     .Equip();
             }
 
             foreach (var apparelSlot in GetComponentsInChildren<ApparelSlotScript>())
-                ApparelManager.AddSlot(apparelSlot);
+                ApparelSlots.Add(apparelSlot);
 
             foreach (var apparelPiece in _apparel)
-                ApparelManager.Create(apparelPiece).Equip();
+                Inventory.CreateApparelPiece(apparelPiece).Equip();
 
             IsConfigurationComplete = true;
         }

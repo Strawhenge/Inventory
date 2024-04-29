@@ -2,7 +2,7 @@
 
 namespace Strawhenge.Inventory.Apparel
 {
-    public class ApparelSlot
+    public class ApparelSlot : IApparelSlot
     {
         public ApparelSlot(string name)
         {
@@ -11,17 +11,17 @@ namespace Strawhenge.Inventory.Apparel
 
         public string Name { get; }
 
-        public Maybe<ApparelPiece> CurrentPiece { get; private set; } = Maybe.None<ApparelPiece>();
+        public Maybe<IApparelPiece> CurrentPiece { get; private set; } = Maybe.None<IApparelPiece>();
 
-        internal void Set(ApparelPiece piece)
+        internal void Set(IApparelPiece piece)
         {
             CurrentPiece.Do(x => x.Unequip());
-            CurrentPiece = piece;
+            CurrentPiece = Maybe.Some(piece);
         }
 
         internal void Unset()
         {
-            CurrentPiece = Maybe.None<ApparelPiece>();
+            CurrentPiece = Maybe.None<IApparelPiece>();
         }
     }
 }

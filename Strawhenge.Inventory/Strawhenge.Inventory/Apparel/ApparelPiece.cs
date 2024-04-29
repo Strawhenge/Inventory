@@ -1,6 +1,6 @@
 ﻿namespace Strawhenge.Inventory.Apparel
 {
-    public class ApparelPiece
+    public class ApparelPiece : IApparelPiece
     {
         readonly ApparelSlot _slot;
         readonly IApparelView _view;

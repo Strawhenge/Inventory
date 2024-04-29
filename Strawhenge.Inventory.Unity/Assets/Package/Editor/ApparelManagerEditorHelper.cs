@@ -8,13 +8,13 @@ namespace Strawhenge.Inventory.Unity.Editor
 {
     public class ApparelManagerEditorHelper
     {
-        readonly EditorTarget<ApparelManager> _target;
-        ApparelPiece _piece;
+        readonly EditorTarget<IInventory> _target;
+        IApparelPiece _piece;
         bool _displaySlots;
 
-        public ApparelManagerEditorHelper(Func<ApparelManager> getTarget)
+        public ApparelManagerEditorHelper(Func<IInventory> getTarget)
         {
-            _target = new EditorTarget<ApparelManager>(getTarget);
+            _target = new EditorTarget<IInventory>(getTarget);
         }
 
         public void Inspect()
@@ -31,9 +31,10 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
             else
             {
-                var scriptableObject = (ApparelPieceScriptableObject)EditorGUILayout.ObjectField(null, typeof(ApparelPieceScriptableObject), allowSceneObjects: true);
+                var scriptableObject = (ApparelPieceScriptableObject)EditorGUILayout.ObjectField(null,
+                    typeof(ApparelPieceScriptableObject), allowSceneObjects: true);
                 if (scriptableObject != null)
-                    _piece = _target.Instance.Create(scriptableObject);
+                    _piece = _target.Instance.CreateApparelPiece(scriptableObject);
             }
 
             InspectSlots();
@@ -48,16 +49,16 @@ namespace Strawhenge.Inventory.Unity.Editor
             if (!_displaySlots)
                 return;
 
-            foreach (var slot in _target.Instance.Slots)
+            foreach (var slot in _target.Instance.ApparelSlots)
             {
                 EditorGUILayout.LabelField($"{slot.Name}:");
 
                 slot.CurrentPiece
-                    .Do(x => InspectPiece(x));
+                    .Do(InspectPiece);
             }
         }
 
-        void InspectPiece(ApparelPiece piece)
+        void InspectPiece(IApparelPiece piece)
         {
             var info = $"{piece.Name}{Environment.NewLine}Slot: {piece.SlotName}";
 

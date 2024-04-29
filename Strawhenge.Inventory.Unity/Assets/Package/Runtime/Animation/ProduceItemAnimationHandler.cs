@@ -1,4 +1,5 @@
-﻿using Strawhenge.Common.Unity.AnimatorBehaviours;
+﻿using Strawhenge.Common.Unity;
+using Strawhenge.Common.Unity.AnimatorBehaviours;
 using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace Strawhenge.Inventory.Unity.Animation
         public ProduceItemAnimationHandler(Animator animator)
         {
             _animator = animator;
-
+            
             var eventsScript = animator.GetOrAddComponent<AnimationEventReceiverScript>();
             eventsScript.GrabItemFromHolster += OnGrabItem;
             eventsScript.ReleaseItemIntoHolster += OnReleaseItem;
