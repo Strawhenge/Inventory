@@ -1,4 +1,5 @@
 using Strawhenge.Inventory.Unity.Monobehaviours;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,9 +13,17 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] HolstersMenuScript _holstersMenu;
         [SerializeField] InventoryScript _inventoryScript;
 
+        public InventoryMenuScriptContainer Container { private get; set; }
+
         void Start()
         {
+            Container.Set(menu: this);
             StartCoroutine(Setup());
+        }
+
+        void OnDestroy()
+        {
+            Container.Clear();
         }
 
         IEnumerator Setup()
@@ -30,14 +39,14 @@ namespace Strawhenge.Inventory.Unity
             _handsMenu.Set(_inventoryScript.Inventory.LeftHand, _inventoryScript.Inventory.RightHand);
         }
 
-        [ContextMenu(nameof(Show))]
-        public void Show()
+        [ContextMenu(nameof(Open))]
+        public void Open()
         {
             _canvas.enabled = true;
         }
 
-        [ContextMenu(nameof(Hide))]
-        public void Hide()
+        [ContextMenu(nameof(Close))]
+        public void Close()
         {
             _canvas.enabled = false;
         }
