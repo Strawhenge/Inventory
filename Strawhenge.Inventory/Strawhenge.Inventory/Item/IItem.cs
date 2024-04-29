@@ -17,7 +17,9 @@ namespace Strawhenge.Inventory
 
         IEnumerable<IHolsterForItem> Holsters { get; }
 
-        ClearFromHandsPreference ClearFromHandsPreference { get; set; }
+        ClearFromHandsPreference ClearFromHandsPreference { set; }
+
+        ClearFromHolsterPreference ClearFromHolsterPreference { set; }
 
         void HoldLeftHand(Action callback = null);
 

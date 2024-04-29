@@ -1,4 +1,5 @@
-﻿using FunctionalUtilities;
+﻿using System;
+using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.Containers
 {
@@ -10,6 +11,8 @@ namespace Strawhenge.Inventory.Containers
             CurrentItem = Maybe.None<IItem>();
         }
 
+        public event Action Changed;
+
         public string Name { get; }
 
         public Maybe<IItem> CurrentItem { get; private set; }
@@ -17,11 +20,13 @@ namespace Strawhenge.Inventory.Containers
         public void SetItem(IItem item)
         {
             CurrentItem = Maybe.Some(item);
+            Changed?.Invoke();
         }
 
         public void UnsetItem()
         {
             CurrentItem = Maybe.None<IItem>();
+            Changed?.Invoke();
         }
 
         public bool IsCurrentItem(IItem item) =>

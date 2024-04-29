@@ -40,7 +40,17 @@ namespace Strawhenge.Inventory.Items
 
         public bool IsTwoHanded => _size.IsTwoHanded;
 
-        public ClearFromHandsPreference ClearFromHandsPreference { get; set; } = ClearFromHandsPreference.Disappear;
+        public ClearFromHandsPreference ClearFromHandsPreference { private get; set; } =
+            ClearFromHandsPreference.Disappear;
+
+        public ClearFromHolsterPreference ClearFromHolsterPreference
+        {
+            set
+            {
+                foreach (var holster in _holsters)
+                    holster.ClearFromHolsterPreference = value;
+            }
+        }
 
         public void Drop(Action callback = null)
         {

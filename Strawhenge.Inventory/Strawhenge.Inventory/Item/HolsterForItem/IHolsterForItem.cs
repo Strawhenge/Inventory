@@ -8,6 +8,8 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
 
         bool IsEquipped { get; }
 
+        ClearFromHolsterPreference ClearFromHolsterPreference { set; }
+
         void Equip(Action callback = null);
 
         void Unequip(Action callback = null);
