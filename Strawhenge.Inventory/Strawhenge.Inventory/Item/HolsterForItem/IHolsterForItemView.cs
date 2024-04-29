@@ -17,5 +17,7 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
         void Show(Action callback = null);
 
         void Hide(Action callback = null);
+
+        void Drop(Action callback = null);
     }
 }

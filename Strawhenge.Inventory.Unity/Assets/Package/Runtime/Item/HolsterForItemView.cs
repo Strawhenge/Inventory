@@ -13,7 +13,8 @@ namespace Strawhenge.Inventory.Unity.Items
         readonly ProcedureQueue _procedureQueue;
         readonly IProcedureFactory _procedureFactory;
 
-        public HolsterForItemView(IItemHelper item, IHolsterComponent holster, ProcedureQueue procedureQueue, IProcedureFactory procedureFactory)
+        public HolsterForItemView(IItemHelper item, IHolsterComponent holster, ProcedureQueue procedureQueue,
+            IProcedureFactory procedureFactory)
         {
             _item = item;
             _holster = holster;
@@ -59,6 +60,12 @@ namespace Strawhenge.Inventory.Unity.Items
         {
             Schedule(
                 _procedureFactory.ShowInHolster(_item, _holster), callback);
+        }
+
+        public void Drop(Action callback = null)
+        {
+            Schedule(
+                _procedureFactory.SpawnAndDrop(_item), callback);
         }
 
         void Schedule(Procedure procedure, Action callback)
