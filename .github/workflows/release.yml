@@ -2,9 +2,6 @@ name: Release
 
 on:
   workflow_dispatch:  
-  
-env:
-  VERSION: 1.1.${{ github.run_number }}
         
 jobs: 
   Release:    
@@ -12,7 +9,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
+    - name: Version
+      run: |
+        echo "VERSION=1.2.$(${{ github.run_number }} - 12)" >> $env:GITHUB_ENV
+        
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
