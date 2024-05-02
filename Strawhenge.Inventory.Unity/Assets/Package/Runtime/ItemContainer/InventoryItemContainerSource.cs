@@ -39,6 +39,7 @@ namespace Strawhenge.Inventory.Unity
                             item.ClearFromHolsterPreference = ClearFromHolsterPreference.Disappear;
                             item.ClearFromHands();
                             item.UnequipFromHolster();
+                            _inventory.RemoveFromStorage(item);
                         }))
                         .AsEnumerable();
                 })
