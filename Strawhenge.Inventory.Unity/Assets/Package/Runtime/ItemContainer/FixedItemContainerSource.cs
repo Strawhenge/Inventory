@@ -19,18 +19,20 @@ namespace Strawhenge.Inventory.Unity
             _apparelPieces = apparelPieces.ToList();
         }
 
-        public IReadOnlyList<IContainedItem<IItemData>> Items => _items
-            .Select(item =>
-                new ContainedItem<IItemData>(
-                    item,
-                    removeStrategy: () => _items.Remove(item)))
-            .ToArray();
+        public IReadOnlyList<IContainedItem<IItemData>> GetItems() =>
+            _items
+                .Select(item =>
+                    new ContainedItem<IItemData>(
+                        item,
+                        removeStrategy: () => _items.Remove(item)))
+                .ToArray();
 
-        public IReadOnlyList<IContainedItem<IApparelPieceData>> ApparelPieces => _apparelPieces
-            .Select(apparelPiece =>
-                new ContainedItem<IApparelPieceData>(
-                    apparelPiece,
-                    removeStrategy: () => _apparelPieces.Remove(apparelPiece)))
-            .ToArray();
+        public IReadOnlyList<IContainedItem<IApparelPieceData>> GetApparelPieces() =>
+            _apparelPieces
+                .Select(apparelPiece =>
+                    new ContainedItem<IApparelPieceData>(
+                        apparelPiece,
+                        removeStrategy: () => _apparelPieces.Remove(apparelPiece)))
+                .ToArray();
     }
 }

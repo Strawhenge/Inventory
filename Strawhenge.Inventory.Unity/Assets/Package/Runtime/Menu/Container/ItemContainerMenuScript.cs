@@ -20,10 +20,10 @@ namespace Strawhenge.Inventory.Unity
 
         public void Open(IItemContainerSource source)
         {
-            foreach (var item in source.Items)
+            foreach (var item in source.GetItems())
                 AddItem(item);
 
-            foreach (var apparelPiece in source.ApparelPieces)
+            foreach (var apparelPiece in source.GetApparelPieces())
                 AddApparelPiece(apparelPiece);
 
             _canvas.enabled = true;
