@@ -1,4 +1,6 @@
 ﻿using Strawhenge.Inventory.Unity.Apparel;
+using Strawhenge.Inventory.Unity.Data;
+using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,12 +8,23 @@ namespace Strawhenge.Inventory.Unity
 {
     public class FixedItemContainerSource : IItemContainerSource
     {
+        readonly List<ItemScriptableObject> _items;
         readonly List<IApparelPieceData> _apparelPieces;
 
-        public FixedItemContainerSource(IEnumerable<IApparelPieceData> apparelPieces)
+        public FixedItemContainerSource(
+            IEnumerable<ItemScriptableObject> items,
+            IEnumerable<IApparelPieceData> apparelPieces)
         {
+            _items = items.ToList();
             _apparelPieces = apparelPieces.ToList();
         }
+
+        public IReadOnlyList<IContainedItem<IItemData>> Items => _items
+            .Select(item =>
+                new ContainedItem<IItemData>(
+                    item,
+                    removeStrategy: () => _items.Remove(item)))
+            .ToArray();
 
         public IReadOnlyList<IContainedItem<IApparelPieceData>> ApparelPieces => _apparelPieces
             .Select(apparelPiece =>
