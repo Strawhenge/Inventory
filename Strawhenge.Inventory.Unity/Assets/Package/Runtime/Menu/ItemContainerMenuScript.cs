@@ -1,5 +1,6 @@
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Monobehaviours;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,13 @@ namespace Strawhenge.Inventory.Unity
                 var menuEntry = Instantiate(_apparelPieceMenuEntryPrefab, parent: _entriesContainer);
                 menuEntry.Set(_inventoryScript.Inventory, apparelPiece);
                 _menuEntries.Add(menuEntry.gameObject);
+
+                apparelPiece.Removed += () =>
+                {
+                    if (_menuEntries.Contains(menuEntry.gameObject))
+                        _menuEntries.Remove(menuEntry.gameObject);
+                    Destroy(menuEntry.gameObject);
+                };
             }
 
             _canvas.enabled = true;
@@ -35,17 +43,5 @@ namespace Strawhenge.Inventory.Unity
             _menuEntries.Clear();
             _canvas.enabled = false;
         }
-    }
-
-    public interface IItemContainerSource
-    {
-        IReadOnlyList<IContainedItem<IApparelPieceData>> ApparelPieces { get; }
-    }
-
-    public interface IContainedItem<T>
-    {
-        T Item { get; }
-
-        void RemoveFromContainer();
     }
 }
