@@ -19,6 +19,8 @@
 
         public bool IsEquipped { get; private set; }
 
+        public UnequipPreference UnequipPreference { private get; set; } = UnequipPreference.Disappear;
+
         public void Equip()
         {
             if (IsEquipped)
@@ -36,7 +38,7 @@
 
             IsEquipped = false;
             _slot.Unset();
-            _view.Unequip();
+            UnequipPreference.PerformUnequip(_view);
         }
     }
 }

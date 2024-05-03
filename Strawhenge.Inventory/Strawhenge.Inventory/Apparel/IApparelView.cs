@@ -5,5 +5,7 @@
         void Equip();
 
         void Unequip();
+
+        void Drop();
     }
 }

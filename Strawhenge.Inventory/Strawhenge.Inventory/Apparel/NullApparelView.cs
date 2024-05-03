@@ -9,5 +9,9 @@
         public void Unequip()
         {
         }
+
+        public void Drop()
+        {
+        }
     }
 }

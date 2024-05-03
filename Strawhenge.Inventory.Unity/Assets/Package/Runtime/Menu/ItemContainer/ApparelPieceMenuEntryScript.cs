@@ -1,3 +1,4 @@
+using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Unity.Apparel;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,9 +33,9 @@ namespace Strawhenge.Inventory.Unity
             if (_inventory == null || _containedItem == null)
                 return;
 
-            _inventory
-                .CreateApparelPiece(_containedItem.Item)
-                .Equip();
+            var apparelPiece = _inventory.CreateApparelPiece(_containedItem.Item);
+            apparelPiece.UnequipPreference = UnequipPreference.Drop;
+            apparelPiece.Equip();
 
             _containedItem.RemoveFromContainer();
         }

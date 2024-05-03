@@ -52,5 +52,10 @@ namespace Strawhenge.Inventory.Unity.Apparel
         {
             Object.Destroy(_apparelGameObject);
         }
+
+        public void Drop()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

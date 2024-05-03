@@ -1,4 +1,5 @@
 ﻿using Strawhenge.Common.Logging;
+using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Data;
 
@@ -63,9 +64,9 @@ namespace Strawhenge.Inventory.Unity.Loader
                     continue;
                 }
 
-                _inventory
-                    .CreateApparelPiece(apparel)
-                    .Equip();
+                var apparelPiece = _inventory.CreateApparelPiece(apparel);
+                apparelPiece.UnequipPreference = UnequipPreference.Drop;
+                apparelPiece.Equip();
             }
         }
     }
