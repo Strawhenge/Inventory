@@ -32,13 +32,10 @@ namespace Strawhenge.Inventory.Unity.Apparel
             }
 
             var view = new ApparelView(
+                source,
                 _gameObjectInitializer,
                 _layerAccessor,
-                source.Prefab,
-                slotScript.transform,
-                source.Position,
-                source.Rotation,
-                source.Scale);
+                slotScript.transform);
 
             return new ApparelPiece(source.Name, slotScript.ApparelSlot, view);
         }
