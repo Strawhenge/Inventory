@@ -1,3 +1,5 @@
+using Strawhenge.Common;
+using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Monobehaviours;
@@ -12,6 +14,8 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] RectTransform _entriesContainer;
         [SerializeField] ItemMenuEntryScript _itemMenuEntryPrefab;
         [SerializeField] ApparelPieceMenuEntryScript _apparelPieceMenuEntryPrefab;
+        [SerializeField] EventScriptableObject[] _openEvents;
+        [SerializeField] EventScriptableObject[] _closeEvents;
         [SerializeField] InventoryScript _inventoryScript;
 
         readonly List<GameObject> _menuEntries = new List<GameObject>();
@@ -32,6 +36,7 @@ namespace Strawhenge.Inventory.Unity
                 AddApparelPiece(apparelPiece);
 
             _canvas.enabled = true;
+            _openEvents.ForEach(x => x.Invoke(gameObject));
         }
 
         public void Close()
@@ -41,6 +46,7 @@ namespace Strawhenge.Inventory.Unity
 
             _menuEntries.Clear();
             _canvas.enabled = false;
+            _closeEvents.ForEach(x => x.Invoke(gameObject));
         }
 
         void AddItem(IContainedItem<IItemData> item)
