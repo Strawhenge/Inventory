@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.SymbolStore;
 using System.Linq;
 using Moq;
 using Strawhenge.Inventory.Containers;
