@@ -1,7 +1,4 @@
 using Strawhenge.Inventory.Unity.Apparel;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 

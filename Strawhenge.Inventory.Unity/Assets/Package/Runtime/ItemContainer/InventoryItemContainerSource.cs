@@ -1,5 +1,4 @@
-﻿using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Unity.Apparel;
+﻿using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Data;
 using System.Collections.Generic;
 using System.Linq;

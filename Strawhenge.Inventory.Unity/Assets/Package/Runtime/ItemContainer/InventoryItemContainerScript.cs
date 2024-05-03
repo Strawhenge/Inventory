@@ -1,6 +1,5 @@
 ﻿using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Data;
-using System;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity

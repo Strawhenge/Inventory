@@ -4,7 +4,6 @@ using Strawhenge.Inventory.Unity.Menu.Apparel;
 using Strawhenge.Inventory.Unity.Menu.Hands;
 using Strawhenge.Inventory.Unity.Menu.Holsters;
 using Strawhenge.Inventory.Unity.Monobehaviours;
-using System;
 using System.Collections;
 using UnityEngine;
 
