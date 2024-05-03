@@ -8,16 +8,20 @@ namespace Strawhenge.Inventory.Unity
 {
     public class FixedItemContainerSource : IItemContainerSource
     {
-        readonly List<ItemScriptableObject> _items;
+        readonly List<IItemData> _items;
         readonly List<IApparelPieceData> _apparelPieces;
 
         public FixedItemContainerSource(
-            IEnumerable<ItemScriptableObject> items,
+            IEnumerable<IItemData> items,
             IEnumerable<IApparelPieceData> apparelPieces)
         {
             _items = items.ToList();
             _apparelPieces = apparelPieces.ToList();
         }
+
+        public void Add(IItemData item) => _items.Add(item);
+
+        public void Add(IApparelPieceData apparelPiece) => _apparelPieces.Add(apparelPiece);
 
         public IReadOnlyList<IContainedItem<IItemData>> GetItems() =>
             _items
