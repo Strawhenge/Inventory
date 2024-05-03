@@ -30,14 +30,7 @@ namespace Strawhenge.Inventory.Unity
                 {
                     return _itemRepository
                         .FindByName(item.Name)
-                        .Map(data => new ContainedItem<IItemData>(data, () =>
-                        {
-                            item.ClearFromHandsPreference = ClearFromHandsPreference.Disappear;
-                            item.ClearFromHolsterPreference = ClearFromHolsterPreference.Disappear;
-                            item.ClearFromHands();
-                            item.UnequipFromHolster();
-                            _inventory.RemoveFromStorage(item);
-                        }))
+                        .Map(data => new ContainedItem<IItemData>(data, removeStrategy: item.Discard))
                         .AsEnumerable();
                 })
                 .ToArray();
