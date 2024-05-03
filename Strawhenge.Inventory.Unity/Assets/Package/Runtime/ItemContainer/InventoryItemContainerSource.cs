@@ -24,11 +24,8 @@ namespace Strawhenge.Inventory.Unity
 
         public IReadOnlyList<IContainedItem<IItemData>> GetItems()
         {
-            return _inventory.LeftHand.CurrentItem.AsEnumerable()
-                .Concat(_inventory.RightHand.CurrentItem.AsEnumerable())
-                .Concat(_inventory.Holsters.SelectMany(x => x.CurrentItem.AsEnumerable()))
-                .Concat(_inventory.StoredItems)
-                .Distinct()
+            return _inventory
+                .AllItems()
                 .SelectMany(item =>
                 {
                     return _itemRepository
