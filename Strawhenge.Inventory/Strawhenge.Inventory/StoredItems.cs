@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory
             _items.Add(item);
             item.ClearFromHandsPreference = ClearFromHandsPreference.PutAway;
             item.ClearFromHolsterPreference = ClearFromHolsterPreference.Disappear;
-            item.Dropped += Remove;
+            item.Discarded += Remove;
         }
 
         public void Remove(IItem item)
@@ -28,7 +28,7 @@ namespace Strawhenge.Inventory
             _items.Remove(item);
             item.ClearFromHandsPreference = ClearFromHandsPreference.Drop;
             item.ClearFromHolsterPreference = ClearFromHolsterPreference.Drop;
-            item.Dropped -= Remove;
+            item.Discarded -= Remove;
         }
     }
 }

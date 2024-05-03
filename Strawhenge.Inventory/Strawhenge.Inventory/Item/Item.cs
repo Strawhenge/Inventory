@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory.Items
         readonly ItemSize _size;
         readonly IHolstersForItem _holsters;
 
-        public event Action<IItem> Dropped;
+        public event Action<IItem> Discarded;
 
         public Item(
             string name,
@@ -34,7 +34,7 @@ namespace Strawhenge.Inventory.Items
 
         public string Name { get; }
 
-        public IEnumerable<IHolsterForItem> Holsters => _holsters;
+        public IEnumerable<IEquipItemToHolster> Holsters => _holsters;
 
         public bool IsInHand => IsInLeftHand() || IsInRightHand();
 
@@ -69,7 +69,7 @@ namespace Strawhenge.Inventory.Items
                 _itemView.SpawnAndDrop(callback);
             }
 
-            Dropped?.Invoke(this);
+            Discarded?.Invoke(this);
         }
 
         public void HoldLeftHand(Action callback = null)
@@ -207,6 +207,25 @@ namespace Strawhenge.Inventory.Items
             }
 
             callback?.Invoke();
+        }
+
+        public void Discard()
+        {
+            if (IsInLeftHand())
+            {
+                _hands.UnsetItemLeftHand();
+                _itemView.Disappear();
+            }
+            else if (IsInRightHand())
+            {
+                _hands.UnsetItemRightHand();
+                _itemView.Disappear();
+            }
+
+            if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
+                holster.Discard();
+
+            Discarded?.Invoke(this);
         }
 
         void ClearLeftHand()

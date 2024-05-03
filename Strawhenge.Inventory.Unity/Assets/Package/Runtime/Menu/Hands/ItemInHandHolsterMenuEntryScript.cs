@@ -2,28 +2,28 @@ using Strawhenge.Inventory.Items.HolsterForItem;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.Menu.Hands
 {
     public class ItemInHandHolsterMenuEntryScript : MonoBehaviour
     {
         [SerializeField] Button _equipButton;
 
-        IHolsterForItem _holsterForItem;
+        IEquipItemToHolster _holster;
 
         void Awake()
         {
             _equipButton.onClick.AddListener(OnEquipButton);
         }
 
-        internal void Set(IHolsterForItem holsterForItem)
+        internal void Set(IEquipItemToHolster holster)
         {
-            _holsterForItem = holsterForItem;
-            _equipButton.GetComponentInChildren<Text>().text = holsterForItem.HolsterName;
+            _holster = holster;
+            _equipButton.GetComponentInChildren<Text>().text = holster.HolsterName;
         }
 
         void OnEquipButton()
         {
-            _holsterForItem?.Equip();
+            _holster?.Equip();
         }
     }
 }

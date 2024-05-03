@@ -60,6 +60,22 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
                 ClearFromHolsterPreference.PerformClear(_view, callback);
         }
 
+        public void Discard(Action callback = null)
+        {
+            if (!IsEquipped)
+            {
+                callback?.Invoke();
+                return;
+            }
+
+            _itemContainer.UnsetItem();
+
+            if (_item.IsInHand)
+                callback?.Invoke();
+            else
+                _view.Hide();
+        }
+
         public IHolsterForItemView GetView()
         {
             return _view;

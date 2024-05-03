@@ -13,9 +13,9 @@ namespace Strawhenge.Inventory.Tests.IntegrationTests
     public class TestItemViewsAreCalledCorrectly
     {
         readonly IItem _item;
-        readonly IHolsterForItem _firstHolster;
-        readonly IHolsterForItem _secondHolster;
-        readonly IHolsterForItem _thirdHolster;
+        readonly IEquipItemToHolster _firstHolster;
+        readonly IEquipItemToHolster _secondHolster;
+        readonly IEquipItemToHolster _thirdHolster;
         readonly MockSequence _sequence;
         readonly Mock<IItemView> _itemViewMock;
         readonly Mock<IHolsterForItemView> _firstHolsterViewMock;

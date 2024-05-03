@@ -1,11 +1,13 @@
 using Strawhenge.Common;
 using Strawhenge.Common.Unity;
+using Strawhenge.Inventory.Unity.Menu.Apparel;
+using Strawhenge.Inventory.Unity.Menu.Hands;
+using Strawhenge.Inventory.Unity.Menu.Holsters;
 using Strawhenge.Inventory.Unity.Monobehaviours;
-using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.Menu
 {
     public class InventoryMenuScript : MonoBehaviour
     {

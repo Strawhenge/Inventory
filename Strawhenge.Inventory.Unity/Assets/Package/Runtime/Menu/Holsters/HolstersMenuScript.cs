@@ -2,7 +2,7 @@ using Strawhenge.Inventory.Containers;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.Menu.Holsters
 {
     [RequireComponent(typeof(RectTransform))]
     public class HolstersMenuScript : MonoBehaviour

@@ -2,7 +2,7 @@ using Strawhenge.Inventory.Apparel;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.Menu.Apparel
 {
     public class ApparelSlotsMenuScript : MonoBehaviour
     {

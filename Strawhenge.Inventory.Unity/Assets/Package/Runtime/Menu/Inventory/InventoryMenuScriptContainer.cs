@@ -1,7 +1,7 @@
 ﻿using Strawhenge.Common.Logging;
 using System;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.Menu
 {
     public class InventoryMenuScriptContainer : IInventoryMenu
     {

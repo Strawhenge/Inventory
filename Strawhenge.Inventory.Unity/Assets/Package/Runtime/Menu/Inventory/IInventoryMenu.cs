@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.Menu
 {
     public interface IInventoryMenu
     {
