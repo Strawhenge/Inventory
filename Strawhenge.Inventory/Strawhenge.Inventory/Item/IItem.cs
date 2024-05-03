@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory
 
         bool IsTwoHanded { get; }
 
-        IEnumerable<IHolsterForItem> Holsters { get; }
+        IEnumerable<IEquipItemToHolster> Holsters { get; }
 
         ClearFromHandsPreference ClearFromHandsPreference { set; }
 

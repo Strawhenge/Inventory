@@ -34,7 +34,7 @@ namespace Strawhenge.Inventory.Items
 
         public string Name { get; }
 
-        public IEnumerable<IHolsterForItem> Holsters => _holsters;
+        public IEnumerable<IEquipItemToHolster> Holsters => _holsters;
 
         public bool IsInHand => IsInLeftHand() || IsInRightHand();
 
