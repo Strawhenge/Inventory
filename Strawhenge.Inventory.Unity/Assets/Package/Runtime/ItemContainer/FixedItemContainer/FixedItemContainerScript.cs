@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity
 {
-    public class ItemContainerScript : MonoBehaviour
+    public class FixedItemContainerScript : MonoBehaviour
     {
         [SerializeField] ItemScriptableObject[] _items;
         [SerializeField] ApparelPieceScriptableObject[] _apparelPieces;
