@@ -1,4 +1,6 @@
-﻿using Strawhenge.Inventory.Unity.Data;
+﻿using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Unity.Data;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,27 +29,20 @@ namespace Strawhenge.Inventory.Unity
             _itemNameText.text = containedItem.Item.Name;
         }
 
-        void OnHoldLeftHandButton()
+        void OnHoldLeftHandButton() => Hold(i => i.HoldLeftHand());
+
+        void OnHoldRightHandButton() => Hold(i => i.HoldRightHand());
+
+        void Hold(Action<IItem> hold)
         {
             if (_inventory == null || _containedItem == null)
                 return;
 
-            _inventory
-                .CreateItem(_containedItem.Item)
-                .HoldLeftHand();
-            
-            _containedItem.RemoveFromContainer();
-        }
+            var item = _inventory.CreateItem(_containedItem.Item);
+            item.ClearFromHandsPreference = ClearFromHandsPreference.Drop;
+            item.ClearFromHolsterPreference = ClearFromHolsterPreference.Drop;
+            hold(item);
 
-        void OnHoldRightHandButton()
-        {
-            if (_inventory == null || _containedItem == null)
-                return;
-
-            _inventory
-                .CreateItem(_containedItem.Item)
-                .HoldRightHand();
-            
             _containedItem.RemoveFromContainer();
         }
     }
