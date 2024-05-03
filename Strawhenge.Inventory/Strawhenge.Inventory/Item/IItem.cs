@@ -7,7 +7,7 @@ namespace Strawhenge.Inventory
 {
     public interface IItem
     {
-        event Action<IItem> Dropped;
+        event Action<IItem> Discarded;
 
         string Name { get; }
 
@@ -32,5 +32,7 @@ namespace Strawhenge.Inventory
         void ClearFromHands(Action callback = null);
 
         void UnequipFromHolster(Action callback = null);
+
+        void Discard();
     }
 }
