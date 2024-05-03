@@ -2,7 +2,7 @@ using Strawhenge.Inventory.Items.HolsterForItem;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.Menu.Hands
 {
     public class ItemInHandHolsterMenuEntryScript : MonoBehaviour
     {
