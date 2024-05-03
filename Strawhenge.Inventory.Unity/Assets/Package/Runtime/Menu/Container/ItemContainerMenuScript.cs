@@ -18,6 +18,13 @@ namespace Strawhenge.Inventory.Unity
 
         readonly List<GameObject> _menuEntries = new List<GameObject>();
 
+        public ItemContainerMenuScriptContainer MenuContainer { private get; set; }
+
+        void Start()
+        {
+            MenuContainer.Set(this);
+        }
+
         public void Open(IItemContainerSource source)
         {
             foreach (var item in source.GetItems())
