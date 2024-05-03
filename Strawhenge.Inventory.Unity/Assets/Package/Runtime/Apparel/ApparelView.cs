@@ -8,6 +8,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
         readonly IApparelPieceData _data;
         readonly IApparelGameObjectInitializer _gameObjectInitializer;
         readonly IApparelLayerAccessor _layerAccessor;
+        readonly IApparelDrop _apparelDrop;
         readonly Transform _slot;
 
         GameObject _apparelGameObject;
@@ -16,11 +17,13 @@ namespace Strawhenge.Inventory.Unity.Apparel
             IApparelPieceData data,
             IApparelGameObjectInitializer gameObjectInitializer,
             IApparelLayerAccessor layerAccessor,
+            IApparelDrop apparelDrop,
             Transform slot)
         {
             _data = data;
             _gameObjectInitializer = gameObjectInitializer;
             _layerAccessor = layerAccessor;
+            _apparelDrop = apparelDrop;
             _slot = slot;
         }
 
@@ -46,7 +49,8 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         public void Drop()
         {
-            throw new System.NotImplementedException();
+            Object.Destroy(_apparelGameObject);
+            _apparelDrop.Drop(_data);
         }
     }
 }
