@@ -1,12 +1,13 @@
 ﻿using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Strawhenge.Inventory.Unity
 {
-    public class FixedItemContainerSource : IItemContainerSource
+    public class FixedItemContainerSource : IItemContainerSource, IFixedItemContainerInfo
     {
         readonly List<IItemData> _items;
         readonly List<IApparelPieceData> _apparelPieces;
@@ -19,16 +20,32 @@ namespace Strawhenge.Inventory.Unity
             _apparelPieces = apparelPieces.ToList();
         }
 
-        public void Add(IItemData item) => _items.Add(item);
+        public event Action StateChanged;
 
-        public void Add(IApparelPieceData apparelPiece) => _apparelPieces.Add(apparelPiece);
+        public int Count => _items.Count + _apparelPieces.Count;
+
+        public void Add(IItemData item)
+        {
+            _items.Add(item);
+            StateChanged?.Invoke();
+        }
+
+        public void Add(IApparelPieceData apparelPiece)
+        {
+            _apparelPieces.Add(apparelPiece);
+            StateChanged?.Invoke();
+        }
 
         public IReadOnlyList<IContainedItem<IItemData>> GetItems() =>
             _items
                 .Select(item =>
                     new ContainedItem<IItemData>(
                         item,
-                        removeStrategy: () => _items.Remove(item)))
+                        removeStrategy: () =>
+                        {
+                            _items.Remove(item);
+                            StateChanged?.Invoke();
+                        }))
                 .ToArray();
 
         public IReadOnlyList<IContainedItem<IApparelPieceData>> GetApparelPieces() =>
@@ -36,7 +53,11 @@ namespace Strawhenge.Inventory.Unity
                 .Select(apparelPiece =>
                     new ContainedItem<IApparelPieceData>(
                         apparelPiece,
-                        removeStrategy: () => _apparelPieces.Remove(apparelPiece)))
+                        removeStrategy: () =>
+                        {
+                            _apparelPieces.Remove(apparelPiece);
+                            StateChanged?.Invoke();
+                        }))
                 .ToArray();
     }
 }
