@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
         {
             if (ReferenceEquals(_containerPrefab, null))
             {
-                _logger.LogError($"{nameof(FixedItemContainerScript)} is missing from apparel drop.");
+                _logger.LogError($"'{nameof(FixedItemContainerScript)}' is missing from apparel drop.");
                 return;
             }
 
