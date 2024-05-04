@@ -9,17 +9,20 @@ namespace Strawhenge.Inventory.Unity.Apparel
         readonly ApparelSlotScripts _apparelSlotScripts;
         readonly IApparelGameObjectInitializer _gameObjectInitializer;
         readonly IApparelLayerAccessor _layerAccessor;
+        readonly IApparelDrop _apparelDrop;
         readonly ILogger _logger;
 
         public ApparelPieceFactory(
             ApparelSlotScripts apparelSlotScripts,
             IApparelGameObjectInitializer gameObjectInitializer,
             IApparelLayerAccessor layerAccessor,
+            IApparelDrop apparelDrop,
             ILogger logger)
         {
             _apparelSlotScripts = apparelSlotScripts;
             _gameObjectInitializer = gameObjectInitializer;
             _layerAccessor = layerAccessor;
+            _apparelDrop = apparelDrop;
             _logger = logger;
         }
 
@@ -32,13 +35,11 @@ namespace Strawhenge.Inventory.Unity.Apparel
             }
 
             var view = new ApparelView(
+                source,
                 _gameObjectInitializer,
                 _layerAccessor,
-                source.Prefab,
-                slotScript.transform,
-                source.Position,
-                source.Rotation,
-                source.Scale);
+                _apparelDrop,
+                slotScript.transform);
 
             return new ApparelPiece(source.Name, slotScript.ApparelSlot, view);
         }

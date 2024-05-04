@@ -23,6 +23,8 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
         [FormerlySerializedAs("apparel"), SerializeField]
         ApparelPieceScriptableObject[] _apparel;
 
+        [SerializeField] FixedItemContainerScript _apparelContainerPrefab;
+
         public bool IsConfigurationComplete { get; private set; }
 
         public IInventory Inventory { get; set; }
@@ -32,6 +34,8 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
         public HandComponents HandComponents { private get; set; }
 
         public HolsterComponents HolsterComponents { private get; set; }
+
+        public ISetApparelContainerPrefab ApparelContainer { private get; set; }
 
         public InventoryLoader Loader { private get; set; }
 
@@ -80,6 +84,8 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 
             foreach (var apparelPiece in _apparel)
                 Inventory.CreateApparelPiece(apparelPiece).Equip();
+
+            ApparelContainer.Set(_apparelContainerPrefab);
 
             IsConfigurationComplete = true;
         }
