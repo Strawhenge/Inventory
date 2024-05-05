@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Strawhenge.Inventory.Apparel.Effects;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
@@ -10,6 +13,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
         [SerializeField] Vector3 _position;
         [SerializeField] Vector3 _rotation;
         [SerializeField] Vector3 _scale = new Vector3(1, 1, 1);
+        [SerializeField] EffectScriptableObject[] _effects;
 
         public string Name => name;
 
@@ -22,5 +26,9 @@ namespace Strawhenge.Inventory.Unity.Apparel
         public Quaternion Rotation => Quaternion.Euler(_rotation);
 
         public Vector3 Scale => _scale;
+
+        public IReadOnlyList<EffectData> Effects => _effects
+            .Select(x => x.Data)
+            .ToArray();
     }
 }
