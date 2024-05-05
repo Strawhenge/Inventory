@@ -28,5 +28,6 @@
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Strawhenge/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Unequip/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Unfixated/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Unfixate/@EntryIndexedValue">True</s:Boolean>
 	
 	</wpf:ResourceDictionary>
