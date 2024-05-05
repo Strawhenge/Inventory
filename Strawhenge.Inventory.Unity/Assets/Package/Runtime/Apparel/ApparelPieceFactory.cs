@@ -1,5 +1,7 @@
 ﻿using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
+using Strawhenge.Inventory.Apparel.Effects;
+using System.Linq;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
@@ -10,6 +12,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
         readonly IApparelGameObjectInitializer _gameObjectInitializer;
         readonly IApparelLayerAccessor _layerAccessor;
         readonly IApparelDrop _apparelDrop;
+        readonly IEffectFactory _effectFactory;
         readonly ILogger _logger;
 
         public ApparelPieceFactory(
@@ -17,12 +20,14 @@ namespace Strawhenge.Inventory.Unity.Apparel
             IApparelGameObjectInitializer gameObjectInitializer,
             IApparelLayerAccessor layerAccessor,
             IApparelDrop apparelDrop,
+            IEffectFactory effectFactory,
             ILogger logger)
         {
             _apparelSlotScripts = apparelSlotScripts;
             _gameObjectInitializer = gameObjectInitializer;
             _layerAccessor = layerAccessor;
             _apparelDrop = apparelDrop;
+            _effectFactory = effectFactory;
             _logger = logger;
         }
 
@@ -41,7 +46,9 @@ namespace Strawhenge.Inventory.Unity.Apparel
                 _apparelDrop,
                 slotScript.transform);
 
-            return new ApparelPiece(source.Name, slotScript.ApparelSlot, view);
+            var effects = source.Effects.Select(_effectFactory.Create);
+
+            return new ApparelPiece(source.Name, slotScript.ApparelSlot, view, effects);
         }
     }
 }
