@@ -4,20 +4,25 @@ using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace Strawhenge.Inventory.Unity.Monobehaviours
 {
     public class ItemScript : MonoBehaviour
     {
-        [FormerlySerializedAs("data"), SerializeField] 
+        [FormerlySerializedAs("data"), SerializeField]
         ItemScriptableObject _data;
 
-        [FormerlySerializedAs("onFixatedEvents"), SerializeField] 
+        [FormerlySerializedAs("onFixatedEvents"), SerializeField]
         EventScriptableObject[] _onFixatedEvents;
 
-        [FormerlySerializedAs("onUnfixatedEvents"), SerializeField] 
+        [SerializeField] UnityEvent _fixated;
+
+        [FormerlySerializedAs("onUnfixatedEvents"), SerializeField]
         EventScriptableObject[] _onUnfixatedEvents;
+
+        [SerializeField] UnityEvent _unfixated;
 
         readonly List<Collider> _ignoredColliders = new List<Collider>();
         IEnumerable<Collider> _colliders;
@@ -43,6 +48,8 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
             ResetIgnoredColliders();
             IgnoreColliders(bindToColliders);
 
+            _fixated.Invoke();
+
             foreach (var onFixate in _onFixatedEvents)
             {
                 if (onFixate != null)
@@ -53,6 +60,8 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
         public void Unfixate()
         {
             ResetIgnoredColliders();
+
+            _unfixated.Invoke();
 
             foreach (var onUnfixate in _onUnfixatedEvents)
             {
