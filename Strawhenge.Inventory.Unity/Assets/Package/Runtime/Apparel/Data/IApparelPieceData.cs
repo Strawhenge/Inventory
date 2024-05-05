@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
@@ -15,5 +16,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
         Quaternion Rotation { get; }
 
         Vector3 Scale { get; }
+
+        IReadOnlyList<IEffectData> Effects { get; }
     }
 }
