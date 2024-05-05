@@ -50,12 +50,12 @@ namespace Strawhenge.Inventory.Tests.UnitTests.ApparelEffects
         [Fact]
         public void Default_effect_should_return_when_corresponding_factory_not_implemented()
         {
-            var effect = _factory.Create(new NotImplementedEffectData());
+            var effect = _factory.Create(EffectData.From(new NotImplementedEffectData()));
 
             Assert.IsType<NullEffect>(effect);
         }
 
-        Effect CreateEffect() => _factory.Create(_data);
+        Effect CreateEffect() => _factory.Create(EffectData.From(_data));
 
         void VerifyEffectIsApplied() => Assert.Equal(InitialHealth + HealthIncrease, _health.Amount);
 

@@ -1,5 +1,4 @@
-﻿using System;
-using Strawhenge.Common.Factories;
+﻿using Strawhenge.Common.Factories;
 using Strawhenge.Common.Logging;
 
 namespace Strawhenge.Inventory.Apparel.Effects
@@ -15,7 +14,7 @@ namespace Strawhenge.Inventory.Apparel.Effects
             _logger = logger;
         }
 
-        public Effect Create(IEffectData data)
+        public Effect Create(EffectData data)
         {
             return data
                 .Create(_abstractFactory)
