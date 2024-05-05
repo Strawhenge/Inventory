@@ -20,7 +20,7 @@ namespace Strawhenge.Inventory.Apparel.Effects
                 .Create(_abstractFactory)
                 .Reduce(() =>
                 {
-                    _logger.LogError($"Effect factory for '{data.GetType().Name}' not found.");
+                    _logger.LogError($"Effect factory for '{data.DataType.Name}' not found.");
                     return NullEffect.Instance;
                 });
         }

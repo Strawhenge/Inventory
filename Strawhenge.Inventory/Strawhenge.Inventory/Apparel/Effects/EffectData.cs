@@ -1,3 +1,4 @@
+using System;
 using FunctionalUtilities;
 using Strawhenge.Common.Factories;
 
@@ -6,6 +7,8 @@ namespace Strawhenge.Inventory.Apparel.Effects
     public abstract class EffectData
     {
         public static EffectData<TData> From<TData>(TData data) => new EffectData<TData>(data);
+
+        internal abstract Type DataType { get; }
 
         internal abstract Maybe<Effect> Create(IAbstractFactory abstractFactory);
     }
@@ -18,6 +21,8 @@ namespace Strawhenge.Inventory.Apparel.Effects
         {
             _data = data;
         }
+
+        internal override Type DataType => typeof(TData);
 
         internal override Maybe<Effect> Create(IAbstractFactory abstractFactory) =>
             abstractFactory
