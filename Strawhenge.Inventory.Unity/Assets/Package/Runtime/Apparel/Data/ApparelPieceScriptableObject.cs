@@ -1,5 +1,6 @@
 ﻿using Strawhenge.Inventory.Apparel.Effects;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
@@ -26,6 +27,8 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         public Vector3 Scale => _scale;
 
-        public IReadOnlyList<IEffectData> Effects => _effects;
+        public IReadOnlyList<EffectData> Effects => _effects
+            .Select(x => x.Data)
+            .ToArray();
     }
 }

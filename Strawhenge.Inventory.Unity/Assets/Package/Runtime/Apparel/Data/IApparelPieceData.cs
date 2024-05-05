@@ -18,6 +18,6 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         Vector3 Scale { get; }
 
-        IReadOnlyList<IEffectData> Effects { get; }
+        IReadOnlyList<EffectData> Effects { get; }
     }
 }
