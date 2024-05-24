@@ -17,12 +17,6 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
         [FormerlySerializedAs("RightHand"), SerializeField]
         Transform _rightHand;
 
-        [FormerlySerializedAs("itemsInHolsters"), SerializeField]
-        ItemsInHolsters[] _itemsInHolsters;
-
-        [FormerlySerializedAs("apparel"), SerializeField]
-        ApparelPieceScriptableObject[] _apparel;
-
         [SerializeField] FixedItemContainerScript _apparelContainerPrefab;
 
         public bool IsConfigurationComplete { get; private set; }
@@ -70,31 +64,12 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
             foreach (var holster in GetComponentsInChildren<HolsterScript>())
                 HolsterComponents.Add(holster.HolsterName, holster.transform);
 
-            foreach (var item in _itemsInHolsters.Where(x => x != null && x._item != null && x._holster != null))
-            {
-                Inventory
-                    .CreateItem(item._item)
-                    .Holsters
-                    .FirstOrDefault(x => x.HolsterName.Equals(item._holster.Name))?
-                    .Equip();
-            }
-
             foreach (var apparelSlot in GetComponentsInChildren<ApparelSlotScript>())
                 ApparelSlots.Add(apparelSlot);
-
-            foreach (var apparelPiece in _apparel)
-                Inventory.CreateApparelPiece(apparelPiece).Equip();
 
             ApparelContainer.Set(_apparelContainerPrefab);
 
             IsConfigurationComplete = true;
-        }
-
-        [Serializable]
-        class ItemsInHolsters
-        {
-            [FormerlySerializedAs("item")] public ItemScriptableObject _item;
-            [FormerlySerializedAs("holster")] public HolsterScriptableObject _holster;
         }
     }
 }
