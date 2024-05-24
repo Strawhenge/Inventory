@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Moq;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
@@ -27,5 +28,13 @@ namespace Strawhenge.Inventory.Tests.Context
         public List<ApparelSlot> ApparelSlots { get; } = new List<ApparelSlot>();
 
         public IInventory Inventory { get; }
+
+        public IApparelPiece CreateApparelPiece(string name, string slotName)
+        {
+            return new ApparelPiece(
+                name,
+                ApparelSlots.First(x => x.Name == slotName),
+                new NullApparelView());
+        }
     }
 }

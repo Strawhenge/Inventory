@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Strawhenge.Inventory.Info
 {
@@ -14,14 +15,23 @@ namespace Strawhenge.Inventory.Info
 
         public InventoryInfo GenerateCurrentInfo()
         {
-            return new InventoryInfo();
+            var equippedApparel = _inventory.ApparelSlots
+                .Select(x => x.CurrentPiece.HasSome(out var apparel) ? apparel.Name : null)
+                .Where(x => x != null);
+
+            return new InventoryInfo(equippedApparel);
         }
     }
 
     public class InventoryInfo
     {
+        public InventoryInfo(IEnumerable<string> equippedApparel)
+        {
+            EquippedApparel = equippedApparel.ToArray();
+        }
+
         public IReadOnlyList<object> Items { get; } = Array.Empty<object>();
 
-        public IReadOnlyList<object> Apparel { get; } = Array.Empty<object>();
+        public IReadOnlyList<string> EquippedApparel { get; }
     }
 }
