@@ -1,7 +1,7 @@
 using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Components;
-using Strawhenge.Inventory.Unity.NewLoader;
+using Strawhenge.Inventory.Unity.Loader;
 using System.Collections;
 using UnityEngine;
 

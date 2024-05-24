@@ -1,7 +1,7 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Inventory.Unity.Data;
 
-namespace Strawhenge.Inventory.Unity.NewLoader
+namespace Strawhenge.Inventory.Unity.Loader
 {
     public interface ILoadInventoryItem
     {

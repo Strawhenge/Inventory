@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Strawhenge.Inventory.Unity.NewLoader
+namespace Strawhenge.Inventory.Unity.Loader
 {
     public class LoadInventoryData
     {

@@ -1,4 +1,4 @@
-﻿namespace Strawhenge.Inventory.Unity.NewLoader
+﻿namespace Strawhenge.Inventory.Unity.Loader
 {
     public enum LoadInventoryItemInHand
     {

@@ -2,7 +2,7 @@
 using Strawhenge.Inventory.Unity.Data;
 using System;
 
-namespace Strawhenge.Inventory.Unity.NewLoader
+namespace Strawhenge.Inventory.Unity.Loader
 {
     public class LoadInventoryItemDto : ILoadInventoryItem
     {

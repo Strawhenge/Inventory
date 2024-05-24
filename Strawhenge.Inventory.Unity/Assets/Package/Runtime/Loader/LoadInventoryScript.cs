@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.NewLoader
+namespace Strawhenge.Inventory.Unity.Loader
 {
     [RequireComponent(typeof(InventoryScript))]
     public class LoadInventoryScript : MonoBehaviour

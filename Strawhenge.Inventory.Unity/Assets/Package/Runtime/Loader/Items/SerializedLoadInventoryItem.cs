@@ -4,7 +4,7 @@ using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
 using System;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.NewLoader
+namespace Strawhenge.Inventory.Unity.Loader
 {
     [Serializable]
     class SerializedLoadInventoryItem : ILoadInventoryItem
