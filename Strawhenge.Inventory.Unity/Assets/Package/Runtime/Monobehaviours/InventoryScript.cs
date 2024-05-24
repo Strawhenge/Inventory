@@ -60,8 +60,6 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 
             if (_apparelContainerPrefab != null)
                 ApparelContainer.Set(_apparelContainerPrefab);
-            else
-                Debug.LogError("Apparel container prefab not set.", this);
 
             IsConfigurationComplete = true;
         }
