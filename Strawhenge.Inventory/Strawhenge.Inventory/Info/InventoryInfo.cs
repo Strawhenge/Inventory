@@ -19,19 +19,35 @@ namespace Strawhenge.Inventory.Info
                 .Select(x => x.CurrentPiece.HasSome(out var apparel) ? apparel.Name : null)
                 .Where(x => x != null);
 
-            return new InventoryInfo(equippedApparel);
+            var items = _inventory.StoredItems.Select(x => new ItemInfo
+            {
+                ItemName = x.Name,
+                IsInStorage = true
+            });
+
+            return new InventoryInfo(items, equippedApparel);
         }
     }
 
     public class InventoryInfo
     {
-        public InventoryInfo(IEnumerable<string> equippedApparel)
+        public InventoryInfo(
+            IEnumerable<ItemInfo> items,
+            IEnumerable<string> equippedApparel)
         {
+            Items = items.ToArray();
             EquippedApparel = equippedApparel.ToArray();
         }
 
-        public IReadOnlyList<object> Items { get; } = Array.Empty<object>();
+        public IReadOnlyList<ItemInfo> Items { get; }
 
         public IReadOnlyList<string> EquippedApparel { get; }
+    }
+
+    public class ItemInfo
+    {
+        public string ItemName { get; internal set; }
+
+        public bool IsInStorage { get; internal set; }
     }
 }
