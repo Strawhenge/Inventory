@@ -35,7 +35,18 @@ namespace Strawhenge.Inventory.Info
                     : null)
                 .Where(x => x != null);
 
-            return new InventoryInfo(storedItems.Concat(holsteredItems), equippedApparel);
+            var heldItems = _inventory.LeftHand.CurrentItem.Map(x => new ItemInfo()
+            {
+                ItemName = x.Name,
+                IsInLeftHand = true
+            }).AsEnumerable().Concat(
+                _inventory.RightHand.CurrentItem.Map(x => new ItemInfo()
+                {
+                    ItemName = x.Name,
+                    IsInRightHand = true
+                }).AsEnumerable());
+
+            return new InventoryInfo(storedItems.Concat(holsteredItems).Concat(heldItems), equippedApparel);
         }
     }
 
@@ -61,5 +72,9 @@ namespace Strawhenge.Inventory.Info
         public string HolsterName { get; internal set; } = string.Empty;
 
         public bool IsInStorage { get; internal set; }
+
+        public bool IsInLeftHand { get; internal set; }
+
+        public bool IsInRightHand { get; internal set; }
     }
 }

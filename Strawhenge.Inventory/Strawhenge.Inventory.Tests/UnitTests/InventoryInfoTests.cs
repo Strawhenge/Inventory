@@ -102,5 +102,31 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             Assert.Equal(BackHolster, stickInfo.HolsterName);
             Assert.False(stickInfo.IsInStorage);
         }
+
+        [Fact]
+        public void Info_should_contain_held_items()
+        {
+            const string hammer = "Hammer";
+            const string stick = "Stick";
+
+            _context.CreateItem(hammer, ItemSize.OneHanded, HipHolster).HoldLeftHand();
+            _context.CreateItem(stick, ItemSize.OneHanded, BackHolster).HoldRightHand();
+
+            var info = _infoGenerator.GenerateCurrentInfo();
+
+            Assert.Equal(2, info.Items.Count);
+
+            var hammerInfo = Assert.Single(info.Items, x => x.ItemName == hammer);
+            Assert.True(hammerInfo.IsInLeftHand);
+            Assert.False(hammerInfo.IsInRightHand);
+            Assert.Empty(hammerInfo.HolsterName);
+            Assert.False(hammerInfo.IsInStorage);
+
+            var stickInfo = Assert.Single(info.Items, x => x.ItemName == stick);
+            Assert.True(stickInfo.IsInRightHand);
+            Assert.False(stickInfo.IsInLeftHand);
+            Assert.Empty(stickInfo.HolsterName);
+            Assert.False(stickInfo.IsInStorage);
+        }
     }
 }
