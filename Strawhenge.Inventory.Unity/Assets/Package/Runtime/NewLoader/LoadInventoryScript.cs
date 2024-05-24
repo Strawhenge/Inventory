@@ -9,6 +9,7 @@ namespace Strawhenge.Inventory.Unity.NewLoader
     public class LoadInventoryScript : MonoBehaviour
     {
         [SerializeField] SerializedLoadInventoryItem[] _items;
+        [SerializeField] SerializedLoadApparelPiece[] _apparel;
 
         InventoryScript _inventory;
 
@@ -27,7 +28,7 @@ namespace Strawhenge.Inventory.Unity.NewLoader
             {
                 yield return new WaitUntil(() => _inventory.IsConfigurationComplete);
 
-                Loader.Load(new LoadInventoryData(_items, Array.Empty<ILoadApparelPiece>()));
+                Loader.Load(new LoadInventoryData(_items, _apparel));
             }
         }
     }

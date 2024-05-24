@@ -46,6 +46,16 @@ namespace Strawhenge.Inventory.Unity.NewLoader
 
         void LoadApparel(IEnumerable<ILoadApparelPiece> apparelPieces)
         {
+            _logger.LogInformation("Loading apparel into inventory.");
+
+            foreach (var apparelPiece in apparelPieces)
+                LoadApparelPiece(apparelPiece);
+        }
+
+        void LoadApparelPiece(ILoadApparelPiece loadApparelPiece)
+        {
+            var apparelPiece = _inventory.CreateApparelPiece(loadApparelPiece.ApparelPiece);
+            apparelPiece.Equip();
         }
     }
 }
