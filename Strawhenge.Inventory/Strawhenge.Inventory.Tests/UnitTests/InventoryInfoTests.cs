@@ -12,6 +12,8 @@ namespace Strawhenge.Inventory.Tests.UnitTests
     {
         const string HeadApparelSlot = "Head";
         const string TorsoApparelSlot = "Torso";
+        const string HipHolster = "Hip";
+        const string BackHolster = "Back";
 
         readonly TestContext _context;
         readonly InventoryInfoGenerator _infoGenerator;
@@ -21,6 +23,8 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             _context = new TestContext(testOutputHelper);
             _context.ApparelSlots.Add(new ApparelSlot(HeadApparelSlot));
             _context.ApparelSlots.Add(new ApparelSlot(TorsoApparelSlot));
+            _context.Holsters.Add(HipHolster);
+            _context.Holsters.Add(BackHolster);
 
             _infoGenerator = new InventoryInfoGenerator(_context.Inventory);
         }
@@ -70,9 +74,33 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
             var hammerInfo = Assert.Single(info.Items, x => x.ItemName == hammer);
             Assert.True(hammerInfo.IsInStorage);
+            Assert.Empty(hammerInfo.HolsterName);
 
             var stickInfo = Assert.Single(info.Items, x => x.ItemName == stick);
             Assert.True(stickInfo.IsInStorage);
+            Assert.Empty(stickInfo.HolsterName);
+        }
+
+        [Fact]
+        public void Info_should_contain_holstered_items()
+        {
+            const string hammer = "Hammer";
+            const string stick = "Stick";
+
+            _context.CreateItem(hammer, ItemSize.OneHanded, HipHolster).Holsters.First().Equip();
+            _context.CreateItem(stick, ItemSize.OneHanded, BackHolster).Holsters.First().Equip();
+
+            var info = _infoGenerator.GenerateCurrentInfo();
+
+            Assert.Equal(2, info.Items.Count);
+
+            var hammerInfo = Assert.Single(info.Items, x => x.ItemName == hammer);
+            Assert.Equal(HipHolster, hammerInfo.HolsterName);
+            Assert.False(hammerInfo.IsInStorage);
+
+            var stickInfo = Assert.Single(info.Items, x => x.ItemName == stick);
+            Assert.Equal(BackHolster, stickInfo.HolsterName);
+            Assert.False(stickInfo.IsInStorage);
         }
     }
 }

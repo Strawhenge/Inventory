@@ -19,13 +19,23 @@ namespace Strawhenge.Inventory.Info
                 .Select(x => x.CurrentPiece.HasSome(out var apparel) ? apparel.Name : null)
                 .Where(x => x != null);
 
-            var items = _inventory.StoredItems.Select(x => new ItemInfo
+            var storedItems = _inventory.StoredItems.Select(x => new ItemInfo
             {
                 ItemName = x.Name,
                 IsInStorage = true
             });
 
-            return new InventoryInfo(items, equippedApparel);
+            var holsteredItems = _inventory.Holsters
+                .Select(x => x.CurrentItem.HasSome(out var item)
+                    ? new ItemInfo()
+                    {
+                        ItemName = item.Name,
+                        HolsterName = x.Name
+                    }
+                    : null)
+                .Where(x => x != null);
+
+            return new InventoryInfo(storedItems.Concat(holsteredItems), equippedApparel);
         }
     }
 
@@ -47,6 +57,8 @@ namespace Strawhenge.Inventory.Info
     public class ItemInfo
     {
         public string ItemName { get; internal set; }
+
+        public string HolsterName { get; internal set; } = string.Empty;
 
         public bool IsInStorage { get; internal set; }
     }

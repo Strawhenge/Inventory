@@ -92,7 +92,7 @@ namespace Strawhenge.Inventory.Tests.Context
                         view.Setup(x => x.Drop(It.IsAny<Action>()))
                             .Callback<Action>(callback => callback?.Invoke());
 
-                        return new HolsterForItem(item, new ItemContainer(x), view.Object);
+                        return new HolsterForItem(item, Holsters.FindByName(x).ReduceUnsafe(), view.Object);
                     }),
                     _logger);
             });
