@@ -1,3 +1,4 @@
+using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.NewLoader;
@@ -26,6 +27,8 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 
         public InventoryLoader Loader { private get; set; }
 
+        public InventoryInfoGenerator InfoGenerator { private get; set; }
+
         public void Load(LoadInventoryData data)
         {
             if (IsConfigurationComplete)
@@ -39,6 +42,8 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
                 Loader.Load(data);
             }
         }
+
+        public InventoryInfo GenerateCurrentInfo() => InfoGenerator.GenerateCurrentInfo();
 
         void Start()
         {
