@@ -1,6 +1,5 @@
 ﻿using Strawhenge.Inventory.Unity.Monobehaviours;
-using System;
-using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.NewLoader
@@ -13,8 +12,6 @@ namespace Strawhenge.Inventory.Unity.NewLoader
 
         InventoryScript _inventory;
 
-        public NewLoader.InventoryLoader Loader { get; set; }
-
         void Awake()
         {
             _inventory = GetComponent<InventoryScript>();
@@ -22,14 +19,14 @@ namespace Strawhenge.Inventory.Unity.NewLoader
 
         void Start()
         {
-            StartCoroutine(Load());
+            _inventory.Load(GetLoadData());
+        }
 
-            IEnumerator Load()
-            {
-                yield return new WaitUntil(() => _inventory.IsConfigurationComplete);
-
-                Loader.Load(new LoadInventoryData(_items, _apparel));
-            }
+        LoadInventoryData GetLoadData()
+        {
+            return new LoadInventoryData(
+                _items.Where(x => x != null && x.ItemData != null),
+                _apparel.Where(x => x != null && x.ApparelPiece != null));
         }
     }
 }

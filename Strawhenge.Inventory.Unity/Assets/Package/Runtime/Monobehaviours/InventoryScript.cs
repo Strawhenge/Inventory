@@ -1,11 +1,8 @@
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Components;
-using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
-using Strawhenge.Inventory.Unity.Loader;
-using System;
-using System.Linq;
+using Strawhenge.Inventory.Unity.NewLoader;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Strawhenge.Inventory.Unity.Monobehaviours
 {
@@ -29,11 +26,19 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 
         public InventoryLoader Loader { private get; set; }
 
-        public LoadInventoryDataGenerator LoadInventoryDataGenerator { private get; set; }
+        public void Load(LoadInventoryData data)
+        {
+            if (IsConfigurationComplete)
+                Loader.Load(data);
+            else
+                StartCoroutine(LoadCoroutine());
 
-        public void Load(LoadInventoryData data) => Loader.Load(data);
-
-        public LoadInventoryData GenerateCurrentLoadData() => LoadInventoryDataGenerator.GenerateCurrentLoadData();
+            IEnumerator LoadCoroutine()
+            {
+                yield return new WaitUntil(() => IsConfigurationComplete);
+                Loader.Load(data);
+            }
+        }
 
         void Start()
         {
