@@ -46,7 +46,6 @@ namespace Strawhenge.Inventory.Unity.NewLoader
 
         void LoadApparel(IEnumerable<ILoadApparelPiece> apparelPieces)
         {
-            throw new System.NotImplementedException();
         }
     }
 }
