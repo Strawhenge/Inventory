@@ -27,16 +27,16 @@ namespace Strawhenge.Inventory.Info
                 .Concat(_inventory.LeftHand.CurrentItem.AsEnumerable())
                 .Concat(_inventory.RightHand.CurrentItem.AsEnumerable())
                 .Distinct()
-                .Select(x => new ItemInfo(x.Name)
-                {
-                    HolsterName = x.Holsters
-                        .FirstOrNone(y => y.IsEquipped)
-                        .Map(y => y.HolsterName)
+                .Select(item => new ItemInfo(
+                    item.Name,
+                    holsterName: item.Holsters
+                        .FirstOrNone(x => x.IsEquipped)
+                        .Map(x => x.HolsterName)
                         .Reduce(() => string.Empty),
-                    IsInStorage = _inventory.StoredItems.Contains(x),
-                    IsInLeftHand = _inventory.LeftHand.IsCurrentItem(x),
-                    IsInRightHand = _inventory.RightHand.IsCurrentItem(x)
-                });
+                    isInStorage: _inventory.StoredItems.Contains(item),
+                    isInLeftHand: _inventory.LeftHand.IsCurrentItem(item),
+                    isInRightHand: _inventory.RightHand.IsCurrentItem(item)
+                ));
         }
 
         IEnumerable<string> GetEquippedApparel()
