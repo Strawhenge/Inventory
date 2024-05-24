@@ -22,7 +22,26 @@ namespace Strawhenge.Inventory.Unity.NewLoader
 
         void LoadItems(IReadOnlyList<ILoadInventoryItem> items)
         {
-            throw new System.NotImplementedException();
+            _logger.LogInformation("Loading items into inventory.");
+
+            foreach (var item in items)
+                LoadItem(item);
+        }
+
+        void LoadItem(ILoadInventoryItem loadItem)
+        {
+            var item = _inventory.CreateItem(loadItem.ItemData);
+
+            loadItem.HolsterName.Do(holsterName =>
+                item.Holsters.FirstOrNone(x => x.HolsterName == holsterName).Do(y => y.Equip()));
+
+            if (loadItem.IsInStorage)
+                _inventory.AddToStorage(item);
+
+            if (loadItem.InHand == LoadInventoryItemInHand.Left)
+                item.HoldLeftHand();
+            else if (loadItem.InHand == LoadInventoryItemInHand.Right)
+                item.HoldRightHand();
         }
 
         void LoadApparel(IEnumerable<ILoadApparelPiece> apparelPieces)
