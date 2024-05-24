@@ -11,12 +11,8 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 {
     public class InventoryScript : MonoBehaviour
     {
-        [FormerlySerializedAs("LeftHand"), SerializeField]
-        Transform _leftHand;
-
-        [FormerlySerializedAs("RightHand"), SerializeField]
-        Transform _rightHand;
-
+        [SerializeField] Transform _leftHand;
+        [SerializeField] Transform _rightHand;
         [SerializeField] FixedItemContainerScript _apparelContainerPrefab;
 
         public bool IsConfigurationComplete { get; private set; }
