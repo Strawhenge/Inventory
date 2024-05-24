@@ -6,6 +6,8 @@ namespace Strawhenge.Inventory.Unity.NewLoader
     [RequireComponent(typeof(InventoryScript))]
     public class LoadInventoryScript : MonoBehaviour
     {
+        [SerializeField] SerializedLoadInventoryItem[] _items;
+
         InventoryScript _inventory;
 
         void Awake()
