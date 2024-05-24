@@ -133,7 +133,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             stick.Holsters.First().Equip();
             stick.HoldLeftHand();
 
-            var crowbar = _context.CreateItem(Stick, ItemSize.OneHanded, HipHolster);
+            var crowbar = _context.CreateItem(Crowbar, ItemSize.OneHanded, HipHolster);
             crowbar.Holsters.First().Equip();
             _context.ItemStorage.Add(crowbar);
 

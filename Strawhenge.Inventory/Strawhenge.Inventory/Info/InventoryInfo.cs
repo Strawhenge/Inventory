@@ -19,34 +19,58 @@ namespace Strawhenge.Inventory.Info
                 .Select(x => x.CurrentPiece.HasSome(out var apparel) ? apparel.Name : null)
                 .Where(x => x != null);
 
-            var storedItems = _inventory.StoredItems.Select(x => new ItemInfo
+            // var storedItems = _inventory.StoredItems.Select(x => new ItemInfo
+            // {
+            //     ItemName = x.Name,
+            //     IsInStorage = true
+            // });
+            //
+            // var holsteredItems = _inventory.Holsters
+            //     .Select(x => x.CurrentItem.HasSome(out var item)
+            //         ? new ItemInfo()
+            //         {
+            //             ItemName = item.Name,
+            //             HolsterName = x.Name
+            //         }
+            //         : null)
+            //     .Where(x => x != null);
+            //
+            // var heldItems = _inventory.LeftHand.CurrentItem.Map(x => new ItemInfo()
+            // {
+            //     ItemName = x.Name,
+            //     IsInLeftHand = true
+            // }).AsEnumerable().Concat(
+            //     _inventory.RightHand.CurrentItem.Map(x => new ItemInfo()
+            //     {
+            //         ItemName = x.Name,
+            //         IsInRightHand = true
+            //     }).AsEnumerable());
+
+            var items = GetItemsInfo();
+
+            return new InventoryInfo(items, equippedApparel);
+        }
+
+        IEnumerable<ItemInfo> GetItemsInfo()
+        {
+            var items = _inventory
+                .StoredItems
+                .Concat(_inventory.Holsters.SelectMany(x => x.CurrentItem.AsEnumerable()))
+                .Concat(_inventory.LeftHand.CurrentItem.AsEnumerable())
+                .Concat(_inventory.RightHand.CurrentItem.AsEnumerable())
+                .Distinct();
+
+            return items.Select(x => new ItemInfo()
             {
                 ItemName = x.Name,
-                IsInStorage = true
+                HolsterName = x.Holsters
+                    .FirstOrNone(y => y.IsEquipped)
+                    .Map(y => y.HolsterName)
+                    .Reduce(() => string.Empty),
+                IsInStorage = _inventory.StoredItems.Contains(x),
+                IsInLeftHand = _inventory.LeftHand.IsCurrentItem(x),
+                IsInRightHand = _inventory.RightHand.IsCurrentItem(x)
             });
-
-            var holsteredItems = _inventory.Holsters
-                .Select(x => x.CurrentItem.HasSome(out var item)
-                    ? new ItemInfo()
-                    {
-                        ItemName = item.Name,
-                        HolsterName = x.Name
-                    }
-                    : null)
-                .Where(x => x != null);
-
-            var heldItems = _inventory.LeftHand.CurrentItem.Map(x => new ItemInfo()
-            {
-                ItemName = x.Name,
-                IsInLeftHand = true
-            }).AsEnumerable().Concat(
-                _inventory.RightHand.CurrentItem.Map(x => new ItemInfo()
-                {
-                    ItemName = x.Name,
-                    IsInRightHand = true
-                }).AsEnumerable());
-
-            return new InventoryInfo(storedItems.Concat(holsteredItems).Concat(heldItems), equippedApparel);
         }
     }
 
