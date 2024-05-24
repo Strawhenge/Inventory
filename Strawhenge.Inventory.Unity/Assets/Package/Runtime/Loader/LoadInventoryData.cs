@@ -1,11 +1,20 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Strawhenge.Inventory.Unity.Loader
 {
     public class LoadInventoryData
     {
-        public HolsteredItemLoadInventoryData[] HolsteredItems { get; set; } = Array.Empty<HolsteredItemLoadInventoryData>();
+        public LoadInventoryData(
+            IEnumerable<ILoadInventoryItem> items,
+            IEnumerable<ILoadApparelPiece> apparelPieces)
+        {
+            Items = items.ToArray();
+            ApparelPieces = apparelPieces.ToArray();
+        }
 
-        public string[] EquippedApparel { get; set; } = Array.Empty<string>();
+        public IReadOnlyList<ILoadInventoryItem> Items { get; }
+
+        public IReadOnlyList<ILoadApparelPiece> ApparelPieces { get; }
     }
 }

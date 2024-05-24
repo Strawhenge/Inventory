@@ -1,73 +1,61 @@
 ﻿using Strawhenge.Common.Logging;
-using Strawhenge.Inventory.Apparel;
-using Strawhenge.Inventory.Unity.Apparel;
-using Strawhenge.Inventory.Unity.Data;
+using System.Collections.Generic;
 
 namespace Strawhenge.Inventory.Unity.Loader
 {
     public class InventoryLoader
     {
         readonly IInventory _inventory;
-        readonly IItemRepository _itemRepository;
-        readonly IApparelRepository _apparelRepository;
         readonly ILogger _logger;
 
-        public InventoryLoader(
-            IInventory inventory,
-            IItemRepository itemRepository,
-            IApparelRepository apparelRepository,
-            ILogger logger)
+        public InventoryLoader(IInventory inventory, ILogger logger)
         {
             _inventory = inventory;
-            _itemRepository = itemRepository;
-            _apparelRepository = apparelRepository;
             _logger = logger;
         }
 
         public void Load(LoadInventoryData data)
         {
-            LoadHolsteredItems(data.HolsteredItems);
-            LoadEquippedApparel(data.EquippedApparel);
+            LoadItems(data.Items);
+            LoadApparel(data.ApparelPieces);
         }
 
-        void LoadHolsteredItems(HolsteredItemLoadInventoryData[] itemsData)
+        void LoadItems(IReadOnlyList<ILoadInventoryItem> items)
         {
-            _logger.LogInformation("Loading holstered items.");
+            _logger.LogInformation("Loading items into inventory.");
 
-            foreach (var itemData in itemsData)
-            {
-                var itemResult = _itemRepository.FindByName(itemData.ItemName);
-
-                if (!itemResult.HasSome(out var item))
-                {
-                    _logger.LogError($"Item '{itemData.ItemName}' cannot be found.");
-                    continue;
-                }
-
-                _inventory
-                    .CreateItem(item)
-                    .Holsters
-                    .FirstOrNone(x => x.HolsterName == itemData.HolsterName)
-                    .Do(x => x.Equip());
-            }
+            foreach (var item in items)
+                LoadItem(item);
         }
 
-        void LoadEquippedApparel(string[] apparelNames)
+        void LoadItem(ILoadInventoryItem loadItem)
         {
-            foreach (var apparelName in apparelNames)
-            {
-                var apparelResult = _apparelRepository.FindByName(apparelName);
+            var item = _inventory.CreateItem(loadItem.ItemData);
 
-                if (!apparelResult.HasSome(out var apparel))
-                {
-                    _logger.LogError($"Apparel '{apparelName}' not found.");
-                    continue;
-                }
+            loadItem.HolsterName.Do(holsterName =>
+                item.Holsters.FirstOrNone(x => x.HolsterName == holsterName).Do(y => y.Equip()));
 
-                var apparelPiece = _inventory.CreateApparelPiece(apparel);
-                apparelPiece.UnequipPreference = UnequipPreference.Drop;
-                apparelPiece.Equip();
-            }
+            if (loadItem.IsInStorage)
+                _inventory.AddToStorage(item);
+
+            if (loadItem.InHand == LoadInventoryItemInHand.Left)
+                item.HoldLeftHand();
+            else if (loadItem.InHand == LoadInventoryItemInHand.Right)
+                item.HoldRightHand();
+        }
+
+        void LoadApparel(IEnumerable<ILoadApparelPiece> apparelPieces)
+        {
+            _logger.LogInformation("Loading apparel into inventory.");
+
+            foreach (var apparelPiece in apparelPieces)
+                LoadApparelPiece(apparelPiece);
+        }
+
+        void LoadApparelPiece(ILoadApparelPiece loadApparelPiece)
+        {
+            var apparelPiece = _inventory.CreateApparelPiece(loadApparelPiece.ApparelPiece);
+            apparelPiece.Equip();
         }
     }
 }
