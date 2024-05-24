@@ -41,25 +41,10 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 
         void Start()
         {
-            if (_leftHand == null || _rightHand == null)
-            {
-                var animator = GetComponent<Animator>();
-
-                if (_leftHand == null)
-                {
-                    Debug.Log($"Left hand Transform not set. Getting from animator.", this);
-                    _leftHand = animator.GetBoneTransform(HumanBodyBones.LeftHand);
-                }
-
-                if (_rightHand == null)
-                {
-                    Debug.Log($"Right hand Transform not set. Getting from animator.", this);
-                    _rightHand = animator.GetBoneTransform(HumanBodyBones.RightHand);
-                }
-            }
-
             if (_leftHand != null && _rightHand != null)
                 HandComponents.Initialize(_leftHand, _rightHand);
+            else
+                Debug.LogError("Hand components not set.", this);
 
             foreach (var holster in GetComponentsInChildren<HolsterScript>())
                 HolsterComponents.Add(holster.HolsterName, holster.transform);
@@ -67,7 +52,10 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
             foreach (var apparelSlot in GetComponentsInChildren<ApparelSlotScript>())
                 ApparelSlots.Add(apparelSlot);
 
-            ApparelContainer.Set(_apparelContainerPrefab);
+            if (_apparelContainerPrefab != null)
+                ApparelContainer.Set(_apparelContainerPrefab);
+            else
+                Debug.LogError("Apparel container prefab not set.", this);
 
             IsConfigurationComplete = true;
         }
