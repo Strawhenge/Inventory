@@ -1,7 +1,9 @@
-﻿using Moq;
+﻿using FunctionalUtilities;
+using Moq;
 using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
 using Xunit.Abstractions;
 
@@ -38,7 +40,8 @@ namespace Strawhenge.Inventory.Tests.Context
                 _hands,
                 itemViewMock.Object,
                 itemSize,
-                GetHolstersForItem)
+                GetHolstersForItem,
+                _ => Maybe.None<IConsumable>())
             {
                 ClearFromHandsPreference = ClearFromHandsPreference.PutAway
             };

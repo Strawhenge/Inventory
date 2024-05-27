@@ -3,6 +3,8 @@ using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.HolsterForItem;
 using System;
+using FunctionalUtilities;
+using Strawhenge.Inventory.Items.Consumables;
 
 namespace Strawhenge.Inventory.Tests.UnitTests
 {
@@ -52,7 +54,8 @@ namespace Strawhenge.Inventory.Tests.UnitTests
                 _handsMock.Object,
                 _itemViewMock.Object,
                 _itemSizeMock.Object,
-                _ => _holstersMock.Object);
+                _ => _holstersMock.Object,
+                _ => Maybe.None<IConsumable>());
 
             _callback = new AssertableCallback();
         }
