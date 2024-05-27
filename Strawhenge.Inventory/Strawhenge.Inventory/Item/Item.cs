@@ -2,6 +2,8 @@
 using Strawhenge.Inventory.Items.HolsterForItem;
 using System;
 using System.Collections.Generic;
+using FunctionalUtilities;
+using Strawhenge.Inventory.Items.Consumables;
 
 namespace Strawhenge.Inventory.Items
 {
@@ -35,6 +37,8 @@ namespace Strawhenge.Inventory.Items
         public string Name { get; }
 
         public IEnumerable<IEquipItemToHolster> Holsters => _holsters;
+
+        public Maybe<IConsumable> Consumable { get; } = Maybe.None<IConsumable>();
 
         public bool IsInHand => IsInLeftHand() || IsInRightHand();
 
