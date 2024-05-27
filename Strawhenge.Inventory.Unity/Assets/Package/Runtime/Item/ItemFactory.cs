@@ -6,6 +6,7 @@ using Strawhenge.Inventory.Items.HolsterForItem;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Data;
+using Strawhenge.Inventory.Unity.Items.Consumables;
 using Strawhenge.Inventory.Unity.Monobehaviours;
 using Strawhenge.Inventory.Unity.Procedures;
 using System.Collections.Generic;
@@ -66,7 +67,7 @@ namespace Strawhenge.Inventory.Unity.Items
 
             return new Item(data.Name, _hands, view, itemSize,
                 getHolstersForItem: x => CreateHolstersForItem(x, component),
-                getConsumable: _ => Maybe.None<IConsumable>());
+                getConsumable: x => CreateConsumable(x, data.ConsumableData));
         }
 
         IHolstersForItem CreateHolstersForItem(IItem item, ItemHelper itemComponent)
@@ -89,6 +90,12 @@ namespace Strawhenge.Inventory.Unity.Items
             }
 
             return new HolstersForItem(holstersForItem, _logger);
+        }
+
+        Maybe<IConsumable> CreateConsumable(IItem item, Maybe<IConsumableData> data)
+        {
+            return data
+                .Map<IConsumable>(x => new Consumable(item, new ConsumableView()));
         }
 
         Strawhenge.Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)
