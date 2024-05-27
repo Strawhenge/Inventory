@@ -178,7 +178,7 @@ namespace Strawhenge.Inventory.Unity.Editor
                 EditorGUILayout.BeginHorizontal();
                 if (GUILayout.Button(nameof(IConsumable.ConsumeLeftHand)))
                     consumable.ConsumeLeftHand();
-                if (GUILayout.Button(nameof(IConsumable.ConsumeLeftHand)))
+                if (GUILayout.Button(nameof(IConsumable.ConsumeRightHand)))
                     consumable.ConsumeRightHand();
                 EditorGUILayout.EndHorizontal();
             });

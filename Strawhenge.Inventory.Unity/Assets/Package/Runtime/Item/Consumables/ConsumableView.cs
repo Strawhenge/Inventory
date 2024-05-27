@@ -7,12 +7,12 @@ namespace Strawhenge.Inventory.Unity.Items.Consumables
     {
         public void ConsumeLeftHand(Action callback = null)
         {
-            throw new NotImplementedException();
+            callback?.Invoke();
         }
 
         public void ConsumeRightHand(Action callback = null)
         {
-            throw new NotImplementedException();
+            callback?.Invoke();
         }
     }
 }
