@@ -1,4 +1,5 @@
 ﻿using FunctionalUtilities;
+using Strawhenge.Common.Unity.Serialization;
 using Strawhenge.Inventory.Unity.Items.Consumables;
 using Strawhenge.Inventory.Unity.Monobehaviours;
 using System.Collections.Generic;
@@ -25,6 +26,9 @@ namespace Strawhenge.Inventory.Unity.Data.ScriptableObjects
         [FormerlySerializedAs("holsterItemData"), SerializeField]
         SerializedHolsterItemData[] _holsterItemData;
 
+        [SerializeField]
+        SerializedSource<IConsumableData, SerializedConsumableData, ConsumableDataScriptableObject> _consumable;
+
         string IItemData.Name => name;
 
         ItemScript IItemData.Prefab => _prefab;
@@ -37,6 +41,8 @@ namespace Strawhenge.Inventory.Unity.Data.ScriptableObjects
 
         IEnumerable<IHolsterItemData> IItemData.HolsterItemData => _holsterItemData;
 
-        Maybe<IConsumableData> IItemData.ConsumableData => Maybe.None<IConsumableData>();
+        Maybe<IConsumableData> IItemData.ConsumableData => _consumable.TryGetValue(out var consumable)
+            ? Maybe.Some(consumable)
+            : Maybe.None<IConsumableData>();
     }
 }
