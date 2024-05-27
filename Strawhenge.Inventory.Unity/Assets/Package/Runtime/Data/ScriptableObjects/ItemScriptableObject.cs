@@ -1,4 +1,6 @@
-﻿using Strawhenge.Inventory.Unity.Monobehaviours;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Unity.Items.Consumables;
+using Strawhenge.Inventory.Unity.Monobehaviours;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,19 +10,19 @@ namespace Strawhenge.Inventory.Unity.Data.ScriptableObjects
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Item")]
     public class ItemScriptableObject : ScriptableObject, IItemData
     {
-        [FormerlySerializedAs("prefab"), SerializeField] 
+        [FormerlySerializedAs("prefab"), SerializeField]
         ItemScript _prefab;
 
-        [FormerlySerializedAs("size"), SerializeField] 
+        [FormerlySerializedAs("size"), SerializeField]
         ItemSize _size;
 
-        [FormerlySerializedAs("leftHandHoldItemData"), SerializeField] 
+        [FormerlySerializedAs("leftHandHoldItemData"), SerializeField]
         SerializedHoldItemData _leftHandHoldItemData;
 
-        [FormerlySerializedAs("rightHandHoldItemData"), SerializeField] 
+        [FormerlySerializedAs("rightHandHoldItemData"), SerializeField]
         SerializedHoldItemData _rightHandHoldItemData;
 
-        [FormerlySerializedAs("holsterItemData"), SerializeField] 
+        [FormerlySerializedAs("holsterItemData"), SerializeField]
         SerializedHolsterItemData[] _holsterItemData;
 
         string IItemData.Name => name;
@@ -34,5 +36,7 @@ namespace Strawhenge.Inventory.Unity.Data.ScriptableObjects
         IHoldItemData IItemData.RightHandHoldData => _rightHandHoldItemData;
 
         IEnumerable<IHolsterItemData> IItemData.HolsterItemData => _holsterItemData;
+
+        Maybe<IConsumableData> IItemData.ConsumableData => Maybe.None<IConsumableData>();
     }
 }
