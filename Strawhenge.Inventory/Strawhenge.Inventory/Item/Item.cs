@@ -21,7 +21,8 @@ namespace Strawhenge.Inventory.Items
             IHands hands,
             IItemView itemView,
             ItemSize size,
-            Func<IItem, IHolstersForItem> getHolstersForItem)
+            Func<IItem, IHolstersForItem> getHolstersForItem,
+            Func<IItem, Maybe<IConsumable>> getConsumable)
         {
             Name = name;
 
@@ -30,6 +31,7 @@ namespace Strawhenge.Inventory.Items
             _size = size;
 
             _holsters = getHolstersForItem(this);
+            Consumable = getConsumable(this);
 
             itemView.Released += OnRemoved;
         }
@@ -38,7 +40,7 @@ namespace Strawhenge.Inventory.Items
 
         public IEnumerable<IEquipItemToHolster> Holsters => _holsters;
 
-        public Maybe<IConsumable> Consumable { get; } = Maybe.None<IConsumable>();
+        public Maybe<IConsumable> Consumable { get; }
 
         public bool IsInHand => IsInLeftHand() || IsInRightHand();
 
