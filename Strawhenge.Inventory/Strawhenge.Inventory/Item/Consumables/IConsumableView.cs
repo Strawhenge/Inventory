@@ -2,7 +2,7 @@
 
 namespace Strawhenge.Inventory.Items.Consumables
 {
-    public interface IConsumable
+    public interface IConsumableView
     {
         void ConsumeLeftHand(Action callback = null);
 
