@@ -1,5 +1,7 @@
-﻿using Strawhenge.Inventory.Containers;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
@@ -63,7 +65,8 @@ namespace Strawhenge.Inventory.Unity.Items
             var itemSize = CreateItemSize(data.Size);
 
             return new Item(data.Name, _hands, view, itemSize,
-                getHolstersForItem: x => CreateHolstersForItem(x, component));
+                getHolstersForItem: x => CreateHolstersForItem(x, component),
+                getConsumable: _ => Maybe.None<IConsumable>());
         }
 
         IHolstersForItem CreateHolstersForItem(IItem item, ItemHelper itemComponent)
