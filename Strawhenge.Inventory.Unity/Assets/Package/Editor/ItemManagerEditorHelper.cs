@@ -4,6 +4,7 @@ using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Items.Consumables;
 using UnityEditor;
 using UnityEngine;
 
@@ -171,6 +172,16 @@ namespace Strawhenge.Inventory.Unity.Editor
                 item.UnequipFromHolster();
 
             EditorGUILayout.EndHorizontal();
+
+            item.Consumable.Do(consumable =>
+            {
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button(nameof(IConsumable.ConsumeLeftHand)))
+                    consumable.ConsumeLeftHand();
+                if (GUILayout.Button(nameof(IConsumable.ConsumeLeftHand)))
+                    consumable.ConsumeRightHand();
+                EditorGUILayout.EndHorizontal();
+            });
 
             foreach (var holster in item.Holsters)
             {
