@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Strawhenge.Common;
+using Strawhenge.Inventory.Effects;
 
 namespace Strawhenge.Inventory.Items.Consumables
 {
@@ -6,11 +10,13 @@ namespace Strawhenge.Inventory.Items.Consumables
     {
         readonly IItem _item;
         readonly IConsumableView _view;
+        readonly Effect[] _effects;
 
-        public Consumable(IItem item, IConsumableView view)
+        public Consumable(IItem item, IConsumableView view, IEnumerable<Effect> effects)
         {
             _item = item;
             _view = view;
+            _effects = effects.ToArray();
         }
 
         public void ConsumeLeftHand(Action callback = null)
@@ -19,6 +25,7 @@ namespace Strawhenge.Inventory.Items.Consumables
             _view.ConsumeLeftHand(() =>
             {
                 _item.Discard();
+                _effects.ForEach(x => x.Apply());
                 callback?.Invoke();
             });
         }
@@ -29,6 +36,7 @@ namespace Strawhenge.Inventory.Items.Consumables
             _view.ConsumeRightHand(() =>
             {
                 _item.Discard();
+                _effects.ForEach(x => x.Apply());
                 callback?.Invoke();
             });
         }
