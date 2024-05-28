@@ -4,6 +4,8 @@ using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Items.Consumables;
+using Strawhenge.Inventory.Unity.Procedures.ConsumeItem;
 using Strawhenge.Inventory.Unity.Procedures.DropItem;
 using Strawhenge.Inventory.Unity.Procedures.Hammerspace;
 using Strawhenge.Inventory.Unity.Procedures.Holster;
@@ -15,56 +17,74 @@ namespace Strawhenge.Inventory.Unity.Procedures
     {
         readonly IHandComponents _handComponents;
         readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
+        readonly IConsumeItemAnimationHandler _consumeItemAnimationHandler;
         readonly IItemDropPoint _itemDropPoint;
         readonly ILogger _logger;
 
         public ProcedureFactory(
             IHandComponents handComponents,
             IProduceItemAnimationHandler produceItemAnimationHandler,
+            IConsumeItemAnimationHandler consumeItemAnimationHandler,
             IItemDropPoint itemDropPoint,
             ILogger logger)
         {
             _handComponents = handComponents;
             _produceItemAnimationHandler = produceItemAnimationHandler;
+            _consumeItemAnimationHandler = consumeItemAnimationHandler;
             _itemDropPoint = itemDropPoint;
             _logger = logger;
         }
 
-        public Procedure DrawLeftHandFromHammerspace(IItemHelper item) => DrawFromHammerspace(item, _handComponents.Left, item.Data.LeftHandHoldData);
+        public Procedure DrawLeftHandFromHammerspace(IItemHelper item) =>
+            DrawFromHammerspace(item, _handComponents.Left, item.Data.LeftHandHoldData);
 
-        public Procedure DrawRightHandFromHammerspace(IItemHelper item) => DrawFromHammerspace(item, _handComponents.Right, item.Data.RightHandHoldData);
+        public Procedure DrawRightHandFromHammerspace(IItemHelper item) =>
+            DrawFromHammerspace(item, _handComponents.Right, item.Data.RightHandHoldData);
 
         public Procedure DropFromLeftHand(IItemHelper item) => new SimpleDropFromHand(_handComponents.Left);
 
         public Procedure DropFromRightHand(IItemHelper item) => new SimpleDropFromHand(_handComponents.Right);
 
-        public Procedure PutAwayLeftHandToHammerspace(IItemHelper item) => PutAwayToHammerspace(_handComponents.Left, item.Data.LeftHandHoldData);
+        public Procedure PutAwayLeftHandToHammerspace(IItemHelper item) =>
+            PutAwayToHammerspace(_handComponents.Left, item.Data.LeftHandHoldData);
 
-        public Procedure PutAwayRightHandToHammerspace(IItemHelper item) => PutAwayToHammerspace(_handComponents.Right, item.Data.RightHandHoldData);
+        public Procedure PutAwayRightHandToHammerspace(IItemHelper item) =>
+            PutAwayToHammerspace(_handComponents.Right, item.Data.RightHandHoldData);
 
-        public Procedure SwapFromLeftHandToRightHand(IItemHelper item) => new SimpleSwapHands(_handComponents.Left, _handComponents.Right);
+        public Procedure SwapFromLeftHandToRightHand(IItemHelper item) =>
+            new SimpleSwapHands(_handComponents.Left, _handComponents.Right);
 
-        public Procedure SwapFromRightHandToLeftHand(IItemHelper item) => new SimpleSwapHands(_handComponents.Right, _handComponents.Left);
+        public Procedure SwapFromRightHandToLeftHand(IItemHelper item) =>
+            new SimpleSwapHands(_handComponents.Right, _handComponents.Left);
 
         public Procedure SpawnAndDrop(IItemHelper item) => new SimpleSpawnAndDrop(item, _itemDropPoint);
 
-        public Procedure Disappear(IItemHelper item) => new DisappearItem(item, _handComponents.Left, _handComponents.Right);
+        public Procedure Disappear(IItemHelper item) =>
+            new DisappearItem(item, _handComponents.Left, _handComponents.Right);
 
         public Procedure DrawLeftHandFromHolster(IItemHelper item, IHolsterComponent holster) =>
-            DrawFromHolster(_handComponents.Left, holster, item.GetHolsterData(holster, _logger).DrawFromHolsterLeftHandId);
+            DrawFromHolster(_handComponents.Left, holster,
+                item.GetHolsterData(holster, _logger).DrawFromHolsterLeftHandId);
 
         public Procedure DrawRightHandFromHolster(IItemHelper item, IHolsterComponent holster) =>
-            DrawFromHolster(_handComponents.Right, holster, item.GetHolsterData(holster, _logger).DrawFromHolsterRightHandId);
+            DrawFromHolster(_handComponents.Right, holster,
+                item.GetHolsterData(holster, _logger).DrawFromHolsterRightHandId);
 
         public Procedure PutAwayLeftHandToHolster(IItemHelper item, IHolsterComponent holster) =>
-            PutAwayToHolster(_handComponents.Left, holster, item.GetHolsterData(holster, _logger).PutInHolsterLeftHandId);
+            PutAwayToHolster(_handComponents.Left, holster,
+                item.GetHolsterData(holster, _logger).PutInHolsterLeftHandId);
 
         public Procedure PutAwayRightHandToHolster(IItemHelper item, IHolsterComponent holster) =>
-            PutAwayToHolster(_handComponents.Right, holster, item.GetHolsterData(holster, _logger).PutInHolsterRightHandId);
+            PutAwayToHolster(_handComponents.Right, holster,
+                item.GetHolsterData(holster, _logger).PutInHolsterRightHandId);
 
         public Procedure ShowInHolster(IItemHelper item, IHolsterComponent holster) => new ShowInHolster(item, holster);
 
         public Procedure HideInHolster(IItemHelper item, IHolsterComponent holster) => new HideInHolster(holster);
+
+        public Procedure ConsumeLeftHand(IConsumableData data) => Consume(data.AnimationId, true);
+
+        public Procedure ConsumeRightHand(IConsumableData data) => Consume(data.AnimationId, false);
 
         Procedure PutAwayToHammerspace(IHandComponent hand, IHoldItemData holdData)
         {
@@ -79,7 +99,8 @@ namespace Strawhenge.Inventory.Unity.Procedures
             if (holdData.DrawFromHammerspaceId == 0)
                 return new SimpleDrawFromHammerspace(item, hand);
 
-            return new AnimatedDrawFromHammerspace(_produceItemAnimationHandler, item, hand, holdData.DrawFromHammerspaceId);
+            return new AnimatedDrawFromHammerspace(_produceItemAnimationHandler, item, hand,
+                holdData.DrawFromHammerspaceId);
         }
 
         Procedure PutAwayToHolster(IHandComponent hand, IHolsterComponent holster, int id)
@@ -96,6 +117,14 @@ namespace Strawhenge.Inventory.Unity.Procedures
                 return new SimpleDrawFromHolster(holster, hand);
 
             return new AnimatedDrawFromHolster(_produceItemAnimationHandler, holster, hand, id);
+        }
+
+        Procedure Consume(int animationId, bool inverted)
+        {
+            if (animationId == 0)
+                return Procedure.Completed;
+
+            return new AnimatedConsumeItem(_consumeItemAnimationHandler, animationId, inverted);
         }
     }
 }

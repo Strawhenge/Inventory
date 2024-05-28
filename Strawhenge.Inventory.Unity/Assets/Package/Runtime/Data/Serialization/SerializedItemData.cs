@@ -1,4 +1,7 @@
-﻿using Strawhenge.Inventory.Unity.Monobehaviours;
+﻿using FunctionalUtilities;
+using Strawhenge.Common.Unity.Serialization;
+using Strawhenge.Inventory.Unity.Items.Consumables;
+using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,23 +12,26 @@ namespace Strawhenge.Inventory.Unity.Data
     [Serializable]
     public class SerializedItemData : IItemData
     {
-        [FormerlySerializedAs("Name"), SerializeField] 
+        [FormerlySerializedAs("Name"), SerializeField]
         string _name;
 
-        [FormerlySerializedAs("Prefab"), SerializeField] 
+        [FormerlySerializedAs("Prefab"), SerializeField]
         ItemScript _prefab;
 
-        [FormerlySerializedAs("Size"), SerializeField] 
+        [FormerlySerializedAs("Size"), SerializeField]
         ItemSize _size;
 
-        [FormerlySerializedAs("LeftHandHoldData"), SerializeField] 
+        [FormerlySerializedAs("LeftHandHoldData"), SerializeField]
         SerializedHoldItemData _leftHandHoldData;
 
-        [FormerlySerializedAs("RightHandHoldData"), SerializeField] 
+        [FormerlySerializedAs("RightHandHoldData"), SerializeField]
         SerializedHoldItemData _rightHandHoldData;
 
-        [FormerlySerializedAs("HolsterItemData"), SerializeField] 
+        [FormerlySerializedAs("HolsterItemData"), SerializeField]
         SerializedHolsterItemData[] _holsterItemData;
+
+        [SerializeField]
+        SerializedSource<IConsumableData, SerializedConsumableData, ConsumableDataScriptableObject> _consumable;
 
         string IItemData.Name => _name;
 
@@ -38,5 +44,9 @@ namespace Strawhenge.Inventory.Unity.Data
         IHoldItemData IItemData.RightHandHoldData => _rightHandHoldData;
 
         IEnumerable<IHolsterItemData> IItemData.HolsterItemData => _holsterItemData;
+
+        Maybe<IConsumableData> IItemData.ConsumableData => _consumable.TryGetValue(out var consumable)
+            ? Maybe.Some(consumable)
+            : Maybe.None<IConsumableData>();
     }
 }

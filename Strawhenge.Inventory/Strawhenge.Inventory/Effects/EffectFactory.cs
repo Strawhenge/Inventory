@@ -1,7 +1,7 @@
 ﻿using Strawhenge.Common.Factories;
 using Strawhenge.Common.Logging;
 
-namespace Strawhenge.Inventory.Apparel.Effects
+namespace Strawhenge.Inventory.Effects
 {
     public class EffectFactory : IEffectFactory
     {

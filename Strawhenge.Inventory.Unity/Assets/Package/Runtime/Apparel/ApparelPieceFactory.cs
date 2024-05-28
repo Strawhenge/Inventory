@@ -1,6 +1,6 @@
 ﻿using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
-using Strawhenge.Inventory.Apparel.Effects;
+using Strawhenge.Inventory.Effects;
 using System.Linq;
 
 namespace Strawhenge.Inventory.Unity.Apparel

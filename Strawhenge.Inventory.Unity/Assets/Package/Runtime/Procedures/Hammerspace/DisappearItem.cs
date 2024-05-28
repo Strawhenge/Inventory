@@ -31,13 +31,13 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 
         void Disapper()
         {
-            _item.Despawn();
-
             if (_leftHand.Item.HasSome(out var leftItem) && leftItem == _item)
                 _leftHand.TakeItem();
 
             if (_rightHand.Item.HasSome(out var rightItem) && rightItem == _item)
                 _rightHand.TakeItem();
+            
+            _item.Despawn();
         }
     }
 }

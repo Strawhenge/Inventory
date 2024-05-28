@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Apparel.Effects;
+﻿using Strawhenge.Inventory.Effects;
+using Strawhenge.Inventory.Unity.Effects;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;

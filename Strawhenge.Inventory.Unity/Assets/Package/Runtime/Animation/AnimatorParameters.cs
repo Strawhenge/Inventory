@@ -12,6 +12,12 @@
 
         public const string HoldItemAnimationId = "HoldItem_AnimationId";
 
+        public const string ConsumeItem = "ConsumeItem";
+
+        public const string ConsumeItemAnimationId = "ConsumeItem_AnimationId";
+
+        public const string ConsumeItemInverted = "ConsumeItem_Inverted";
+        
         public const string Interrupt = "Interupt";
     }
 }

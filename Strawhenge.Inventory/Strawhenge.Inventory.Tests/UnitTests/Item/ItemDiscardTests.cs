@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using FunctionalUtilities;
 using Moq;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
 using Xunit;
 using Xunit.Abstractions;
@@ -29,14 +31,15 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             _holsterView = new Mock<IHolsterForItemView>();
 
             _item = new Item("Discard Test Item", _hands, _viewMock.Object, ItemSize.OneHanded, item =>
-            {
-                var holster = new HolsterForItem(
-                    item,
-                    _holsterContainer,
-                    _holsterView.Object);
+                {
+                    var holster = new HolsterForItem(
+                        item,
+                        _holsterContainer,
+                        _holsterView.Object);
 
-                return new HolstersForItem(new[] { holster }, logger);
-            });
+                    return new HolstersForItem(new[] { holster }, logger);
+                },
+                _ => Maybe.None<IConsumable>());
 
             _storedItems.Add(_item);
         }

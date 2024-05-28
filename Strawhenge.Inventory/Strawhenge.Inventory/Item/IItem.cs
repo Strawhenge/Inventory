@@ -1,7 +1,9 @@
-﻿using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.HolsterForItem;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Items.Consumables;
+using Strawhenge.Inventory.Items.HolsterForItem;
 
 namespace Strawhenge.Inventory
 {
@@ -16,6 +18,8 @@ namespace Strawhenge.Inventory
         bool IsTwoHanded { get; }
 
         IEnumerable<IEquipItemToHolster> Holsters { get; }
+        
+        Maybe<IConsumable> Consumable { get; }
 
         ClearFromHandsPreference ClearFromHandsPreference { set; }
 
