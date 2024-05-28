@@ -20,7 +20,7 @@ namespace Strawhenge.Inventory.Unity.Animation
         public ProduceItemAnimationHandler(Animator animator)
         {
             _animator = animator;
-            
+
             var eventsScript = animator.GetOrAddComponent<AnimationEventReceiverScript>();
             eventsScript.GrabItemFromHolster += OnGrabItem;
             eventsScript.ReleaseItemIntoHolster += OnReleaseItem;

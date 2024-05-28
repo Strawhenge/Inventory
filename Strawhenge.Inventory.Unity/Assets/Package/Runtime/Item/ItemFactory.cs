@@ -94,8 +94,8 @@ namespace Strawhenge.Inventory.Unity.Items
 
         Maybe<IConsumable> CreateConsumable(IItem item, Maybe<IConsumableData> data)
         {
-            return data
-                .Map<IConsumable>(x => new Consumable(item, new ConsumableView()));
+            return data.Map<IConsumable>(
+                x => new Consumable(item, new ConsumableView(_procedureQueue, _procedureFactory, x)));
         }
 
         Strawhenge.Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)

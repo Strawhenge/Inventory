@@ -2,5 +2,6 @@
 {
     public interface IConsumableData
     {
+        int AnimationId { get; }
     }
 }

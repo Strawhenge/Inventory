@@ -1,6 +1,7 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Items.Consumables;
 
 namespace Strawhenge.Inventory.Unity.Procedures
 {
@@ -37,5 +38,9 @@ namespace Strawhenge.Inventory.Unity.Procedures
         Procedure ShowInHolster(IItemHelper item, IHolsterComponent holster);
 
         Procedure HideInHolster(IItemHelper item, IHolsterComponent holster);
+
+        Procedure ConsumeLeftHand(IConsumableData data);
+
+        Procedure ConsumeRightHand(IConsumableData data);
     }
 }
