@@ -1,7 +1,7 @@
-using Strawhenge.Inventory.Apparel.Effects;
+using Strawhenge.Inventory.Effects;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Apparel
+namespace Strawhenge.Inventory.Unity.Effects
 {
     public abstract class EffectScriptableObject : ScriptableObject
     {

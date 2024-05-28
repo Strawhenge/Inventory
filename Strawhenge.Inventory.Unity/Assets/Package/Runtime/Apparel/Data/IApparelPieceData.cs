@@ -1,4 +1,4 @@
-﻿using Strawhenge.Inventory.Apparel.Effects;
+﻿using Strawhenge.Inventory.Effects;
 using System.Collections.Generic;
 using UnityEngine;
 
