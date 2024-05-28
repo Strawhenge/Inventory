@@ -1,10 +1,10 @@
-﻿using Strawhenge.Inventory.Apparel.Effects;
+﻿using Strawhenge.Inventory.Effects;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Strawhenge.Inventory.Tests.UnitTests.ApparelEffects
+namespace Strawhenge.Inventory.Tests.UnitTests.Effects
 {
-    public class ApparelEffectsTests
+    public class EffectsTests
     {
         const int InitialHealth = 10;
         const int HealthIncrease = 2;
@@ -13,7 +13,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests.ApparelEffects
         readonly Health _health;
         readonly IEffectFactory _factory;
 
-        public ApparelEffectsTests(ITestOutputHelper testOutputHelper)
+        public EffectsTests(ITestOutputHelper testOutputHelper)
         {
             var logger = new TestOutputLogger(testOutputHelper);
 

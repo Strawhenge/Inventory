@@ -1,4 +1,4 @@
-﻿namespace Strawhenge.Inventory.Apparel.Effects
+﻿namespace Strawhenge.Inventory.Effects
 {
     public class NullEffect : Effect
     {

@@ -1,6 +1,6 @@
-﻿using Strawhenge.Inventory.Apparel.Effects;
+﻿using Strawhenge.Inventory.Effects;
 
-namespace Strawhenge.Inventory.Tests.UnitTests.ApparelEffects
+namespace Strawhenge.Inventory.Tests.UnitTests.Effects
 {
     class HealthFactory : IEffectFactory<HealthData>
     {

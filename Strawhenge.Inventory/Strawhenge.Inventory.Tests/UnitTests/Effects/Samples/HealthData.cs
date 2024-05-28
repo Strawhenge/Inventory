@@ -1,4 +1,4 @@
-﻿namespace Strawhenge.Inventory.Tests.UnitTests.ApparelEffects
+﻿namespace Strawhenge.Inventory.Tests.UnitTests.Effects
 {
     class HealthData
     {

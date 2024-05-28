@@ -2,7 +2,7 @@ using System;
 using FunctionalUtilities;
 using Strawhenge.Common.Factories;
 
-namespace Strawhenge.Inventory.Apparel.Effects
+namespace Strawhenge.Inventory.Effects
 {
     public abstract class EffectData
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Strawhenge.Common;
-using Strawhenge.Inventory.Apparel.Effects;
+using Strawhenge.Inventory.Effects;
 
 namespace Strawhenge.Inventory.Apparel
 {
