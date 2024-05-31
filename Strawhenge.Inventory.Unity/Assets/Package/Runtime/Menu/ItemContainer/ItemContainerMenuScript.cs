@@ -5,6 +5,7 @@ using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Monobehaviours;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Strawhenge.Inventory.Unity
 {
@@ -12,7 +13,7 @@ namespace Strawhenge.Inventory.Unity
     {
         [SerializeField] Canvas _canvas;
         [SerializeField] RectTransform _entriesContainer;
-        [SerializeField] ItemMenuEntryScript _itemMenuEntryPrefab;
+        [FormerlySerializedAs("_itemMenuEntryPrefab")] [SerializeField] ContainedItemMenuEntryScript _containedItemMenuEntryPrefab;
         [SerializeField] ApparelPieceMenuEntryScript _apparelPieceMenuEntryPrefab;
         [SerializeField] EventScriptableObject[] _openEvents;
         [SerializeField] EventScriptableObject[] _closeEvents;
@@ -51,7 +52,7 @@ namespace Strawhenge.Inventory.Unity
 
         void AddItem(IContainedItem<IItemData> item)
         {
-            var menuEntry = Instantiate(_itemMenuEntryPrefab, parent: _entriesContainer);
+            var menuEntry = Instantiate(_containedItemMenuEntryPrefab, parent: _entriesContainer);
             menuEntry.Set(_inventoryScript.Inventory, item);
             _menuEntries.Add(menuEntry.gameObject);
 

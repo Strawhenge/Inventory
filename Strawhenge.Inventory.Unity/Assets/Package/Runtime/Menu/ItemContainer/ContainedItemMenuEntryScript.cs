@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Strawhenge.Inventory.Unity
 {
-    public class ItemMenuEntryScript : MonoBehaviour
+    public class ContainedItemMenuEntryScript : MonoBehaviour
     {
         [SerializeField] Text _itemNameText;
         [SerializeField] Button _holdLeftHandButton;
