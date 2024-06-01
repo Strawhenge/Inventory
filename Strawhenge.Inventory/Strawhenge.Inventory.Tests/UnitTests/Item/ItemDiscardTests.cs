@@ -147,7 +147,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             AssertMaybe.IsNone(_holsterContainer.CurrentItem);
         }
 
-        void VerifyItemNotInStoredItems() => Assert.DoesNotContain(_item, _storedItems.AllItems);
+        void VerifyItemNotInStoredItems() => Assert.DoesNotContain(_item, _storedItems.Items);
 
         void VerifyItemDisappearedFromView() => _viewMock.VerifyOnce(
             x => x.Disappear(It.IsAny<Action>()));

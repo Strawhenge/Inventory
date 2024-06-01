@@ -113,7 +113,7 @@ namespace Strawhenge.Inventory.Unity.Editor
 
             if (_displayInventory)
             {
-                foreach (var item in _target.Instance.StoredItems)
+                foreach (var item in _target.Instance.StoredItems.Items)
                     InspectItemWithToggle(item);
             }
         }
@@ -214,7 +214,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             : "NA";
 
         string GetInventoryCountString() => _target.HasInstance
-            ? _target.Instance.StoredItems.Count().ToString()
+            ? _target.Instance.StoredItems.Items.Count().ToString()
             : "NA";
 
         string GetLeftHandItemString() => _target.HasInstance

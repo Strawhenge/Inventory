@@ -10,7 +10,7 @@ namespace Strawhenge.Inventory
             return inventory.LeftHand.CurrentItem.AsEnumerable()
                 .Concat(inventory.RightHand.CurrentItem.AsEnumerable())
                 .Concat(inventory.Holsters.SelectMany(x => x.CurrentItem.AsEnumerable()))
-                .Concat(inventory.StoredItems)
+                .Concat(inventory.StoredItems.Items)
                 .Distinct();
         }
 

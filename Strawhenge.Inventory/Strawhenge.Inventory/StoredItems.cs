@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Items;
+﻿using System;
+using Strawhenge.Inventory.Items;
 using System.Collections.Generic;
 
 namespace Strawhenge.Inventory
@@ -7,7 +8,11 @@ namespace Strawhenge.Inventory
     {
         readonly List<IItem> _items = new List<IItem>();
 
-        public IEnumerable<IItem> AllItems => _items.ToArray();
+        public event Action<IItem> ItemAdded;
+
+        public event Action<IItem> ItemRemoved;
+
+        public IEnumerable<IItem> Items => _items.ToArray();
 
         public void Add(IItem item)
         {
@@ -18,6 +23,7 @@ namespace Strawhenge.Inventory
             item.ClearFromHandsPreference = ClearFromHandsPreference.PutAway;
             item.ClearFromHolsterPreference = ClearFromHolsterPreference.Disappear;
             item.Discarded += Remove;
+            ItemAdded?.Invoke(item);
         }
 
         public void Remove(IItem item)
@@ -29,6 +35,7 @@ namespace Strawhenge.Inventory
             item.ClearFromHandsPreference = ClearFromHandsPreference.Drop;
             item.ClearFromHolsterPreference = ClearFromHolsterPreference.Drop;
             item.Discarded -= Remove;
+            ItemRemoved?.Invoke(item);
         }
     }
 }

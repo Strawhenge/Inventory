@@ -6,7 +6,6 @@ namespace Strawhenge.Inventory
 {
     public class Inventory : IInventory
     {
-        readonly IStoredItems _storedItems;
         readonly IHands _hands;
         readonly IHolsters _holsters;
         readonly IApparelSlots _apparelSlots;
@@ -17,10 +16,10 @@ namespace Strawhenge.Inventory
             IHolsters holsters,
             IApparelSlots apparelSlots)
         {
-            _storedItems = storedItems;
             _hands = hands;
             _holsters = holsters;
             _apparelSlots = apparelSlots;
+            StoredItems = storedItems;
         }
 
         public IItemContainer LeftHand => _hands.LeftHand;
@@ -29,19 +28,19 @@ namespace Strawhenge.Inventory
 
         public IEnumerable<IItemContainer> Holsters => _holsters.GetAll();
 
-        public IEnumerable<IItem> StoredItems => _storedItems.AllItems;
+        public IStoredItems StoredItems { get; }
 
         public IEnumerable<IApparelSlot> ApparelSlots => _apparelSlots.All;
 
         public IItem AddToStorage(IItem item)
         {
-            _storedItems.Add(item);
+            StoredItems.Add(item);
             return item;
         }
 
         public void RemoveFromStorage(IItem item)
         {
-            _storedItems.Remove(item);
+            StoredItems.Remove(item);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Strawhenge.Inventory.Info
 
         IEnumerable<ItemInfo> GetItemsInfo()
         {
-            return _inventory.StoredItems
+            return _inventory.StoredItems.Items
                 .Concat(_inventory.Holsters.SelectMany(x => x.CurrentItem.AsEnumerable()))
                 .Concat(_inventory.LeftHand.CurrentItem.AsEnumerable())
                 .Concat(_inventory.RightHand.CurrentItem.AsEnumerable())
@@ -33,7 +33,7 @@ namespace Strawhenge.Inventory.Info
                         .FirstOrNone(x => x.IsEquipped)
                         .Map(x => x.HolsterName)
                         .Reduce(() => string.Empty),
-                    isInStorage: _inventory.StoredItems.Contains(item),
+                    isInStorage: _inventory.StoredItems.Items.Contains(item),
                     isInLeftHand: _inventory.LeftHand.IsCurrentItem(item),
                     isInRightHand: _inventory.RightHand.IsCurrentItem(item)
                 ));

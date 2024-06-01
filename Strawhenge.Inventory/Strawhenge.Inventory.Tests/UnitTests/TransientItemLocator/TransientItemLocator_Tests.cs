@@ -103,7 +103,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
                 _equippedItemsMock.Setup(x => x.GetItemsInHolsters()).Returns(holster);
 
             if (ItemsInInventory() is IEnumerable<IItem> inventory)
-                _inventoryMock.SetupGet(x => x.AllItems).Returns(inventory);
+                _inventoryMock.SetupGet(x => x.Items).Returns(inventory);
 
             if (GenerateItem() is IItem generatedItem)
                 _itemGeneratorMock.SetupSome(x => x.GenerateByName(TargetItemName), generatedItem);

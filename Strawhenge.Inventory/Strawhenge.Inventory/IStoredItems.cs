@@ -1,12 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Strawhenge.Inventory
 {
     public interface IStoredItems
     {
-        IEnumerable<IItem> AllItems { get; }
+        event Action<IItem> ItemAdded;
+
+        event Action<IItem> ItemRemoved;
+
+        IEnumerable<IItem> Items { get; }
 
         void Add(IItem item);
+
         void Remove(IItem item);
     }
 }
