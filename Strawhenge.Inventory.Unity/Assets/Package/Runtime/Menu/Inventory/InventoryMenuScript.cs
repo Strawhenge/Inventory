@@ -45,6 +45,7 @@ namespace Strawhenge.Inventory.Unity.Menu
             _apparelSlotsMenu.Set(_inventoryScript.Inventory.ApparelSlots);
             _holstersMenu.Set(_inventoryScript.Inventory.Holsters);
             _handsMenu.Set(_inventoryScript.Inventory.LeftHand, _inventoryScript.Inventory.RightHand);
+            _storageMenu.Set(_inventoryScript.Inventory.StoredItems);
         }
 
         [ContextMenu(nameof(Open))]

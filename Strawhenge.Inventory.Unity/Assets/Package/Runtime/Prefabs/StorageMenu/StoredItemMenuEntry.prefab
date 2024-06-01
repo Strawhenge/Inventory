@@ -173,6 +173,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0149d9ed33a247f88fbb9078e8bcb16b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemNameText: {fileID: 7112118669668444574}
+  _holdLeftHandButton: {fileID: 4514235364021252045}
+  _holdRightHandButton: {fileID: 6848466638259956817}
+  _consumeLeftHandButton: {fileID: 7888150446727338141}
+  _consumeRightHandButton: {fileID: 257766511042338036}
+  _dropButton: {fileID: 7394239135365274571}
 --- !u!1 &2642670948622023790
 GameObject:
   m_ObjectHideFlags: 0
