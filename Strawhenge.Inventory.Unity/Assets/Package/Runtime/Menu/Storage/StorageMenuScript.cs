@@ -6,9 +6,7 @@ namespace Strawhenge.Inventory.Unity.Menu.Storage
 {
     public class StorageMenuScript : MonoBehaviour
     {
-        [FormerlySerializedAs("_menuEntryPrefab")] [SerializeField]
-        StoredItemMenuEntryScript _menuEntryScriptPrefab;
-
+        [SerializeField] StoredItemMenuEntryScript _menuEntryPrefab;
         [SerializeField] RectTransform _entryContainer;
 
         readonly Dictionary<IItem, StoredItemMenuEntryScript> _entries =
@@ -25,7 +23,7 @@ namespace Strawhenge.Inventory.Unity.Menu.Storage
 
         void Add(IItem item)
         {
-            var entry = Instantiate(_menuEntryScriptPrefab, parent: _entryContainer);
+            var entry = Instantiate(_menuEntryPrefab, parent: _entryContainer);
             entry.Set(item);
             _entries.Add(item, entry);
         }
