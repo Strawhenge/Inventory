@@ -3,6 +3,7 @@ using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Unity.Menu.Apparel;
 using Strawhenge.Inventory.Unity.Menu.Hands;
 using Strawhenge.Inventory.Unity.Menu.Holsters;
+using Strawhenge.Inventory.Unity.Menu.Storage;
 using Strawhenge.Inventory.Unity.Monobehaviours;
 using System.Collections;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Strawhenge.Inventory.Unity.Menu
         [SerializeField] ApparelSlotsMenuScript _apparelSlotsMenu;
         [SerializeField] HandsMenuScript _handsMenu;
         [SerializeField] HolstersMenuScript _holstersMenu;
+        [SerializeField] StorageMenuScript _storageMenu;
         [SerializeField] EventScriptableObject[] _openEvents;
         [SerializeField] EventScriptableObject[] _closeEvents;
         [SerializeField] InventoryScript _inventoryScript;
@@ -29,7 +31,7 @@ namespace Strawhenge.Inventory.Unity.Menu
 
         void OnDestroy()
         {
-            Container.Clear();
+            Container?.Clear();
         }
 
         IEnumerator Setup()
