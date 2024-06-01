@@ -9,6 +9,7 @@ using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Storables;
 using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.Context
@@ -98,7 +99,8 @@ namespace Strawhenge.Inventory.Tests.Context
                         }),
                         _logger);
                 },
-                _ => Maybe.None<IConsumable>());
+                _ => Maybe.None<IConsumable>(),
+                _ => Maybe.None<IStorable>());
         }
     }
 }

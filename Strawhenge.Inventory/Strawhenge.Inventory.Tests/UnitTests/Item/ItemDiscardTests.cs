@@ -6,6 +6,7 @@ using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Storables;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -39,7 +40,8 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 
                     return new HolstersForItem(new[] { holster }, logger);
                 },
-                _ => Maybe.None<IConsumable>());
+                _ => Maybe.None<IConsumable>(),
+                _ => Maybe.None<IStorable>());
 
             _storedItems.Add(_item);
         }

@@ -2,6 +2,7 @@
 using Moq;
 using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Containers;
+using Strawhenge.Inventory.Items.Storables;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
@@ -41,7 +42,8 @@ namespace Strawhenge.Inventory.Tests.Context
                 itemViewMock.Object,
                 itemSize,
                 GetHolstersForItem,
-                _ => Maybe.None<IConsumable>())
+                _ => Maybe.None<IConsumable>(),
+                _ => Maybe.None<IStorable>())
             {
                 ClearFromHandsPreference = ClearFromHandsPreference.PutAway
             };

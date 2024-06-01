@@ -4,6 +4,7 @@ using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Storables;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Data;
@@ -22,6 +23,7 @@ namespace Strawhenge.Inventory.Unity.Items
         readonly IReadOnlyList<Collider> _colliders;
         readonly IHands _hands;
         readonly IHolsters _holsters;
+        readonly IStoredItems _storedItems;
         readonly HolsterComponents _holsterComponents;
         readonly ProcedureQueue _procedureQueue;
         readonly IProcedureFactory _procedureFactory;
@@ -33,6 +35,7 @@ namespace Strawhenge.Inventory.Unity.Items
             GameObject gameObject,
             IHands hands,
             IHolsters holsters,
+            IStoredItems storedItems,
             HolsterComponents holsterComponents,
             ProcedureQueue procedureQueue,
             IProcedureFactory procedureFactory,
@@ -44,6 +47,7 @@ namespace Strawhenge.Inventory.Unity.Items
 
             _hands = hands;
             _holsters = holsters;
+            _storedItems = storedItems;
             _holsterComponents = holsterComponents;
             _procedureQueue = procedureQueue;
             _procedureFactory = procedureFactory;
@@ -72,7 +76,8 @@ namespace Strawhenge.Inventory.Unity.Items
 
             return new Item(data.Name, _hands, view, itemSize,
                 getHolstersForItem: x => CreateHolstersForItem(x, component),
-                getConsumable: x => CreateConsumable(x, data.ConsumableData));
+                getConsumable: x => CreateConsumable(x, data.ConsumableData),
+                getStorable: x => new Storable(x, _storedItems, 0));
         }
 
         IHolstersForItem CreateHolstersForItem(IItem item, ItemHelper itemComponent)
