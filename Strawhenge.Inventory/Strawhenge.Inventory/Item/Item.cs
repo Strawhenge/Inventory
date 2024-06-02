@@ -15,8 +15,6 @@ namespace Strawhenge.Inventory.Items
         readonly ItemSize _size;
         readonly IHolstersForItem _holsters;
 
-        public event Action<IItem> Discarded;
-
         public Item(
             string name,
             IHands hands,
@@ -81,7 +79,7 @@ namespace Strawhenge.Inventory.Items
                 _itemView.SpawnAndDrop(callback);
             }
 
-            Discarded?.Invoke(this);
+            Storable.Do(x => x.RemoveFromStorage());
         }
 
         public void HoldLeftHand(Action callback = null)
@@ -237,7 +235,7 @@ namespace Strawhenge.Inventory.Items
             if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
                 holster.Discard();
 
-            Discarded?.Invoke(this);
+            Storable.Do(x => x.RemoveFromStorage());
         }
 
         void ClearLeftHand()

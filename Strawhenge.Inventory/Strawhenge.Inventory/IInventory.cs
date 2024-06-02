@@ -15,9 +15,5 @@ namespace Strawhenge.Inventory
         IStoredItems StoredItems { get; }
 
         IEnumerable<IApparelSlot> ApparelSlots { get; }
-
-        IItem AddToStorage(IItem item);
-
-        void RemoveFromStorage(IItem item);
     }
 }

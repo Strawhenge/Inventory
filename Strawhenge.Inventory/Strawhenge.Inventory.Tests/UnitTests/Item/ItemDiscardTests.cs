@@ -41,9 +41,9 @@ namespace Strawhenge.Inventory.Tests.UnitTests
                     return new HolstersForItem(new[] { holster }, logger);
                 },
                 _ => Maybe.None<IConsumable>(),
-                _ => Maybe.None<IStorable>());
+                item => new Storable(item, _storedItems, 0));
 
-            _storedItems.Add(_item);
+            _item.Storable.Do(x => x.AddToStorage());
         }
 
         [Fact]

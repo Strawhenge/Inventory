@@ -10,8 +10,6 @@ namespace Strawhenge.Inventory
 {
     public interface IItem
     {
-        event Action<IItem> Discarded;
-
         string Name { get; }
 
         bool IsInHand { get; }

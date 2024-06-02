@@ -29,6 +29,7 @@ namespace Strawhenge.Inventory.Items.Storables
 
         public void RemoveFromStorage()
         {
+            _storedItems.Remove(_item);
         }
     }
 }

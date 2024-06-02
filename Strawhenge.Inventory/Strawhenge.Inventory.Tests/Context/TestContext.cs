@@ -17,6 +17,7 @@ namespace Strawhenge.Inventory.Tests.Context
     class TestContext
     {
         readonly ILogger _logger;
+        readonly StoredItems _itemStorage;
 
         public TestContext(ITestOutputHelper testOutputHelper)
         {
@@ -25,13 +26,11 @@ namespace Strawhenge.Inventory.Tests.Context
             var apparelSlotsMock = new Mock<IApparelSlots>();
             apparelSlotsMock.SetupGet(x => x.All).Returns(ApparelSlots);
 
-            ItemStorage = new StoredItems();
+            _itemStorage = new StoredItems();
             Holsters = new Holsters(_logger);
             Hands = new Hands();
-            Inventory = new Inventory(ItemStorage, Hands, Holsters, apparelSlotsMock.Object);
+            Inventory = new Inventory(_itemStorage, Hands, Holsters, apparelSlotsMock.Object);
         }
-
-        public StoredItems ItemStorage { get; }
 
         public Holsters Holsters { get; }
 
@@ -100,7 +99,7 @@ namespace Strawhenge.Inventory.Tests.Context
                         _logger);
                 },
                 _ => Maybe.None<IConsumable>(),
-                _ => Maybe.None<IStorable>());
+                item => new Storable(item, _itemStorage, 0));
         }
     }
 }
