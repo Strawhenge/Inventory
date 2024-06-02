@@ -14,6 +14,10 @@ namespace Strawhenge.Inventory.Unity.Data
 
         public ItemSize Size => ItemSize.OneHanded;
 
+        public bool IsStorable => false;
+
+        public int Weight => 0;
+
         public IHoldItemData LeftHandHoldData => new NullHoldItemData();
 
         public IHoldItemData RightHandHoldData => new NullHoldItemData();

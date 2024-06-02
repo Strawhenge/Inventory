@@ -21,6 +21,9 @@ namespace Strawhenge.Inventory.Unity.Data
         [FormerlySerializedAs("Size"), SerializeField]
         ItemSize _size;
 
+        [SerializeField] bool _isStorable;
+        [SerializeField] int _weight;
+
         [FormerlySerializedAs("LeftHandHoldData"), SerializeField]
         SerializedHoldItemData _leftHandHoldData;
 
@@ -38,6 +41,10 @@ namespace Strawhenge.Inventory.Unity.Data
         ItemScript IItemData.Prefab => _prefab;
 
         ItemSize IItemData.Size => _size;
+
+        bool IItemData.IsStorable => _isStorable;
+
+        int IItemData.Weight => _weight;
 
         IHoldItemData IItemData.LeftHandHoldData => _leftHandHoldData;
 

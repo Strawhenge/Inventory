@@ -12,6 +12,10 @@ namespace Strawhenge.Inventory.Unity.Data
         ItemScript Prefab { get; }
 
         ItemSize Size { get; }
+        
+        bool IsStorable { get; }
+        
+        int Weight { get; }
 
         IHoldItemData LeftHandHoldData { get; }
 
