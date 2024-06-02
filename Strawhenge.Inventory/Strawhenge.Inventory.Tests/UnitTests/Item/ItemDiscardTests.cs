@@ -14,7 +14,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 {
     public class ItemDiscardTests
     {
-        readonly IStoredItems _storedItems;
+        readonly StoredItems _storedItems;
         readonly IHands _hands;
         readonly ItemContainer _holsterContainer;
         readonly Mock<IItemView> _viewMock;

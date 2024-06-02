@@ -23,7 +23,7 @@ namespace Strawhenge.Inventory.Unity.Items
         readonly IReadOnlyList<Collider> _colliders;
         readonly IHands _hands;
         readonly IHolsters _holsters;
-        readonly IStoredItems _storedItems;
+        readonly StoredItems _storedItems;
         readonly HolsterComponents _holsterComponents;
         readonly ProcedureQueue _procedureQueue;
         readonly IProcedureFactory _procedureFactory;
@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.Unity.Items
             GameObject gameObject,
             IHands hands,
             IHolsters holsters,
-            IStoredItems storedItems,
+            StoredItems storedItems,
             HolsterComponents holsterComponents,
             ProcedureQueue procedureQueue,
             IProcedureFactory procedureFactory,

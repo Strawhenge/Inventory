@@ -10,9 +10,5 @@ namespace Strawhenge.Inventory
         event Action<IItem> ItemRemoved;
 
         IEnumerable<IItem> Items { get; }
-
-        void Add(IItem item);
-
-        void Remove(IItem item);
     }
 }

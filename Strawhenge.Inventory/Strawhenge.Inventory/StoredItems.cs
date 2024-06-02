@@ -14,7 +14,7 @@ namespace Strawhenge.Inventory
 
         public IEnumerable<IItem> Items => _items.ToArray();
 
-        public void Add(IItem item)
+        internal void Add(IItem item)
         {
             if (_items.Contains(item))
                 return;
@@ -25,7 +25,7 @@ namespace Strawhenge.Inventory
             ItemAdded?.Invoke(item);
         }
 
-        public void Remove(IItem item)
+        internal void Remove(IItem item)
         {
             if (!_items.Contains(item))
                 return;
