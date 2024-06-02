@@ -36,7 +36,7 @@ namespace Strawhenge.Inventory.Unity.Loader
                 item.Holsters.FirstOrNone(x => x.HolsterName == holsterName).Do(y => y.Equip()));
 
             if (loadItem.IsInStorage)
-                _inventory.AddToStorage(item);
+                item.Storable.Do(x => x.AddToStorage());
 
             if (loadItem.InHand == LoadInventoryItemInHand.Left)
                 item.HoldLeftHand();
