@@ -9,6 +9,10 @@ namespace Strawhenge.Inventory
 
         event Action<IItem> ItemRemoved;
 
+        int TotalItemsWeight { get; }
+
+        int MaxItemsWeight { get; }
+
         IEnumerable<IItem> Items { get; }
     }
 }

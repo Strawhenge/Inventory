@@ -26,7 +26,7 @@ namespace Strawhenge.Inventory.Items.Storables
         {
             // TODO weight check
 
-            _storedItems.Add(_item);
+            _storedItems.Add(_item, Weight);
             IsStored = true;
             Added?.Invoke();
             return StoreItemResult.Ok;
@@ -34,7 +34,7 @@ namespace Strawhenge.Inventory.Items.Storables
 
         public void RemoveFromStorage()
         {
-            _storedItems.Remove(_item);
+            _storedItems.Remove(_item, Weight);
             IsStored = false;
             Removed?.Invoke();
         }

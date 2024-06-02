@@ -12,9 +12,13 @@ namespace Strawhenge.Inventory
 
         public event Action<IItem> ItemRemoved;
 
+        public int TotalItemsWeight { get; private set; }
+
+        public int MaxItemsWeight { get; private set; }
+
         public IEnumerable<IItem> Items => _items.ToArray();
 
-        internal void Add(IItem item)
+        internal void Add(IItem item, int weight)
         {
             if (_items.Contains(item))
                 return;
@@ -22,10 +26,11 @@ namespace Strawhenge.Inventory
             _items.Add(item);
             item.ClearFromHandsPreference = ClearFromHandsPreference.PutAway;
             item.ClearFromHolsterPreference = ClearFromHolsterPreference.Disappear;
+            TotalItemsWeight += weight;
             ItemAdded?.Invoke(item);
         }
 
-        internal void Remove(IItem item)
+        internal void Remove(IItem item, int weight)
         {
             if (!_items.Contains(item))
                 return;
@@ -33,11 +38,10 @@ namespace Strawhenge.Inventory
             _items.Remove(item);
             item.ClearFromHandsPreference = ClearFromHandsPreference.Drop;
             item.ClearFromHolsterPreference = ClearFromHolsterPreference.Drop;
+            TotalItemsWeight -= weight;
             ItemRemoved?.Invoke(item);
         }
 
-        void IStoredItemsWeightCapacitySetter.SetWeightCapacity(int maxWeight)
-        {
-        }
+        void IStoredItemsWeightCapacitySetter.SetWeightCapacity(int maxWeight) => MaxItemsWeight = maxWeight;
     }
 }
