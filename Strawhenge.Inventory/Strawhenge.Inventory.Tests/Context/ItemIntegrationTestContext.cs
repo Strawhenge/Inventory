@@ -42,8 +42,7 @@ namespace Strawhenge.Inventory.Tests.Context
                 itemViewMock.Object,
                 itemSize,
                 GetHolstersForItem,
-                _ => Maybe.None<IConsumable>(),
-                _ => Maybe.None<IStorable>())
+                _ => Maybe.None<IConsumable>())
             {
                 ClearFromHandsPreference = ClearFromHandsPreference.PutAway
             };

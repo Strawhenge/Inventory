@@ -56,8 +56,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
                 _itemViewMock.Object,
                 _itemSizeMock.Object,
                 _ => _holstersMock.Object,
-                _ => Maybe.None<IConsumable>(),
-                _ => Maybe.None<IStorable>());
+                _ => Maybe.None<IConsumable>());
 
             _callback = new AssertableCallback();
         }

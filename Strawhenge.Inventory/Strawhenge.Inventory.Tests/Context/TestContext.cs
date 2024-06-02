@@ -72,7 +72,7 @@ namespace Strawhenge.Inventory.Tests.Context
                 .Callback<Action>(callback => callback?.Invoke());
 
 
-            return new Item(name, Hands, itemViewMock.Object, size, item =>
+            var item = new Item(name, Hands, itemViewMock.Object, size, item =>
                 {
                     return new HolstersForItem(
                         holsterNames.Select(x =>
@@ -98,8 +98,11 @@ namespace Strawhenge.Inventory.Tests.Context
                         }),
                         _logger);
                 },
-                _ => Maybe.None<IConsumable>(),
-                item => new Storable(item, _itemStorage, 0));
+                _ => Maybe.None<IConsumable>());
+
+            item.SetupStorable(_itemStorage, weight: 0);
+
+            return item;
         }
     }
 }

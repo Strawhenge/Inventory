@@ -21,8 +21,8 @@ namespace Strawhenge.Inventory.Items
             IItemView itemView,
             ItemSize size,
             Func<IItem, IHolstersForItem> getHolstersForItem,
-            Func<IItem, Maybe<IConsumable>> getConsumable,
-            Func<IItem, Maybe<IStorable>> getStorable)
+            Func<IItem, Maybe<IConsumable>> getConsumable
+            )
         {
             Name = name;
 
@@ -33,7 +33,6 @@ namespace Strawhenge.Inventory.Items
             _holsters = getHolstersForItem(this);
 
             Consumable = getConsumable(this);
-            Storable = getStorable(this);
 
             itemView.Released += OnRemoved;
         }
@@ -44,7 +43,7 @@ namespace Strawhenge.Inventory.Items
 
         public Maybe<IConsumable> Consumable { get; }
 
-        public Maybe<IStorable> Storable { get; }
+        public Maybe<IStorable> Storable { get; private set; } = Maybe.None<IStorable>();
 
         public bool IsInHand => IsInLeftHand() || IsInRightHand();
 
@@ -61,6 +60,9 @@ namespace Strawhenge.Inventory.Items
                     holster.ClearFromHolsterPreference = value;
             }
         }
+
+        public void SetupStorable(StoredItems storage, int weight) =>
+            Storable = new Storable(this, storage, weight);
 
         public void Drop(Action callback = null)
         {
