@@ -6,6 +6,7 @@ using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Storables;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -13,7 +14,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
 {
     public class ItemDiscardTests
     {
-        readonly IStoredItems _storedItems;
+        readonly StoredItems _storedItems;
         readonly IHands _hands;
         readonly ItemContainer _holsterContainer;
         readonly Mock<IItemView> _viewMock;
@@ -30,18 +31,10 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             _viewMock = new Mock<IItemView>();
             _holsterView = new Mock<IHolsterForItemView>();
 
-            _item = new Item("Discard Test Item", _hands, _viewMock.Object, ItemSize.OneHanded, item =>
-                {
-                    var holster = new HolsterForItem(
-                        item,
-                        _holsterContainer,
-                        _holsterView.Object);
-
-                    return new HolstersForItem(new[] { holster }, logger);
-                },
-                _ => Maybe.None<IConsumable>());
-
-            _storedItems.Add(_item);
+            _item = new Item("Discard Test Item", _hands, _viewMock.Object, ItemSize.OneHanded);
+            _item.SetupHolsters(new[] { (_holsterContainer, _holsterView.Object) });
+            _item.SetupStorable(_storedItems, weight: 0);
+            _item.Storable.Do(x => x.AddToStorage());
         }
 
         [Fact]
@@ -147,7 +140,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             AssertMaybe.IsNone(_holsterContainer.CurrentItem);
         }
 
-        void VerifyItemNotInStoredItems() => Assert.DoesNotContain(_item, _storedItems.AllItems);
+        void VerifyItemNotInStoredItems() => Assert.DoesNotContain(_item, _storedItems.Items);
 
         void VerifyItemDisappearedFromView() => _viewMock.VerifyOnce(
             x => x.Disappear(It.IsAny<Action>()));

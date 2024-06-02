@@ -11,11 +11,14 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
     {
         [SerializeField] Transform _leftHand;
         [SerializeField] Transform _rightHand;
+        [SerializeField] int _maxStoredItemsWeight;
         [SerializeField] FixedItemContainerScript _apparelContainerPrefab;
 
         public bool IsConfigurationComplete { get; private set; }
 
         public IInventory Inventory { get; set; }
+
+        public IStoredItemsWeightCapacitySetter StoredItemsWeightCapacity { private get; set; }
 
         public ApparelSlotScripts ApparelSlots { private get; set; }
 
@@ -60,6 +63,8 @@ namespace Strawhenge.Inventory.Unity.Monobehaviours
 
             if (_apparelContainerPrefab != null)
                 ApparelContainer.Set(_apparelContainerPrefab);
+
+            StoredItemsWeightCapacity.SetWeightCapacity(_maxStoredItemsWeight);
 
             IsConfigurationComplete = true;
         }

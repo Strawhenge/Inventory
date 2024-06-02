@@ -2,7 +2,10 @@
 using Strawhenge.Inventory.Items.HolsterForItem;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Effects;
+using Strawhenge.Inventory.Items.Storables;
 using Strawhenge.Inventory.Items.Consumables;
 
 namespace Strawhenge.Inventory.Items
@@ -12,26 +15,20 @@ namespace Strawhenge.Inventory.Items
         readonly IHands _hands;
         readonly IItemView _itemView;
         readonly ItemSize _size;
-        readonly IHolstersForItem _holsters;
-
-        public event Action<IItem> Discarded;
+        IHolstersForItem _holsters;
 
         public Item(
             string name,
             IHands hands,
             IItemView itemView,
-            ItemSize size,
-            Func<IItem, IHolstersForItem> getHolstersForItem,
-            Func<IItem, Maybe<IConsumable>> getConsumable)
+            ItemSize size)
         {
             Name = name;
 
             _hands = hands;
             _itemView = itemView;
             _size = size;
-
-            _holsters = getHolstersForItem(this);
-            Consumable = getConsumable(this);
+            _holsters = HolstersForItem.None;
 
             itemView.Released += OnRemoved;
         }
@@ -40,7 +37,9 @@ namespace Strawhenge.Inventory.Items
 
         public IEnumerable<IEquipItemToHolster> Holsters => _holsters;
 
-        public Maybe<IConsumable> Consumable { get; }
+        public Maybe<IConsumable> Consumable { get; private set; }
+
+        public Maybe<IStorable> Storable { get; private set; } = Maybe.None<IStorable>();
 
         public bool IsInHand => IsInLeftHand() || IsInRightHand();
 
@@ -57,6 +56,18 @@ namespace Strawhenge.Inventory.Items
                     holster.ClearFromHolsterPreference = value;
             }
         }
+
+        public void SetupHolsters(IEnumerable<(ItemContainer container, IHolsterForItemView view)> holsters) =>
+            _holsters = new HolstersForItem(
+                holsters.Select(x => new HolsterForItem.HolsterForItem(this, x.container, x.view)));
+
+        public void SetupHolsters(IHolstersForItem holsters) => _holsters = holsters;
+
+        public void SetupConsumable(IConsumableView view, IEnumerable<Effect> effects) =>
+            Consumable = new Consumable(this, view, effects);
+
+        public void SetupStorable(StoredItems storage, int weight) =>
+            Storable = new Storable(this, storage, weight);
 
         public void Drop(Action callback = null)
         {
@@ -75,7 +86,7 @@ namespace Strawhenge.Inventory.Items
                 _itemView.SpawnAndDrop(callback);
             }
 
-            Discarded?.Invoke(this);
+            Storable.Do(x => x.RemoveFromStorage());
         }
 
         public void HoldLeftHand(Action callback = null)
@@ -231,7 +242,7 @@ namespace Strawhenge.Inventory.Items
             if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
                 holster.Discard();
 
-            Discarded?.Invoke(this);
+            Storable.Do(x => x.RemoveFromStorage());
         }
 
         void ClearLeftHand()

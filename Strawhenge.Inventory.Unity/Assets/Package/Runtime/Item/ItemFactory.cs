@@ -4,6 +4,7 @@ using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Storables;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Data;
@@ -22,6 +23,7 @@ namespace Strawhenge.Inventory.Unity.Items
         readonly IReadOnlyList<Collider> _colliders;
         readonly IHands _hands;
         readonly IHolsters _holsters;
+        readonly StoredItems _storedItems;
         readonly HolsterComponents _holsterComponents;
         readonly ProcedureQueue _procedureQueue;
         readonly IProcedureFactory _procedureFactory;
@@ -33,6 +35,7 @@ namespace Strawhenge.Inventory.Unity.Items
             GameObject gameObject,
             IHands hands,
             IHolsters holsters,
+            StoredItems storedItems,
             HolsterComponents holsterComponents,
             ProcedureQueue procedureQueue,
             IProcedureFactory procedureFactory,
@@ -44,6 +47,7 @@ namespace Strawhenge.Inventory.Unity.Items
 
             _hands = hands;
             _holsters = holsters;
+            _storedItems = storedItems;
             _holsterComponents = holsterComponents;
             _procedureQueue = procedureQueue;
             _procedureFactory = procedureFactory;
@@ -70,14 +74,27 @@ namespace Strawhenge.Inventory.Unity.Items
 
             var itemSize = CreateItemSize(data.Size);
 
-            return new Item(data.Name, _hands, view, itemSize,
-                getHolstersForItem: x => CreateHolstersForItem(x, component),
-                getConsumable: x => CreateConsumable(x, data.ConsumableData));
+            var item = new Item(data.Name, _hands, view, itemSize);
+
+            item.SetupHolsters(CreateHolstersForItem(component));
+
+            data.ConsumableData.Do(consumableData =>
+            {
+                var effects = consumableData.Effects.Select(_effectFactory.Create);
+                var consumableView = new ConsumableView(_procedureQueue, _procedureFactory, consumableData);
+
+                item.SetupConsumable(consumableView, effects);
+            });
+
+            if (data.IsStorable)
+                item.SetupStorable(_storedItems, data.Weight);
+
+            return item;
         }
 
-        IHolstersForItem CreateHolstersForItem(IItem item, ItemHelper itemComponent)
+        IEnumerable<(ItemContainer, IHolsterForItemView)> CreateHolstersForItem(ItemHelper itemComponent)
         {
-            List<IHolsterForItem> holstersForItem = new List<IHolsterForItem>();
+            var holstersForItem = new List<(ItemContainer, IHolsterForItemView)>();
 
             foreach (var holsterComponent in _holsterComponents.Components)
             {
@@ -90,21 +107,11 @@ namespace Strawhenge.Inventory.Unity.Items
                 {
                     var view = new HolsterForItemView(itemComponent, holsterComponent, _procedureQueue,
                         _procedureFactory);
-                    holstersForItem.Add(new HolsterForItem(item, x, view));
+                    holstersForItem.Add((x, view));
                 });
             }
 
-            return new HolstersForItem(holstersForItem, _logger);
-        }
-
-        Maybe<IConsumable> CreateConsumable(IItem item, Maybe<IConsumableData> data)
-        {
-            return data.Map<IConsumable>(
-                x =>
-                {
-                    var effects = x.Effects.Select(_effectFactory.Create);
-                    return new Consumable(item, new ConsumableView(_procedureQueue, _procedureFactory, x), effects);
-                });
+            return holstersForItem;
         }
 
         Strawhenge.Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)

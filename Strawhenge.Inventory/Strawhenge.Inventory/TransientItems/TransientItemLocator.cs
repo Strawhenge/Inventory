@@ -68,7 +68,7 @@ namespace Strawhenge.Inventory.TransientItems
 
         bool IsItemInInventory(string name, out IItem item)
         {
-            item = _inventory.AllItems
+            item = _inventory.Items
                 .FirstOrDefault(x => IsItemName(x, name));
 
             return item != null;

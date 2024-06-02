@@ -2,6 +2,7 @@
 using Moq;
 using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Containers;
+using Strawhenge.Inventory.Items.Storables;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
@@ -39,24 +40,17 @@ namespace Strawhenge.Inventory.Tests.Context
                 $"Test Item {_itemCount}",
                 _hands,
                 itemViewMock.Object,
-                itemSize,
-                GetHolstersForItem,
-                _ => Maybe.None<IConsumable>())
+                itemSize)
             {
                 ClearFromHandsPreference = ClearFromHandsPreference.PutAway
             };
 
-            HolstersForItem GetHolstersForItem(IItem item)
+            instance.SetupHolsters(new (ItemContainer, IHolsterForItemView)[]
             {
-                var holstersForItem = new IHolsterForItem[]
-                {
-                    new HolsterForItem(item, _firstItemContainer, firstHolsterViewMock.Object),
-                    new HolsterForItem(item, _secondItemContainer, secondHolsterViewMock.Object),
-                    new HolsterForItem(item, _thirdItemContainer, thirdHolsterViewMock.Object)
-                };
-
-                return new HolstersForItem(holstersForItem, _logger);
-            }
+                (_firstItemContainer, firstHolsterViewMock.Object),
+                (_secondItemContainer, secondHolsterViewMock.Object),
+                (_thirdItemContainer, thirdHolsterViewMock.Object),
+            });
 
             return new ItemContext
             {

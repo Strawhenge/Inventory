@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using FunctionalUtilities;
 using Strawhenge.Inventory.Items.Consumables;
+using Strawhenge.Inventory.Items.Storables;
 using UnityEditor;
 using UnityEngine;
 
@@ -113,7 +114,7 @@ namespace Strawhenge.Inventory.Unity.Editor
 
             if (_displayInventory)
             {
-                foreach (var item in _target.Instance.StoredItems)
+                foreach (var item in _target.Instance.StoredItems.Items)
                     InspectItemWithToggle(item);
             }
         }
@@ -139,15 +140,19 @@ namespace Strawhenge.Inventory.Unity.Editor
         {
             EditorGUILayout.HelpBox(GetItemInfoString(item), MessageType.Info);
 
-            EditorGUILayout.BeginHorizontal();
+            item.Storable.Do(storable =>
+            {
+                EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button(nameof(IInventory.AddToStorage)))
-                _target.Instance.AddToStorage(item);
+                if (GUILayout.Button(nameof(IStorable.AddToStorage)))
+                    storable.AddToStorage();
 
-            if (GUILayout.Button(nameof(IInventory.RemoveFromStorage)))
-                _target.Instance.RemoveFromStorage(item);
+                if (GUILayout.Button(nameof(IStorable.RemoveFromStorage)))
+                    storable.RemoveFromStorage();
 
-            EditorGUILayout.EndHorizontal();
+                EditorGUILayout.EndHorizontal();
+            });
+
             EditorGUILayout.BeginHorizontal();
 
             if (GUILayout.Button(nameof(IItem.HoldLeftHand)))
@@ -214,7 +219,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             : "NA";
 
         string GetInventoryCountString() => _target.HasInstance
-            ? _target.Instance.StoredItems.Count().ToString()
+            ? _target.Instance.StoredItems.Items.Count().ToString()
             : "NA";
 
         string GetLeftHandItemString() => _target.HasInstance

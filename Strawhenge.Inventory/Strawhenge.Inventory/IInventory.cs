@@ -12,12 +12,8 @@ namespace Strawhenge.Inventory
 
         IEnumerable<IItemContainer> Holsters { get; }
 
-        IEnumerable<IItem> StoredItems { get; }
+        IStoredItems StoredItems { get; }
 
         IEnumerable<IApparelSlot> ApparelSlots { get; }
-
-        IItem AddToStorage(IItem item);
-
-        void RemoveFromStorage(IItem item);
     }
 }
