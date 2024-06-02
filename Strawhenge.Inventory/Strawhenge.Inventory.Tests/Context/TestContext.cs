@@ -16,18 +16,17 @@ namespace Strawhenge.Inventory.Tests.Context
 {
     class TestContext
     {
-        readonly ILogger _logger;
         readonly StoredItems _itemStorage;
 
         public TestContext(ITestOutputHelper testOutputHelper)
         {
-            _logger = new TestOutputLogger(testOutputHelper);
+            var logger = new TestOutputLogger(testOutputHelper);
 
             var apparelSlotsMock = new Mock<IApparelSlots>();
             apparelSlotsMock.SetupGet(x => x.All).Returns(ApparelSlots);
 
             _itemStorage = new StoredItems();
-            Holsters = new Holsters(_logger);
+            Holsters = new Holsters(logger);
             Hands = new Hands();
             Inventory = new Inventory(_itemStorage, Hands, Holsters, apparelSlotsMock.Object);
         }
@@ -72,32 +71,29 @@ namespace Strawhenge.Inventory.Tests.Context
                 .Callback<Action>(callback => callback?.Invoke());
 
 
-            var item = new Item(name, Hands, itemViewMock.Object, size, item =>
-                {
-                    return new HolstersForItem(
-                        holsterNames.Select(x =>
-                        {
-                            var view = new Mock<IHolsterForItemView>();
+            var item = new Item(name, Hands, itemViewMock.Object, size);
 
-                            view.Setup(x => x.DrawLeftHand(It.IsAny<Action>()))
-                                .Callback<Action>(callback => callback?.Invoke());
-                            view.Setup(x => x.DrawRightHand(It.IsAny<Action>()))
-                                .Callback<Action>(callback => callback?.Invoke());
-                            view.Setup(x => x.PutAwayLeftHand(It.IsAny<Action>()))
-                                .Callback<Action>(callback => callback?.Invoke());
-                            view.Setup(x => x.PutAwayRightHand(It.IsAny<Action>()))
-                                .Callback<Action>(callback => callback?.Invoke());
-                            view.Setup(x => x.Show(It.IsAny<Action>()))
-                                .Callback<Action>(callback => callback?.Invoke());
-                            view.Setup(x => x.Hide(It.IsAny<Action>()))
-                                .Callback<Action>(callback => callback?.Invoke());
-                            view.Setup(x => x.Drop(It.IsAny<Action>()))
-                                .Callback<Action>(callback => callback?.Invoke());
+            item.SetupHolsters(holsterNames.Select(x =>
+            {
+                var view = new Mock<IHolsterForItemView>();
 
-                            return new HolsterForItem(item, Holsters.FindByName(x).ReduceUnsafe(), view.Object);
-                        }),
-                        _logger);
-                });
+                view.Setup(x => x.DrawLeftHand(It.IsAny<Action>()))
+                    .Callback<Action>(callback => callback?.Invoke());
+                view.Setup(x => x.DrawRightHand(It.IsAny<Action>()))
+                    .Callback<Action>(callback => callback?.Invoke());
+                view.Setup(x => x.PutAwayLeftHand(It.IsAny<Action>()))
+                    .Callback<Action>(callback => callback?.Invoke());
+                view.Setup(x => x.PutAwayRightHand(It.IsAny<Action>()))
+                    .Callback<Action>(callback => callback?.Invoke());
+                view.Setup(x => x.Show(It.IsAny<Action>()))
+                    .Callback<Action>(callback => callback?.Invoke());
+                view.Setup(x => x.Hide(It.IsAny<Action>()))
+                    .Callback<Action>(callback => callback?.Invoke());
+                view.Setup(x => x.Drop(It.IsAny<Action>()))
+                    .Callback<Action>(callback => callback?.Invoke());
+
+                return (Holsters.FindByName(x).ReduceUnsafe(), view.Object);
+            }));
 
             item.SetupStorable(_itemStorage, weight: 0);
 

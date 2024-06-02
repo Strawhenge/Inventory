@@ -2,6 +2,7 @@
 using Strawhenge.Inventory.Items.HolsterForItem;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FunctionalUtilities;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items.Storables;
@@ -14,22 +15,20 @@ namespace Strawhenge.Inventory.Items
         readonly IHands _hands;
         readonly IItemView _itemView;
         readonly ItemSize _size;
-        readonly IHolstersForItem _holsters;
+        IHolstersForItem _holsters;
 
         public Item(
             string name,
             IHands hands,
             IItemView itemView,
-            ItemSize size,
-            Func<IItem, IHolstersForItem> getHolstersForItem)
+            ItemSize size)
         {
             Name = name;
 
             _hands = hands;
             _itemView = itemView;
             _size = size;
-
-            _holsters = getHolstersForItem(this);
+            _holsters = HolstersForItem.None;
 
             itemView.Released += OnRemoved;
         }
@@ -57,6 +56,12 @@ namespace Strawhenge.Inventory.Items
                     holster.ClearFromHolsterPreference = value;
             }
         }
+
+        public void SetupHolsters(IEnumerable<(ItemContainer container, IHolsterForItemView view)> holsters) =>
+            _holsters = new HolstersForItem(
+                holsters.Select(x => new HolsterForItem.HolsterForItem(this, x.container, x.view)));
+
+        public void SetupHolsters(IHolstersForItem holsters) => _holsters = holsters;
 
         public void SetupConsumable(IConsumableView view, IEnumerable<Effect> effects) =>
             Consumable = new Consumable(this, view, effects);

@@ -1,29 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Strawhenge.Common.Logging;
 
 namespace Strawhenge.Inventory.Items.HolsterForItem
 {
     public class HolstersForItem : IHolstersForItem
     {
-        readonly IEnumerable<IHolsterForItem> _inner;
-        readonly ILogger _logger;
+        public static HolstersForItem None { get; } = new HolstersForItem(Array.Empty<IHolsterForItem>());
 
-        public HolstersForItem(IEnumerable<IHolsterForItem> inner, ILogger logger)
+        readonly IEnumerable<IHolsterForItem> _inner;
+
+        public HolstersForItem(IEnumerable<IHolsterForItem> inner)
         {
             _inner = inner.ToArray();
-            _logger = logger;
         }
 
         public bool IsEquippedToHolster(out IHolsterForItem holsterItem)
         {
-            var equipped = _inner.Where(x => x.IsEquipped).ToArray();
-
-            if (equipped.Length > 1)
-                _logger.LogError("Item equipped to more than one holster.");
-
-            holsterItem = equipped.FirstOrDefault();
+            holsterItem = _inner.FirstOrDefault(x => x.IsEquipped);
             return holsterItem != null;
         }
 

@@ -74,8 +74,9 @@ namespace Strawhenge.Inventory.Unity.Items
 
             var itemSize = CreateItemSize(data.Size);
 
-            var item = new Item(data.Name, _hands, view, itemSize,
-                getHolstersForItem: x => CreateHolstersForItem(x, component));
+            var item = new Item(data.Name, _hands, view, itemSize);
+
+            item.SetupHolsters(CreateHolstersForItem(component));
 
             data.ConsumableData.Do(consumableData =>
             {
@@ -91,9 +92,9 @@ namespace Strawhenge.Inventory.Unity.Items
             return item;
         }
 
-        IHolstersForItem CreateHolstersForItem(IItem item, ItemHelper itemComponent)
+        IEnumerable<(ItemContainer, IHolsterForItemView)> CreateHolstersForItem(ItemHelper itemComponent)
         {
-            List<IHolsterForItem> holstersForItem = new List<IHolsterForItem>();
+            var holstersForItem = new List<(ItemContainer, IHolsterForItemView)>();
 
             foreach (var holsterComponent in _holsterComponents.Components)
             {
@@ -106,11 +107,11 @@ namespace Strawhenge.Inventory.Unity.Items
                 {
                     var view = new HolsterForItemView(itemComponent, holsterComponent, _procedureQueue,
                         _procedureFactory);
-                    holstersForItem.Add(new HolsterForItem(item, x, view));
+                    holstersForItem.Add((x, view));
                 });
             }
 
-            return new HolstersForItem(holstersForItem, _logger);
+            return holstersForItem;
         }
 
         Strawhenge.Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)

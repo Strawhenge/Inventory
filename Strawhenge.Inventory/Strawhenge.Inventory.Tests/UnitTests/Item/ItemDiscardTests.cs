@@ -31,16 +31,8 @@ namespace Strawhenge.Inventory.Tests.UnitTests
             _viewMock = new Mock<IItemView>();
             _holsterView = new Mock<IHolsterForItemView>();
 
-            _item = new Item("Discard Test Item", _hands, _viewMock.Object, ItemSize.OneHanded, item =>
-            {
-                var holster = new HolsterForItem(
-                    item,
-                    _holsterContainer,
-                    _holsterView.Object);
-
-                return new HolstersForItem(new[] { holster }, logger);
-            });
-
+            _item = new Item("Discard Test Item", _hands, _viewMock.Object, ItemSize.OneHanded);
+            _item.SetupHolsters(new[] { (_holsterContainer, _holsterView.Object) });
             _item.SetupStorable(_storedItems, weight: 0);
             _item.Storable.Do(x => x.AddToStorage());
         }
