@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holsterMenuEntryPrefab: {fileID: 3351101557842505335, guid: b0d2037c3274ce74aa19b1702eb8ec61, type: 3}
+  _storageMenuEntryPrefab: {fileID: 673901878802298622, guid: f2865d923e6797641a440ecc908a12b0, type: 3}
   _entryContainer: {fileID: 5897011335822405626}
   _dropButton: {fileID: 3183491067756707441}
   _itemNameText: {fileID: 6141167433470060717}
