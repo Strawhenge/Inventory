@@ -15,21 +15,29 @@ namespace Strawhenge.Inventory.Items.Storables
             Weight = weight;
         }
 
+        public event Action Added;
+
+        public event Action Removed;
+
         public int Weight { get; }
 
-        public bool IsStored => _storedItems.Items.Contains(_item);
+        public bool IsStored { get; private set; }
 
         public StoreItemResult AddToStorage()
         {
             // TODO weight check
 
             _storedItems.Add(_item);
+            IsStored = true;
+            Added?.Invoke();
             return StoreItemResult.Ok;
         }
 
         public void RemoveFromStorage()
         {
             _storedItems.Remove(_item);
+            IsStored = false;
+            Removed?.Invoke();
         }
     }
 }
