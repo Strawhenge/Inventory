@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Strawhenge.Inventory
 {
-    public class StoredItems : IStoredItems
+    public class StoredItems : IStoredItems, IStoredItemsWeightCapacitySetter
     {
         readonly List<IItem> _items = new List<IItem>();
 
@@ -34,6 +34,10 @@ namespace Strawhenge.Inventory
             item.ClearFromHandsPreference = ClearFromHandsPreference.Drop;
             item.ClearFromHolsterPreference = ClearFromHolsterPreference.Drop;
             ItemRemoved?.Invoke(item);
+        }
+
+        void IStoredItemsWeightCapacitySetter.SetWeightCapacity(int maxWeight)
+        {
         }
     }
 }
