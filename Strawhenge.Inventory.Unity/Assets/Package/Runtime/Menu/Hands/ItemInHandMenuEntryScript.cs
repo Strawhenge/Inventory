@@ -7,6 +7,7 @@ namespace Strawhenge.Inventory.Unity.Menu.Hands
     public class ItemInHandMenuEntryScript : MonoBehaviour
     {
         [SerializeField] ItemInHandHolsterMenuEntryScript _holsterMenuEntryPrefab;
+        [SerializeField] ItemInHandStorageMenuEntryScript _storageMenuEntryPrefab;
         [SerializeField] RectTransform _entryContainer;
         [SerializeField] Button _dropButton;
         [SerializeField] Text _itemNameText;
@@ -39,6 +40,14 @@ namespace Strawhenge.Inventory.Unity.Menu.Hands
                 _itemNameText.text = item.Name;
                 _itemNameText.fontStyle = FontStyle.Normal;
                 _dropButton.gameObject.SetActive(true);
+
+                item.Storable.Do(storable =>
+                {
+                    var storableMenuEntry = Instantiate(_storageMenuEntryPrefab);
+                    _container.Add(storableMenuEntry.GetComponent<RectTransform>());
+
+                    storableMenuEntry.Set(storable);
+                });
 
                 foreach (var holsterForItem in item.Holsters)
                 {

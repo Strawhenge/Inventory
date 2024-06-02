@@ -1,4 +1,6 @@
-﻿namespace Strawhenge.Inventory.Items.Storables
+﻿using System;
+
+namespace Strawhenge.Inventory.Items.Storables
 {
     public interface IStorable
     {
