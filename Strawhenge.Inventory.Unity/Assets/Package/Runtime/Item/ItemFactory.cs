@@ -77,7 +77,7 @@ namespace Strawhenge.Inventory.Unity.Items
             return new Item(data.Name, _hands, view, itemSize,
                 getHolstersForItem: x => CreateHolstersForItem(x, component),
                 getConsumable: x => CreateConsumable(x, data.ConsumableData),
-                getStorable: x => new Storable(x, _storedItems, 0));
+                getStorable: x => CreateStorable(x, data));
         }
 
         IHolstersForItem CreateHolstersForItem(IItem item, ItemHelper itemComponent)
@@ -110,6 +110,14 @@ namespace Strawhenge.Inventory.Unity.Items
                     var effects = x.Effects.Select(_effectFactory.Create);
                     return new Consumable(item, new ConsumableView(_procedureQueue, _procedureFactory, x), effects);
                 });
+        }
+
+        Maybe<IStorable> CreateStorable(IItem item, IItemData data)
+        {
+            if (!data.IsStorable)
+                return Maybe.None<IStorable>();
+
+            return new Storable(item, _storedItems, data.Weight);
         }
 
         Strawhenge.Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)
