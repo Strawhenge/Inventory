@@ -24,7 +24,11 @@ namespace Strawhenge.Inventory.Items.Storables
 
         public StoreItemResult AddToStorage()
         {
-            // TODO weight check
+            if (IsStored)
+                return StoreItemResult.Ok;
+
+            if (HasInsufficientCapacity())
+                return StoreItemResult.InsufficientCapacity;
 
             _storedItems.Add(_item, Weight);
             IsStored = true;
@@ -38,5 +42,8 @@ namespace Strawhenge.Inventory.Items.Storables
             IsStored = false;
             Removed?.Invoke();
         }
+
+        bool HasInsufficientCapacity() =>
+            _storedItems.MaxItemsWeight - _storedItems.TotalItemsWeight < Weight;
     }
 }
