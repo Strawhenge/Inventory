@@ -1,4 +1,5 @@
 using Strawhenge.Inventory.Items.Storables;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,9 +18,17 @@ namespace Strawhenge.Inventory.Unity
             _removeButton.onClick.AddListener(Remove);
         }
 
+        void OnDestroy()
+        {
+            _storable.Added -= OnAdded;
+            _storable.Removed -= OnRemoved;
+        }
+
         internal void Set(IStorable storable)
         {
             _storable = storable;
+            _storable.Added += OnAdded;
+            _storable.Removed += OnRemoved;
 
             if (_storable.IsStored)
             {
@@ -41,6 +50,18 @@ namespace Strawhenge.Inventory.Unity
         void Remove()
         {
             _storable.RemoveFromStorage();
+        }
+
+        void OnAdded()
+        {
+            _addButton.gameObject.SetActive(false);
+            _removeButton.gameObject.SetActive(true);
+        }
+
+        void OnRemoved()
+        {
+            _addButton.gameObject.SetActive(true);
+            _removeButton.gameObject.SetActive(false);
         }
     }
 }
