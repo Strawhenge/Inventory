@@ -281,6 +281,8 @@ namespace Strawhenge.Inventory.Items
 
             if (IsInRightHand())
                 _hands.UnsetItemRightHand();
+
+            Storable.Do(x => x.RemoveFromStorage());
         }
     }
 }
