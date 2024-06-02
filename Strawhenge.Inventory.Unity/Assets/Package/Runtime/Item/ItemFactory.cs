@@ -75,12 +75,19 @@ namespace Strawhenge.Inventory.Unity.Items
             var itemSize = CreateItemSize(data.Size);
 
             var item = new Item(data.Name, _hands, view, itemSize,
-                getHolstersForItem: x => CreateHolstersForItem(x, component),
-                getConsumable: x => CreateConsumable(x, data.ConsumableData));
+                getHolstersForItem: x => CreateHolstersForItem(x, component));
+
+            data.ConsumableData.Do(consumableData =>
+            {
+                var effects = consumableData.Effects.Select(_effectFactory.Create);
+                var consumableView = new ConsumableView(_procedureQueue, _procedureFactory, consumableData);
+
+                item.SetupConsumable(consumableView, effects);
+            });
 
             if (data.IsStorable)
                 item.SetupStorable(_storedItems, data.Weight);
-            
+
             return item;
         }
 
@@ -104,16 +111,6 @@ namespace Strawhenge.Inventory.Unity.Items
             }
 
             return new HolstersForItem(holstersForItem, _logger);
-        }
-
-        Maybe<IConsumable> CreateConsumable(IItem item, Maybe<IConsumableData> data)
-        {
-            return data.Map<IConsumable>(
-                x =>
-                {
-                    var effects = x.Effects.Select(_effectFactory.Create);
-                    return new Consumable(item, new ConsumableView(_procedureQueue, _procedureFactory, x), effects);
-                });
         }
 
         Strawhenge.Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)

@@ -55,8 +55,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests
                 _handsMock.Object,
                 _itemViewMock.Object,
                 _itemSizeMock.Object,
-                _ => _holstersMock.Object,
-                _ => Maybe.None<IConsumable>());
+                _ => _holstersMock.Object);
 
             _callback = new AssertableCallback();
         }

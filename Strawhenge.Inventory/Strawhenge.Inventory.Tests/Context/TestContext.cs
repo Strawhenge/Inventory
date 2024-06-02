@@ -97,8 +97,7 @@ namespace Strawhenge.Inventory.Tests.Context
                             return new HolsterForItem(item, Holsters.FindByName(x).ReduceUnsafe(), view.Object);
                         }),
                         _logger);
-                },
-                _ => Maybe.None<IConsumable>());
+                });
 
             item.SetupStorable(_itemStorage, weight: 0);
 
