@@ -196,7 +196,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880651219617074761}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -365,8 +365,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 150, y: 0}
-  m_SizeDelta: {x: 300, y: 0}
+  m_AnchoredPosition: {x: 600, y: 0}
+  m_SizeDelta: {x: 1200, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4239415581015594436
 CanvasRenderer:
@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 2503552140974658168}
   - component: {fileID: 8691680150841043025}
   m_Layer: 0
-  m_Name: ItemContainerMenu
+  m_Name: Item Container Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -608,8 +608,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 524017477615845817}
   _entriesContainer: {fileID: 3600647629537649199}
-  _itemMenuEntryPrefab: {fileID: 7249380295351865827, guid: fa055eb81ca1248428c39bca277c7079, type: 3}
+  _containedItemMenuEntryPrefab: {fileID: 7249380295351865827, guid: fa055eb81ca1248428c39bca277c7079, type: 3}
   _apparelPieceMenuEntryPrefab: {fileID: 3012547747825850180, guid: 3aa4facdbdf0806428fe21ef36848425, type: 3}
+  _openEvents: []
+  _closeEvents: []
   _inventoryScript: {fileID: 0}
 --- !u!1 &5939640222024141326
 GameObject:
@@ -893,7 +895,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5175715199972541005}
   m_HandleRect: {fileID: 415183735931791221}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
