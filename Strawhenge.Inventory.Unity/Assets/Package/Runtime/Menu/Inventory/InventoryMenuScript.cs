@@ -25,6 +25,7 @@ namespace Strawhenge.Inventory.Unity.Menu
 
         void Start()
         {
+            _canvas.enabled = false;
             Container.Set(menu: this);
             StartCoroutine(Setup());
         }

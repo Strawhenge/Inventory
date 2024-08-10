@@ -13,7 +13,10 @@ namespace Strawhenge.Inventory.Unity
     {
         [SerializeField] Canvas _canvas;
         [SerializeField] RectTransform _entriesContainer;
-        [FormerlySerializedAs("_itemMenuEntryPrefab")] [SerializeField] ContainedItemMenuEntryScript _containedItemMenuEntryPrefab;
+
+        [FormerlySerializedAs("_itemMenuEntryPrefab")] [SerializeField]
+        ContainedItemMenuEntryScript _containedItemMenuEntryPrefab;
+
         [SerializeField] ApparelPieceMenuEntryScript _apparelPieceMenuEntryPrefab;
         [SerializeField] EventScriptableObject[] _openEvents;
         [SerializeField] EventScriptableObject[] _closeEvents;
@@ -25,6 +28,7 @@ namespace Strawhenge.Inventory.Unity
 
         void Start()
         {
+            _canvas.enabled = false;
             MenuContainer.Set(this);
         }
 
