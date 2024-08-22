@@ -3,6 +3,7 @@ using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Items;
 using System;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Unity.Monobehaviours;
 using UnityEngine;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 
@@ -15,7 +16,10 @@ namespace Strawhenge.Inventory.Unity.Components
         readonly ILogger _logger;
         readonly Func<IItemHelper, IHoldItemData> _getHoldItemData;
 
-        public HandComponent(IHoldItemAnimationHandler animationHandler, Transform transform, ILogger logger,
+        public HandComponent(
+            IHoldItemAnimationHandler animationHandler,
+            Transform transform,
+            ILogger logger,
             Func<IItemHelper, IHoldItemData> getHoldItemData)
         {
             _animationHandler = animationHandler;
@@ -23,6 +27,9 @@ namespace Strawhenge.Inventory.Unity.Components
             _logger = logger;
             _getHoldItemData = getHoldItemData;
         }
+
+        public event Action<ItemScript> Added;
+        public event Action Removed;
 
         public Maybe<IItemHelper> Item { get; private set; } = Maybe.None<IItemHelper>();
 
@@ -39,6 +46,8 @@ namespace Strawhenge.Inventory.Unity.Components
             _animationHandler.Hold(holdData.AnimationId);
 
             Item = Maybe.Some(item);
+
+            Added?.Invoke(itemScript);
         }
 
         public IItemHelper TakeItem()
@@ -55,6 +64,7 @@ namespace Strawhenge.Inventory.Unity.Components
 
             item.Spawn().transform.parent = null;
 
+            Removed?.Invoke();
             return item;
         }
     }
