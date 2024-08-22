@@ -19,14 +19,20 @@ namespace Strawhenge.Inventory.Unity.Components
             _logger = logger;
         }
 
-        public IHandComponent Left => _left ?? throw new InvalidOperationException($"'{nameof(HandComponents)}' has not been initialized.");
+        public event Action Initialized;
 
-        public IHandComponent Right => _right ?? throw new InvalidOperationException($"'{nameof(HandComponents)}' has not been initialized.");
+        public IHandComponent Left =>
+            _left ?? throw new InvalidOperationException($"'{nameof(HandComponents)}' has not been initialized.");
+
+        public IHandComponent Right =>
+            _right ?? throw new InvalidOperationException($"'{nameof(HandComponents)}' has not been initialized.");
 
         public void Initialize(Transform left, Transform right)
         {
             _left = new HandComponent(_holdItemAnimationHandler, left, _logger, x => x.Data.LeftHandHoldData);
             _right = new HandComponent(_holdItemAnimationHandler, right, _logger, x => x.Data.RightHandHoldData);
+
+            Initialized?.Invoke();
         }
     }
 }
