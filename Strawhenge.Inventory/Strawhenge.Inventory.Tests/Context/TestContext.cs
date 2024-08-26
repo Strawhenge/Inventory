@@ -88,7 +88,7 @@ namespace Strawhenge.Inventory.Tests.Context
                 view.Setup(x => x.Drop(It.IsAny<Action>()))
                     .Callback<Action>(callback => callback?.Invoke());
 
-                return (Holsters.FindByName(holsterName).ReduceUnsafe(), view.Object);
+                return ((ItemContainer)Holsters.FindByName(holsterName), view.Object);
             }));
 
             item.SetupStorable(_itemStorage, weight: 0);

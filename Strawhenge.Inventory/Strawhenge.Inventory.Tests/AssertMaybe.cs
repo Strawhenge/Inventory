@@ -24,7 +24,7 @@ namespace Strawhenge.Inventory.Tests
         public static void IsSome<T>(Maybe<T> maybe, T expectedValue)
         {
             IsSome(maybe);
-            Assert.Equal(expectedValue, maybe.ReduceUnsafe());
+            Assert.Equal(expectedValue, (T)maybe);
         }
 
         static bool HasValue<T>(Maybe<T> maybe) => maybe
