@@ -3,7 +3,6 @@ using Strawhenge.Inventory.Tests.Context;
 using System;
 using System.Linq.Expressions;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.IntegrationTests
 {
@@ -15,9 +14,9 @@ namespace Strawhenge.Inventory.Tests.IntegrationTests
         readonly ItemContext _twoHandedItem2;
         readonly MockSequence _sequence;
 
-        public TestMultipleItemViewsAreCalledCorrectly(ITestOutputHelper testOutputHelper)
+        public TestMultipleItemViewsAreCalledCorrectly()
         {
-            var context = new ItemIntegrationTestContext(testOutputHelper);
+            var context = new ItemIntegrationTestContext();
 
             _item1 = context.CreateOneHandedItem();
             _item2 = context.CreateOneHandedItem();

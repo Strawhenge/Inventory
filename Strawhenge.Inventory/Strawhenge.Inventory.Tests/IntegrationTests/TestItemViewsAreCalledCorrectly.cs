@@ -6,7 +6,6 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.IntegrationTests
 {
@@ -22,11 +21,11 @@ namespace Strawhenge.Inventory.Tests.IntegrationTests
         readonly Mock<IHolsterForItemView> _secondHolsterViewMock;
         readonly Mock<IHolsterForItemView> _thirdHolsterViewMock;
 
-        public TestItemViewsAreCalledCorrectly(ITestOutputHelper testOutputHelper)
+        public TestItemViewsAreCalledCorrectly()
         {
             _sequence = new MockSequence();
 
-            var context = new ItemIntegrationTestContext(testOutputHelper);
+            var context = new ItemIntegrationTestContext();
             var itemContext = context.CreateOneHandedItem();
 
             _item = itemContext.Instance;

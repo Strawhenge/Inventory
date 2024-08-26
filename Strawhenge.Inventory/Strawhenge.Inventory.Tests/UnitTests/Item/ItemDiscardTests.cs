@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Linq;
-using FunctionalUtilities;
 using Moq;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
-using Strawhenge.Inventory.Items.Storables;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.UnitTests
 {
@@ -21,10 +17,8 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         readonly Mock<IHolsterForItemView> _holsterView;
         readonly Item _item;
 
-        public ItemDiscardTests(ITestOutputHelper testOutputHelper)
+        public ItemDiscardTests()
         {
-            var logger = new TestOutputLogger(testOutputHelper);
-
             _storedItems = new StoredItems();
             _hands = new Hands();
             _holsterContainer = new ItemContainer("Discard Test Item Holster");

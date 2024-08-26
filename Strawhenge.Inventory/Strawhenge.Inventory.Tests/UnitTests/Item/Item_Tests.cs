@@ -3,9 +3,6 @@ using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.HolsterForItem;
 using System;
-using FunctionalUtilities;
-using Strawhenge.Inventory.Items.Consumables;
-using Strawhenge.Inventory.Items.Storables;
 
 namespace Strawhenge.Inventory.Tests.UnitTests
 {

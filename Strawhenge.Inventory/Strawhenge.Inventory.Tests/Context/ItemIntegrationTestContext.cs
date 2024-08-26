@@ -1,12 +1,7 @@
-﻿using FunctionalUtilities;
-using Moq;
-using Strawhenge.Common.Logging;
+﻿using Moq;
 using Strawhenge.Inventory.Containers;
-using Strawhenge.Inventory.Items.Storables;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
-using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.Context
 {
@@ -18,10 +13,6 @@ namespace Strawhenge.Inventory.Tests.Context
         readonly ItemContainer _firstItemContainer = new ItemContainer("First");
         readonly ItemContainer _secondItemContainer = new ItemContainer("Second");
         readonly ItemContainer _thirdItemContainer = new ItemContainer("Third");
-        readonly ILogger _logger;
-
-        public ItemIntegrationTestContext(ITestOutputHelper testOutputHelper) =>
-            _logger = new TestOutputLogger(testOutputHelper);
 
         public ItemContext CreateOneHandedItem() => CreateItem(ItemSize.OneHanded);
 

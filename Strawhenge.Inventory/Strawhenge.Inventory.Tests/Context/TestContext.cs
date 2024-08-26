@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FunctionalUtilities;
 using Moq;
-using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
-using Strawhenge.Inventory.Items.Storables;
 using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.Context
@@ -73,7 +69,7 @@ namespace Strawhenge.Inventory.Tests.Context
 
             var item = new Item(name, Hands, itemViewMock.Object, size);
 
-            item.SetupHolsters(holsterNames.Select(x =>
+            item.SetupHolsters(holsterNames.Select(holsterName =>
             {
                 var view = new Mock<IHolsterForItemView>();
 
@@ -92,7 +88,7 @@ namespace Strawhenge.Inventory.Tests.Context
                 view.Setup(x => x.Drop(It.IsAny<Action>()))
                     .Callback<Action>(callback => callback?.Invoke());
 
-                return (Holsters.FindByName(x).ReduceUnsafe(), view.Object);
+                return (Holsters.FindByName(holsterName).ReduceUnsafe(), view.Object);
             }));
 
             item.SetupStorable(_itemStorage, weight: 0);
