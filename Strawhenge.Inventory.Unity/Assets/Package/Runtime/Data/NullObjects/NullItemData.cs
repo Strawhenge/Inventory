@@ -3,6 +3,7 @@ using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Items.Consumables;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Data
 {
@@ -10,7 +11,7 @@ namespace Strawhenge.Inventory.Unity.Data
     {
         public string Name => string.Empty;
 
-        public ItemScript Prefab => null;
+        public ItemScript Prefab => new GameObject(nameof(NullItemData)).AddComponent<ItemScript>();
 
         public Maybe<ItemPickupScript> PickupPrefab => Maybe.None<ItemPickupScript>();
 
