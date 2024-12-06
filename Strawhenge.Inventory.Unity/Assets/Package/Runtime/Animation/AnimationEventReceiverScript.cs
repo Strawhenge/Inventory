@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Monobehaviours
+namespace Strawhenge.Inventory.Unity.Animation
 {
     public class AnimationEventReceiverScript : MonoBehaviour
     {

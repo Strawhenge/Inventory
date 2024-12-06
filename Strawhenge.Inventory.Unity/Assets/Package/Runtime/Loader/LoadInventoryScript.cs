@@ -1,5 +1,4 @@
-﻿using Strawhenge.Inventory.Unity.Monobehaviours;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Loader

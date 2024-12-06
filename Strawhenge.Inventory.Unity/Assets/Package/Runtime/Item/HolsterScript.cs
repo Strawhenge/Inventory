@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Strawhenge.Inventory.Unity.Monobehaviours
+namespace Strawhenge.Inventory.Unity.Items
 {
     public class HolsterScript : MonoBehaviour
     {

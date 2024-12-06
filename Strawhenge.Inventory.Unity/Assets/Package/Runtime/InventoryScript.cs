@@ -1,11 +1,12 @@
 using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Components;
+using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Loader;
 using System.Collections;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Monobehaviours
+namespace Strawhenge.Inventory.Unity
 {
     public class InventoryScript : MonoBehaviour
     {
