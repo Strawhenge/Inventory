@@ -1,6 +1,5 @@
 ﻿using Strawhenge.Inventory.Unity.Data;
 using System;
-using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
@@ -16,7 +15,9 @@ namespace Strawhenge.Inventory.Unity.Items
         {
         }
 
-        public Maybe<ItemPickupScript> Release() => Maybe.None<ItemPickupScript>();
+        public void Release()
+        {
+        }
 
         public ItemScript Spawn() => null;
     }

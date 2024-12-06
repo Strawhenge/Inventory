@@ -24,7 +24,6 @@ namespace Strawhenge.Inventory.Unity.Procedures
             IHandComponents handComponents,
             IProduceItemAnimationHandler produceItemAnimationHandler,
             IConsumeItemAnimationHandler consumeItemAnimationHandler,
-            IItemDropPoint itemDropPoint,
             ILogger logger)
         {
             _handComponents = handComponents;

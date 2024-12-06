@@ -1,7 +1,6 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Items;
 using System;
-using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 {
