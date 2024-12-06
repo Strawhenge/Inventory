@@ -9,7 +9,6 @@ using Strawhenge.Inventory.Unity.Items.Consumables;
 using Strawhenge.Inventory.Unity.Procedures;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 using ItemSize = Strawhenge.Inventory.Items.ItemSize;
 
@@ -17,7 +16,6 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemFactory : IItemFactory
     {
-        readonly IReadOnlyList<Collider> _colliders;
         readonly IHands _hands;
         readonly IHolsters _holsters;
         readonly StoredItems _storedItems;
@@ -29,7 +27,6 @@ namespace Strawhenge.Inventory.Unity.Items
         readonly ILogger _logger;
 
         public ItemFactory(
-            GameObject gameObject,
             IHands hands,
             IHolsters holsters,
             StoredItems storedItems,
@@ -40,8 +37,6 @@ namespace Strawhenge.Inventory.Unity.Items
             ISpawner spawner,
             ILogger logger)
         {
-            _colliders = gameObject.GetComponentsInChildren<Collider>();
-
             _hands = hands;
             _holsters = holsters;
             _storedItems = storedItems;
@@ -55,7 +50,7 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public IItem Create(IItemData data)
         {
-            var component = new ItemHelper(_spawner, _colliders, data);
+            var component = new ItemHelper(_spawner, data);
             return Create(component, data);
         }
 

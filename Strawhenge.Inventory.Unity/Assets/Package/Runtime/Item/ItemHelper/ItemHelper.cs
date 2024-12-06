@@ -9,15 +9,12 @@ namespace Strawhenge.Inventory.Unity.Items
     public class ItemHelper : IItemHelper
     {
         readonly ISpawner _spawner;
-        readonly IReadOnlyList<Collider> _bindToColliders;
-
         ItemScript _script;
         bool _isFixated;
 
-        public ItemHelper(ISpawner spawner, IReadOnlyList<Collider> bindToColliders, IItemData data)
+        public ItemHelper(ISpawner spawner, IItemData data)
         {
             _spawner = spawner;
-            _bindToColliders = bindToColliders;
             Data = data;
         }
 
@@ -35,7 +32,7 @@ namespace Strawhenge.Inventory.Unity.Items
             if (!_isFixated)
             {
                 _isFixated = true;
-                _script.Fixate(_bindToColliders);
+                _script.Fixate();
             }
 
             return _script;

@@ -24,13 +24,8 @@ namespace Strawhenge.Inventory.Unity.Items
 
         [SerializeField] UnityEvent _unfixated;
 
-        readonly List<Collider> _ignoredColliders = new List<Collider>();
-        IEnumerable<Collider> _colliders;
-
         void Awake()
         {
-            _colliders = GetComponentsInChildren<Collider>();
-
             if (_data != null)
             {
                 Data = _data;
@@ -43,11 +38,8 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public IItemData Data { get; private set; }
 
-        public void Fixate(IEnumerable<Collider> bindToColliders)
+        public void Fixate()
         {
-            ResetIgnoredColliders();
-            IgnoreColliders(bindToColliders);
-
             _fixated.Invoke();
 
             foreach (var onFixate in _onFixatedEvents)
@@ -59,8 +51,6 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public void Unfixate()
         {
-            ResetIgnoredColliders();
-
             _unfixated.Invoke();
 
             foreach (var onUnfixate in _onUnfixatedEvents)
@@ -68,26 +58,6 @@ namespace Strawhenge.Inventory.Unity.Items
                 if (onUnfixate != null)
                     onUnfixate.Invoke(gameObject);
             }
-        }
-
-        void IgnoreColliders(IEnumerable<Collider> colliders)
-        {
-            var bindToColliders = colliders.ToArray();
-
-            foreach (var collider in _colliders)
-            foreach (var bindTo in bindToColliders)
-                Physics.IgnoreCollision(collider, bindTo, ignore: true);
-
-            _ignoredColliders.AddRange(bindToColliders);
-        }
-
-        void ResetIgnoredColliders()
-        {
-            foreach (var collider in _colliders)
-            foreach (var bindTo in _ignoredColliders)
-                Physics.IgnoreCollision(collider, bindTo, ignore: false);
-
-            _ignoredColliders.Clear();
         }
     }
 }
