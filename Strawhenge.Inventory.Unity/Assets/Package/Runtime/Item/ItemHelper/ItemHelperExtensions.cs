@@ -1,5 +1,5 @@
 ﻿using Strawhenge.Inventory.Unity.Components;
-using Strawhenge.Inventory.Unity.Data;
+using Strawhenge.Inventory.Unity.Items.Data;
 using System.Linq;
 using Strawhenge.Common.Logging;
 

@@ -1,9 +1,9 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Items.Consumables;
+using Strawhenge.Inventory.Unity.Consumables;
 using System.Collections.Generic;
 
-namespace Strawhenge.Inventory.Unity.Data
+namespace Strawhenge.Inventory.Unity.Items.Data
 {
     public interface IItemData
     {

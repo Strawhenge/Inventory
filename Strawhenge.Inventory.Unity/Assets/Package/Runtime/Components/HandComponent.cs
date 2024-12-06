@@ -1,5 +1,5 @@
 ﻿using Strawhenge.Inventory.Unity.Animation;
-using Strawhenge.Inventory.Unity.Data;
+using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Items;
 using System;
 using FunctionalUtilities;

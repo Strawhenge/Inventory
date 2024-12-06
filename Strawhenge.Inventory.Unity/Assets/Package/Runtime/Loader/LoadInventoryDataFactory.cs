@@ -1,7 +1,7 @@
 ﻿using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Unity.Apparel;
-using Strawhenge.Inventory.Unity.Data;
+using Strawhenge.Inventory.Unity.Items.Data;
 using System.Collections.Generic;
 
 namespace Strawhenge.Inventory.Unity.Loader

@@ -1,4 +1,4 @@
-﻿using Strawhenge.Inventory.Unity.Data;
+﻿using Strawhenge.Inventory.Unity.Items.Data;
 using System;
 using Strawhenge.Common.Unity;
 using Object = UnityEngine.Object;

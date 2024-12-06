@@ -1,4 +1,4 @@
-﻿using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
+﻿using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Serialization;
 

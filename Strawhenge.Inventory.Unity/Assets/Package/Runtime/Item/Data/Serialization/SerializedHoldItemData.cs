@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Strawhenge.Inventory.Unity.Data
+namespace Strawhenge.Inventory.Unity.Items.Data
 {
     [Serializable]
     public class SerializedHoldItemData : IHoldItemData

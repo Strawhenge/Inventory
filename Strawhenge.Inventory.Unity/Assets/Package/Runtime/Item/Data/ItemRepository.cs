@@ -1,10 +1,10 @@
-﻿using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
-using System.Linq;
+﻿using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Data
+namespace Strawhenge.Inventory.Unity.Items.Data
 {
     public class ItemRepository : IItemRepository
     {

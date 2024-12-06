@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Items.Consumables
+namespace Strawhenge.Inventory.Unity.Consumables
 {
     [Serializable]
     public class SerializedConsumableData : IConsumableData

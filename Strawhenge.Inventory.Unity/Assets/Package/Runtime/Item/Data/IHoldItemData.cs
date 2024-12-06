@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Data
+namespace Strawhenge.Inventory.Unity.Items.Data
 {
     public interface IHoldItemData
     {

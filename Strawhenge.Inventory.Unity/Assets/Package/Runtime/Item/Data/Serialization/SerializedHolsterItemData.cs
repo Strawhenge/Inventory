@@ -1,9 +1,9 @@
-﻿using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
+﻿using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Strawhenge.Inventory.Unity.Data
+namespace Strawhenge.Inventory.Unity.Items.Data
 {
     [Serializable]
     public class SerializedHolsterItemData : IHolsterItemData

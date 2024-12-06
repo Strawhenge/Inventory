@@ -1,5 +1,5 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Inventory.Unity.Data;
+using Strawhenge.Inventory.Unity.Items.Data;
 
 namespace Strawhenge.Inventory.Unity.Loader
 {

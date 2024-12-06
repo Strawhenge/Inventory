@@ -1,12 +1,12 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Common.Unity.Serialization;
 using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Items.Consumables;
+using Strawhenge.Inventory.Unity.Consumables;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Strawhenge.Inventory.Unity.Data.ScriptableObjects
+namespace Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects
 {
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Item")]
     public class ItemScriptableObject : ScriptableObject, IItemData

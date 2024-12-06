@@ -1,11 +1,11 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Items.Consumables;
+using Strawhenge.Inventory.Unity.Consumables;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Data
+namespace Strawhenge.Inventory.Unity.Items.Data
 {
     public class NullItemData : IItemData
     {

@@ -3,7 +3,7 @@ using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Procedures;
 using System;
 
-namespace Strawhenge.Inventory.Unity.Items.Consumables
+namespace Strawhenge.Inventory.Unity.Consumables
 {
     public class ConsumableView : IConsumableView
     {

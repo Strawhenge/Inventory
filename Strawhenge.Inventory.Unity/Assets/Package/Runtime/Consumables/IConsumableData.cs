@@ -1,7 +1,7 @@
 ﻿using Strawhenge.Inventory.Effects;
 using System.Collections.Generic;
 
-namespace Strawhenge.Inventory.Unity.Items.Consumables
+namespace Strawhenge.Inventory.Unity.Consumables
 {
     public interface IConsumableData
     {
