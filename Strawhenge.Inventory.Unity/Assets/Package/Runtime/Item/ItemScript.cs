@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-namespace Strawhenge.Inventory.Unity.Monobehaviours
+namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemScript : MonoBehaviour
     {
