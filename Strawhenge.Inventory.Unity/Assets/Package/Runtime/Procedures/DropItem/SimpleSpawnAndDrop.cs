@@ -8,12 +8,10 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
     public class SimpleSpawnAndDrop : Procedure
     {
         readonly IItemHelper _item;
-        readonly IItemDropPoint _itemDropPoint;
 
-        public SimpleSpawnAndDrop(IItemHelper item, IItemDropPoint itemDropPoint)
+        public SimpleSpawnAndDrop(IItemHelper item)
         {
             _item = item;
-            _itemDropPoint = itemDropPoint;
         }
 
         protected override void OnBegin(Action endProcedure)
@@ -29,10 +27,6 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 
         void Drop()
         {
-            var point = _itemDropPoint.GetPoint();
-
-            var itemScript = _item.Spawn();
-            itemScript.transform.SetPositionAndRotation(point, Quaternion.Euler(Vector3.forward));
             _item.Release();
         }
     }

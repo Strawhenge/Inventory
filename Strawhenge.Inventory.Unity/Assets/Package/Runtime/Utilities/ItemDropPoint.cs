@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Strawhenge.Common.Unity;
+using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity
 {
@@ -11,12 +12,13 @@ namespace Strawhenge.Inventory.Unity
             _transform = transform;
         }
 
-        public Vector3 GetPoint()
+        public PositionAndRotation GetPoint()
         {
-            return _transform.position +
-                _transform.forward +
-                Vector3.up;
+            return new PositionAndRotation()
+            {
+                Position = _transform.position + _transform.forward + Vector3.up,
+                Rotation = _transform.rotation
+            };
         }
     }
 }
-

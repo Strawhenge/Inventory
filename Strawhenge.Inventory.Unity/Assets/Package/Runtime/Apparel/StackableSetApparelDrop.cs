@@ -8,7 +8,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
 {
     public class StackableSetApparelDrop : IApparelDrop, ISetApparelContainerPrefab
     {
-        readonly Queue<IApparelPieceData> _queue = new Queue<IApparelPieceData>();
+        readonly Queue<IApparelPieceData> _queue = new();
         readonly IInventoryMenu _inventoryMenu;
         readonly IItemContainerMenu _itemContainerMenu;
         readonly IItemDropPoint _itemDropPoint;
@@ -64,10 +64,10 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         bool ShouldWait() => _inventoryMenu.IsOpen || _itemContainerMenu.IsOpen;
 
-        FixedItemContainerScript CreateContainer() =>
-            Object.Instantiate(
-                _containerPrefab,
-                position: _itemDropPoint.GetPoint(),
-                rotation: Quaternion.Euler(Vector3.forward));
+        FixedItemContainerScript CreateContainer()
+        {
+            var spawnPoint = _itemDropPoint.GetPoint();
+            return Object.Instantiate(_containerPrefab, spawnPoint.Position, spawnPoint.Rotation);
+        }
     }
 }

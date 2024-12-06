@@ -18,7 +18,6 @@ namespace Strawhenge.Inventory.Unity.Procedures
         readonly IHandComponents _handComponents;
         readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
         readonly IConsumeItemAnimationHandler _consumeItemAnimationHandler;
-        readonly IItemDropPoint _itemDropPoint;
         readonly ILogger _logger;
 
         public ProcedureFactory(
@@ -31,7 +30,6 @@ namespace Strawhenge.Inventory.Unity.Procedures
             _handComponents = handComponents;
             _produceItemAnimationHandler = produceItemAnimationHandler;
             _consumeItemAnimationHandler = consumeItemAnimationHandler;
-            _itemDropPoint = itemDropPoint;
             _logger = logger;
         }
 
@@ -57,7 +55,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
         public Procedure SwapFromRightHandToLeftHand(IItemHelper item) =>
             new SimpleSwapHands(_handComponents.Right, _handComponents.Left);
 
-        public Procedure SpawnAndDrop(IItemHelper item) => new SimpleSpawnAndDrop(item, _itemDropPoint);
+        public Procedure SpawnAndDrop(IItemHelper item) => new SimpleSpawnAndDrop(item);
 
         public Procedure Disappear(IItemHelper item) =>
             new DisappearItem(item, _handComponents.Left, _handComponents.Right);

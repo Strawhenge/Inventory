@@ -2,19 +2,20 @@
 using System;
 using System.Collections.Generic;
 using FunctionalUtilities;
+using Strawhenge.Common.Unity;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemHelper : IItemHelper
     {
-        readonly ISpawner _spawner;
+        readonly IItemDropPoint _itemDropPoint;
         ItemScript _script;
-        bool _isFixated;
 
-        public ItemHelper(ISpawner spawner, IItemData data)
+        public ItemHelper(IItemData data, IItemDropPoint itemDropPoint)
         {
-            _spawner = spawner;
+            _itemDropPoint = itemDropPoint;
             Data = data;
         }
 
@@ -26,13 +27,7 @@ namespace Strawhenge.Inventory.Unity.Items
         {
             if (_script == null)
             {
-                _script = _spawner.Spawn(Data);
-            }
-
-            if (!_isFixated)
-            {
-                _isFixated = true;
-                _script.Fixate();
+                _script = Object.Instantiate(Data.Prefab);
             }
 
             return _script;
@@ -40,22 +35,26 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public void Despawn()
         {
-            _isFixated = false;
-            _spawner.Despawn(_script);
+            if (_script == null)
+                return;
+            Object.Destroy(_script.gameObject);
             _script = null;
         }
 
-        public Maybe<ItemScript> Release()
+        public Maybe<ItemPickupScript> Release()
         {
-            if (_script == null)
-                return Maybe.None<ItemScript>();
+            var pickup = Data.PickupPrefab.Map(pickupPrefab =>
+            {
+                var spawnPoint = _script == null
+                    ? _itemDropPoint.GetPoint()
+                    : _script.transform.GetPositionAndRotation();
 
-            _script.transform.parent = null;
-            _script.Unfixate();
-            _isFixated = false;
+                return Object.Instantiate(pickupPrefab, spawnPoint.Position, spawnPoint.Rotation);
+            });
+
+            Despawn();
             Released?.Invoke();
-
-            return _script;
+            return pickup;
         }
     }
 }

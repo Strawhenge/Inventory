@@ -16,7 +16,7 @@ namespace Strawhenge.Inventory.Unity.Items
         {
         }
 
-        public Maybe<ItemScript> Release() => Maybe.None<ItemScript>();
+        public Maybe<ItemPickupScript> Release() => Maybe.None<ItemPickupScript>();
 
         public ItemScript Spawn() => null;
     }

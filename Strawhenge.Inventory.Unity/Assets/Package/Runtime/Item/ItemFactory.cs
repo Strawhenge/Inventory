@@ -23,7 +23,7 @@ namespace Strawhenge.Inventory.Unity.Items
         readonly ProcedureQueue _procedureQueue;
         readonly IProcedureFactory _procedureFactory;
         readonly IEffectFactory _effectFactory;
-        readonly ISpawner _spawner;
+        readonly IItemDropPoint _itemDropPoint;
         readonly ILogger _logger;
 
         public ItemFactory(
@@ -34,7 +34,7 @@ namespace Strawhenge.Inventory.Unity.Items
             ProcedureQueue procedureQueue,
             IProcedureFactory procedureFactory,
             IEffectFactory effectFactory,
-            ISpawner spawner,
+            IItemDropPoint itemDropPoint,
             ILogger logger)
         {
             _hands = hands;
@@ -44,13 +44,13 @@ namespace Strawhenge.Inventory.Unity.Items
             _procedureQueue = procedureQueue;
             _procedureFactory = procedureFactory;
             _effectFactory = effectFactory;
-            _spawner = spawner;
+            _itemDropPoint = itemDropPoint;
             _logger = logger;
         }
 
         public IItem Create(IItemData data)
         {
-            var component = new ItemHelper(_spawner, data);
+            var component = new ItemHelper(data, _itemDropPoint);
             return Create(component, data);
         }
 

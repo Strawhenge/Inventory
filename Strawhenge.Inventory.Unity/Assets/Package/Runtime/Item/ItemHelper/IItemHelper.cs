@@ -14,6 +14,6 @@ namespace Strawhenge.Inventory.Unity.Items
 
         ItemScript Spawn();
 
-        Maybe<ItemScript> Release();
+        Maybe<ItemPickupScript> Release();
     }
 }
