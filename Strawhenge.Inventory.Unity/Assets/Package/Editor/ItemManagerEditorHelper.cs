@@ -1,6 +1,5 @@
 ﻿using Strawhenge.Inventory.Items.HolsterForItem;
 using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
-using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using System.Linq;
 using FunctionalUtilities;

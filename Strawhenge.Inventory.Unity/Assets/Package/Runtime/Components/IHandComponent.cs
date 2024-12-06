@@ -1,6 +1,5 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Components

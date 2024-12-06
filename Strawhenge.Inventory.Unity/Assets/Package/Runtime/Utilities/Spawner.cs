@@ -1,6 +1,5 @@
 ﻿using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Monobehaviours;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity

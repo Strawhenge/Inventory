@@ -2,7 +2,6 @@
 using Strawhenge.Common.Unity.Serialization;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Items.Consumables;
-using Strawhenge.Inventory.Unity.Monobehaviours;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;

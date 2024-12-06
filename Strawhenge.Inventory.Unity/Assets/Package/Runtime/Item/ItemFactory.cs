@@ -1,20 +1,17 @@
-﻿using FunctionalUtilities;
-using Strawhenge.Inventory.Containers;
+﻿using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.HolsterForItem;
-using Strawhenge.Inventory.Items.Storables;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Items.Consumables;
-using Strawhenge.Inventory.Unity.Monobehaviours;
 using Strawhenge.Inventory.Unity.Procedures;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ILogger = Strawhenge.Common.Logging.ILogger;
+using ItemSize = Strawhenge.Inventory.Items.ItemSize;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
@@ -54,12 +51,6 @@ namespace Strawhenge.Inventory.Unity.Items
             _effectFactory = effectFactory;
             _spawner = spawner;
             _logger = logger;
-        }
-
-        public IItem Create(ItemScript itemScript)
-        {
-            var component = new ItemHelper(_spawner, _colliders, itemScript);
-            return Create(component, itemScript.Data);
         }
 
         public IItem Create(IItemData data)
@@ -114,16 +105,16 @@ namespace Strawhenge.Inventory.Unity.Items
             return holstersForItem;
         }
 
-        Strawhenge.Inventory.Items.ItemSize CreateItemSize(Data.ItemSize size)
+        ItemSize CreateItemSize(Data.ItemSize size)
         {
             switch (size)
             {
                 case Data.ItemSize.OneHanded:
-                    return Strawhenge.Inventory.Items.ItemSize.OneHanded;
+                    return ItemSize.OneHanded;
 
                 default:
                 case Data.ItemSize.TwoHanded:
-                    return Strawhenge.Inventory.Items.ItemSize.TwoHanded;
+                    return ItemSize.TwoHanded;
             }
         }
     }

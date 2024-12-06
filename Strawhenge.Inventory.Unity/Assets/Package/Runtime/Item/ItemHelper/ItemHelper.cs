@@ -1,5 +1,4 @@
 ﻿using Strawhenge.Inventory.Unity.Data;
-using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using System.Collections.Generic;
 using FunctionalUtilities;
@@ -14,13 +13,6 @@ namespace Strawhenge.Inventory.Unity.Items
 
         ItemScript _script;
         bool _isFixated;
-
-        public ItemHelper(ISpawner spawner, IReadOnlyList<Collider> bindToColliders, ItemScript script)
-            : this(spawner, bindToColliders, script.Data)
-        {
-            _script = script;
-            script.Fixate(bindToColliders);
-        }
 
         public ItemHelper(ISpawner spawner, IReadOnlyList<Collider> bindToColliders, IItemData data)
         {

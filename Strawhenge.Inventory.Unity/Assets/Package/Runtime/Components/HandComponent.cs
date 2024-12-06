@@ -3,7 +3,6 @@ using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Items;
 using System;
 using FunctionalUtilities;
-using Strawhenge.Inventory.Unity.Monobehaviours;
 using UnityEngine;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 
