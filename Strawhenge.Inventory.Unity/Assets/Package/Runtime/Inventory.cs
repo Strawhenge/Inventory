@@ -3,7 +3,6 @@ using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Data;
 using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Monobehaviours;
 
 namespace Strawhenge.Inventory.Unity
 {
@@ -25,10 +24,7 @@ namespace Strawhenge.Inventory.Unity
             _apparelPieceFactory = apparelPieceFactory;
         }
 
-        public IItem CreateItem(ItemScript script)
-        {
-            return _itemFactory.Create(script);
-        }
+        public IItem CreateItem(ItemPickupScript pickup) => CreateItem(pickup.PickupItem());
 
         public IItem CreateItem(IItemData data)
         {
