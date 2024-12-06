@@ -11,10 +11,12 @@ namespace Strawhenge.Inventory.Unity.Data
 
         ItemScript Prefab { get; }
 
+        Maybe<ItemPickupScript> PickupPrefab { get; }
+
         ItemSize Size { get; }
-        
+
         bool IsStorable { get; }
-        
+
         int Weight { get; }
 
         IHoldItemData LeftHandHoldData { get; }
@@ -22,7 +24,7 @@ namespace Strawhenge.Inventory.Unity.Data
         IHoldItemData RightHandHoldData { get; }
 
         IEnumerable<IHolsterItemData> HolsterItemData { get; }
-        
+
         Maybe<IConsumableData> ConsumableData { get; }
     }
 }

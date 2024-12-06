@@ -14,6 +14,8 @@ namespace Strawhenge.Inventory.Unity.Data.ScriptableObjects
         [FormerlySerializedAs("prefab"), SerializeField]
         ItemScript _prefab;
 
+        [SerializeField, Tooltip("Optional.")] ItemPickupScript _pickupPrefab;
+
         [FormerlySerializedAs("size"), SerializeField]
         ItemSize _size;
 
@@ -35,6 +37,10 @@ namespace Strawhenge.Inventory.Unity.Data.ScriptableObjects
         string IItemData.Name => name;
 
         ItemScript IItemData.Prefab => _prefab;
+
+        Maybe<ItemPickupScript> IItemData.PickupPrefab => _pickupPrefab == null
+            ? Maybe.None<ItemPickupScript>()
+            : Maybe.Some(_pickupPrefab);
 
         ItemSize IItemData.Size => _size;
 

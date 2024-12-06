@@ -12,6 +12,8 @@ namespace Strawhenge.Inventory.Unity.Data
 
         public ItemScript Prefab => null;
 
+        public Maybe<ItemPickupScript> PickupPrefab => Maybe.None<ItemPickupScript>();
+
         public ItemSize Size => ItemSize.OneHanded;
 
         public bool IsStorable => false;
