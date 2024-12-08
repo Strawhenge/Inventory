@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Unity.Items.Data;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Unity.Items.Data;
 using System;
 using Strawhenge.Common.Unity;
 using Object = UnityEngine.Object;
@@ -32,24 +33,27 @@ namespace Strawhenge.Inventory.Unity.Items
         {
             if (_script == null)
                 return;
-            
+
             Object.Destroy(_script.gameObject);
             _script = null;
         }
 
-        public void Release()
+        public Maybe<ItemPickupScript> Release()
         {
-            Data.PickupPrefab.Do(pickupPrefab =>
-            {
-                var spawnPoint = _script == null
-                    ? _itemDropPoint.GetPoint()
-                    : _script.transform.GetPositionAndRotation();
+            var pickup = Data.PickupPrefab
+                .Map(pickupPrefab =>
+                {
+                    var spawnPoint = _script == null
+                        ? _itemDropPoint.GetPoint()
+                        : _script.transform.GetPositionAndRotation();
 
-                Object.Instantiate(pickupPrefab, spawnPoint.Position, spawnPoint.Rotation);
-            });
+                    return Object.Instantiate(pickupPrefab, spawnPoint.Position, spawnPoint.Rotation);
+                });
 
             Despawn();
             Released?.Invoke();
+
+            return pickup;
         }
     }
 }
