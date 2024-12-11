@@ -58,5 +58,14 @@ namespace Strawhenge.Inventory.Unity
                             StateChanged?.Invoke();
                         }))
                 .ToArray();
+
+        public FixedItemContainerSource Clone() => new(_items, _apparelPieces);
+
+        public void Merge(FixedItemContainerSource source)
+        {
+            _items.AddRange(source._items);
+            _apparelPieces.AddRange(source._apparelPieces);
+            StateChanged?.Invoke();
+        }
     }
 }
