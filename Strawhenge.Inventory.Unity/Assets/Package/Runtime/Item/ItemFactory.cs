@@ -6,6 +6,7 @@ using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Consumables;
+using Strawhenge.Inventory.Unity.Items.Context;
 using Strawhenge.Inventory.Unity.Procedures;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,12 @@ namespace Strawhenge.Inventory.Unity.Items
         public IItem Create(IItemData data)
         {
             var component = new ItemHelper(data, _itemDropPoint);
+            return Create(component, data);
+        }
+
+        public IItem Create(IItemData data, ItemContext context)
+        {
+            var component = new ItemHelper(data, _itemDropPoint, context);
             return Create(component, data);
         }
 

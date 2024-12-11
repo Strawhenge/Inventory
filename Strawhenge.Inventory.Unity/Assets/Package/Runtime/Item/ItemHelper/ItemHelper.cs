@@ -2,6 +2,7 @@
 using Strawhenge.Inventory.Unity.Items.Data;
 using System;
 using Strawhenge.Common.Unity;
+using Strawhenge.Inventory.Unity.Items.Context;
 using Object = UnityEngine.Object;
 
 namespace Strawhenge.Inventory.Unity.Items
@@ -9,11 +10,18 @@ namespace Strawhenge.Inventory.Unity.Items
     public class ItemHelper : IItemHelper
     {
         readonly IItemDropPoint _itemDropPoint;
+        readonly ItemContext _context;
         ItemScript _script;
 
         public ItemHelper(IItemData data, IItemDropPoint itemDropPoint)
+            : this(data, itemDropPoint, new ItemContext())
+        {
+        }
+
+        public ItemHelper(IItemData data, IItemDropPoint itemDropPoint, ItemContext context)
         {
             _itemDropPoint = itemDropPoint;
+            _context = context;
             Data = data;
         }
 
@@ -24,7 +32,10 @@ namespace Strawhenge.Inventory.Unity.Items
         public ItemScript Spawn()
         {
             if (_script == null)
+            {
                 _script = Object.Instantiate(Data.Prefab);
+                _script.ContextIn(_context);
+            }
 
             return _script;
         }
@@ -34,6 +45,7 @@ namespace Strawhenge.Inventory.Unity.Items
             if (_script == null)
                 return;
 
+            _script.ContextOut(_context);
             Object.Destroy(_script.gameObject);
             _script = null;
         }
@@ -53,7 +65,8 @@ namespace Strawhenge.Inventory.Unity.Items
             Despawn();
             Released?.Invoke();
 
-            return pickup;
+            return pickup
+                .Do(p => p.ContextIn(_context));
         }
     }
 }
