@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory.Unity.Items
         [SerializeField] ItemScriptableObject _data;
 
         [SerializeField, Tooltip("Destroy the GameObject on pickup.")]
-        bool _destroyOnPickup;
+        bool _destroyOnPickup = true;
 
         [SerializeField] UnityEvent _onPickup;
         [SerializeField] ItemContextHandlerScript[] _contextHandlers;
