@@ -3,42 +3,42 @@ using Strawhenge.Inventory.Unity.Items.Context;
 using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemPickupScript : MonoBehaviour
     {
         [SerializeField] ItemScriptableObject _data;
-
-        [SerializeField, Tooltip("Destroy the GameObject on pickup.")]
-        bool _destroyOnPickup = true;
-
-        [SerializeField] UnityEvent _onPickup;
         [SerializeField] ItemContextHandlerScript[] _contextHandlers;
+
+        IItemData _itemData;
 
         void Awake()
         {
-            if (_data == null)
+            _itemData = _data;
+
+            if (_itemData == null)
             {
                 Debug.LogError($"Missing {nameof(_data)}.", this);
-                Destroy(this);
+                _itemData = new NullItemData();
             }
         }
 
         internal IItemData PickupItem()
         {
-            if (_destroyOnPickup)
-                Destroy(gameObject);
-
-            _onPickup.Invoke();
+            OnPickup();
             return _data;
         }
-        
-        internal void ContextIn(ItemContext itemContext) => 
+
+        /// <summary>
+        /// Called when pickup is invoked. Destroys the GameObject, unless overriden.
+        /// </summary>
+        protected virtual void OnPickup() => Destroy(gameObject);
+
+        internal void ContextIn(ItemContext itemContext) =>
             _contextHandlers.ForEach(handler => handler.ContextIn(itemContext));
 
-        internal void ContextOut(ItemContext itemContext) => 
+        internal void ContextOut(ItemContext itemContext) =>
             _contextHandlers.ForEach(handler => handler.ContextOut(itemContext));
     }
 }
