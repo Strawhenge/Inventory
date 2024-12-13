@@ -1,7 +1,7 @@
-﻿using Strawhenge.Inventory.Unity.Data;
-using Strawhenge.Inventory.Unity.Monobehaviours;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Unity.Items.Data;
 using System;
-using FunctionalUtilities;
+using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
@@ -17,8 +17,9 @@ namespace Strawhenge.Inventory.Unity.Items
         {
         }
 
-        public Maybe<ItemScript> Release() => Maybe.None<ItemScript>();
+        public ItemScript Spawn() =>
+            new GameObject(nameof(NullItemHelper)).AddComponent<ItemScript>();
 
-        public ItemScript Spawn() => null;
+        public Maybe<ItemPickupScript> Release() => Maybe.None<ItemPickupScript>();
     }
 }

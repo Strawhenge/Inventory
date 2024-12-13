@@ -2,9 +2,9 @@
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Components;
-using Strawhenge.Inventory.Unity.Data;
+using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Items.Consumables;
+using Strawhenge.Inventory.Unity.Consumables;
 using Strawhenge.Inventory.Unity.Procedures.ConsumeItem;
 using Strawhenge.Inventory.Unity.Procedures.DropItem;
 using Strawhenge.Inventory.Unity.Procedures.Hammerspace;
@@ -18,20 +18,17 @@ namespace Strawhenge.Inventory.Unity.Procedures
         readonly IHandComponents _handComponents;
         readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
         readonly IConsumeItemAnimationHandler _consumeItemAnimationHandler;
-        readonly IItemDropPoint _itemDropPoint;
         readonly ILogger _logger;
 
         public ProcedureFactory(
             IHandComponents handComponents,
             IProduceItemAnimationHandler produceItemAnimationHandler,
             IConsumeItemAnimationHandler consumeItemAnimationHandler,
-            IItemDropPoint itemDropPoint,
             ILogger logger)
         {
             _handComponents = handComponents;
             _produceItemAnimationHandler = produceItemAnimationHandler;
             _consumeItemAnimationHandler = consumeItemAnimationHandler;
-            _itemDropPoint = itemDropPoint;
             _logger = logger;
         }
 
@@ -57,7 +54,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
         public Procedure SwapFromRightHandToLeftHand(IItemHelper item) =>
             new SimpleSwapHands(_handComponents.Right, _handComponents.Left);
 
-        public Procedure SpawnAndDrop(IItemHelper item) => new SimpleSpawnAndDrop(item, _itemDropPoint);
+        public Procedure SpawnAndDrop(IItemHelper item) => new SimpleSpawnAndDrop(item);
 
         public Procedure Disappear(IItemHelper item) =>
             new DisappearItem(item, _handComponents.Left, _handComponents.Right);

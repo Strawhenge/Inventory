@@ -1,5 +1,4 @@
-﻿using Strawhenge.Inventory.Unity.Monobehaviours;
-using UnityEditor;
+﻿using UnityEditor;
 
 namespace Strawhenge.Inventory.Unity.Editor
 {

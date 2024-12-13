@@ -1,6 +1,5 @@
 ﻿using Strawhenge.Common.Unity;
 using Strawhenge.Common.Unity.AnimatorBehaviours;
-using Strawhenge.Inventory.Unity.Monobehaviours;
 using System;
 using UnityEngine;
 

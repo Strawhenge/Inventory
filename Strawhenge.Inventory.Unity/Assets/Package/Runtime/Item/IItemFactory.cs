@@ -1,12 +1,12 @@
-using Strawhenge.Inventory.Unity.Data;
-using Strawhenge.Inventory.Unity.Monobehaviours;
+using Strawhenge.Inventory.Unity.Items.Context;
+using Strawhenge.Inventory.Unity.Items.Data;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
     public interface IItemFactory
     {
-        IItem Create(ItemScript itemScript);
-        
         IItem Create(IItemData data);
+
+        IItem Create(IItemData data, ItemContext context);
     }
 }

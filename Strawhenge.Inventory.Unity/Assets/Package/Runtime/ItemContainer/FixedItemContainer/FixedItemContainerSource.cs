@@ -1,5 +1,5 @@
 ﻿using Strawhenge.Inventory.Unity.Apparel;
-using Strawhenge.Inventory.Unity.Data;
+using Strawhenge.Inventory.Unity.Items.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,5 +58,14 @@ namespace Strawhenge.Inventory.Unity
                             StateChanged?.Invoke();
                         }))
                 .ToArray();
+
+        public FixedItemContainerSource Clone() => new(_items, _apparelPieces);
+
+        public void Merge(FixedItemContainerSource source)
+        {
+            _items.AddRange(source._items);
+            _apparelPieces.AddRange(source._apparelPieces);
+            StateChanged?.Invoke();
+        }
     }
 }

@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using Strawhenge.Common.Unity;
 
 namespace Strawhenge.Inventory.Unity
 {
     public interface IItemDropPoint
     {
-        Vector3 GetPoint();
+        PositionAndRotation GetPoint();
     }
 }
 

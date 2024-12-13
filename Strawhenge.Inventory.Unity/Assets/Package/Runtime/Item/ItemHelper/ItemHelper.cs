@@ -1,31 +1,27 @@
-﻿using Strawhenge.Inventory.Unity.Data;
-using Strawhenge.Inventory.Unity.Monobehaviours;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Unity.Items.Data;
 using System;
-using System.Collections.Generic;
-using FunctionalUtilities;
-using UnityEngine;
+using Strawhenge.Common.Unity;
+using Strawhenge.Inventory.Unity.Items.Context;
+using Object = UnityEngine.Object;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemHelper : IItemHelper
     {
-        readonly ISpawner _spawner;
-        readonly IReadOnlyList<Collider> _bindToColliders;
-
+        readonly IItemDropPoint _itemDropPoint;
+        readonly ItemContext _context;
         ItemScript _script;
-        bool _isFixated;
 
-        public ItemHelper(ISpawner spawner, IReadOnlyList<Collider> bindToColliders, ItemScript script)
-            : this(spawner, bindToColliders, script.Data)
+        public ItemHelper(IItemData data, IItemDropPoint itemDropPoint)
+            : this(data, itemDropPoint, new ItemContext())
         {
-            _script = script;
-            script.Fixate(bindToColliders);
         }
 
-        public ItemHelper(ISpawner spawner, IReadOnlyList<Collider> bindToColliders, IItemData data)
+        public ItemHelper(IItemData data, IItemDropPoint itemDropPoint, ItemContext context)
         {
-            _spawner = spawner;
-            _bindToColliders = bindToColliders;
+            _itemDropPoint = itemDropPoint;
+            _context = context;
             Data = data;
         }
 
@@ -37,13 +33,8 @@ namespace Strawhenge.Inventory.Unity.Items
         {
             if (_script == null)
             {
-                _script = _spawner.Spawn(Data);
-            }
-
-            if (!_isFixated)
-            {
-                _isFixated = true;
-                _script.Fixate(_bindToColliders);
+                _script = Object.Instantiate(Data.Prefab);
+                _script.ContextIn(_context);
             }
 
             return _script;
@@ -51,22 +42,31 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public void Despawn()
         {
-            _isFixated = false;
-            _spawner.Despawn(_script);
+            if (_script == null)
+                return;
+
+            _script.ContextOut(_context);
+            Object.Destroy(_script.gameObject);
             _script = null;
         }
 
-        public Maybe<ItemScript> Release()
+        public Maybe<ItemPickupScript> Release()
         {
-            if (_script == null)
-                return Maybe.None<ItemScript>();
+            var pickup = Data.PickupPrefab
+                .Map(pickupPrefab =>
+                {
+                    var spawnPoint = _script == null
+                        ? _itemDropPoint.GetPoint()
+                        : _script.transform.GetPositionAndRotation();
 
-            _script.transform.parent = null;
-            _script.Unfixate();
-            _isFixated = false;
+                    return Object.Instantiate(pickupPrefab, spawnPoint.Position, spawnPoint.Rotation);
+                });
+
+            Despawn();
             Released?.Invoke();
 
-            return _script;
+            return pickup
+                .Do(p => p.ContextIn(_context));
         }
     }
 }

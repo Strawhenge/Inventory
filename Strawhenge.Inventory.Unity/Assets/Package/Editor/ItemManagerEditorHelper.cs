@@ -1,11 +1,11 @@
 ﻿using Strawhenge.Inventory.Items.HolsterForItem;
-using Strawhenge.Inventory.Unity.Data.ScriptableObjects;
-using Strawhenge.Inventory.Unity.Monobehaviours;
+using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using System;
 using System.Linq;
 using FunctionalUtilities;
 using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.Storables;
+using Strawhenge.Inventory.Unity.Items;
 using UnityEditor;
 using UnityEngine;
 
@@ -42,14 +42,21 @@ namespace Strawhenge.Inventory.Unity.Editor
             else
             {
                 EditorGUILayout.BeginHorizontal();
-                var script = (ItemScript)EditorGUILayout.ObjectField(null, typeof(ItemScript), allowSceneObjects: true);
-                var scriptableObject =
-                    (ItemScriptableObject)EditorGUILayout.ObjectField(null, typeof(ItemScriptableObject),
-                        allowSceneObjects: true);
+                
+                var pickup = (ItemPickupScript)EditorGUILayout.ObjectField(
+                    null, 
+                    typeof(ItemPickupScript), 
+                    allowSceneObjects: true);
+                
+                var scriptableObject = (ItemScriptableObject)EditorGUILayout.ObjectField(
+                    null, 
+                    typeof(ItemScriptableObject), 
+                    allowSceneObjects: true);
+                
                 EditorGUILayout.EndHorizontal();
 
-                if (script != null)
-                    _item = _target.Instance.CreateItem(script);
+                if (pickup != null)
+                    _item = _target.Instance.CreateItem(pickup);
                 else if (scriptableObject != null)
                     _item = _target.Instance.CreateItem(scriptableObject);
             }
