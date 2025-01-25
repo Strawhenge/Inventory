@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.Items.HolsterForItem
 {
@@ -9,16 +10,21 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
     {
         public static HolstersForItem None { get; } = new HolstersForItem(Array.Empty<IHolsterForItem>());
 
-        readonly IEnumerable<IHolsterForItem> _inner;
+        readonly IReadOnlyDictionary<string, IHolsterForItem> _holsters;
 
         public HolstersForItem(IEnumerable<IHolsterForItem> inner)
         {
-            _inner = inner.ToArray();
+            _holsters = inner
+                .ToDictionary(x => x.HolsterName, x => x);
         }
+
+        public Maybe<IHolsterForItem> this[string name] => _holsters.TryGetValue(name, out var holster)
+            ? Maybe.Some(holster)
+            : Maybe.None<IHolsterForItem>();
 
         public bool IsEquippedToHolster(out IHolsterForItem holsterItem)
         {
-            holsterItem = _inner.FirstOrDefault(x => x.IsEquipped);
+            holsterItem = _holsters.Values.FirstOrDefault(x => x.IsEquipped);
             return holsterItem != null;
         }
 
@@ -29,8 +35,8 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
             return isEquipped;
         }
 
-        IEnumerator<IHolsterForItem> IEnumerable<IHolsterForItem>.GetEnumerator() => _inner.GetEnumerator();
+        IEnumerator<IHolsterForItem> IEnumerable<IHolsterForItem>.GetEnumerator() => _holsters.Values.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => (_inner as IEnumerable).GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => (_holsters.Values as IEnumerable).GetEnumerator();
     }
 }

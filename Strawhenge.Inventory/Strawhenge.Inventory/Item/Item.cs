@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.Items
 
         public string Name { get; }
 
-        public IEnumerable<IEquipItemToHolster> Holsters => _holsters;
+        public IHolstersForItem Holsters => _holsters;
 
         public Maybe<IConsumable> Consumable { get; private set; } = Maybe.None<IConsumable>();
 

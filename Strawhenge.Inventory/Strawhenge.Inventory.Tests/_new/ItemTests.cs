@@ -21,7 +21,7 @@ namespace Strawhenge.Inventory.Tests._new
             var item = _inventoryContext.CreateItem("Hammer", new[] { "Right Hip" });
 
             item.HoldLeftHand();
-            item.Holsters.First(x => x.HolsterName == "Right Hip").Equip();
+            item.Holsters["Right Hip"].Do(holster => holster.Equip());
             item.PutAway();
 
             _inventoryContext.VerifyViewCalls(
