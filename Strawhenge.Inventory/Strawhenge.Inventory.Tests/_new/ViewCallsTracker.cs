@@ -33,7 +33,7 @@ namespace Strawhenge.Inventory.Tests._new
             _logger.LogInformation(viewCall.ToString());
         }
 
-        public void VerifyViewCall(ViewCallInfo[] expectedViewCalls)
+        public void VerifyViewCalls(ViewCallInfo[] expectedViewCalls)
         {
             var expected = expectedViewCalls.Select(x => x.ToString()).ToArray();
             var actual = _viewCalls.Select(x => x.ToString()).ToArray();

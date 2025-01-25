@@ -51,6 +51,6 @@ namespace Strawhenge.Inventory.Tests._new
         }
 
         public void VerifyViewCalls(params ViewCallInfo[] expectedViewCalls) =>
-            _viewCallsTracker.VerifyViewCall(expectedViewCalls);
+            _viewCallsTracker.VerifyViewCalls(expectedViewCalls);
     }
 }
