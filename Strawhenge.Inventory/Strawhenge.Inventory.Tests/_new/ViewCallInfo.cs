@@ -7,7 +7,7 @@ using Strawhenge.Inventory.Items.HolsterForItem;
 
 namespace Strawhenge.Inventory.Tests._new
 {
-    class ViewCallInfo
+    public class ViewCallInfo
     {
         public static implicit operator ViewCallInfo(
             (string itemName, Expression<Func<IItemView, Action<Action>>> methodInvocation) tuple) =>

@@ -20,7 +20,6 @@ namespace Strawhenge.Inventory.Tests._new
 
             _hands = new Hands();
             _holsters = new Holsters(logger);
-            _holsters.Add("Right Hip");
 
             Inventory = new Inventory(
                 new StoredItems(),
@@ -30,6 +29,8 @@ namespace Strawhenge.Inventory.Tests._new
         }
 
         public Inventory Inventory { get; }
+
+        public void AddHolster(string name) => _holsters.Add(name);
 
         public Item CreateItem(string name) => CreateItem(name, Array.Empty<string>());
 
