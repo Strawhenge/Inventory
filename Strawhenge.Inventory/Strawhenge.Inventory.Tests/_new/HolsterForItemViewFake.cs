@@ -43,7 +43,7 @@ namespace Strawhenge.Inventory.Tests._new
 
         void HandleInvocation(string methodName, Action callback)
         {
-            MethodInvoked?.Invoke(this, typeof(ItemViewFake).GetMethod(methodName));
+            MethodInvoked?.Invoke(this, typeof(HolsterForItemViewFake).GetMethod(methodName));
             callback?.Invoke();
         }
     }
