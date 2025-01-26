@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.HolsterForItem;
@@ -29,6 +30,8 @@ namespace Strawhenge.Inventory.Tests._new
         }
 
         public Inventory Inventory { get; }
+
+        public Item CreateItem(string name) => CreateItem(name, Array.Empty<string>());
 
         public Item CreateItem(string name, string[] holsterNames)
         {
