@@ -284,5 +284,10 @@ namespace Strawhenge.Inventory.Items
 
             Storable.Do(x => x.RemoveFromStorage());
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
