@@ -8,11 +8,10 @@ namespace Strawhenge.Inventory.Tests._new
     {
         readonly Item _hammer;
 
-
         public Equip_to_new_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            AddHolster(RightHip);
             AddHolster(LeftHip);
+            AddHolster(RightHip);
 
             _hammer = CreateItem(Hammer, new[] { LeftHip, RightHip });
             _hammer.Holsters[RightHip].Do(x => x.Equip());
