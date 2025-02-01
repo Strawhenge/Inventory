@@ -13,6 +13,7 @@ namespace Strawhenge.Inventory.Tests._new
         protected const string Hammer = "Hammer";
         protected const string Knife = "Knife";
         protected const string Spear = "Spear";
+        protected const string LeftHip = "Left Hip";
         protected const string RightHip = "Right Hip";
 
         readonly InventoryTestContext _inventoryContext;
