@@ -44,7 +44,11 @@ namespace Strawhenge.Inventory.Tests._new
                 var holsterForItemView = new HolsterForItemViewFake(name, holsterName);
                 _viewCallsTracker.Track(holsterForItemView);
 
-                return new HolsterForItem(item, (ItemContainer)_holsters.FindByName(holsterName), holsterForItemView);
+                var holster = _holsters
+                    .FindByName(holsterName)
+                    .Reduce(() => throw new TestSetupException($"Holster '{holsterName}' not added."));
+
+                return new HolsterForItem(item, holster, holsterForItemView);
             });
 
             item.SetupHolsters(new HolstersForItem(holsters));
