@@ -10,25 +10,25 @@ namespace Strawhenge.Inventory.Tests._new
 
         public Equip_to_new_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            AddHolster(LeftHip);
-            AddHolster(RightHip);
+            AddHolster(LeftHipHolster);
+            AddHolster(RightHipHolster);
 
-            _hammer = CreateItem(Hammer, new[] { LeftHip, RightHip });
-            _hammer.Holsters[RightHip].Do(x => x.Equip());
-            _hammer.Holsters[LeftHip].Do(x => x.Equip());
+            _hammer = CreateItem(Hammer, new[] { LeftHipHolster, RightHipHolster });
+            _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
+            _hammer.Holsters[LeftHipHolster].Do(x => x.Equip());
         }
 
         protected override IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters()
         {
-            yield return (LeftHip, _hammer);
+            yield return (LeftHipHolster, _hammer);
         }
 
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {
-            yield return (Hammer, RightHip, x => x.Show);
-            yield return (Hammer, RightHip, x => x.Hide);
+            yield return (Hammer, RightHipHolster, x => x.Show);
+            yield return (Hammer, RightHipHolster, x => x.Hide);
 
-            yield return (Hammer, LeftHip, x => x.Show);
+            yield return (Hammer, LeftHipHolster, x => x.Show);
         }
     }
 }

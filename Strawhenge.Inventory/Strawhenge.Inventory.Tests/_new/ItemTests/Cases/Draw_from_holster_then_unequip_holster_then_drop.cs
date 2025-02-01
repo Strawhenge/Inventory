@@ -10,10 +10,10 @@ namespace Strawhenge.Inventory.Tests._new
 
         public Draw_from_holster_then_unequip_holster_then_drop(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            AddHolster(RightHip);
+            AddHolster(RightHipHolster);
             
-            _hammer = CreateItem(Hammer, new[] { RightHip });
-            _hammer.Holsters[RightHip].Do(x => x.Equip());
+            _hammer = CreateItem(Hammer, new[] { RightHipHolster });
+            _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
             _hammer.HoldRightHand();
             _hammer.UnequipFromHolster();
             _hammer.Drop();
@@ -21,8 +21,8 @@ namespace Strawhenge.Inventory.Tests._new
 
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {
-            yield return (Hammer, RightHip, x => x.Show);
-            yield return (Hammer, RightHip, x => x.DrawRightHand);
+            yield return (Hammer, RightHipHolster, x => x.Show);
+            yield return (Hammer, RightHipHolster, x => x.DrawRightHand);
             yield return (Hammer, x => x.DropRightHand);
         }
     }

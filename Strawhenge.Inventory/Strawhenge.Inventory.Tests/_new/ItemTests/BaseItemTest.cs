@@ -13,8 +13,9 @@ namespace Strawhenge.Inventory.Tests._new
         protected const string Hammer = "Hammer";
         protected const string Knife = "Knife";
         protected const string Spear = "Spear";
-        protected const string LeftHip = "Left Hip";
-        protected const string RightHip = "Right Hip";
+        protected const string LeftHipHolster = "Left Hip";
+        protected const string RightHipHolster = "Right Hip";
+        protected const string BackHolster = "Back";
 
         readonly InventoryTestContext _inventoryContext;
         readonly Inventory _inventory;
@@ -46,11 +47,14 @@ namespace Strawhenge.Inventory.Tests._new
         [Fact]
         public void Verify_items_in_holsters()
         {
-            var expectedItems = ExpectedItemsInHolsters().ToArray();
+            var expectedItems = ExpectedItemsInHolsters()
+                .OrderBy(x => x.holsterName)
+                .ToArray();
 
             var actualItems = _inventory.Holsters
                 .Select(x => x.CurrentItem.HasSome(out var item) ? (x.Name, item) : default)
                 .Where(x => x != default)
+                .OrderBy(x => x.Name)
                 .ToArray();
 
             Assert.Equal(expectedItems, actualItems);
