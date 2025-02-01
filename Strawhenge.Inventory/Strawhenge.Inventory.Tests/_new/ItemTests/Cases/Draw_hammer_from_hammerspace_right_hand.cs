@@ -8,7 +8,6 @@ namespace Strawhenge.Inventory.Tests._new
 {
     public class Draw_hammer_from_hammerspace_right_hand : BaseItemTest
     {
-        const string Hammer = "Hammer";
         readonly Item _hammer;
 
         public Draw_hammer_from_hammerspace_right_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)

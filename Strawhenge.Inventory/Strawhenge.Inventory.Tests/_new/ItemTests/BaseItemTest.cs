@@ -10,6 +10,10 @@ namespace Strawhenge.Inventory.Tests._new
 {
     public abstract class BaseItemTest
     {
+        protected const string Hammer = "Hammer";
+        protected const string Spear = "Spear";
+        protected const string RightHip = "Right Hip";
+
         readonly InventoryTestContext _inventoryContext;
         readonly Inventory _inventory;
 
@@ -62,7 +66,12 @@ namespace Strawhenge.Inventory.Tests._new
         protected Item CreateItem(string name) => CreateItem(name, Array.Empty<string>());
 
         protected Item CreateItem(string name, string[] holsterNames) =>
-            _inventoryContext.CreateItem(name, holsterNames);
+            _inventoryContext.CreateItem(name, ItemSize.OneHanded, holsterNames);
+
+        protected Item CreateTwoHandedItem(string name) => CreateTwoHandedItem(name, Array.Empty<string>());
+
+        protected Item CreateTwoHandedItem(string name, string[] holsterNames) =>
+            _inventoryContext.CreateItem(name, ItemSize.TwoHanded, holsterNames);
 
         protected virtual Maybe<Item> ExpectedItemInLeftHand => Maybe.None<Item>();
 

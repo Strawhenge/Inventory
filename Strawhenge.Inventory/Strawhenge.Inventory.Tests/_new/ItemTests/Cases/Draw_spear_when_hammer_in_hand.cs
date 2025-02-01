@@ -1,20 +1,28 @@
 ﻿using System.Collections.Generic;
+using FunctionalUtilities;
 using Strawhenge.Inventory.Items;
 using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests._new
 {
-    public class Equip_hammer_to_holster : BaseItemTest
+    public class Draw_spear_when_hammer_in_hand : BaseItemTest
     {
         readonly Item _hammer;
+        readonly Item _spear;
 
-        public Equip_hammer_to_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public Draw_spear_when_hammer_in_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             AddHolster(RightHip);
 
             _hammer = CreateItem(Hammer, new[] { RightHip });
             _hammer.Holsters[RightHip].Do(x => x.Equip());
+            _hammer.HoldRightHand();
+
+            _spear = CreateTwoHandedItem(Spear);
+            _spear.HoldRightHand();
         }
+
+        protected override Maybe<Item> ExpectedItemInRightHand => _spear;
 
         protected override IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters()
         {
@@ -24,6 +32,10 @@ namespace Strawhenge.Inventory.Tests._new
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {
             yield return (Hammer, RightHip, x => x.Show);
+            yield return (Hammer, RightHip, x => x.DrawRightHand);
+            yield return (Hammer, RightHip, x => x.PutAwayRightHand);
+
+            yield return (Spear, x => x.DrawRightHand);
         }
     }
 }

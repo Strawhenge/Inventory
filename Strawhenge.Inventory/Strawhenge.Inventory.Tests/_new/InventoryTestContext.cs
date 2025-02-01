@@ -32,14 +32,12 @@ namespace Strawhenge.Inventory.Tests._new
 
         public void AddHolster(string name) => _holsters.Add(name);
 
-        public Item CreateItem(string name) => CreateItem(name, Array.Empty<string>());
-
-        public Item CreateItem(string name, string[] holsterNames)
+        public Item CreateItem(string name, ItemSize size, string[] holsterNames)
         {
             var itemView = new ItemViewFake(name);
             _viewCallsTracker.Track(itemView);
 
-            var item = new Item(name, _hands, itemView, ItemSize.OneHanded);
+            var item = new Item(name, _hands, itemView, size);
 
             var holsters = holsterNames.Select(holsterName =>
             {
