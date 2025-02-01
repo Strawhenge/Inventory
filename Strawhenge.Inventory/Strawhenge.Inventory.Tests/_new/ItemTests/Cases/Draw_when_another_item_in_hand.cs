@@ -12,10 +12,7 @@ namespace Strawhenge.Inventory.Tests._new
 
         public Draw_when_another_item_in_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            AddHolster(RightHipHolster);
-
-            _hammer = CreateItem(Hammer, new[] { RightHipHolster });
-            _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
+            _hammer = CreateItem(Hammer);
             _hammer.HoldRightHand();
 
             _spear = CreateTwoHandedItem(Spear);
@@ -24,16 +21,10 @@ namespace Strawhenge.Inventory.Tests._new
 
         protected override Maybe<Item> ExpectedItemInRightHand => _spear;
 
-        protected override IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters()
-        {
-            yield return (RightHipHolster, _hammer);
-        }
-
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {
-            yield return (Hammer, RightHipHolster, x => x.Show);
-            yield return (Hammer, RightHipHolster, x => x.DrawRightHand);
-            yield return (Hammer, RightHipHolster, x => x.PutAwayRightHand);
+            yield return (Hammer, x => x.DrawRightHand);
+            yield return (Hammer, x => x.Disappear);
 
             yield return (Spear, x => x.DrawRightHand);
         }
