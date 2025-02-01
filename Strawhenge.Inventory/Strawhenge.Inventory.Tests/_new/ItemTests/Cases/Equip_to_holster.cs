@@ -4,11 +4,11 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests._new
 {
-    public class Equip_hammer_to_holster : BaseItemTest
+    public class Equip_to_holster : BaseItemTest
     {
         readonly Item _hammer;
 
-        public Equip_hammer_to_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public Equip_to_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             AddHolster(RightHip);
 
