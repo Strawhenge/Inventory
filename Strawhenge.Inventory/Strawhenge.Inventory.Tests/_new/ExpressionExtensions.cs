@@ -22,7 +22,7 @@ namespace Strawhenge.Inventory.Tests._new
                 return methodInfo;
             }
 
-            throw new InvalidOperationException("Invalid expression.");
+            throw new TestSetupException($"Invalid expression - could not determine {nameof(MethodInfo)}.");
         }
     }
 }
