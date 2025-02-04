@@ -12,17 +12,19 @@ namespace Strawhenge.Inventory.Tests._new
         readonly ViewCallsTracker _viewCallsTracker;
         readonly Hands _hands;
         readonly Holsters _holsters;
+        readonly StoredItems _storedItems;
 
         public InventoryTestContext(ITestOutputHelper testOutputHelper)
         {
             var logger = new TestOutputLogger(testOutputHelper);
             _viewCallsTracker = new ViewCallsTracker(logger);
 
+            _storedItems = new StoredItems();
             _hands = new Hands();
             _holsters = new Holsters(logger);
 
             Inventory = new Inventory(
-                new StoredItems(),
+                _storedItems,
                 _hands,
                 _holsters,
                 new ApparelSlotsFake());
@@ -30,9 +32,11 @@ namespace Strawhenge.Inventory.Tests._new
 
         public Inventory Inventory { get; }
 
+        public IStoredItemsWeightCapacitySetter StoredItemsWeightCapacity => _storedItems;
+
         public void AddHolster(string name) => _holsters.Add(name);
 
-        public Item CreateItem(string name, ItemSize size, string[] holsterNames)
+        public Item CreateItem(string name, ItemSize size, string[] holsterNames, bool storable)
         {
             var itemView = new ItemViewFake(name);
             _viewCallsTracker.Track(itemView);
@@ -53,6 +57,9 @@ namespace Strawhenge.Inventory.Tests._new
 
             item.SetupHolsters(new HolstersForItem(holsters));
 
+            if (storable)
+                item.SetupStorable(_storedItems, 1);
+            
             return item;
         }
 

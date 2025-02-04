@@ -61,6 +61,20 @@ namespace Strawhenge.Inventory.Tests._new
         }
 
         [Fact]
+        public void Verify_items_in_storage()
+        {
+            var expectedItems = ExpectedItemsInStorage()
+                .OrderBy(x => x.Name)
+                .ToArray();
+
+            var actualItems = _inventory.StoredItems.Items
+                .OrderBy(x => x.Name)
+                .ToArray();
+
+            Assert.Equal(expectedItems, actualItems);
+        }
+
+        [Fact]
         public void Verify_view_calls()
         {
             _inventoryContext
@@ -69,15 +83,20 @@ namespace Strawhenge.Inventory.Tests._new
 
         protected void AddHolster(string name) => _inventoryContext.AddHolster(name);
 
-        protected Item CreateItem(string name) => CreateItem(name, Array.Empty<string>());
+        protected void SetStorageCapacity(int capacity) =>
+            _inventoryContext.StoredItemsWeightCapacity.SetWeightCapacity(capacity);
 
-        protected Item CreateItem(string name, string[] holsterNames) =>
-            _inventoryContext.CreateItem(name, ItemSize.OneHanded, holsterNames);
+        protected Item CreateItem(string name, bool storable = false) =>
+            CreateItem(name, Array.Empty<string>(), storable);
 
-        protected Item CreateTwoHandedItem(string name) => CreateTwoHandedItem(name, Array.Empty<string>());
+        protected Item CreateItem(string name, string[] holsterNames, bool storable = false) =>
+            _inventoryContext.CreateItem(name, ItemSize.OneHanded, holsterNames, storable);
 
-        protected Item CreateTwoHandedItem(string name, string[] holsterNames) =>
-            _inventoryContext.CreateItem(name, ItemSize.TwoHanded, holsterNames);
+        protected Item CreateTwoHandedItem(string name, bool storable = false) =>
+            CreateTwoHandedItem(name, Array.Empty<string>(), storable);
+
+        protected Item CreateTwoHandedItem(string name, string[] holsterNames, bool storable = false) =>
+            _inventoryContext.CreateItem(name, ItemSize.TwoHanded, holsterNames, storable);
 
         protected virtual Maybe<Item> ExpectedItemInLeftHand => Maybe.None<Item>();
 
@@ -85,6 +104,8 @@ namespace Strawhenge.Inventory.Tests._new
 
         protected virtual IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters() =>
             Enumerable.Empty<(string holsterName, IItem expectedItem)>();
+
+        protected virtual IEnumerable<IItem> ExpectedItemsInStorage() => Enumerable.Empty<IItem>();
 
         protected abstract IEnumerable<ViewCallInfo> ExpectedViewCalls();
     }
