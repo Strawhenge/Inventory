@@ -1,0 +1,36 @@
+﻿using System.Collections.Generic;
+using Strawhenge.Inventory.Items;
+using Xunit.Abstractions;
+
+namespace Strawhenge.Inventory.Tests._new
+{
+    public class Equip_to_holster_when_other_item_in_holster : BaseItemTest
+    {
+        readonly Item _hammer;
+        readonly Item _knife;
+
+        public Equip_to_holster_when_other_item_in_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        {
+            AddHolster(RightHipHolster);
+
+            _hammer = CreateItem(Hammer, new[] { RightHipHolster });
+            _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
+
+            _knife = CreateItem(Knife, new[] { RightHipHolster });
+            _knife.Holsters[RightHipHolster].Do(x => x.Equip());
+        }
+
+        protected override IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters()
+        {
+            yield return (RightHipHolster, _knife);
+        }
+
+        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        {
+            yield return (Hammer, RightHipHolster, x => x.Show);
+            yield return (Hammer, RightHipHolster, x => x.Hide);
+
+            yield return (Knife, RightHipHolster, x => x.Show);
+        }
+    }
+}
