@@ -2,7 +2,7 @@
 using FunctionalUtilities;
 using Strawhenge.Common.Factories;
 
-namespace Strawhenge.Inventory.Tests.UnitTests.Effects
+namespace Strawhenge.Inventory.Tests._new.EffectTests
 {
     class AbstractFactoryFake : IAbstractFactory
     {

@@ -2,7 +2,7 @@
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Strawhenge.Inventory.Tests.UnitTests.Effects
+namespace Strawhenge.Inventory.Tests._new.EffectTests
 {
     public class EffectsTests
     {
@@ -50,7 +50,8 @@ namespace Strawhenge.Inventory.Tests.UnitTests.Effects
         [Fact]
         public void Default_effect_should_return_when_corresponding_factory_not_implemented()
         {
-            var effect = _factory.Create(EffectData.From(new NotImplementedEffectData()));
+            var effect = _factory.Create(
+                EffectData.From(new NotImplementedEffectData()));
 
             Assert.IsType<NullEffect>(effect);
         }
