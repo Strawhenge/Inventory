@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using FunctionalUtilities;
+using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.HolsterForItem;
@@ -64,6 +66,15 @@ namespace Strawhenge.Inventory.Tests._new
                 item.SetupStorable(_storedItems, 1);
             
             return item;
+        }
+
+        public ApparelPiece CreateApparel(string name, string slotName)
+        {
+            var slot = (ApparelSlot)_apparelSlots.All
+                .FirstOrNone(x => x.Name == slotName)
+                .Reduce(() => throw new TestSetupException($"Slot '{slotName}' not added."));
+
+            return new ApparelPiece(name, slot, new ApparelViewFake());
         }
 
         public void VerifyViewCalls(params ViewCallInfo[] expectedViewCalls) =>
