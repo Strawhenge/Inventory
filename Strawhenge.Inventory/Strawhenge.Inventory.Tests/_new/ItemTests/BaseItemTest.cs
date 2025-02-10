@@ -80,6 +80,8 @@ namespace Strawhenge.Inventory.Tests._new
             _inventoryContext
                 .VerifyViewCalls(ExpectedViewCalls().ToArray());
         }
+        
+        protected IInventory Inventory => _inventory;
 
         protected void AddHolster(string name) => _inventoryContext.AddHolster(name);
 
