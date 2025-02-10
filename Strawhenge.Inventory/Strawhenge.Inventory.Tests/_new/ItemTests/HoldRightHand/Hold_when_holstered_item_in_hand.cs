@@ -5,12 +5,12 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests._new
 {
-    public class Draw_when_holstered_item_in_hand : BaseItemTest
+    public class Hold_when_holstered_item_in_hand : BaseItemTest
     {
         readonly Item _hammer;
         readonly Item _spear;
 
-        public Draw_when_holstered_item_in_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public Hold_when_holstered_item_in_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             AddHolster(RightHipHolster);
 
