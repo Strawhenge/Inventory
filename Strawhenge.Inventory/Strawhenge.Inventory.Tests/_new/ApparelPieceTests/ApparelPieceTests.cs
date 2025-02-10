@@ -101,7 +101,7 @@ namespace Strawhenge.Inventory.Tests._new.ApparelPieceTests
         (ApparelPiece piece, Mock<IApparelView> viewMock) CreateTorsoPiece(string name)
         {
             var viewMock = new Mock<IApparelView>();
-            return (new ApparelPiece(name, _headSlot, _hatViewMock.Object), viewMock);
+            return (new ApparelPiece(name, _headSlot, viewMock.Object), viewMock);
         }
     }
 }

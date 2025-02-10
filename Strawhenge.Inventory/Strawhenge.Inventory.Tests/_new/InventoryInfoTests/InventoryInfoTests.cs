@@ -1,12 +1,10 @@
 ﻿using System.Linq;
-using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Tests.Context;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Strawhenge.Inventory.Tests.UnitTests
+namespace Strawhenge.Inventory.Tests._new.InventoryInfoTests
 {
     public class InventoryInfoTests
     {
@@ -20,16 +18,17 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         const string Stick = "Stick";
         const string Crowbar = "Crowbar";
 
-        readonly TestContext _context;
+        readonly InventoryTestContext _context;
         readonly InventoryInfoGenerator _infoGenerator;
 
         public InventoryInfoTests(ITestOutputHelper testOutputHelper)
         {
-            _context = new TestContext(testOutputHelper);
-            _context.ApparelSlots.Add(new ApparelSlot(HeadApparelSlot));
-            _context.ApparelSlots.Add(new ApparelSlot(TorsoApparelSlot));
-            _context.Holsters.Add(HipHolster);
-            _context.Holsters.Add(BackHolster);
+            _context = new InventoryTestContext(testOutputHelper);
+            _context.StoredItemsWeightCapacity.SetWeightCapacity(100);
+            _context.AddApparelSlot(HeadApparelSlot);
+            _context.AddApparelSlot(TorsoApparelSlot);
+            _context.AddHolster(HipHolster);
+            _context.AddHolster(BackHolster);
 
             _infoGenerator = new InventoryInfoGenerator(_context.Inventory);
         }
@@ -46,9 +45,12 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         [Fact]
         public void Info_should_contain_equipped_apparel()
         {
-            _context.CreateApparelPiece(Hat, HeadApparelSlot)
+            _context
+                .CreateApparel(Hat, HeadApparelSlot)
                 .Equip();
-            _context.CreateApparelPiece(BodyArmour, TorsoApparelSlot)
+
+            _context
+                .CreateApparel(BodyArmour, TorsoApparelSlot)
                 .Equip();
 
             var info = _infoGenerator.GenerateCurrentInfo();
@@ -62,9 +64,12 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         [Fact]
         public void Info_should_contain_stored_items()
         {
-            _context.CreateItem(Hammer, ItemSize.OneHanded)
+            _context
+                .CreateItem(Hammer, ItemSize.OneHanded, storable: true)
                 .Storable.Do(x => x.AddToStorage());
-            _context.CreateItem(Stick, ItemSize.TwoHanded)
+
+            _context
+                .CreateItem(Stick, ItemSize.TwoHanded, storable: true)
                 .Storable.Do(x => x.AddToStorage());
 
             var info = _infoGenerator.GenerateCurrentInfo();
@@ -83,8 +88,17 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         [Fact]
         public void Info_should_contain_holstered_items()
         {
-            _context.CreateItem(Hammer, ItemSize.OneHanded, HipHolster).Holsters.First().Equip();
-            _context.CreateItem(Stick, ItemSize.OneHanded, BackHolster).Holsters.First().Equip();
+            _context
+                .CreateItem(Hammer, ItemSize.OneHanded, new[] { HipHolster })
+                .Holsters
+                .First()
+                .Equip();
+
+            _context
+                .CreateItem(Stick, ItemSize.OneHanded, new[] { BackHolster })
+                .Holsters
+                .First()
+                .Equip();
 
             var info = _infoGenerator.GenerateCurrentInfo();
 
@@ -102,8 +116,13 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         [Fact]
         public void Info_should_contain_held_items()
         {
-            _context.CreateItem(Hammer, ItemSize.OneHanded, HipHolster).HoldLeftHand();
-            _context.CreateItem(Stick, ItemSize.OneHanded, BackHolster).HoldRightHand();
+            _context
+                .CreateItem(Hammer, ItemSize.OneHanded, new[] { HipHolster })
+                .HoldLeftHand();
+
+            _context
+                .CreateItem(Stick, ItemSize.OneHanded, new[] { BackHolster })
+                .HoldRightHand();
 
             var info = _infoGenerator.GenerateCurrentInfo();
 
@@ -125,15 +144,15 @@ namespace Strawhenge.Inventory.Tests.UnitTests
         [Fact]
         public void Info_should_not_contain_duplicate_items_that_are_both_in_hand_holster_or_storage()
         {
-            var hammer = _context.CreateItem(Hammer, ItemSize.OneHanded, HipHolster);
+            var hammer = _context.CreateItem(Hammer, holsterNames: new[] { HipHolster }, storable: true);
             hammer.Storable.Do(x => x.AddToStorage());
             hammer.HoldRightHand();
 
-            var stick = _context.CreateItem(Stick, ItemSize.OneHanded, BackHolster);
+            var stick = _context.CreateItem(Stick, holsterNames: new[] { BackHolster }, storable: true);
             stick.Holsters.First().Equip();
             stick.HoldLeftHand();
 
-            var crowbar = _context.CreateItem(Crowbar, ItemSize.OneHanded, HipHolster);
+            var crowbar = _context.CreateItem(Crowbar, holsterNames: new[] { HipHolster }, storable: true);
             crowbar.Holsters.First().Equip();
             crowbar.Storable.Do(x => x.AddToStorage());
 

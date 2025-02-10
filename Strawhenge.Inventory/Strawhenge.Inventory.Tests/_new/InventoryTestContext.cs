@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using FunctionalUtilities;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
@@ -25,7 +26,7 @@ namespace Strawhenge.Inventory.Tests._new
             _hands = new Hands();
             _holsters = new Holsters(logger);
             _apparelSlots = new ApparelSlotsFake();
-            
+
             Inventory = new Inventory(
                 _storedItems,
                 _hands,
@@ -41,8 +42,11 @@ namespace Strawhenge.Inventory.Tests._new
 
         public void AddApparelSlot(string name) => _apparelSlots.Add(name);
 
-        public Item CreateItem(string name, ItemSize size, string[] holsterNames, bool storable)
+        public Item CreateItem(string name, ItemSize size = null, string[] holsterNames = null, bool storable = false)
         {
+            size ??= ItemSize.OneHanded;
+            holsterNames ??= Array.Empty<string>();
+
             var itemView = new ItemViewFake(name);
             _viewCallsTracker.Track(itemView);
 
@@ -64,7 +68,7 @@ namespace Strawhenge.Inventory.Tests._new
 
             if (storable)
                 item.SetupStorable(_storedItems, 1);
-            
+
             return item;
         }
 
