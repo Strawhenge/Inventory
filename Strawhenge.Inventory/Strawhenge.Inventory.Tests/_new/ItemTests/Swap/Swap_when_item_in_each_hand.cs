@@ -30,7 +30,6 @@ namespace Strawhenge.Inventory.Tests._new.ItemTests.Swap
             yield return (Hammer, x => x.DrawRightHand);
             yield return (Knife, x => x.DrawLeftHand);
 
-            // TODO This sequence isn't quite right
             yield return (Knife, x => x.Disappear);
             yield return (Hammer, x => x.RightHandToLeftHand);
             yield return (Knife, x => x.DrawRightHand);

@@ -23,9 +23,6 @@ namespace Strawhenge.Inventory.Tests._new.ItemTests.Discard
             yield return (Hammer, RightHipHolster, x => x.Show);
             yield return (Hammer, RightHipHolster, x => x.DrawRightHand);
             yield return (Hammer, x => x.Disappear);
-         
-            // TODO This call should not be necessary
-            yield return (Hammer, RightHipHolster, x => x.Hide);
         }
     }
 }
