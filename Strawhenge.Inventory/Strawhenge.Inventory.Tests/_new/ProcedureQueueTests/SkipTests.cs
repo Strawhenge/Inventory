@@ -1,10 +1,9 @@
 ﻿using Strawhenge.Inventory.Procedures;
-using Strawhenge.Inventory.Tests.Fakes;
 using Xunit;
 
-namespace Strawhenge.Inventory.Tests.UnitTests.Procedures
+namespace Strawhenge.Inventory.Tests._new.ProcedureQueueTests
 {
-    public class ProcedureQueue_Skip_Tests
+    public class SkipTests
     {
         [Fact]
         public void Skip_GivenInitialProcInProgress_ShouldSkipInitialProc()

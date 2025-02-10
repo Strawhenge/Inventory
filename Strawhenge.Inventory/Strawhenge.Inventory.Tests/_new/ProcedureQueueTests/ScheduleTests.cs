@@ -1,10 +1,9 @@
 ﻿using Strawhenge.Inventory.Procedures;
-using Strawhenge.Inventory.Tests.Fakes;
 using Xunit;
 
-namespace Strawhenge.Inventory.Tests.UnitTests.Procedures
+namespace Strawhenge.Inventory.Tests._new.ProcedureQueueTests
 {
-    public class ProcedureQueue_Schedule_Tests
+    public class ScheduleTests
     {
         [Fact]
         public void Schedule_ShouldBeginInitialProcedure()

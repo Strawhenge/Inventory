@@ -1,7 +1,7 @@
-﻿using Strawhenge.Inventory.Procedures;
-using System;
+﻿using System;
+using Strawhenge.Inventory.Procedures;
 
-namespace Strawhenge.Inventory.Tests.Fakes
+namespace Strawhenge.Inventory.Tests._new.ProcedureQueueTests
 {
     public class ProcedureFake : Procedure
     {
