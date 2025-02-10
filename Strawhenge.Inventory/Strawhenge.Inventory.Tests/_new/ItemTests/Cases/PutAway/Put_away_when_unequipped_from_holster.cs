@@ -23,7 +23,7 @@ namespace Strawhenge.Inventory.Tests._new
         {
             yield return (Hammer, RightHipHolster, x => x.Show);
             yield return (Hammer, RightHipHolster, x => x.DrawRightHand);
-            yield return (Hammer, x => x.DropRightHand);
+            yield return (Hammer, x => x.PutAwayRightHand);
         }
     }
 }
