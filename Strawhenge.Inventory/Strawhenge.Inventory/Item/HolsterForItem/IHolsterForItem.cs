@@ -8,6 +8,8 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
 
         void Discard(Action callback = null);
 
+        void Drop(Action callback = null);
+
         IHolsterForItemView GetView();
     }
 }

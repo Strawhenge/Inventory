@@ -76,6 +76,22 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
                 _view.Hide();
         }
 
+        public void Drop(Action callback = null)
+        {
+            if (!IsEquipped)
+            {
+                callback?.Invoke();
+                return;
+            }
+
+            _itemContainer.UnsetItem();
+
+            if (_item.IsInHand)
+                callback?.Invoke();
+            else
+                _view.Drop();
+        }
+
         public IHolsterForItemView GetView()
         {
             return _view;

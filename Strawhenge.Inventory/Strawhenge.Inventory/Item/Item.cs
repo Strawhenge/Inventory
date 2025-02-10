@@ -73,19 +73,25 @@ namespace Strawhenge.Inventory.Items
         {
             if (IsInLeftHand())
             {
+                UnequipFromHolster();
                 _hands.UnsetItemLeftHand();
                 _itemView.DropLeftHand(callback);
             }
             else if (IsInRightHand())
             {
+                UnequipFromHolster();
                 _hands.UnsetItemRightHand();
                 _itemView.DropRightHand(callback);
+            }
+            else if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
+            {
+                holster.Drop(callback);
             }
             else
             {
                 _itemView.SpawnAndDrop(callback);
             }
-
+           
             Storable.Do(x => x.RemoveFromStorage());
         }
 
@@ -228,6 +234,9 @@ namespace Strawhenge.Inventory.Items
 
         public void Discard()
         {
+            if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
+                holster.Discard();
+            
             if (IsInLeftHand())
             {
                 _hands.UnsetItemLeftHand();
@@ -238,9 +247,6 @@ namespace Strawhenge.Inventory.Items
                 _hands.UnsetItemRightHand();
                 _itemView.Disappear();
             }
-
-            if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
-                holster.Discard();
 
             Storable.Do(x => x.RemoveFromStorage());
         }
