@@ -2,7 +2,7 @@
 using Strawhenge.Inventory.Items;
 using Xunit.Abstractions;
 
-namespace Strawhenge.Inventory.Tests._new
+namespace Strawhenge.Inventory.Tests._new.ItemTests.Unequip
 {
     public class Unequip_from_holster : BaseItemTest
     {

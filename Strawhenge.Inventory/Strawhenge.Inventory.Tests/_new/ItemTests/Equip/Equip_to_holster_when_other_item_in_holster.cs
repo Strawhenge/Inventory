@@ -2,7 +2,7 @@
 using Strawhenge.Inventory.Items;
 using Xunit.Abstractions;
 
-namespace Strawhenge.Inventory.Tests._new
+namespace Strawhenge.Inventory.Tests._new.ItemTests.Equip
 {
     public class Equip_to_holster_when_other_item_in_holster : BaseItemTest
     {

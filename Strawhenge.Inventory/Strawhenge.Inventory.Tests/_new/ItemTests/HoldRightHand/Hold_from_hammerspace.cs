@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using FunctionalUtilities;
-using Strawhenge.Common;
 using Strawhenge.Inventory.Items;
 using Xunit.Abstractions;
 
-namespace Strawhenge.Inventory.Tests._new
+namespace Strawhenge.Inventory.Tests._new.ItemTests.HoldRightHand
 {
     public class Hold_from_hammerspace : BaseItemTest
     {

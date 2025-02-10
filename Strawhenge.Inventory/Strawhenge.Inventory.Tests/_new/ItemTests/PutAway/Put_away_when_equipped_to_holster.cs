@@ -2,7 +2,7 @@
 using Strawhenge.Inventory.Items;
 using Xunit.Abstractions;
 
-namespace Strawhenge.Inventory.Tests._new
+namespace Strawhenge.Inventory.Tests._new.ItemTests.PutAway
 {
     public class Put_away_when_equipped_to_holster : BaseItemTest
     {

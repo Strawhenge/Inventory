@@ -3,7 +3,7 @@ using FunctionalUtilities;
 using Strawhenge.Inventory.Items;
 using Xunit.Abstractions;
 
-namespace Strawhenge.Inventory.Tests._new.Swap
+namespace Strawhenge.Inventory.Tests._new.ItemTests.Swap
 {
     public class Swap_when_item_in_right_hand : BaseItemTest
     {

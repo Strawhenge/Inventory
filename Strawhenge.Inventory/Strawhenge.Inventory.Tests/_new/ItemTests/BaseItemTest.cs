@@ -6,7 +6,7 @@ using Strawhenge.Inventory.Items;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Strawhenge.Inventory.Tests._new
+namespace Strawhenge.Inventory.Tests._new.ItemTests
 {
     public abstract class BaseItemTest
     {

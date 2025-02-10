@@ -3,7 +3,7 @@ using FunctionalUtilities;
 using Strawhenge.Inventory.Items;
 using Xunit.Abstractions;
 
-namespace Strawhenge.Inventory.Tests._new
+namespace Strawhenge.Inventory.Tests._new.ItemTests.HoldLeftHand
 {
     public class Hold_one_handed_left_hand_when_two_handed_in_right_hand : BaseItemTest
     {
