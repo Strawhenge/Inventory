@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
-using Strawhenge.Inventory.Items;
 using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests._new.ItemTests.PutAway
 {
     public class Put_away_when_unequipped_from_holster : BaseItemTest
     {
-        readonly Item _hammer;
-
         public Put_away_when_unequipped_from_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             AddHolster(RightHipHolster);
             
-            _hammer = CreateItem(Hammer, new[] { RightHipHolster });
-            _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
-            _hammer.HoldRightHand();
-            _hammer.UnequipFromHolster();
-            _hammer.PutAway();
+            var hammer = CreateItem(Hammer, new[] { RightHipHolster });
+            hammer.Holsters[RightHipHolster].Do(x => x.Equip());
+            hammer.HoldRightHand();
+            hammer.UnequipFromHolster();
+            hammer.PutAway();
         }
 
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()

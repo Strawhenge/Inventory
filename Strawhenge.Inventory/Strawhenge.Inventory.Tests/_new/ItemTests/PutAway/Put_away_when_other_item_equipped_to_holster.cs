@@ -6,21 +6,20 @@ namespace Strawhenge.Inventory.Tests._new.ItemTests.PutAway
 {
     public class Put_away_when_other_item_equipped_to_holster : BaseItemTest
     {
-        readonly Item _hammer;
         readonly Item _knife;
 
         public Put_away_when_other_item_equipped_to_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             AddHolster(RightHipHolster);
 
-            _hammer = CreateItem(Hammer, new[] { RightHipHolster });
-            _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
-            _hammer.HoldRightHand();
+            var hammer = CreateItem(Hammer, new[] { RightHipHolster });
+            hammer.Holsters[RightHipHolster].Do(x => x.Equip());
+            hammer.HoldRightHand();
 
             _knife = CreateItem(Knife, new[] { RightHipHolster });
             _knife.Holsters[RightHipHolster].Do(x => x.Equip());
 
-            _hammer.PutAway();
+            hammer.PutAway();
         }
 
         protected override IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters()

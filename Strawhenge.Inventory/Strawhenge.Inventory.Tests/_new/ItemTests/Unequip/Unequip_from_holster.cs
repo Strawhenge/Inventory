@@ -1,20 +1,17 @@
 ﻿using System.Collections.Generic;
-using Strawhenge.Inventory.Items;
 using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests._new.ItemTests.Unequip
 {
     public class Unequip_from_holster : BaseItemTest
     {
-        readonly Item _hammer;
-
         public Unequip_from_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             AddHolster(RightHipHolster);
 
-            _hammer = CreateItem(Hammer, new[] { RightHipHolster });
-            _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
-            _hammer.Holsters[RightHipHolster].Do(x => x.Unequip());
+            var hammer = CreateItem(Hammer, new[] { RightHipHolster });
+            hammer.Holsters[RightHipHolster].Do(x => x.Equip());
+            hammer.Holsters[RightHipHolster].Do(x => x.Unequip());
         }
 
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()

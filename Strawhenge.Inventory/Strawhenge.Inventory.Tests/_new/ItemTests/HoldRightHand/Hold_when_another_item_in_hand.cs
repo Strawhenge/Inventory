@@ -7,13 +7,12 @@ namespace Strawhenge.Inventory.Tests._new.ItemTests.HoldRightHand
 {
     public class Hold_when_another_item_in_hand : BaseItemTest
     {
-        readonly Item _hammer;
         readonly Item _spear;
 
         public Hold_when_another_item_in_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            _hammer = CreateItem(Hammer);
-            _hammer.HoldRightHand();
+            var hammer = CreateItem(Hammer);
+            hammer.HoldRightHand();
 
             _spear = CreateTwoHandedItem(Spear);
             _spear.HoldRightHand();
