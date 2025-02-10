@@ -11,12 +11,6 @@ namespace Strawhenge.Inventory.Tests._new
             Assert.False(maybe.HasSome());
         }
 
-        public static void VerifyIsSome<T>(this Maybe<T> maybe)
-        {
-            Assert.NotNull(maybe);
-            Assert.True(maybe.HasSome());
-        }
-
         public static void VerifyIsSome<T>(this Maybe<T> maybe, T expectedValue)
         {
             Assert.NotNull(maybe);
