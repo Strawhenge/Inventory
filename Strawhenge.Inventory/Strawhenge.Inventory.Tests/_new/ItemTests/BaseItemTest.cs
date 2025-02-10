@@ -30,18 +30,18 @@ namespace Strawhenge.Inventory.Tests._new
         public void Verify_item_in_left_hand()
         {
             if (ExpectedItemInLeftHand.HasSome(out var expectedItem))
-                AssertMaybe.IsSome(_inventory.LeftHand.CurrentItem, expectedItem);
+                _inventory.LeftHand.CurrentItem.VerifyIsSome(expectedItem);
             else
-                AssertMaybe.IsNone(_inventory.LeftHand.CurrentItem);
+                _inventory.LeftHand.CurrentItem.VerifyIsNone();
         }
 
         [Fact]
         public void Verify_item_in_right_hand()
         {
             if (ExpectedItemInRightHand.HasSome(out var expectedItem))
-                AssertMaybe.IsSome(_inventory.RightHand.CurrentItem, expectedItem);
+                _inventory.RightHand.CurrentItem.VerifyIsSome(expectedItem);
             else
-                AssertMaybe.IsNone(_inventory.RightHand.CurrentItem);
+                _inventory.RightHand.CurrentItem.VerifyIsNone();
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace Strawhenge.Inventory.Tests._new
             _inventoryContext
                 .VerifyViewCalls(ExpectedViewCalls().ToArray());
         }
-        
+
         protected IInventory Inventory => _inventory;
 
         protected void AddHolster(string name) => _inventoryContext.AddHolster(name);
