@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Strawhenge.Inventory.Apparel;
 
 namespace Strawhenge.Inventory.Tests._new
 {
     public class ApparelSlotsFake : IApparelSlots
     {
-        public IEnumerable<IApparelSlot> All => Array.Empty<IApparelSlot>();
+        readonly List<ApparelSlot> _apparelSlots = new List<ApparelSlot>();
+
+        public IEnumerable<IApparelSlot> All => _apparelSlots;
+
+        public void Add(string name) => _apparelSlots.Add(new ApparelSlot(name));
     }
 }
