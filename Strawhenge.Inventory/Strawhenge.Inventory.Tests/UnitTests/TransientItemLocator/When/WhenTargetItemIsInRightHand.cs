@@ -1,6 +1,6 @@
 ﻿namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
-    public class WhenTargetItemIsInRightHand : TransientItemLocator_Tests
+    public class WhenTargetItemIsInRightHand : BaseTransientItemLocatorTest
     {
         protected override bool GetItemByName_ShouldReturnTargetItem => true;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
-    public class WhenItemCanBeGenerated_AndHasNonTargetItems : TransientItemLocator_Tests
+    public class WhenItemCanBeGenerated_AndHasNonTargetItems : BaseTransientItemLocatorTest
     {
         protected override bool GetItemByName_ShouldReturnTargetItem => true;
 

@@ -2,7 +2,7 @@
 
 namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
-    public class WhenTargetItemIsInHolster : TransientItemLocator_Tests
+    public class WhenTargetItemIsInHolster : BaseTransientItemLocatorTest
     {
         protected override bool GetItemByName_ShouldReturnTargetItem => true;
 

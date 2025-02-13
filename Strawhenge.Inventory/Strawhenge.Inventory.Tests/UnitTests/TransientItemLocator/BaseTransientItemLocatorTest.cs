@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
-    public abstract class TransientItemLocator_Tests
+    public abstract class BaseTransientItemLocatorTest
     {
         const string TargetItemName = "Test Item";
 
@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 
         ClearFromHandsPreference _clearFromHandsPreference;
 
-        protected TransientItemLocator_Tests()
+        protected BaseTransientItemLocatorTest()
         {
             _targetItemMock = new Mock<IItem>();
             _targetItemMock.SetupGet(x => x.Name).Returns(TargetItemName);
