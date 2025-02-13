@@ -5,7 +5,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
     public class WhenItemCanBeGenerated : BaseTransientItemLocatorTest
     {
-        protected WhenItemCanBeGenerated(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public WhenItemCanBeGenerated(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
         }
 

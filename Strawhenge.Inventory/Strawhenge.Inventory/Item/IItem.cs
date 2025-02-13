@@ -21,7 +21,7 @@ namespace Strawhenge.Inventory
 
         Maybe<IStorable> Storable { get; }
 
-        ClearFromHandsPreference ClearFromHandsPreference { set; }
+        ClearFromHandsPreference ClearFromHandsPreference { get; set; }
 
         ClearFromHolsterPreference ClearFromHolsterPreference { set; }
 

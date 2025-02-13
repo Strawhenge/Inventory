@@ -6,13 +6,15 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
     public class WhenItemCanBeGenerated_AndHasNonTargetItems : BaseTransientItemLocatorTest
     {
-        protected WhenItemCanBeGenerated_AndHasNonTargetItems(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public WhenItemCanBeGenerated_AndHasNonTargetItems(ITestOutputHelper testOutputHelper) : base(
+            testOutputHelper)
         {
         }
 
         protected override bool GetItemByName_ShouldReturnTargetItem => true;
 
-        protected override ClearFromHandsPreference ExpectedClearFromHandsPreference => ClearFromHandsPreference.Disappear;
+        protected override ClearFromHandsPreference ExpectedClearFromHandsPreference =>
+            ClearFromHandsPreference.Disappear;
 
         protected override IItem GenerateItem() => TargetItem;
 
@@ -20,14 +22,14 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 
         protected override IItem ItemInRightHand => NonTargetItem();
 
-        protected override IEnumerable<IItem> ItemsInHolsters()
+        protected override IEnumerable<(string holsterName, IItem item)> ItemsInHolsters()
         {
-            yield return NonTargetItem();
-            yield return NonTargetItem();
-            yield return NonTargetItem();
+            yield return (LeftHipHolster, NonTargetItem());
+            yield return (RightHipHolster, NonTargetItem());
+            yield return (BackHolster, NonTargetItem());
         }
 
-        protected override IEnumerable<IItem> ItemsInInventory()
+        protected override IEnumerable<IItem> ItemsInStorage()
         {
             yield return NonTargetItem();
             yield return NonTargetItem();

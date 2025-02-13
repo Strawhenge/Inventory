@@ -4,7 +4,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
     public class WhenTargetItemIsInLeftHand : BaseTransientItemLocatorTest
     {
-        protected WhenTargetItemIsInLeftHand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public WhenTargetItemIsInLeftHand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
         }
 

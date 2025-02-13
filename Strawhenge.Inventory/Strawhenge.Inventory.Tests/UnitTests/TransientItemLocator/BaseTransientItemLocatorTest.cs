@@ -1,7 +1,6 @@
-﻿using Moq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.TransientItems;
-using System.Collections.Generic;
 using Strawhenge.Inventory.Tests._new;
 using Xunit;
 using Xunit.Abstractions;
@@ -10,41 +9,35 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
     public abstract class BaseTransientItemLocatorTest
     {
-        const string TargetItemName = "Test Item";
+        protected const string LeftHipHolster = "Left Hip";
+        protected const string RightHipHolster = "Right Hip";
+        protected const string BackHolster = "Back";
 
-        readonly TransientItemLocator _sut;
-        readonly Mock<IItem> _targetItemMock;
-        readonly Mock<IEquippedItems> _equippedItemsMock;
-        readonly Mock<IStoredItems> _inventoryMock;
-        readonly Mock<IItemGenerator> _itemGeneratorMock;
+        static readonly string[] Holsters =
+        {
+            LeftHipHolster, RightHipHolster, BackHolster
+        };
 
-        ClearFromHandsPreference _clearFromHandsPreference;
-        
+        const string TargetItemName = "Hammer";
+
+        readonly IItem _targetItem;
+        readonly InventoryTestContext _context;
+
         protected BaseTransientItemLocatorTest(ITestOutputHelper testOutputHelper)
         {
-            _targetItemMock = new Mock<IItem>();
-            _targetItemMock.SetupGet(x => x.Name).Returns(TargetItemName);
+            _context = new InventoryTestContext(testOutputHelper);
+            _context.StoredItemsWeightCapacity.SetWeightCapacity(100);
+            _context.AddHolsters(Holsters);
 
-            _targetItemMock
-                .SetupSet(x => x.ClearFromHandsPreference = It.IsAny<ClearFromHandsPreference>())
-                .Callback<ClearFromHandsPreference>(x => _clearFromHandsPreference = x);
-
-            _equippedItemsMock = new Mock<IEquippedItems>();
-            _equippedItemsMock.SetupNone(x => x.GetItemInLeftHand());
-            _equippedItemsMock.SetupNone(x => x.GetItemInRightHand());
-
-            _inventoryMock = new Mock<IStoredItems>();
-
-            _itemGeneratorMock = new Mock<IItemGenerator>();
-            _itemGeneratorMock.SetupNone(x => x.GenerateByName(TargetItemName));
-
-            _sut = new TransientItemLocator(
-                _equippedItemsMock.Object,
-                _inventoryMock.Object,
-                _itemGeneratorMock.Object);
+            _targetItem = _context.CreateItem(
+                TargetItemName,
+                ItemSize.OneHanded,
+                Holsters,
+                storable: true
+            );
         }
 
-        protected IItem TargetItem => _targetItemMock.Object;
+        protected IItem TargetItem => _targetItem;
 
         protected abstract bool GetItemByName_ShouldReturnTargetItem { get; }
 
@@ -57,9 +50,9 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
         [Fact]
         public void GetItemByName()
         {
-            ArrangeMocks();
+            Arrange();
 
-            var result = _sut.GetItemByName(TargetItemName);
+            var result = _context.TransientItemLocator.GetItemByName(TargetItemName);
 
             if (!GetItemByName_ShouldReturnTargetItem)
             {
@@ -67,48 +60,58 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
                 return;
             }
 
-            result.VerifyIsSome(_targetItemMock.Object);
+            result.VerifyIsSome(_targetItem);
 
             if (ExpectedClearFromHandsPreference is ClearFromHandsPreference expected)
             {
-                Assert.IsType(expected.GetType(), _clearFromHandsPreference);
-            }
-            else
-            {
-                _targetItemMock.VerifySet(
-                    x => x.ClearFromHandsPreference = It.IsAny<ClearFromHandsPreference>(), Times.Never);
+                Assert.IsType(expected.GetType(), _targetItem.ClearFromHandsPreference);
             }
         }
 
-        protected virtual IEnumerable<IItem> ItemsInHolsters() => null;
+        protected virtual IEnumerable<(string holsterName, IItem item)> ItemsInHolsters() =>
+            Enumerable.Empty<(string holsterName, IItem item)>();
 
-        protected virtual IEnumerable<IItem> ItemsInInventory() => null;
+        protected virtual IEnumerable<IItem> ItemsInStorage() =>
+            Enumerable.Empty<IItem>();
 
         protected virtual IItem GenerateItem() => null;
 
+        int _otherItemCount;
+
         protected IItem NonTargetItem(string name = null)
         {
-            var item = new Mock<IItem>();
-            item.SetupGet(x => x.Name).Returns(name ?? "Other Item");
-            return item.Object;
+            return _context.CreateItem(
+                name ?? $"Other Item {_otherItemCount++}",
+                ItemSize.OneHanded,
+                Holsters,
+                storable: true
+            );
         }
 
-        void ArrangeMocks()
+        void Arrange()
         {
             if (ItemInLeftHand is IItem left)
-                _equippedItemsMock.SetupSome(x => x.GetItemInLeftHand(), left);
+                left.HoldLeftHand();
 
             if (ItemInRightHand is IItem right)
-                _equippedItemsMock.SetupSome(x => x.GetItemInRightHand(), right);
+                right.HoldRightHand();
 
-            if (ItemsInHolsters() is IEnumerable<IItem> holster)
-                _equippedItemsMock.Setup(x => x.GetItemsInHolsters()).Returns(holster);
+            foreach (var (holsterName, item) in ItemsInHolsters())
+            {
+                item.Holsters[holsterName]
+                    .Reduce(() => throw new TestSetupException($"'{item.Name}' not assignable to '{holsterName}'."))
+                    .Equip();
+            }
 
-            if (ItemsInInventory() is IEnumerable<IItem> inventory)
-                _inventoryMock.SetupGet(x => x.Items).Returns(inventory);
+            foreach (var item in ItemsInStorage())
+            {
+                item.Storable
+                    .Reduce(() => throw new TestSetupException($"'{item.Name}' is not storable."))
+                    .AddToStorage();
+            }
 
             if (GenerateItem() is IItem generatedItem)
-                _itemGeneratorMock.SetupSome(x => x.GenerateByName(TargetItemName), generatedItem);
+                _context.SetGeneratedItem(TargetItemName, generatedItem);
         }
     }
 }

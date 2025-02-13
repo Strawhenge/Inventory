@@ -45,7 +45,7 @@ namespace Strawhenge.Inventory.Items
 
         public bool IsTwoHanded => _size.IsTwoHanded;
 
-        public ClearFromHandsPreference ClearFromHandsPreference { private get; set; } =
+        public ClearFromHandsPreference ClearFromHandsPreference { get; set; } =
             ClearFromHandsPreference.Disappear;
 
         public ClearFromHolsterPreference ClearFromHolsterPreference
@@ -91,7 +91,7 @@ namespace Strawhenge.Inventory.Items
             {
                 _itemView.SpawnAndDrop(callback);
             }
-           
+
             Storable.Do(x => x.RemoveFromStorage());
         }
 
@@ -236,7 +236,7 @@ namespace Strawhenge.Inventory.Items
         {
             if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
                 holster.Discard();
-            
+
             if (IsInLeftHand())
             {
                 _hands.UnsetItemLeftHand();

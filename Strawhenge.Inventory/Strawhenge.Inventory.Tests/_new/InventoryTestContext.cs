@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FunctionalUtilities;
 using Strawhenge.Inventory.Apparel;
@@ -48,6 +49,12 @@ namespace Strawhenge.Inventory.Tests._new
         public TransientItemLocator TransientItemLocator { get; }
 
         public IStoredItemsWeightCapacitySetter StoredItemsWeightCapacity => _storedItems;
+
+        public void AddHolsters(IEnumerable<string> holsters)
+        {
+            foreach (var holster in holsters)
+                AddHolster(holster);
+        }
 
         public void AddHolster(string name) => _holsters.Add(name);
 

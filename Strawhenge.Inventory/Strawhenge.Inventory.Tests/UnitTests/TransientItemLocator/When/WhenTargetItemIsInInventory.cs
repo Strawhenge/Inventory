@@ -5,7 +5,7 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
     public class WhenTargetItemIsInInventory : BaseTransientItemLocatorTest
     {
-        protected WhenTargetItemIsInInventory(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public WhenTargetItemIsInInventory(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
         }
 
@@ -17,14 +17,14 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 
         protected override IItem ItemInRightHand => NonTargetItem();
 
-        protected override IEnumerable<IItem> ItemsInHolsters()
+        protected override IEnumerable<(string holsterName, IItem item)> ItemsInHolsters()
         {
-            yield return NonTargetItem();
-            yield return NonTargetItem();
-            yield return NonTargetItem();
+            yield return (LeftHipHolster, NonTargetItem());
+            yield return (RightHipHolster, NonTargetItem());
+            yield return (BackHolster, NonTargetItem());
         }
 
-        protected override IEnumerable<IItem> ItemsInInventory()
+        protected override IEnumerable<IItem> ItemsInStorage()
         {
             yield return NonTargetItem();
             yield return TargetItem;
