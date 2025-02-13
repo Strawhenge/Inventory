@@ -5,6 +5,7 @@ using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.TransientItems;
 using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests._new
@@ -16,6 +17,7 @@ namespace Strawhenge.Inventory.Tests._new
         readonly Holsters _holsters;
         readonly StoredItems _storedItems;
         readonly ApparelSlotsFake _apparelSlots;
+        readonly ItemGeneratorFake _itemGenerator;
 
         public InventoryTestContext(ITestOutputHelper testOutputHelper)
         {
@@ -26,21 +28,32 @@ namespace Strawhenge.Inventory.Tests._new
             _hands = new Hands();
             _holsters = new Holsters(logger);
             _apparelSlots = new ApparelSlotsFake();
+            _itemGenerator = new ItemGeneratorFake();
 
             Inventory = new Inventory(
                 _storedItems,
                 _hands,
                 _holsters,
                 _apparelSlots);
+
+            var equipped = new EquippedItems(_hands, _holsters);
+            TransientItemLocator = new TransientItemLocator(
+                equipped,
+                _storedItems,
+                _itemGenerator);
         }
 
         public Inventory Inventory { get; }
+
+        public TransientItemLocator TransientItemLocator { get; }
 
         public IStoredItemsWeightCapacitySetter StoredItemsWeightCapacity => _storedItems;
 
         public void AddHolster(string name) => _holsters.Add(name);
 
         public void AddApparelSlot(string name) => _apparelSlots.Add(name);
+
+        public void SetGeneratedItem(string name, IItem item) => _itemGenerator.Set(name, item);
 
         public Item CreateItem(string name, ItemSize size = null, string[] holsterNames = null, bool storable = false)
         {
