@@ -2,6 +2,7 @@
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.TransientItems;
 using System.Collections.Generic;
+using Strawhenge.Inventory.Tests._new;
 using Xunit;
 
 namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
@@ -61,11 +62,11 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 
             if (!GetItemByName_ShouldReturnTargetItem)
             {
-                AssertMaybe.IsNone(result);
+                result.VerifyIsNone();
                 return;
             }
 
-            AssertMaybe.IsSome(result, _targetItemMock.Object);
+            result.VerifyIsSome(_targetItemMock.Object);
 
             if (ExpectedClearFromHandsPreference is ClearFromHandsPreference expected)
             {
