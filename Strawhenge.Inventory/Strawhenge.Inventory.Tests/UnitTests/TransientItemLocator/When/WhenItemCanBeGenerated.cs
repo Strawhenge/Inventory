@@ -1,9 +1,14 @@
 ﻿using Strawhenge.Inventory.Items;
+using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
     public class WhenItemCanBeGenerated : BaseTransientItemLocatorTest
     {
+        protected WhenItemCanBeGenerated(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        {
+        }
+
         protected override bool GetItemByName_ShouldReturnTargetItem => true;
 
         protected override IItem GenerateItem() => TargetItem;

@@ -4,6 +4,7 @@ using Strawhenge.Inventory.TransientItems;
 using System.Collections.Generic;
 using Strawhenge.Inventory.Tests._new;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
@@ -18,8 +19,8 @@ namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
         readonly Mock<IItemGenerator> _itemGeneratorMock;
 
         ClearFromHandsPreference _clearFromHandsPreference;
-
-        protected BaseTransientItemLocatorTest()
+        
+        protected BaseTransientItemLocatorTest(ITestOutputHelper testOutputHelper)
         {
             _targetItemMock = new Mock<IItem>();
             _targetItemMock.SetupGet(x => x.Name).Returns(TargetItemName);

@@ -1,9 +1,14 @@
 ﻿using System.Collections.Generic;
+using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
     public class WhenTargetItemIsInLeftHand_AndHasNonTargetItems : WhenTargetItemIsInLeftHand
     {
+        protected WhenTargetItemIsInLeftHand_AndHasNonTargetItems(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        {
+        }
+
         protected override IItem ItemInRightHand => NonTargetItem();
 
         protected override IEnumerable<IItem> ItemsInHolsters()

@@ -1,9 +1,14 @@
 ﻿using System.Collections.Generic;
+using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.UnitTests.TransientItemLocatorTests
 {
     public class WhenItemCannotBeGenerated_AndHasNonTargetItems : BaseTransientItemLocatorTest
     {
+        protected WhenItemCannotBeGenerated_AndHasNonTargetItems(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        {
+        }
+
         protected override bool GetItemByName_ShouldReturnTargetItem => false;
 
         protected override IItem ItemInLeftHand => NonTargetItem();
