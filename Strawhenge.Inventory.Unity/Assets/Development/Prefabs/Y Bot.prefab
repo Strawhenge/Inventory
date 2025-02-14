@@ -1079,6 +1079,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2406530542539460333}
   - component: {fileID: 8612459271835915415}
+  - component: {fileID: 1851548141285159293}
   - component: {fileID: 5987641407133312662}
   m_Layer: 0
   m_Name: Y Bot
@@ -1125,6 +1126,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1851548141285159293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3039479411146560599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe073ff11a39db04f8bf447c1a6c5fe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scopeConfiguration: {fileID: 0}
 --- !u!114 &5987641407133312662
 MonoBehaviour:
   m_ObjectHideFlags: 0
