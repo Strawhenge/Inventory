@@ -28,15 +28,15 @@ MonoBehaviour:
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 0}
     _animationId: 0
-    _drawFromHammerspaceId: 0
-    _putInHammerspaceId: 0
+    _drawFromHammerspaceId: 2
+    _putInHammerspaceId: 2
     _swapFromHandId: 0
   _holsterItemData:
   - _holster: {fileID: 11400000, guid: eecd875d513ed9e48904312b03aa25cd, type: 2}
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 0}
     _drawFromHolsterRightHandId: 2
-    _putInHolsterRightHandId: 0
+    _putInHolsterRightHandId: 2
     _drawFromHolsterLeftHandId: 0
     _putInHolsterLeftHandId: 0
   - _holster: {fileID: 11400000, guid: 276c760cf1f22c44f980a4447ca6721d, type: 2}
@@ -50,7 +50,7 @@ MonoBehaviour:
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 0}
     _drawFromHolsterRightHandId: 1
-    _putInHolsterRightHandId: 0
+    _putInHolsterRightHandId: 1
     _drawFromHolsterLeftHandId: 0
     _putInHolsterLeftHandId: 0
   _consumable:
