@@ -174,14 +174,16 @@ namespace Strawhenge.Inventory.Unity.Editor
                 item.Drop();
             if (GUILayout.Button(nameof(IItem.PutAway)))
                 item.PutAway();
+            if (GUILayout.Button(nameof(IItem.ClearFromHands)))
+                item.ClearFromHands();
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
-
-            if (GUILayout.Button(nameof(IItem.ClearFromHands)))
-                item.ClearFromHands();
+           
             if (GUILayout.Button(nameof(IItem.UnequipFromHolster)))
                 item.UnequipFromHolster();
+            if (GUILayout.Button(nameof(IItem.Discard)))
+                item.Discard();
 
             EditorGUILayout.EndHorizontal();
 
