@@ -49,7 +49,7 @@ MonoBehaviour:
   - _holster: {fileID: 11400000, guid: f83b37b3d4e32c34cbf879593eca9c54, type: 2}
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 0}
-    _drawFromHolsterRightHandId: 0
+    _drawFromHolsterRightHandId: 1
     _putInHolsterRightHandId: 0
     _drawFromHolsterLeftHandId: 0
     _putInHolsterLeftHandId: 0
