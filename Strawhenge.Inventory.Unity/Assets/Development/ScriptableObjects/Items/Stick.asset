@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stick
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5250410142651064356, guid: 8cb6e8ec9bbbe8547a45555f80593922, type: 3}
-  _pickupPrefab: {fileID: 0}
+  _pickupPrefab: {fileID: 3070880940839577829, guid: adee4fcb3d1ce0c4fa24f6c99f6c2463, type: 3}
   _size: 0
   _isStorable: 1
   _weight: 1
