@@ -2,6 +2,6 @@
 
 class Settings : ISettings
 {
-    public string ItemScriptableObjectsPath { get; }
-    public string ApparelScriptableObjectsPath { get; }
+    public string ItemScriptableObjectsPath => "Assets/Development/ScriptableObjects/Items";
+    public string ApparelScriptableObjectsPath => "Assets/Development/ScriptableObjects/Apparel Pieces";
 }
