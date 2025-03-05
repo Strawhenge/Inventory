@@ -60,7 +60,7 @@ public static class DependencyInjection
             .SingleInstance();
 
         builder
-            .RegisterType<ItemRepository>()
+            .RegisterType<ResourcesItemRepository>()
             .As<IItemRepository>()
             .SingleInstance();
 
