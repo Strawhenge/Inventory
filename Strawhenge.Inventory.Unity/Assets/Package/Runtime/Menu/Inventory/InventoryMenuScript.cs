@@ -22,6 +22,8 @@ namespace Strawhenge.Inventory.Unity.Menu
 
         public InventoryMenuScriptContainer Container { private get; set; }
 
+        public bool IsOpen => _canvas.enabled;
+
         void Start()
         {
             _canvas.enabled = false;

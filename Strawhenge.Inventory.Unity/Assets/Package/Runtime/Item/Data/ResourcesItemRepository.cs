@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Items.Data
 {
-    public class ItemRepository : IItemRepository
+    public class ResourcesItemRepository : IItemRepository
     {
         readonly Dictionary<string, ItemScriptableObject> _scriptableObjects;
 
-        public ItemRepository(ISettings settings)
+        public ResourcesItemRepository(ISettings settings)
         {
             _scriptableObjects = Resources
                 .LoadAll<ItemScriptableObject>(path: settings.ItemScriptableObjectsPath)

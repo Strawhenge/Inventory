@@ -16,7 +16,7 @@ namespace Strawhenge.Inventory.Unity
         public event Action Opened;
         public event Action Closed;
 
-        public bool IsOpen { get; private set; }
+        public bool IsOpen => _menu.IsOpen;
 
         public void Open(IItemContainerSource source)
         {
@@ -27,7 +27,6 @@ namespace Strawhenge.Inventory.Unity
             }
 
             _menu.Open(source);
-            IsOpen = true;
             Opened?.Invoke();
         }
 
@@ -40,13 +39,20 @@ namespace Strawhenge.Inventory.Unity
             }
 
             _menu.Close();
-            IsOpen = false;
             Closed?.Invoke();
         }
 
         internal void Set(ItemContainerMenuScript menu)
         {
+            if (!ReferenceEquals(_menu, null))
+            {
+                _logger.LogError($"'{nameof(ItemContainerMenuScript)}' is already set.");
+                return;
+            }
+
             _menu = menu;
+            _menu.Opened += () => Opened?.Invoke();
+            _menu.Closed += () => Closed?.Invoke();
         }
     }
 }
