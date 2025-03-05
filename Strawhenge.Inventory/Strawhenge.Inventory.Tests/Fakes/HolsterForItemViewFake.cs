@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Strawhenge.Inventory.Items.HolsterForItem;
+#pragma warning disable CS0067 // Event is never used
 
 namespace Strawhenge.Inventory.Tests
 {
