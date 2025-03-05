@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using FunctionalUtilities;
 using Strawhenge.Inventory.Items.Storables;
 using Strawhenge.Inventory.Items;
@@ -16,13 +15,13 @@ namespace Strawhenge.Inventory
 
         bool IsTwoHanded { get; }
 
-        IEnumerable<IEquipItemToHolster> Holsters { get; }
+        IHolstersForItem Holsters { get; }
 
         Maybe<IConsumable> Consumable { get; }
 
         Maybe<IStorable> Storable { get; }
 
-        ClearFromHandsPreference ClearFromHandsPreference { set; }
+        ClearFromHandsPreference ClearFromHandsPreference { get; set; }
 
         ClearFromHolsterPreference ClearFromHolsterPreference { set; }
 

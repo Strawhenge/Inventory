@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.Items
 
         public string Name { get; }
 
-        public IEnumerable<IEquipItemToHolster> Holsters => _holsters;
+        public IHolstersForItem Holsters => _holsters;
 
         public Maybe<IConsumable> Consumable { get; private set; } = Maybe.None<IConsumable>();
 
@@ -45,7 +45,7 @@ namespace Strawhenge.Inventory.Items
 
         public bool IsTwoHanded => _size.IsTwoHanded;
 
-        public ClearFromHandsPreference ClearFromHandsPreference { private get; set; } =
+        public ClearFromHandsPreference ClearFromHandsPreference { get; set; } =
             ClearFromHandsPreference.Disappear;
 
         public ClearFromHolsterPreference ClearFromHolsterPreference
@@ -73,13 +73,19 @@ namespace Strawhenge.Inventory.Items
         {
             if (IsInLeftHand())
             {
+                UnequipFromHolster();
                 _hands.UnsetItemLeftHand();
                 _itemView.DropLeftHand(callback);
             }
             else if (IsInRightHand())
             {
+                UnequipFromHolster();
                 _hands.UnsetItemRightHand();
                 _itemView.DropRightHand(callback);
+            }
+            else if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
+            {
+                holster.Drop(callback);
             }
             else
             {
@@ -228,6 +234,9 @@ namespace Strawhenge.Inventory.Items
 
         public void Discard()
         {
+            if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
+                holster.Discard();
+
             if (IsInLeftHand())
             {
                 _hands.UnsetItemLeftHand();
@@ -238,9 +247,6 @@ namespace Strawhenge.Inventory.Items
                 _hands.UnsetItemRightHand();
                 _itemView.Disappear();
             }
-
-            if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
-                holster.Discard();
 
             Storable.Do(x => x.RemoveFromStorage());
         }
@@ -283,6 +289,11 @@ namespace Strawhenge.Inventory.Items
                 _hands.UnsetItemRightHand();
 
             Storable.Do(x => x.RemoveFromStorage());
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }
