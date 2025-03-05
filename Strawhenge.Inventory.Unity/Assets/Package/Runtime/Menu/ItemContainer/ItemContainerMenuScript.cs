@@ -23,7 +23,12 @@ namespace Strawhenge.Inventory.Unity
 
         readonly List<GameObject> _menuEntries = new List<GameObject>();
 
+        internal event System.Action Opened;
+        internal event System.Action Closed;
+
         public ItemContainerMenuScriptContainer MenuContainer { private get; set; }
+
+        public bool IsOpen { get; private set; }
 
         void Start()
         {
@@ -33,6 +38,9 @@ namespace Strawhenge.Inventory.Unity
 
         public void Open(IItemContainerSource source)
         {
+            if (IsOpen)
+                Close();
+
             foreach (var item in source.GetItems())
                 AddItem(item);
 
@@ -41,16 +49,22 @@ namespace Strawhenge.Inventory.Unity
 
             _canvas.enabled = true;
             _openEvents.ForEach(x => x.Invoke(gameObject));
+            IsOpen = true;
+            Opened?.Invoke();
         }
 
         public void Close()
         {
+            if (!IsOpen) return;
+
             foreach (var gameObject in _menuEntries)
                 Destroy(gameObject);
 
             _menuEntries.Clear();
             _canvas.enabled = false;
             _closeEvents.ForEach(x => x.Invoke(gameObject));
+            IsOpen = false;
+            Closed?.Invoke();
         }
 
         void AddItem(IContainedItem<IItemData> item)
