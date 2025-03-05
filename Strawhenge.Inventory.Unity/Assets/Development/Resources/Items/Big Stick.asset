@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d936903e43bd6f4d967b51ec83ae375, type: 3}
+  m_Name: Big Stick
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 5250410142651064356, guid: 64310caf2b62b13438d4cc95791fe71a, type: 3}
+  _pickupPrefab: {fileID: 3070880940839577829, guid: 61064e687334fd34aad244e5ce8de6a0, type: 3}
+  _size: 1
+  _isStorable: 1
+  _weight: 1
+  _leftHandHoldItemData:
+    _positionOffset: {x: 0, y: 0, z: 0}
+    _rotationOffset: {x: 0, y: 0, z: 90}
+    _animationId: 1
+    _drawFromHammerspaceId: 0
+    _putInHammerspaceId: 0
+    _swapFromHandId: 0
+  _rightHandHoldItemData:
+    _positionOffset: {x: 0, y: 0, z: 0}
+    _rotationOffset: {x: 0, y: 0, z: 90}
+    _animationId: 1
+    _drawFromHammerspaceId: 2
+    _putInHammerspaceId: 2
+    _swapFromHandId: 0
+  _holsterItemData:
+  - _holster: {fileID: 11400000, guid: f83b37b3d4e32c34cbf879593eca9c54, type: 2}
+    _positionOffset: {x: 0, y: 0, z: 0}
+    _rotationOffset: {x: 0, y: 0, z: 0}
+    _drawFromHolsterRightHandId: 1
+    _putInHolsterRightHandId: 1
+    _drawFromHolsterLeftHandId: 0
+    _putInHolsterLeftHandId: 0
+  _consumable:
+    _serialized:
+      _animationId: 0
+      _effects: []
+    _scriptableObject: {fileID: 0}
+    _type: 0

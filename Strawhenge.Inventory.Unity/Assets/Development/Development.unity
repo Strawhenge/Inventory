@@ -427,7 +427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8788953921212877616, guid: fcceafb1ea0db094ab9794a4c4b2a984, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 17008.5
+      value: 30015
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcceafb1ea0db094ab9794a4c4b2a984, type: 3}
@@ -648,9 +648,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _items:
-  - _item: {fileID: 11400000, guid: 613ce767bd3ab50499e33cf83986ce7e, type: 2}
+  - _item: {fileID: 11400000, guid: 41e1de798c8db5b44a89afd4c99e840f, type: 2}
     _holster: {fileID: 11400000, guid: f83b37b3d4e32c34cbf879593eca9c54, type: 2}
-    _isInStorage: 1
+    _isInStorage: 0
     _inHand: 0
   - _item: {fileID: 11400000, guid: 613ce767bd3ab50499e33cf83986ce7e, type: 2}
     _holster: {fileID: 0}
@@ -1016,7 +1016,7 @@ PrefabInstance:
     - target: {fileID: 7557200200927040949, guid: 5c3de92d1c034b94b9a70e2aadd14690, type: 3}
       propertyPath: _items.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 613ce767bd3ab50499e33cf83986ce7e, type: 2}
+      objectReference: {fileID: 11400000, guid: 41e1de798c8db5b44a89afd4c99e840f, type: 2}
     - target: {fileID: 7557200200927040949, guid: 5c3de92d1c034b94b9a70e2aadd14690, type: 3}
       propertyPath: _apparelPieces.Array.size
       value: 2

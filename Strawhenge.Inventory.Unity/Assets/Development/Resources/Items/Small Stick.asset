@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d936903e43bd6f4d967b51ec83ae375, type: 3}
-  m_Name: Stick
+  m_Name: Small Stick
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5250410142651064356, guid: 8cb6e8ec9bbbe8547a45555f80593922, type: 3}
   _pickupPrefab: {fileID: 3070880940839577829, guid: adee4fcb3d1ce0c4fa24f6c99f6c2463, type: 3}
