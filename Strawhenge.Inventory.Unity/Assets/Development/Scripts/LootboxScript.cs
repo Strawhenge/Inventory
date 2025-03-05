@@ -1,5 +1,6 @@
 using Strawhenge.Common.Unity.Helpers;
 using Strawhenge.Inventory.Unity;
+using System;
 using UnityEngine;
 
 public class LootboxScript : MonoBehaviour
@@ -29,5 +30,11 @@ public class LootboxScript : MonoBehaviour
         return Input.GetMouseButton(0) &&
                Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit) &&
                hit.transform.root == transform;
+    }
+
+    public void OnStateChanged(IFixedItemContainerInfo info)
+    {
+        if (info.Count == 0)
+            Destroy(gameObject);
     }
 }
