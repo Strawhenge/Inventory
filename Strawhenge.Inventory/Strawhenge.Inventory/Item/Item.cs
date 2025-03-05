@@ -10,7 +10,7 @@ using Strawhenge.Inventory.Items.Consumables;
 
 namespace Strawhenge.Inventory.Items
 {
-    public class Item : IItem
+    public class Item
     {
         readonly IHands _hands;
         readonly IItemView _itemView;

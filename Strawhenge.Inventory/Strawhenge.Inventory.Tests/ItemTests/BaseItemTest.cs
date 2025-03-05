@@ -104,10 +104,10 @@ namespace Strawhenge.Inventory.Tests.ItemTests
 
         protected virtual Maybe<Item> ExpectedItemInRightHand => Maybe.None<Item>();
 
-        protected virtual IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters() =>
-            Enumerable.Empty<(string holsterName, IItem expectedItem)>();
+        protected virtual IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters() =>
+            Enumerable.Empty<(string holsterName, Item expectedItem)>();
 
-        protected virtual IEnumerable<IItem> ExpectedItemsInStorage() => Enumerable.Empty<IItem>();
+        protected virtual IEnumerable<Item> ExpectedItemsInStorage() => Enumerable.Empty<Item>();
 
         protected abstract IEnumerable<ViewCallInfo> ExpectedViewCalls();
     }

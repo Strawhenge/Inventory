@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
 
         const string TargetItemName = "Hammer";
 
-        readonly IItem _targetItem;
+        readonly Item _targetItem;
         readonly InventoryTestContext _context;
         int _otherItemCount;
         
@@ -37,13 +37,13 @@ namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
             );
         }
 
-        protected IItem TargetItem => _targetItem;
+        protected Item TargetItem => _targetItem;
 
         protected abstract bool GetItemByName_ShouldReturnTargetItem { get; }
 
-        protected virtual IItem ItemInLeftHand => null;
+        protected virtual Item ItemInLeftHand => null;
 
-        protected virtual IItem ItemInRightHand => null;
+        protected virtual Item ItemInRightHand => null;
 
         protected virtual ClearFromHandsPreference ExpectedClearFromHandsPreference => null;
 
@@ -68,15 +68,15 @@ namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
             }
         }
 
-        protected virtual IEnumerable<(string holsterName, IItem item)> ItemsInHolsters() =>
-            Enumerable.Empty<(string holsterName, IItem item)>();
+        protected virtual IEnumerable<(string holsterName, Item item)> ItemsInHolsters() =>
+            Enumerable.Empty<(string holsterName, Item item)>();
 
-        protected virtual IEnumerable<IItem> ItemsInStorage() =>
-            Enumerable.Empty<IItem>();
+        protected virtual IEnumerable<Item> ItemsInStorage() =>
+            Enumerable.Empty<Item>();
 
-        protected virtual IItem GenerateItem() => null;
+        protected virtual Item GenerateItem() => null;
 
-        protected IItem NonTargetItem(string name = null)
+        protected Item NonTargetItem(string name = null)
         {
             return _context.CreateItem(
                 name ?? $"Other Item {_otherItemCount++}",
@@ -88,10 +88,10 @@ namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
 
         void Arrange()
         {
-            if (ItemInLeftHand is IItem left)
+            if (ItemInLeftHand is Item left)
                 left.HoldLeftHand();
 
-            if (ItemInRightHand is IItem right)
+            if (ItemInRightHand is Item right)
                 right.HoldRightHand();
 
             foreach (var (holsterName, item) in ItemsInHolsters())
@@ -108,7 +108,7 @@ namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
                     .AddToStorage();
             }
 
-            if (GenerateItem() is IItem generatedItem)
+            if (GenerateItem() is Item generatedItem)
                 _context.SetGeneratedItem(TargetItemName, generatedItem);
         }
     }

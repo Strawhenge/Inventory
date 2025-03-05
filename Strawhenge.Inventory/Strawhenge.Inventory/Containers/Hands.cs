@@ -1,4 +1,5 @@
 ﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory.Containers
 {
@@ -11,11 +12,11 @@ namespace Strawhenge.Inventory.Containers
 
         public IItemContainer RightHand => _rightHand;
 
-        public Maybe<IItem> ItemInLeftHand => _leftHand.CurrentItem;
+        public Maybe<Item> ItemInLeftHand => _leftHand.CurrentItem;
 
-        public Maybe<IItem> ItemInRightHand => _rightHand.CurrentItem;
+        public Maybe<Item> ItemInRightHand => _rightHand.CurrentItem;
 
-        public bool HasTwoHandedItem(out IItem item)
+        public bool HasTwoHandedItem(out Item item)
         {
             if (_leftHand.CurrentItem.HasSome(out var leftItem) && leftItem.IsTwoHanded)
             {
@@ -33,16 +34,16 @@ namespace Strawhenge.Inventory.Containers
             return false;
         }
 
-        public bool IsInLeftHand(IItem item) => _leftHand.IsCurrentItem(item);
+        public bool IsInLeftHand(Item item) => _leftHand.IsCurrentItem(item);
 
-        public bool IsInRightHand(IItem item) => _rightHand.IsCurrentItem(item);
+        public bool IsInRightHand(Item item) => _rightHand.IsCurrentItem(item);
 
-        public void SetItemLeftHand(IItem item)
+        public void SetItemLeftHand(Item item)
         {
             _leftHand.SetItem(item);
         }
 
-        public void SetItemRightHand(IItem item)
+        public void SetItemRightHand(Item item)
         {
             _rightHand.SetItem(item);
         }

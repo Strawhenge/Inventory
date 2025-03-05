@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
             _hammer.ClearFromHands();
         }
 
-        protected override IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (RightHipHolster, _hammer);
         }

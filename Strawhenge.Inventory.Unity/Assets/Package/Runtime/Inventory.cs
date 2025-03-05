@@ -1,5 +1,6 @@
 ﻿using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Items;
@@ -25,14 +26,14 @@ namespace Strawhenge.Inventory.Unity
             _apparelPieceFactory = apparelPieceFactory;
         }
 
-        public IItem CreateItem(ItemPickupScript pickup)
+        public Item CreateItem(ItemPickupScript pickup)
         {
             var context = new ItemContext();
             pickup.ContextOut(context);
             return _itemFactory.Create(pickup.PickupItem(), context);
         }
 
-        public IItem CreateItem(IItemData data)
+        public Item CreateItem(IItemData data)
         {
             return _itemFactory.Create(data);
         }

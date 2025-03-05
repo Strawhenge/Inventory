@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
             _hammer.ClearFromHands();
         }
 
-        protected override IEnumerable<IItem> ExpectedItemsInStorage()
+        protected override IEnumerable<Item> ExpectedItemsInStorage()
         {
             yield return _hammer;
         }

@@ -24,7 +24,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
 
         protected override Maybe<Item> ExpectedItemInRightHand => _knife;
 
-        protected override IEnumerable<IItem> ExpectedItemsInStorage()
+        protected override IEnumerable<Item> ExpectedItemsInStorage()
         {
             yield return _hammer;
         }

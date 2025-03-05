@@ -49,19 +49,19 @@ namespace Strawhenge.Inventory.Unity.Items
             _logger = logger;
         }
 
-        public IItem Create(IItemData data)
+        public Item Create(IItemData data)
         {
             var component = new ItemHelper(data, _itemDropPoint);
             return Create(component, data);
         }
 
-        public IItem Create(IItemData data, ItemContext context)
+        public Item Create(IItemData data, ItemContext context)
         {
             var component = new ItemHelper(data, _itemDropPoint, context);
             return Create(component, data);
         }
 
-        IItem Create(ItemHelper component, IItemData data)
+        Item Create(ItemHelper component, IItemData data)
         {
             var view = new ItemView(component, _procedureQueue, _procedureFactory);
 

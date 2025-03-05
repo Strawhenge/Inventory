@@ -1,5 +1,6 @@
 ﻿using System;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory.Containers
 {
@@ -9,8 +10,8 @@ namespace Strawhenge.Inventory.Containers
         
         string Name { get; }
 
-        Maybe<IItem> CurrentItem { get; }
+        Maybe<Item> CurrentItem { get; }
 
-        bool IsCurrentItem(IItem item);
+        bool IsCurrentItem(Item item);
     }
 }

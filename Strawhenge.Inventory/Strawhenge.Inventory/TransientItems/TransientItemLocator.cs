@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.TransientItems
             _itemGenerator = itemGenerator;
         }
 
-        public Maybe<IItem> GetItemByName(string name)
+        public Maybe<Item> GetItemByName(string name)
         {
             if (IsItemInLeftHand(name, out var item))
                 return Maybe.Some(item);
@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.TransientItems
             return TryGenerateItem(name);
         }
 
-        Maybe<IItem> TryGenerateItem(string name)
+        Maybe<Item> TryGenerateItem(string name)
         {
             var item = _itemGenerator.GenerateByName(name);
 
@@ -44,21 +44,21 @@ namespace Strawhenge.Inventory.TransientItems
             return item;
         }
 
-        bool IsItemInLeftHand(string name, out IItem item)
+        bool IsItemInLeftHand(string name, out Item item)
         {
             var left = _equippedItems.GetItemInLeftHand();
 
             return left.HasSome(out item) && IsItemName(item, name);
         }
 
-        bool IsItemInRightHand(string name, out IItem item)
+        bool IsItemInRightHand(string name, out Item item)
         {
             var right = _equippedItems.GetItemInRightHand();
 
             return right.HasSome(out item) && IsItemName(item, name);
         }
 
-        bool IsItemInHolster(string name, out IItem item)
+        bool IsItemInHolster(string name, out Item item)
         {
             item = _equippedItems.GetItemsInHolsters()
                 .FirstOrDefault(x => IsItemName(x, name));
@@ -66,7 +66,7 @@ namespace Strawhenge.Inventory.TransientItems
             return item != null;
         }
 
-        bool IsItemInInventory(string name, out IItem item)
+        bool IsItemInInventory(string name, out Item item)
         {
             item = _inventory.Items
                 .FirstOrDefault(x => IsItemName(x, name));
@@ -74,7 +74,7 @@ namespace Strawhenge.Inventory.TransientItems
             return item != null;
         }
 
-        bool IsItemName(IItem item, string name) =>
+        bool IsItemName(Item item, string name) =>
             item.Name.Equals(name, StringComparison.OrdinalIgnoreCase);
     }
 }

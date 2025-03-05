@@ -1,4 +1,5 @@
-﻿using Xunit.Abstractions;
+﻿using Strawhenge.Inventory.Items;
+using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
 {
@@ -10,8 +11,8 @@ namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
 
         protected override bool GetItemByName_ShouldReturnTargetItem => true;
 
-        protected override IItem GenerateItem() => NonTargetItem(name: TargetItem.Name);
+        protected override Item GenerateItem() => NonTargetItem(name: TargetItem.Name);
 
-        protected override IItem ItemInLeftHand => TargetItem;
+        protected override Item ItemInLeftHand => TargetItem;
     }
 }

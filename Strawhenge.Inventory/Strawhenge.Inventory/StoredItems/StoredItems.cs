@@ -6,19 +6,19 @@ namespace Strawhenge.Inventory
 {
     public class StoredItems : IStoredItems, IStoredItemsWeightCapacitySetter
     {
-        readonly List<IItem> _items = new List<IItem>();
+        readonly List<Item> _items = new List<Item>();
 
-        public event Action<IItem> ItemAdded;
+        public event Action<Item> ItemAdded;
 
-        public event Action<IItem> ItemRemoved;
+        public event Action<Item> ItemRemoved;
 
         public int TotalItemsWeight { get; private set; }
 
         public int MaxItemsWeight { get; private set; }
 
-        public IEnumerable<IItem> Items => _items.ToArray();
+        public IEnumerable<Item> Items => _items.ToArray();
 
-        internal void Add(IItem item, int weight)
+        internal void Add(Item item, int weight)
         {
             if (_items.Contains(item))
                 return;
@@ -30,7 +30,7 @@ namespace Strawhenge.Inventory
             ItemAdded?.Invoke(item);
         }
 
-        internal void Remove(IItem item, int weight)
+        internal void Remove(Item item, int weight)
         {
             if (!_items.Contains(item))
                 return;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory
 {
@@ -16,17 +17,17 @@ namespace Strawhenge.Inventory
             _holsters = holsters;
         }
 
-        public Maybe<IItem> GetItemInLeftHand()
+        public Maybe<Item> GetItemInLeftHand()
         {
             return _hands.ItemInLeftHand;
         }
 
-        public Maybe<IItem> GetItemInRightHand()
+        public Maybe<Item> GetItemInRightHand()
         {
             return _hands.ItemInRightHand;
         }
 
-        public IEnumerable<IItem> GetItemsInHolsters()
+        public IEnumerable<Item> GetItemsInHolsters()
         {
             return _holsters
                 .GetAll()

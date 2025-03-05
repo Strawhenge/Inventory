@@ -1,9 +1,10 @@
 ﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory.TransientItems
 {
     public interface IItemGenerator
     {
-        Maybe<IItem> GenerateByName(string name);
+        Maybe<Item> GenerateByName(string name);
     }
 }

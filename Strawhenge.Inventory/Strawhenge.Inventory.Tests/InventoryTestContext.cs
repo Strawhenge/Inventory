@@ -60,7 +60,7 @@ namespace Strawhenge.Inventory.Tests
 
         public void AddApparelSlot(string name) => _apparelSlots.Add(name);
 
-        public void SetGeneratedItem(string name, IItem item) => _itemGenerator.Set(name, item);
+        public void SetGeneratedItem(string name, Item item) => _itemGenerator.Set(name, item);
 
         public Item CreateItem(string name, ItemSize size = null, string[] holsterNames = null, bool storable = false)
         {

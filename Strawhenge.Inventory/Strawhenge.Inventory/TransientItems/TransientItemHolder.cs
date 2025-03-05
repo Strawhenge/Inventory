@@ -1,4 +1,5 @@
 ﻿using System;
+using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory.TransientItems
 {
@@ -6,7 +7,7 @@ namespace Strawhenge.Inventory.TransientItems
     {
         readonly ITransientItemLocator _transientItemLocator;
 
-        IItem _item;
+        Item _item;
 
         public TransientItemHolder(ITransientItemLocator transientItemLocator)
         {

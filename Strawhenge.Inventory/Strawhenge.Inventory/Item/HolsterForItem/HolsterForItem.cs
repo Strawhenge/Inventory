@@ -5,11 +5,11 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
 {
     public class HolsterForItem : IHolsterForItem
     {
-        readonly IItem _item;
+        readonly Item _item;
         readonly ItemContainer _itemContainer;
         readonly IHolsterForItemView _view;
 
-        public HolsterForItem(IItem item, ItemContainer itemContainer, IHolsterForItemView view)
+        public HolsterForItem(Item item, ItemContainer itemContainer, IHolsterForItemView view)
         {
             _item = item;
             _itemContainer = itemContainer;

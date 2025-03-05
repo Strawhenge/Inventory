@@ -33,7 +33,7 @@ namespace Strawhenge.Inventory.Unity
 
         void OnHoldRightHandButton() => Hold(i => i.HoldRightHand());
 
-        void Hold(Action<IItem> hold)
+        void Hold(Action<Item> hold)
         {
             if (_inventory == null || _containedItem == null)
                 return;

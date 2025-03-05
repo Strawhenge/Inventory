@@ -3,6 +3,7 @@ using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using System;
 using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.Storables;
 using Strawhenge.Inventory.Unity.Items;
@@ -15,12 +16,12 @@ namespace Strawhenge.Inventory.Unity.Editor
     {
         readonly EditorTarget<IInventory> _target;
 
-        IItem _item;
+        Item _item;
         bool _displayLeftHand;
         bool _displayRightHand;
         bool _displayHolsters;
         bool _displayInventory;
-        IItem _displayItem;
+        Item _displayItem;
 
         public ItemManagerEditorHelper(Func<IInventory> getTarget)
         {
@@ -42,17 +43,17 @@ namespace Strawhenge.Inventory.Unity.Editor
             else
             {
                 EditorGUILayout.BeginHorizontal();
-                
+
                 var pickup = (ItemPickupScript)EditorGUILayout.ObjectField(
-                    null, 
-                    typeof(ItemPickupScript), 
+                    null,
+                    typeof(ItemPickupScript),
                     allowSceneObjects: true);
-                
+
                 var scriptableObject = (ItemScriptableObject)EditorGUILayout.ObjectField(
-                    null, 
-                    typeof(ItemScriptableObject), 
+                    null,
+                    typeof(ItemScriptableObject),
                     allowSceneObjects: true);
-                
+
                 EditorGUILayout.EndHorizontal();
 
                 if (pickup != null)
@@ -126,7 +127,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
         }
 
-        void InspectItemWithToggle(IItem item)
+        void InspectItemWithToggle(Item item)
         {
             bool show = EditorGUILayout.Foldout(item == _displayItem, item.Name, toggleOnLabelClick: true);
 
@@ -143,7 +144,7 @@ namespace Strawhenge.Inventory.Unity.Editor
                 InspectItem(item);
         }
 
-        void InspectItem(IItem item)
+        void InspectItem(Item item)
         {
             EditorGUILayout.HelpBox(GetItemInfoString(item), MessageType.Info);
 
@@ -162,27 +163,27 @@ namespace Strawhenge.Inventory.Unity.Editor
 
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button(nameof(IItem.HoldLeftHand)))
+            if (GUILayout.Button(nameof(Item.HoldLeftHand)))
                 item.HoldLeftHand();
-            if (GUILayout.Button(nameof(IItem.HoldRightHand)))
+            if (GUILayout.Button(nameof(Item.HoldRightHand)))
                 item.HoldRightHand();
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button(nameof(IItem.Drop)))
+            if (GUILayout.Button(nameof(Item.Drop)))
                 item.Drop();
-            if (GUILayout.Button(nameof(IItem.PutAway)))
+            if (GUILayout.Button(nameof(Item.PutAway)))
                 item.PutAway();
-            if (GUILayout.Button(nameof(IItem.ClearFromHands)))
+            if (GUILayout.Button(nameof(Item.ClearFromHands)))
                 item.ClearFromHands();
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
-           
-            if (GUILayout.Button(nameof(IItem.UnequipFromHolster)))
+
+            if (GUILayout.Button(nameof(Item.UnequipFromHolster)))
                 item.UnequipFromHolster();
-            if (GUILayout.Button(nameof(IItem.Discard)))
+            if (GUILayout.Button(nameof(Item.Discard)))
                 item.Discard();
 
             EditorGUILayout.EndHorizontal();
@@ -211,7 +212,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
         }
 
-        string GetItemInfoString(IItem item)
+        string GetItemInfoString(Item item)
         {
             var lines = new[]
             {
@@ -239,7 +240,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             ? GetItemInHandString(_target.Instance.RightHand.CurrentItem)
             : "NA";
 
-        string GetItemInHandString(Maybe<IItem> item) => item
+        string GetItemInHandString(Maybe<Item> item) => item
             .Map(x => x.Name)
             .Reduce(() => "none");
     }

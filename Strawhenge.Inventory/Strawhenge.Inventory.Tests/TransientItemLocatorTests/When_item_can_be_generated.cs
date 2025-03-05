@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
 
         protected override bool GetItemByName_ShouldReturnTargetItem => true;
 
-        protected override IItem GenerateItem() => TargetItem;
+        protected override Item GenerateItem() => TargetItem;
 
         protected override ClearFromHandsPreference ExpectedClearFromHandsPreference => ClearFromHandsPreference.Disappear;
     }

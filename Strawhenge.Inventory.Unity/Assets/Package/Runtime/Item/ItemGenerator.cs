@@ -1,4 +1,5 @@
 ﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.TransientItems;
 using Strawhenge.Inventory.Unity.Items.Data;
 
@@ -15,7 +16,7 @@ namespace Strawhenge.Inventory.Unity.Items
             _itemRepository = itemRepository;
         }
 
-        public Maybe<IItem> GenerateByName(string name)
+        public Maybe<Item> GenerateByName(string name)
         {
             return _itemRepository
                 .FindByName(name)

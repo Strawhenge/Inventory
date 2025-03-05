@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory
 {
     public static class InventoryExtensions
     {
-        public static IEnumerable<IItem> AllItems(this IInventory inventory)
+        public static IEnumerable<Item> AllItems(this IInventory inventory)
         {
             return inventory.LeftHand.CurrentItem.AsEnumerable()
                 .Concat(inventory.RightHand.CurrentItem.AsEnumerable())

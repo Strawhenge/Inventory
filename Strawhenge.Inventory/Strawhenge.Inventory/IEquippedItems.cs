@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory
 {
     public interface IEquippedItems
     {
-        Maybe<IItem> GetItemInLeftHand();
+        Maybe<Item> GetItemInLeftHand();
 
-        Maybe<IItem> GetItemInRightHand();
+        Maybe<Item> GetItemInRightHand();
 
-        IEnumerable<IItem> GetItemsInHolsters();
+        IEnumerable<Item> GetItemsInHolsters();
     }
 }

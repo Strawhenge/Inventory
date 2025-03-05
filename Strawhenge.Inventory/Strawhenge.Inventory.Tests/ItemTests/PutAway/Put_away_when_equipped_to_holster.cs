@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.PutAway
             _hammer.PutAway();
         }
 
-        protected override IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (RightHipHolster, _hammer);
         }
