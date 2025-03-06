@@ -43,8 +43,6 @@ namespace Strawhenge.Inventory
                 return;
 
             _items.Add(item);
-            item.ClearFromHandsPreference = ClearFromHandsPreference.PutAway;
-            item.ClearFromHolsterPreference = ClearFromHolsterPreference.Disappear;
             TotalItemsWeight += weight;
             ItemAdded?.Invoke(item);
         }
@@ -55,8 +53,6 @@ namespace Strawhenge.Inventory
                 return;
 
             _items.Remove(item);
-            item.ClearFromHandsPreference = ClearFromHandsPreference.Drop;
-            item.ClearFromHolsterPreference = ClearFromHolsterPreference.Drop;
             TotalItemsWeight -= weight;
             ItemRemoved?.Invoke(item);
         }

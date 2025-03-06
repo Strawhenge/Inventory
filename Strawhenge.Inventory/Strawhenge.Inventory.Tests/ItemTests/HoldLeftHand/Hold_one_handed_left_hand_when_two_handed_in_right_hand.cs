@@ -24,7 +24,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldLeftHand
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {
             yield return (Spear, x => x.AppearRightHand);
-            yield return (Spear, x => x.DisappearRightHand);
+            yield return (Spear, x => x.DropRightHand);
 
             yield return (Hammer, x => x.AppearLeftHand);
         }

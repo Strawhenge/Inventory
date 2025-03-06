@@ -27,7 +27,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Equip
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {
             yield return (Hammer, RightHipHolster, x => x.Show);
-            yield return (Hammer, RightHipHolster, x => x.Hide);
+            yield return (Hammer, RightHipHolster, x => x.Drop);
 
             yield return (Knife, RightHipHolster, x => x.Show);
         }

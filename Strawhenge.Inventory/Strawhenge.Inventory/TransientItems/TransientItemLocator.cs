@@ -32,16 +32,7 @@ namespace Strawhenge.Inventory.TransientItems
             if (IsItemInInventory(name, out item))
                 return Maybe.Some(item);
 
-            return TryGenerateItem(name);
-        }
-
-        Maybe<Item> TryGenerateItem(string name)
-        {
-            var item = _itemGenerator.GenerateByName(name);
-
-            item.Do(x => x.ClearFromHandsPreference = ClearFromHandsPreference.Disappear);
-
-            return item;
+            return _itemGenerator.GenerateByName(name);
         }
 
         bool IsItemInLeftHand(string name, out Item item)

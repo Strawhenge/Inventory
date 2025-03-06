@@ -48,18 +48,6 @@ namespace Strawhenge.Inventory.Items
             .Map(x => x.IsStored)
             .Reduce(() => false);
 
-        public ClearFromHandsPreference ClearFromHandsPreference { get; set; } =
-            ClearFromHandsPreference.Disappear;
-
-        public ClearFromHolsterPreference ClearFromHolsterPreference
-        {
-            set
-            {
-                foreach (var holster in Holsters)
-                    holster.ClearFromHolsterPreference = value;
-            }
-        }
-
         public void SetupHolsters(IEnumerable<(ItemContainer container, IHolsterForItemView view)> holsters) =>
             Holsters = new HolstersForItem(
                 holsters.Select(x => new HolsterForItem(this, x.container, x.view)));
@@ -222,8 +210,10 @@ namespace Strawhenge.Inventory.Items
 
                 if (IsEquippedToHolster(out var holster))
                     holster.PutAwayLeftHand(callback);
+                else if (IsInStorage)
+                    _itemView.PutAwayLeftHand(callback);
                 else
-                    ClearFromHandsPreference.PerformClearLeftHand(_itemView, callback);
+                    _itemView.DropLeftHand();
 
                 return;
             }
@@ -234,8 +224,10 @@ namespace Strawhenge.Inventory.Items
 
                 if (IsEquippedToHolster(out var holster))
                     holster.PutAwayRightHand(callback);
+                else if (IsInStorage)
+                    _itemView.PutAwayRightHand(callback);
                 else
-                    ClearFromHandsPreference.PerformClearRightHand(_itemView, callback);
+                    _itemView.DropRightHand();
 
                 return;
             }

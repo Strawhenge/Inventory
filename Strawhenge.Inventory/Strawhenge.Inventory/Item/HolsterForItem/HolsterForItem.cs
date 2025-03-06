@@ -22,9 +22,6 @@ namespace Strawhenge.Inventory.Items.Holsters
 
         public bool IsEquipped => _itemContainer.IsCurrentItem(_item);
 
-        public ClearFromHolsterPreference ClearFromHolsterPreference { private get; set; } =
-            ClearFromHolsterPreference.Disappear;
-
         public void Equip(Action callback = null)
         {
             if (IsEquipped)
@@ -55,9 +52,15 @@ namespace Strawhenge.Inventory.Items.Holsters
             _itemContainer.UnsetItem();
 
             if (_item.IsInHand)
+            {
                 callback?.Invoke();
+                return;
+            }
+
+            if (_item.IsInStorage)
+                _view.Hide(callback);
             else
-                ClearFromHolsterPreference.PerformClear(_view, callback);
+                _view.Drop(callback);
         }
 
         public void Drop(Action callback = null)

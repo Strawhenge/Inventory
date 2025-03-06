@@ -45,8 +45,6 @@ namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
 
         protected virtual Item ItemInRightHand => null;
 
-        protected virtual ClearFromHandsPreference ExpectedClearFromHandsPreference => null;
-
         [Fact]
         public void GetItemByName()
         {
@@ -61,11 +59,6 @@ namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
             }
 
             result.VerifyIsSome(_targetItem);
-
-            if (ExpectedClearFromHandsPreference is ClearFromHandsPreference expected)
-            {
-                Assert.IsType(expected.GetType(), _targetItem.ClearFromHandsPreference);
-            }
         }
 
         protected virtual IEnumerable<(string holsterName, Item item)> ItemsInHolsters() =>
