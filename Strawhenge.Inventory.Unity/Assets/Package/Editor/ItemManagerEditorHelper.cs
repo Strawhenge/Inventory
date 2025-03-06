@@ -152,10 +152,10 @@ namespace Strawhenge.Inventory.Unity.Editor
             {
                 EditorGUILayout.BeginHorizontal();
 
-                if (GUILayout.Button(nameof(IStorable.AddToStorage)))
+                if (GUILayout.Button(nameof(Storable.AddToStorage)))
                     storable.AddToStorage();
 
-                if (GUILayout.Button(nameof(IStorable.RemoveFromStorage)))
+                if (GUILayout.Button(nameof(Storable.RemoveFromStorage)))
                     storable.RemoveFromStorage();
 
                 EditorGUILayout.EndHorizontal();

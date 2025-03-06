@@ -38,7 +38,7 @@ namespace Strawhenge.Inventory.Items
 
         public Maybe<Consumable> Consumable { get; private set; } = Maybe.None<Consumable>();
 
-        public Maybe<IStorable> Storable { get; private set; } = Maybe.None<IStorable>();
+        public Maybe<Storable> Storable { get; private set; } = Maybe.None<Storable>();
 
         public bool IsInHand => IsInLeftHand() || IsInRightHand();
 

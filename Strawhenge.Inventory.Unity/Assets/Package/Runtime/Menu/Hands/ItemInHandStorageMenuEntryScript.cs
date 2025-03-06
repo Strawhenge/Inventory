@@ -9,7 +9,7 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] Button _addButton;
         [SerializeField] Button _removeButton;
 
-        IStorable _storable;
+        Storable _storable;
 
         void Awake()
         {
@@ -23,7 +23,7 @@ namespace Strawhenge.Inventory.Unity
             _storable.Removed -= OnRemoved;
         }
 
-        internal void Set(IStorable storable)
+        internal void Set(Storable storable)
         {
             _storable = storable;
             _storable.Added += OnAdded;

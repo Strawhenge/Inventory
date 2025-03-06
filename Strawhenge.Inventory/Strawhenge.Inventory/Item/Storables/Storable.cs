@@ -2,7 +2,7 @@
 
 namespace Strawhenge.Inventory.Items.Storables
 {
-    public class Storable : IStorable
+    public class Storable
     {
         readonly Item _item;
         readonly StoredItems _storedItems;
