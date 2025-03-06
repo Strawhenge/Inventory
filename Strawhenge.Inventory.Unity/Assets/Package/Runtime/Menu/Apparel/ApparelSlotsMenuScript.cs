@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.Unity.Menu.Apparel
             _container = new PanelContainer(_entryContainer, rectTransform);
         }
 
-        internal void Set(IEnumerable<IApparelSlot> apparelSlots)
+        internal void Set(IEnumerable<ApparelSlot> apparelSlots)
         {
             foreach (var slot in apparelSlots)
             {

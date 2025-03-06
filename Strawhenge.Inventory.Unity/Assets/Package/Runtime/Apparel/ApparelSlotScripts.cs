@@ -16,7 +16,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
             _logger = logger;
         }
 
-        public IEnumerable<IApparelSlot> All => _slotsByName.Values.ToArray(x => x.ApparelSlot);
+        public IEnumerable<ApparelSlot> All => _slotsByName.Values.ToArray(x => x.ApparelSlot);
 
         internal void Add(ApparelSlotScript apparelSlotScript)
         {

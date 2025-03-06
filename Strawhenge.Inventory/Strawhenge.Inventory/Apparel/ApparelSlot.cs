@@ -3,7 +3,7 @@ using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.Apparel
 {
-    public class ApparelSlot : IApparelSlot
+    public class ApparelSlot
     {
         public ApparelSlot(string name)
         {

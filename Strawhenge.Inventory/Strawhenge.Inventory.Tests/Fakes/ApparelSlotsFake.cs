@@ -7,7 +7,7 @@ namespace Strawhenge.Inventory.Tests
     {
         readonly List<ApparelSlot> _apparelSlots = new List<ApparelSlot>();
 
-        public IEnumerable<IApparelSlot> All => _apparelSlots;
+        public IEnumerable<ApparelSlot> All => _apparelSlots;
 
         public void Add(string name) => _apparelSlots.Add(new ApparelSlot(name));
     }

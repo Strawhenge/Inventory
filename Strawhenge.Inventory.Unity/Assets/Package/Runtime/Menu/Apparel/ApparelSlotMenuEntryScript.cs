@@ -10,14 +10,14 @@ namespace Strawhenge.Inventory.Unity.Menu.Apparel
         [SerializeField] Text _itemNameText;
         [SerializeField] Button _unequipButton;
 
-        IApparelSlot _slot;
+        ApparelSlot _slot;
 
         void Awake()
         {
             _unequipButton.onClick.AddListener(OnUnequipButton);
         }
 
-        internal void Set(IApparelSlot slot)
+        internal void Set(ApparelSlot slot)
         {
             _slot = slot;
             _slot.Changed += OnChanged;

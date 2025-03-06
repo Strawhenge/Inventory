@@ -14,6 +14,6 @@ namespace Strawhenge.Inventory
 
         IStoredItems StoredItems { get; }
 
-        IEnumerable<IApparelSlot> ApparelSlots { get; }
+        IEnumerable<ApparelSlot> ApparelSlots { get; }
     }
 }

@@ -30,6 +30,6 @@ namespace Strawhenge.Inventory
 
         public IStoredItems StoredItems { get; }
 
-        public IEnumerable<IApparelSlot> ApparelSlots => _apparelSlots.All;
+        public IEnumerable<ApparelSlot> ApparelSlots => _apparelSlots.All;
     }
 }
