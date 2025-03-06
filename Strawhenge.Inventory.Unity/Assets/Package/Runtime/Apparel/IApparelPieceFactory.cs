@@ -4,6 +4,6 @@ namespace Strawhenge.Inventory.Unity.Apparel
 {
     public interface IApparelPieceFactory
     {
-        IApparelPiece Create(IApparelPieceData source);
+        ApparelPiece Create(IApparelPieceData source);
     }
 }

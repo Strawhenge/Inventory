@@ -9,6 +9,6 @@ namespace Strawhenge.Inventory.Apparel
 
         string Name { get; }
 
-        Maybe<IApparelPiece> CurrentPiece { get; }
+        Maybe<ApparelPiece> CurrentPiece { get; }
     }
 }

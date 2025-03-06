@@ -6,7 +6,7 @@ using Strawhenge.Inventory.Effects;
 
 namespace Strawhenge.Inventory.Apparel
 {
-    public class ApparelPiece : IApparelPiece
+    public class ApparelPiece
     {
         readonly ApparelSlot _slot;
         readonly IApparelView _view;

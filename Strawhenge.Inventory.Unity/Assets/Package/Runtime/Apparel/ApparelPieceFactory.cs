@@ -31,7 +31,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
             _logger = logger;
         }
 
-        public IApparelPiece Create(IApparelPieceData source)
+        public ApparelPiece Create(IApparelPieceData source)
         {
             if (!_apparelSlotScripts.FindByName(source.Slot).HasSome(out var slotScript))
             {

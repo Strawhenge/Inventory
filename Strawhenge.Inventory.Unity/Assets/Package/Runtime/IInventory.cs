@@ -12,6 +12,6 @@ namespace Strawhenge.Inventory.Unity
 
         Item CreateItem(IItemData data);
 
-        IApparelPiece CreateApparelPiece(IApparelPieceData data);
+        ApparelPiece CreateApparelPiece(IApparelPieceData data);
     }
 }

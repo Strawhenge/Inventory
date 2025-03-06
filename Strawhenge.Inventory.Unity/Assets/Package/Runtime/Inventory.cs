@@ -38,7 +38,7 @@ namespace Strawhenge.Inventory.Unity
             return _itemFactory.Create(data);
         }
 
-        public IApparelPiece CreateApparelPiece(IApparelPieceData data)
+        public ApparelPiece CreateApparelPiece(IApparelPieceData data)
         {
             return _apparelPieceFactory.Create(data);
         }
