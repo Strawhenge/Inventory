@@ -6,7 +6,7 @@ using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory
 {
-    public class EquippedItems : IEquippedItems
+    public class EquippedItems
     {
         readonly Hands _hands;
         readonly Holsters _holsters;

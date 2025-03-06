@@ -145,7 +145,7 @@ public static class DependencyInjection
 
         builder
             .RegisterType<EquippedItems>()
-            .As<IEquippedItems>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder
