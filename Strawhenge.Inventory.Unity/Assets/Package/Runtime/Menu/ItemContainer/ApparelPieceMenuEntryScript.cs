@@ -34,7 +34,6 @@ namespace Strawhenge.Inventory.Unity
                 return;
 
             var apparelPiece = _inventory.CreateApparelPiece(_containedItem.Item);
-            apparelPiece.UnequipPreference = UnequipPreference.Drop;
             apparelPiece.Equip();
 
             _containedItem.RemoveFromContainer();

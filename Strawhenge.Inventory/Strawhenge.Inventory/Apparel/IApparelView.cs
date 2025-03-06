@@ -2,9 +2,9 @@
 {
     public interface IApparelView
     {
-        void Equip();
+        void Show();
 
-        void Unequip();
+        void Hide();
 
         void Drop();
     }

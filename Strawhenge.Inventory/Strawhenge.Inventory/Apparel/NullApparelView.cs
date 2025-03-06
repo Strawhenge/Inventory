@@ -2,11 +2,11 @@
 {
     public class NullApparelView : IApparelView
     {
-        public void Equip()
+        public void Show()
         {
         }
 
-        public void Unequip()
+        public void Hide()
         {
         }
 

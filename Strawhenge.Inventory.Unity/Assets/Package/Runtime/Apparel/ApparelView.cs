@@ -28,7 +28,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
             _slot = slot;
         }
 
-        public void Equip()
+        public void Show()
         {
             _apparelGameObject = Object.Instantiate(_data.Prefab, _slot);
             _apparelGameObject.transform.localPosition = _data.Position;
@@ -43,7 +43,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
             _gameObjectInitializer.Initialize(_apparelGameObject);
         }
 
-        public void Unequip()
+        public void Hide()
         {
             Object.Destroy(_apparelGameObject);
         }
