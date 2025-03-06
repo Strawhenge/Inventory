@@ -151,8 +151,6 @@ public static class DependencyInjection
         builder
             .RegisterType<StoredItems>()
             .AsSelf()
-            .As<IStoredItems>()
-            .As<IStoredItemsWeightCapacitySetter>()
             .InstancePerLifetimeScope();
 
         builder

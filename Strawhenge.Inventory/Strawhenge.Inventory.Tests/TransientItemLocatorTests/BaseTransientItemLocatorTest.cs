@@ -26,7 +26,7 @@ namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
         protected BaseTransientItemLocatorTest(ITestOutputHelper testOutputHelper)
         {
             _context = new InventoryTestContext(testOutputHelper);
-            _context.StoredItemsWeightCapacity.SetWeightCapacity(100);
+            _context.SetStorageCapacity(100);
             _context.AddHolsters(Holsters);
 
             _targetItem = _context.CreateItem(

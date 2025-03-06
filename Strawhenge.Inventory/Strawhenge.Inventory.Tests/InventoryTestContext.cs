@@ -25,7 +25,7 @@ namespace Strawhenge.Inventory.Tests
             var logger = new TestOutputLogger(testOutputHelper);
             _viewCallsTracker = new ViewCallsTracker(logger);
 
-            _storedItems = new StoredItems();
+            _storedItems = new StoredItems(logger);
             _hands = new Hands();
             _holsters = new Holsters(logger);
             _apparelSlots = new ApparelSlotsFake();
@@ -48,8 +48,6 @@ namespace Strawhenge.Inventory.Tests
 
         public TransientItemLocator TransientItemLocator { get; }
 
-        public IStoredItemsWeightCapacitySetter StoredItemsWeightCapacity => _storedItems;
-
         public void AddHolsters(IEnumerable<string> holsters)
         {
             foreach (var holster in holsters)
@@ -59,6 +57,8 @@ namespace Strawhenge.Inventory.Tests
         public void AddHolster(string name) => _holsters.Add(name);
 
         public void AddApparelSlot(string name) => _apparelSlots.Add(name);
+
+        public void SetStorageCapacity(int capacity) => _storedItems.SetWeightCapacity(capacity);
 
         public void SetGeneratedItem(string name, Item item) => _itemGenerator.Set(name, item);
 

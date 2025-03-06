@@ -86,7 +86,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         protected void AddHolster(string name) => _inventoryContext.AddHolster(name);
 
         protected void SetStorageCapacity(int capacity) =>
-            _inventoryContext.StoredItemsWeightCapacity.SetWeightCapacity(capacity);
+            _inventoryContext.SetStorageCapacity(capacity);
 
         protected Item CreateItem(string name, bool storable = false) =>
             CreateItem(name, Array.Empty<string>(), storable);

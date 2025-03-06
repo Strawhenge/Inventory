@@ -14,9 +14,9 @@ namespace Strawhenge.Inventory.Unity.Menu.Storage
         readonly Dictionary<Item, StoredItemMenuEntryScript> _entries =
             new Dictionary<Item, StoredItemMenuEntryScript>();
 
-        IStoredItems _storedItems;
+        StoredItems _storedItems;
 
-        internal void Set(IStoredItems storedItems)
+        internal void Set(StoredItems storedItems)
         {
             _storedItems = storedItems;
 

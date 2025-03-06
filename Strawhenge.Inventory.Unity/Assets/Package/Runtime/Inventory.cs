@@ -14,7 +14,7 @@ namespace Strawhenge.Inventory.Unity
         readonly IApparelPieceFactory _apparelPieceFactory;
 
         public Inventory(
-            IStoredItems storedItems,
+            StoredItems storedItems,
             Hands hands,
             Holsters holsters,
             IApparelSlots apparelSlots,

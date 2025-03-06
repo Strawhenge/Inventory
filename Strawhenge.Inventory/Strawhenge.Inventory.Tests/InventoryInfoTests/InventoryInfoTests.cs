@@ -24,7 +24,7 @@ namespace Strawhenge.Inventory.Tests.InventoryInfoTests
         public InventoryInfoTests(ITestOutputHelper testOutputHelper)
         {
             _context = new InventoryTestContext(testOutputHelper);
-            _context.StoredItemsWeightCapacity.SetWeightCapacity(100);
+            _context.SetStorageCapacity(100);
             _context.AddApparelSlot(HeadApparelSlot);
             _context.AddApparelSlot(TorsoApparelSlot);
             _context.AddHolster(HipHolster);

@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory
 
         IEnumerable<ItemContainer> Holsters { get; }
 
-        IStoredItems StoredItems { get; }
+        StoredItems StoredItems { get; }
 
         IEnumerable<ApparelSlot> ApparelSlots { get; }
     }

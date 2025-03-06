@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory
         readonly IApparelSlots _apparelSlots;
 
         public Inventory(
-            IStoredItems storedItems,
+            StoredItems storedItems,
             Hands hands,
             Holsters holsters,
             IApparelSlots apparelSlots)
@@ -28,7 +28,7 @@ namespace Strawhenge.Inventory
 
         public IEnumerable<ItemContainer> Holsters => _holsters.GetAll();
 
-        public IStoredItems StoredItems { get; }
+        public StoredItems StoredItems { get; }
 
         public IEnumerable<ApparelSlot> ApparelSlots => _apparelSlots.All;
     }

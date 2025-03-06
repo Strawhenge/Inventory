@@ -8,10 +8,10 @@ namespace Strawhenge.Inventory.TransientItems
     public class TransientItemLocator : ITransientItemLocator
     {
         readonly EquippedItems _equippedItems;
-        readonly IStoredItems _inventory;
+        readonly StoredItems _inventory;
         readonly IItemGenerator _itemGenerator;
 
-        public TransientItemLocator(EquippedItems equippedItems, IStoredItems inventory, IItemGenerator itemGenerator)
+        public TransientItemLocator(EquippedItems equippedItems, StoredItems inventory, IItemGenerator itemGenerator)
         {
             _equippedItems = equippedItems;
             _inventory = inventory;
