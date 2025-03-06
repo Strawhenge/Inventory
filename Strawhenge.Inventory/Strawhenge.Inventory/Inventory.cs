@@ -22,11 +22,11 @@ namespace Strawhenge.Inventory
             StoredItems = storedItems;
         }
 
-        public IItemContainer LeftHand => _hands.LeftHand;
+        public ItemContainer LeftHand => _hands.LeftHand;
 
-        public IItemContainer RightHand => _hands.RightHand;
+        public ItemContainer RightHand => _hands.RightHand;
 
-        public IEnumerable<IItemContainer> Holsters => _holsters.GetAll();
+        public IEnumerable<ItemContainer> Holsters => _holsters.GetAll();
 
         public IStoredItems StoredItems { get; }
 

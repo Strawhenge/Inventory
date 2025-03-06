@@ -13,7 +13,7 @@ namespace Strawhenge.Inventory.Unity.Menu.Hands
         [SerializeField] Text _itemNameText;
 
         PanelContainer _container;
-        IItemContainer _hand;
+        ItemContainer _hand;
 
         void Awake()
         {
@@ -23,7 +23,7 @@ namespace Strawhenge.Inventory.Unity.Menu.Hands
             _container = new PanelContainer(_entryContainer, rectTransform);
         }
 
-        public void Set(IItemContainer hand)
+        public void Set(ItemContainer hand)
         {
             _hand = hand;
             _hand.Changed += OnChanged;

@@ -5,26 +5,23 @@ namespace Strawhenge.Inventory.Containers
 {
     public class Hands : IHands
     {
-        readonly ItemContainer _leftHand = new ItemContainer("Left Hand");
-        readonly ItemContainer _rightHand = new ItemContainer("Right Hand");
+        public ItemContainer LeftHand { get; } = new ItemContainer("Left Hand");
 
-        public IItemContainer LeftHand => _leftHand;
+        public ItemContainer RightHand { get; } = new ItemContainer("Right Hand");
 
-        public IItemContainer RightHand => _rightHand;
+        public Maybe<Item> ItemInLeftHand => LeftHand.CurrentItem;
 
-        public Maybe<Item> ItemInLeftHand => _leftHand.CurrentItem;
-
-        public Maybe<Item> ItemInRightHand => _rightHand.CurrentItem;
+        public Maybe<Item> ItemInRightHand => RightHand.CurrentItem;
 
         public bool HasTwoHandedItem(out Item item)
         {
-            if (_leftHand.CurrentItem.HasSome(out var leftItem) && leftItem.IsTwoHanded)
+            if (LeftHand.CurrentItem.HasSome(out var leftItem) && leftItem.IsTwoHanded)
             {
                 item = leftItem;
                 return true;
             }
 
-            if (_rightHand.CurrentItem.HasSome(out var rightItem) && rightItem.IsTwoHanded)
+            if (RightHand.CurrentItem.HasSome(out var rightItem) && rightItem.IsTwoHanded)
             {
                 item = rightItem;
                 return true;
@@ -34,28 +31,28 @@ namespace Strawhenge.Inventory.Containers
             return false;
         }
 
-        public bool IsInLeftHand(Item item) => _leftHand.IsCurrentItem(item);
+        public bool IsInLeftHand(Item item) => LeftHand.IsCurrentItem(item);
 
-        public bool IsInRightHand(Item item) => _rightHand.IsCurrentItem(item);
+        public bool IsInRightHand(Item item) => RightHand.IsCurrentItem(item);
 
         public void SetItemLeftHand(Item item)
         {
-            _leftHand.SetItem(item);
+            LeftHand.SetItem(item);
         }
 
         public void SetItemRightHand(Item item)
         {
-            _rightHand.SetItem(item);
+            RightHand.SetItem(item);
         }
 
         public void UnsetItemLeftHand()
         {
-            _leftHand.UnsetItem();
+            LeftHand.UnsetItem();
         }
 
         public void UnsetItemRightHand()
         {
-            _rightHand.UnsetItem();
+            RightHand.UnsetItem();
         }
     }
 }

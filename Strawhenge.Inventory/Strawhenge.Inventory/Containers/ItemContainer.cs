@@ -4,7 +4,7 @@ using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory.Containers
 {
-    public class ItemContainer : IItemContainer
+    public class ItemContainer
     {
         public ItemContainer(string name)
         {
@@ -18,19 +18,19 @@ namespace Strawhenge.Inventory.Containers
 
         public Maybe<Item> CurrentItem { get; private set; }
 
-        public void SetItem(Item item)
+        public bool IsCurrentItem(Item item) =>
+            CurrentItem.HasSome(out var currentItem) && item == currentItem;
+
+        internal void SetItem(Item item)
         {
             CurrentItem = Maybe.Some(item);
             Changed?.Invoke();
         }
 
-        public void UnsetItem()
+        internal void UnsetItem()
         {
             CurrentItem = Maybe.None<Item>();
             Changed?.Invoke();
         }
-
-        public bool IsCurrentItem(Item item) =>
-            CurrentItem.HasSome(out var currentItem) && item == currentItem;
     }
 }

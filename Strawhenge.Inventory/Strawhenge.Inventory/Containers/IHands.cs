@@ -5,9 +5,9 @@ namespace Strawhenge.Inventory.Containers
 {
     public interface IHands
     {
-        IItemContainer LeftHand { get; }
+        ItemContainer LeftHand { get; }
 
-        IItemContainer RightHand { get; }
+        ItemContainer RightHand { get; }
 
         Maybe<Item> ItemInLeftHand { get; }
 
