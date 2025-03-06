@@ -44,6 +44,10 @@ namespace Strawhenge.Inventory.Items
 
         public bool IsTwoHanded => _size == ItemSize.TwoHanded;
 
+        public bool IsInStorage => Storable
+            .Map(x => x.IsStored)
+            .Reduce(() => false);
+
         public ClearFromHandsPreference ClearFromHandsPreference { get; set; } =
             ClearFromHandsPreference.Disappear;
 
@@ -125,7 +129,11 @@ namespace Strawhenge.Inventory.Items
             }
 
             _hands.SetItemLeftHand(this);
-            _itemView.DrawLeftHand(callback);
+
+            if (IsInStorage)
+                _itemView.DrawLeftHand(callback);
+            else
+                _itemView.AppearLeftHand();
         }
 
         public void HoldRightHand(Action callback = null)
@@ -159,7 +167,11 @@ namespace Strawhenge.Inventory.Items
             }
 
             _hands.SetItemRightHand(this);
-            _itemView.DrawRightHand(callback);
+
+            if (IsInStorage)
+                _itemView.DrawRightHand(callback);
+            else
+                _itemView.AppearRightHand();
         }
 
         public void PutAway(Action callback = null)
@@ -239,12 +251,12 @@ namespace Strawhenge.Inventory.Items
             if (IsInLeftHand())
             {
                 _hands.UnsetItemLeftHand();
-                _itemView.Disappear();
+                _itemView.DisappearLeftHand();
             }
             else if (IsInRightHand())
             {
                 _hands.UnsetItemRightHand();
-                _itemView.Disappear();
+                _itemView.DisappearRightHand();
             }
 
             Storable.Do(x => x.RemoveFromStorage());

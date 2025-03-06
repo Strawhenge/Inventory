@@ -13,7 +13,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
         public Hold_when_stored_item_in_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             SetStorageCapacity(10);
-            
+
             _hammer = CreateItem(Hammer, storable: true);
             _hammer.Storable.Do(x => x.AddToStorage());
             _hammer.HoldRightHand();
@@ -34,7 +34,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
             yield return (Hammer, x => x.DrawRightHand);
             yield return (Hammer, x => x.PutAwayRightHand);
 
-            yield return (Knife, x => x.DrawRightHand);
+            yield return (Knife, x => x.AppearRightHand);
         }
     }
 }

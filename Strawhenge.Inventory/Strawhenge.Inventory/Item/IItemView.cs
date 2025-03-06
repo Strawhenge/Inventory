@@ -6,6 +6,10 @@ namespace Strawhenge.Inventory.Items
     {
         event Action Released;
 
+        void AppearLeftHand(Action callback = null);
+
+        void AppearRightHand(Action callback = null);
+
         void DrawLeftHand(Action callback = null);
 
         void DrawRightHand(Action callback = null);
@@ -24,6 +28,8 @@ namespace Strawhenge.Inventory.Items
 
         void RightHandToLeftHand(Action callback = null);
 
-        void Disappear(Action callback = null);
+        void DisappearLeftHand(Action callback = null);
+
+        void DisappearRightHand(Action callback = null);
     }
 }

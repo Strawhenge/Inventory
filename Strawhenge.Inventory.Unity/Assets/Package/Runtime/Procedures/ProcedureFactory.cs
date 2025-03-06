@@ -32,6 +32,12 @@ namespace Strawhenge.Inventory.Unity.Procedures
             _logger = logger;
         }
 
+        public Procedure AppearLeftHand(IItemHelper item) =>
+            new SimpleDrawFromHammerspace(item, _handComponents.Left);
+
+        public Procedure AppearRightHand(IItemHelper item) =>
+            new SimpleDrawFromHammerspace(item, _handComponents.Right);
+
         public Procedure DrawLeftHandFromHammerspace(IItemHelper item) =>
             DrawFromHammerspace(item, _handComponents.Left, item.Data.LeftHandHoldData);
 
@@ -56,8 +62,11 @@ namespace Strawhenge.Inventory.Unity.Procedures
 
         public Procedure SpawnAndDrop(IItemHelper item) => new SimpleSpawnAndDrop(item);
 
-        public Procedure Disappear(IItemHelper item) =>
-            new DisappearItem(item, _handComponents.Left, _handComponents.Right);
+        public Procedure DisappearLeftHand(IItemHelper item) =>
+            new SimplePutInHammerspace(_handComponents.Left);
+
+        public Procedure DisappearRightHand(IItemHelper item) =>
+            new SimplePutInHammerspace(_handComponents.Right);
 
         public Procedure DrawLeftHandFromHolster(IItemHelper item, IHolsterComponent holster) =>
             DrawFromHolster(_handComponents.Left, holster,

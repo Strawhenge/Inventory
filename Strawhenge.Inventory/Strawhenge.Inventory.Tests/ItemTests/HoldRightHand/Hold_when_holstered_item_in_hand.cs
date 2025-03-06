@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
             yield return (Hammer, RightHipHolster, x => x.DrawRightHand);
             yield return (Hammer, RightHipHolster, x => x.PutAwayRightHand);
 
-            yield return (Spear, x => x.DrawRightHand);
+            yield return (Spear, x => x.AppearRightHand);
         }
     }
 }

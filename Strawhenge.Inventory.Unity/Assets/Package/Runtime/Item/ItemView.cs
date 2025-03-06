@@ -22,10 +22,28 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public event Action Released;
 
-        public void Disappear(Action callback = null)
+        public void DisappearLeftHand(Action callback = null)
         {
             Schedule(
-                _procedureFactory.Disappear(_item), callback);
+                _procedureFactory.DisappearLeftHand(_item), callback);
+        }
+
+        public void DisappearRightHand(Action callback = null)
+        {
+            Schedule(
+                _procedureFactory.DisappearRightHand(_item), callback);
+        }
+
+        public void AppearLeftHand(Action callback = null)
+        {
+            Schedule(
+                _procedureFactory.AppearLeftHand(_item), callback);
+        }
+
+        public void AppearRightHand(Action callback = null)
+        {
+            Schedule(
+                _procedureFactory.AppearRightHand(_item), callback);
         }
 
         public void DrawLeftHand(Action callback = null)

@@ -7,6 +7,10 @@ namespace Strawhenge.Inventory.Unity.Procedures
 {
     public interface IProcedureFactory
     {
+        Procedure AppearLeftHand(IItemHelper item);
+        
+        Procedure AppearRightHand(IItemHelper item);
+        
         Procedure DrawLeftHandFromHammerspace(IItemHelper item);
 
         Procedure DrawRightHandFromHammerspace(IItemHelper item);
@@ -25,7 +29,9 @@ namespace Strawhenge.Inventory.Unity.Procedures
 
         Procedure SpawnAndDrop(IItemHelper item);
 
-        Procedure Disappear(IItemHelper item);
+        Procedure DisappearLeftHand(IItemHelper item);
+       
+        Procedure DisappearRightHand(IItemHelper item);
 
         Procedure DrawLeftHandFromHolster(IItemHelper item, IHolsterComponent holster);
 

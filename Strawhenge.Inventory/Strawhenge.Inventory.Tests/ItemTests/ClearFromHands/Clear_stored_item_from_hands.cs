@@ -25,7 +25,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
 
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {
-            yield return (Hammer, x => x.DrawRightHand);
+            yield return (Hammer, x => x.AppearRightHand);
             yield return (Hammer, x => x.PutAwayRightHand);
         }
     }

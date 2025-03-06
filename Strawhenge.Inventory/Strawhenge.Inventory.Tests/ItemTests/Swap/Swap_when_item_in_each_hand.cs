@@ -27,12 +27,12 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Swap
 
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {
-            yield return (Hammer, x => x.DrawRightHand);
-            yield return (Knife, x => x.DrawLeftHand);
+            yield return (Hammer, x => x.AppearRightHand);
+            yield return (Knife, x => x.AppearLeftHand);
 
-            yield return (Knife, x => x.Disappear);
+            yield return (Knife, x => x.DisappearLeftHand);
             yield return (Hammer, x => x.RightHandToLeftHand);
-            yield return (Knife, x => x.DrawRightHand);
+            yield return (Knife, x => x.AppearRightHand);
         }
     }
 }

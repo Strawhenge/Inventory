@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Discard
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {
             yield return (Hammer, x => x.DrawRightHand);
-            yield return (Hammer, x => x.Disappear);
+            yield return (Hammer, x => x.DisappearRightHand);
         }
     }
 }

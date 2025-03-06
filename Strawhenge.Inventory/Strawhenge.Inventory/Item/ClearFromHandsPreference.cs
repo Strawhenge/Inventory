@@ -16,23 +16,29 @@ namespace Strawhenge.Inventory.Items
 
         class PreferDisappear : ClearFromHandsPreference
         {
-            public override void PerformClearLeftHand(IItemView itemView, Action callback = null) => itemView.Disappear(callback);
+            public override void PerformClearLeftHand(IItemView itemView, Action callback = null) =>
+                itemView.DisappearLeftHand(callback);
 
-            public override void PerformClearRightHand(IItemView itemView, Action callback = null) => itemView.Disappear(callback);
+            public override void PerformClearRightHand(IItemView itemView, Action callback = null) =>
+                itemView.DisappearRightHand(callback);
         }
 
         class PreferPutAway : ClearFromHandsPreference
         {
-            public override void PerformClearLeftHand(IItemView itemView, Action callback = null) => itemView.PutAwayLeftHand(callback);
+            public override void PerformClearLeftHand(IItemView itemView, Action callback = null) =>
+                itemView.PutAwayLeftHand(callback);
 
-            public override void PerformClearRightHand(IItemView itemView, Action callback = null) => itemView.PutAwayRightHand(callback);
+            public override void PerformClearRightHand(IItemView itemView, Action callback = null) =>
+                itemView.PutAwayRightHand(callback);
         }
 
         class PreferDrop : ClearFromHandsPreference
         {
-            public override void PerformClearLeftHand(IItemView itemView, Action callback = null) => itemView.DropLeftHand(callback);
+            public override void PerformClearLeftHand(IItemView itemView, Action callback = null) =>
+                itemView.DropLeftHand(callback);
 
-            public override void PerformClearRightHand(IItemView itemView, Action callback = null) => itemView.DropRightHand(callback);
+            public override void PerformClearRightHand(IItemView itemView, Action callback = null) =>
+                itemView.DropRightHand(callback);
         }
     }
 }
