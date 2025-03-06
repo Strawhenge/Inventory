@@ -254,6 +254,17 @@ namespace Strawhenge.Inventory.Items
             Storable.Do(x => x.RemoveFromStorage());
         }
 
+        internal void DisappearFromHolster(Action callback = null)
+        {
+            if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
+            {
+                holster.Disappear(callback);
+                return;
+            }
+
+            callback?.Invoke();
+        }
+
         void ClearLeftHand()
         {
             if (_hands.HasTwoHandedItem(out var twoHandedItem) && twoHandedItem != this)

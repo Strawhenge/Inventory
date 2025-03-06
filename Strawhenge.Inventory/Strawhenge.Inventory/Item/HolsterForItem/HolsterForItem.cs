@@ -32,7 +32,7 @@ namespace Strawhenge.Inventory.Items.Holsters
 
             ClearHolster();
 
-            _item.UnequipFromHolster();
+            _item.DisappearFromHolster();
             _itemContainer.SetItem(_item);
 
             if (_item.IsInHand)
@@ -63,7 +63,23 @@ namespace Strawhenge.Inventory.Items.Holsters
                 _view.Drop(callback);
         }
 
-        public void Drop(Action callback = null)
+        internal void Disappear(Action callback = null)
+        {
+            if (!IsEquipped)
+            {
+                callback?.Invoke();
+                return;
+            }
+
+            _itemContainer.UnsetItem();
+
+            if (_item.IsInHand)
+                callback?.Invoke();
+            else
+                _view.Hide();
+        }
+
+        internal void Drop(Action callback = null)
         {
             if (!IsEquipped)
             {
