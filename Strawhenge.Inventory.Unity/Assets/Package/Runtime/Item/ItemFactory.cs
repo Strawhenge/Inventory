@@ -107,15 +107,15 @@ namespace Strawhenge.Inventory.Unity.Items
             return holstersForItem;
         }
 
-        ItemSize CreateItemSize(Data.ItemSize size)
+        ItemSize CreateItemSize(ItemSize size)
         {
             switch (size)
             {
-                case Data.ItemSize.OneHanded:
+                case ItemSize.OneHanded:
                     return ItemSize.OneHanded;
 
                 default:
-                case Data.ItemSize.TwoHanded:
+                case ItemSize.TwoHanded:
                     return ItemSize.TwoHanded;
             }
         }

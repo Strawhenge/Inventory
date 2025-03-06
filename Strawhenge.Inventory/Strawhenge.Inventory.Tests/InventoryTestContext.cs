@@ -62,7 +62,7 @@ namespace Strawhenge.Inventory.Tests
 
         public void SetGeneratedItem(string name, Item item) => _itemGenerator.Set(name, item);
 
-        public Item CreateItem(string name, ItemSize size = null, string[] holsterNames = null, bool storable = false)
+        public Item CreateItem(string name, ItemSize? size = null, string[] holsterNames = null, bool storable = false)
         {
             size ??= ItemSize.OneHanded;
             holsterNames ??= Array.Empty<string>();
@@ -70,7 +70,7 @@ namespace Strawhenge.Inventory.Tests
             var itemView = new ItemViewFake(name);
             _viewCallsTracker.Track(itemView);
 
-            var item = new Item(name, _hands, itemView, size);
+            var item = new Item(name, _hands, itemView, size.Value);
 
             var holsters = holsterNames.Select(holsterName =>
             {

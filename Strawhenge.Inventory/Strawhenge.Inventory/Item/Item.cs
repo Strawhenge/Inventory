@@ -42,7 +42,7 @@ namespace Strawhenge.Inventory.Items
 
         public bool IsInHand => IsInLeftHand() || IsInRightHand();
 
-        public bool IsTwoHanded => _size.IsTwoHanded;
+        public bool IsTwoHanded => _size == ItemSize.TwoHanded;
 
         public ClearFromHandsPreference ClearFromHandsPreference { get; set; } =
             ClearFromHandsPreference.Disappear;
