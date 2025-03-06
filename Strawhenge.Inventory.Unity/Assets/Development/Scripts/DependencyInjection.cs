@@ -235,7 +235,7 @@ public static class DependencyInjection
 
         builder
             .RegisterType<EffectFactory>()
-            .As<IEffectFactory>()
+            .AsSelf()
             .InstancePerLifetimeScope();
     }
 }

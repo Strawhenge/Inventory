@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory.Tests.EffectTests
 
         readonly HealthData _data;
         readonly Health _health;
-        readonly IEffectFactory _factory;
+        readonly EffectFactory _factory;
 
         public EffectsTests(ITestOutputHelper testOutputHelper)
         {

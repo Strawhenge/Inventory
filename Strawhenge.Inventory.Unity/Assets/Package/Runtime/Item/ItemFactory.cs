@@ -23,7 +23,7 @@ namespace Strawhenge.Inventory.Unity.Items
         readonly HolsterComponents _holsterComponents;
         readonly ProcedureQueue _procedureQueue;
         readonly IProcedureFactory _procedureFactory;
-        readonly IEffectFactory _effectFactory;
+        readonly EffectFactory _effectFactory;
         readonly IItemDropPoint _itemDropPoint;
         readonly ILogger _logger;
 
@@ -34,7 +34,7 @@ namespace Strawhenge.Inventory.Unity.Items
             HolsterComponents holsterComponents,
             ProcedureQueue procedureQueue,
             IProcedureFactory procedureFactory,
-            IEffectFactory effectFactory,
+            EffectFactory effectFactory,
             IItemDropPoint itemDropPoint,
             ILogger logger)
         {
