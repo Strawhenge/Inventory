@@ -3,13 +3,13 @@ using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory.TransientItems
 {
-    public class TransientItemHolder : ITransientItemHolder
+    public class TransientItemHolder
     {
-        readonly ITransientItemLocator _transientItemLocator;
+        readonly TransientItemLocator _transientItemLocator;
 
         Item _item;
 
-        public TransientItemHolder(ITransientItemLocator transientItemLocator)
+        public TransientItemHolder(TransientItemLocator transientItemLocator)
         {
             _transientItemLocator = transientItemLocator;
         }

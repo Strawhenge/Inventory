@@ -160,12 +160,12 @@ public static class DependencyInjection
 
         builder
             .RegisterType<TransientItemLocator>()
-            .As<ITransientItemLocator>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder
             .RegisterType<TransientItemHolder>()
-            .As<ITransientItemHolder>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder

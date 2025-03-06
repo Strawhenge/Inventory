@@ -5,16 +5,16 @@ using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.TransientItems
 {
-    public class TransientItemLocator : ITransientItemLocator
+    public class TransientItemLocator
     {
         readonly EquippedItems _equippedItems;
-        readonly StoredItems _inventory;
+        readonly StoredItems _storedItems;
         readonly IItemGenerator _itemGenerator;
 
-        public TransientItemLocator(EquippedItems equippedItems, StoredItems inventory, IItemGenerator itemGenerator)
+        public TransientItemLocator(EquippedItems equippedItems, StoredItems storedItems, IItemGenerator itemGenerator)
         {
             _equippedItems = equippedItems;
-            _inventory = inventory;
+            _storedItems = storedItems;
             _itemGenerator = itemGenerator;
         }
 
@@ -68,7 +68,7 @@ namespace Strawhenge.Inventory.TransientItems
 
         bool IsItemInInventory(string name, out Item item)
         {
-            item = _inventory.Items
+            item = _storedItems.Items
                 .FirstOrDefault(x => IsItemName(x, name));
 
             return item != null;
