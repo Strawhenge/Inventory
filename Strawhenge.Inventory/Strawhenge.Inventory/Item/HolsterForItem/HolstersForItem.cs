@@ -6,7 +6,7 @@ using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.Items.HolsterForItem
 {
-    public class HolstersForItem : IHolstersForItem
+    public class HolstersForItem : IEnumerable<IHolsterForItem>
     {
         public static HolstersForItem None { get; } = new HolstersForItem(Array.Empty<IHolsterForItem>());
 
@@ -28,7 +28,7 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
             return holsterItem != null;
         }
 
-        public bool IsEquippedToHolster(out IHolsterForItemView holsterItemView)
+        internal bool IsEquippedToHolster(out IHolsterForItemView holsterItemView)
         {
             var isEquipped = IsEquippedToHolster(out IHolsterForItem holsterItem);
             holsterItemView = holsterItem?.GetView();
