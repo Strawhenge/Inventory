@@ -108,7 +108,7 @@ public static class DependencyInjection
 
         builder
             .RegisterType<Holsters>()
-            .As<IHolsters>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder

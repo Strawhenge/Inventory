@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.Unity.Items
     public class ItemFactory : IItemFactory
     {
         readonly IHands _hands;
-        readonly IHolsters _holsters;
+        readonly Holsters _holsters;
         readonly StoredItems _storedItems;
         readonly HolsterComponents _holsterComponents;
         readonly ProcedureQueue _procedureQueue;
@@ -29,7 +29,7 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public ItemFactory(
             IHands hands,
-            IHolsters holsters,
+            Holsters holsters,
             StoredItems storedItems,
             HolsterComponents holsterComponents,
             ProcedureQueue procedureQueue,

@@ -16,7 +16,7 @@ namespace Strawhenge.Inventory.Unity
         public Inventory(
             IStoredItems storedItems,
             IHands hands,
-            IHolsters holsters,
+            Holsters holsters,
             IApparelSlots apparelSlots,
             IItemFactory itemFactory,
             IApparelPieceFactory apparelPieceFactory)

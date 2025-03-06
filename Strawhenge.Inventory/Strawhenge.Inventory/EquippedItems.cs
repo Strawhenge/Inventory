@@ -9,9 +9,9 @@ namespace Strawhenge.Inventory
     public class EquippedItems : IEquippedItems
     {
         readonly IHands _hands;
-        readonly IHolsters _holsters;
+        readonly Holsters _holsters;
 
-        public EquippedItems(IHands hands, IHolsters holsters)
+        public EquippedItems(IHands hands, Holsters holsters)
         {
             _hands = hands;
             _holsters = holsters;

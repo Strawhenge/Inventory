@@ -4,7 +4,7 @@ using Strawhenge.Common.Logging;
 
 namespace Strawhenge.Inventory.Containers
 {
-    public class Holsters : IHolsters
+    public class Holsters
     {
         readonly Dictionary<string, ItemContainer> _holsters = new Dictionary<string, ItemContainer>();
         readonly ILogger _logger;
