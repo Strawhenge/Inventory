@@ -3,7 +3,7 @@ using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory.Containers
 {
-    public class Hands : IHands
+    public class Hands
     {
         public ItemContainer LeftHand { get; } = new ItemContainer("Left Hand");
 
@@ -35,22 +35,22 @@ namespace Strawhenge.Inventory.Containers
 
         public bool IsInRightHand(Item item) => RightHand.IsCurrentItem(item);
 
-        public void SetItemLeftHand(Item item)
+        internal void SetItemLeftHand(Item item)
         {
             LeftHand.SetItem(item);
         }
 
-        public void SetItemRightHand(Item item)
+        internal void SetItemRightHand(Item item)
         {
             RightHand.SetItem(item);
         }
 
-        public void UnsetItemLeftHand()
+        internal void UnsetItemLeftHand()
         {
             LeftHand.UnsetItem();
         }
 
-        public void UnsetItemRightHand()
+        internal void UnsetItemRightHand()
         {
             RightHand.UnsetItem();
         }

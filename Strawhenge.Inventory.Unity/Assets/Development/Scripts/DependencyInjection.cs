@@ -103,7 +103,7 @@ public static class DependencyInjection
 
         builder
             .RegisterType<Hands>()
-            .As<IHands>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder

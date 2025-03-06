@@ -6,13 +6,13 @@ namespace Strawhenge.Inventory
 {
     public class Inventory : IInventory
     {
-        readonly IHands _hands;
+        readonly Hands _hands;
         readonly Holsters _holsters;
         readonly IApparelSlots _apparelSlots;
 
         public Inventory(
             IStoredItems storedItems,
-            IHands hands,
+            Hands hands,
             Holsters holsters,
             IApparelSlots apparelSlots)
         {

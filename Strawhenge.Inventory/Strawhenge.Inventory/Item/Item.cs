@@ -12,13 +12,13 @@ namespace Strawhenge.Inventory.Items
 {
     public class Item
     {
-        readonly IHands _hands;
+        readonly Hands _hands;
         readonly IItemView _itemView;
         readonly ItemSize _size;
 
         public Item(
             string name,
-            IHands hands,
+            Hands hands,
             IItemView itemView,
             ItemSize size)
         {
