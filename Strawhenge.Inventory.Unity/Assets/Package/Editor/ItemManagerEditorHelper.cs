@@ -1,12 +1,12 @@
-﻿using Strawhenge.Inventory.Items.HolsterForItem;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Items.Consumables;
+using Strawhenge.Inventory.Items.Holsters;
+using Strawhenge.Inventory.Items.Storables;
+using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using System;
 using System.Linq;
-using FunctionalUtilities;
-using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.Consumables;
-using Strawhenge.Inventory.Items.Storables;
-using Strawhenge.Inventory.Unity.Items;
 using UnityEditor;
 using UnityEngine;
 
@@ -203,9 +203,9 @@ namespace Strawhenge.Inventory.Unity.Editor
                 EditorGUILayout.LabelField(holster.HolsterName);
                 EditorGUILayout.BeginHorizontal();
 
-                if (GUILayout.Button(nameof(IHolsterForItem.Equip)))
+                if (GUILayout.Button(nameof(HolsterForItem.Equip)))
                     holster.Equip();
-                if (GUILayout.Button(nameof(IHolsterForItem.Unequip)))
+                if (GUILayout.Button(nameof(HolsterForItem.Unequip)))
                     holster.Unequip();
 
                 EditorGUILayout.EndHorizontal();
@@ -218,7 +218,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             {
                 item.Name,
                 item.IsTwoHanded ? "Two Handed" : "One Handed",
-                $"Holster: {(item.Holsters.FirstOrDefault(x => x.IsEquipped) is IHolsterForItem holster ? holster.HolsterName : "None")}"
+                $"Holster: {(item.Holsters.FirstOrDefault(x => x.IsEquipped) is HolsterForItem holster ? holster.HolsterName : "None")}"
             };
 
             return string.Join(Environment.NewLine, lines);

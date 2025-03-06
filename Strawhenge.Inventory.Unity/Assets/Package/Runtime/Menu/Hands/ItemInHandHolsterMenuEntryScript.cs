@@ -1,4 +1,4 @@
-using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Holsters;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,14 +8,14 @@ namespace Strawhenge.Inventory.Unity.Menu.Hands
     {
         [SerializeField] Button _equipButton;
 
-        IEquipItemToHolster _holster;
+        HolsterForItem _holster;
 
         void Awake()
         {
             _equipButton.onClick.AddListener(OnEquipButton);
         }
 
-        internal void Set(IEquipItemToHolster holster)
+        internal void Set(HolsterForItem holster)
         {
             _holster = holster;
             _equipButton.GetComponentInChildren<Text>().text = holster.HolsterName;

@@ -1,7 +1,7 @@
 ﻿using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Holsters;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Items.Data;

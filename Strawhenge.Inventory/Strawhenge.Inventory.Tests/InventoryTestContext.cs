@@ -5,7 +5,7 @@ using FunctionalUtilities;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Holsters;
 using Strawhenge.Inventory.TransientItems;
 using Xunit.Abstractions;
 

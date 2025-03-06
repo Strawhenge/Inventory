@@ -1,4 +1,4 @@
-﻿using Strawhenge.Inventory.Items.HolsterForItem;
+﻿using Strawhenge.Inventory.Items.Holsters;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Procedures;

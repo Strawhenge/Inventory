@@ -1,5 +1,5 @@
 ﻿using System;
-using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Holsters;
 
 namespace Strawhenge.Inventory.Items
 {

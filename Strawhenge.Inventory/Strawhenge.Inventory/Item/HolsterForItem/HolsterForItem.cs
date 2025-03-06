@@ -1,9 +1,9 @@
 ﻿using Strawhenge.Inventory.Containers;
 using System;
 
-namespace Strawhenge.Inventory.Items.HolsterForItem
+namespace Strawhenge.Inventory.Items.Holsters
 {
-    public class HolsterForItem : IHolsterForItem
+    public class HolsterForItem
     {
         readonly Item _item;
         readonly ItemContainer _itemContainer;
@@ -60,22 +60,6 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
                 ClearFromHolsterPreference.PerformClear(_view, callback);
         }
 
-        public void Discard(Action callback = null)
-        {
-            if (!IsEquipped)
-            {
-                callback?.Invoke();
-                return;
-            }
-
-            _itemContainer.UnsetItem();
-
-            if (_item.IsInHand)
-                callback?.Invoke();
-            else
-                _view.Hide();
-        }
-
         public void Drop(Action callback = null)
         {
             if (!IsEquipped)
@@ -92,7 +76,23 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
                 _view.Drop();
         }
 
-        public IHolsterForItemView GetView()
+        internal void Discard(Action callback = null)
+        {
+            if (!IsEquipped)
+            {
+                callback?.Invoke();
+                return;
+            }
+
+            _itemContainer.UnsetItem();
+
+            if (_item.IsInHand)
+                callback?.Invoke();
+            else
+                _view.Hide();
+        }
+
+        internal IHolsterForItemView GetView()
         {
             return _view;
         }

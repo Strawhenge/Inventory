@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using FunctionalUtilities;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Holsters;
 
 namespace Strawhenge.Inventory.Tests
 {

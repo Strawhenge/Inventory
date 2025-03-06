@@ -1,5 +1,5 @@
 ﻿using Strawhenge.Inventory.Containers;
-using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Holsters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +58,7 @@ namespace Strawhenge.Inventory.Items
 
         public void SetupHolsters(IEnumerable<(ItemContainer container, IHolsterForItemView view)> holsters) =>
             Holsters = new HolstersForItem(
-                holsters.Select(x => new HolsterForItem.HolsterForItem(this, x.container, x.view)));
+                holsters.Select(x => new Holsters.HolsterForItem(this, x.container, x.view)));
 
         public void SetupHolsters(HolstersForItem holsters) => Holsters = holsters;
 
@@ -82,7 +82,7 @@ namespace Strawhenge.Inventory.Items
                 _hands.UnsetItemRightHand();
                 _itemView.DropRightHand(callback);
             }
-            else if (Holsters.IsEquippedToHolster(out IHolsterForItem holster))
+            else if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
             {
                 holster.Drop(callback);
             }
@@ -193,7 +193,7 @@ namespace Strawhenge.Inventory.Items
 
         public void UnequipFromHolster(Action callback = null)
         {
-            if (Holsters.IsEquippedToHolster(out IHolsterForItem holster))
+            if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
             {
                 holster.Unequip(callback);
                 return;
@@ -233,7 +233,7 @@ namespace Strawhenge.Inventory.Items
 
         public void Discard()
         {
-            if (Holsters.IsEquippedToHolster(out IHolsterForItem holster))
+            if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
                 holster.Discard();
 
             if (IsInLeftHand())
