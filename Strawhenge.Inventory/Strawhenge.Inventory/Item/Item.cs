@@ -1,12 +1,12 @@
-﻿using Strawhenge.Inventory.Containers;
-using Strawhenge.Inventory.Items.Holsters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
-using Strawhenge.Inventory.Items.Storables;
 using Strawhenge.Inventory.Items.Consumables;
+using Strawhenge.Inventory.Items.Holsters;
+using Strawhenge.Inventory.Items.Storables;
 
 namespace Strawhenge.Inventory.Items
 {
@@ -36,7 +36,7 @@ namespace Strawhenge.Inventory.Items
 
         public HolstersForItem Holsters { get; private set; }
 
-        public Maybe<IConsumable> Consumable { get; private set; } = Maybe.None<IConsumable>();
+        public Maybe<Consumable> Consumable { get; private set; } = Maybe.None<Consumable>();
 
         public Maybe<IStorable> Storable { get; private set; } = Maybe.None<IStorable>();
 

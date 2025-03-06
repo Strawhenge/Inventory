@@ -6,7 +6,7 @@ using Strawhenge.Inventory.Effects;
 
 namespace Strawhenge.Inventory.Items.Consumables
 {
-    public class Consumable : IConsumable
+    public class Consumable
     {
         readonly Item _item;
         readonly IConsumableView _view;

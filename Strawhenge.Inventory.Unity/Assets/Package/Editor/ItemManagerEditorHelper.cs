@@ -191,9 +191,9 @@ namespace Strawhenge.Inventory.Unity.Editor
             item.Consumable.Do(consumable =>
             {
                 EditorGUILayout.BeginHorizontal();
-                if (GUILayout.Button(nameof(IConsumable.ConsumeLeftHand)))
+                if (GUILayout.Button(nameof(Consumable.ConsumeLeftHand)))
                     consumable.ConsumeLeftHand();
-                if (GUILayout.Button(nameof(IConsumable.ConsumeRightHand)))
+                if (GUILayout.Button(nameof(Consumable.ConsumeRightHand)))
                     consumable.ConsumeRightHand();
                 EditorGUILayout.EndHorizontal();
             });
