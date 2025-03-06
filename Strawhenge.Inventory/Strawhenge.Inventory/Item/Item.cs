@@ -58,7 +58,7 @@ namespace Strawhenge.Inventory.Items
 
         public void SetupHolsters(IEnumerable<(ItemContainer container, IHolsterForItemView view)> holsters) =>
             Holsters = new HolstersForItem(
-                holsters.Select(x => new Holsters.HolsterForItem(this, x.container, x.view)));
+                holsters.Select(x => new HolsterForItem(this, x.container, x.view)));
 
         public void SetupHolsters(HolstersForItem holsters) => Holsters = holsters;
 
