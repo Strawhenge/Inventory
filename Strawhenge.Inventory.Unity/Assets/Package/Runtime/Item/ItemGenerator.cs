@@ -20,7 +20,7 @@ namespace Strawhenge.Inventory.Unity.Items
         {
             return _itemRepository
                 .FindByName(name)
-                .Map(_itemFactory.Create);
+                .Map(_itemFactory.CreateTransient);
         }
     }
 }

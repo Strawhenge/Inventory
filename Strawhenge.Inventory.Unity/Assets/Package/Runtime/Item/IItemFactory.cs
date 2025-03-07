@@ -9,5 +9,7 @@ namespace Strawhenge.Inventory.Unity.Items
         Item Create(IItemData data);
 
         Item Create(IItemData data, ItemContext context);
+
+        Item CreateTransient(IItemData data);
     }
 }

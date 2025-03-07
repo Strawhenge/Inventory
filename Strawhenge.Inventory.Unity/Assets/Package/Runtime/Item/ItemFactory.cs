@@ -61,15 +61,20 @@ namespace Strawhenge.Inventory.Unity.Items
             return Create(component, data);
         }
 
-        Item Create(ItemHelper component, IItemData data)
+        public Item CreateTransient(IItemData data)
+        {
+            var component = new ItemHelper(data, _itemDropPoint);
+            return Create(component, data, isTransient: true);
+        }
+
+        Item Create(ItemHelper component, IItemData data, bool isTransient = false)
         {
             var view = new ItemView(component, _procedureQueue, _procedureFactory);
 
-            var itemSize = CreateItemSize(data.Size);
+            var item = new Item(data.Name, _hands, view, data.Size, isTransient);
 
-            var item = new Item(data.Name, _hands, view, itemSize);
-
-            item.SetupHolsters(CreateHolstersForItem(component));
+            if (!isTransient)
+                item.SetupHolsters(CreateHolstersForItem(component));
 
             data.ConsumableData.Do(consumableData =>
             {
@@ -79,7 +84,7 @@ namespace Strawhenge.Inventory.Unity.Items
                 item.SetupConsumable(consumableView, effects);
             });
 
-            if (data.IsStorable)
+            if (data.IsStorable && !isTransient)
                 item.SetupStorable(_storedItems, data.Weight);
 
             return item;
@@ -105,19 +110,6 @@ namespace Strawhenge.Inventory.Unity.Items
             }
 
             return holstersForItem;
-        }
-
-        ItemSize CreateItemSize(ItemSize size)
-        {
-            switch (size)
-            {
-                case ItemSize.OneHanded:
-                    return ItemSize.OneHanded;
-
-                default:
-                case ItemSize.TwoHanded:
-                    return ItemSize.TwoHanded;
-            }
         }
     }
 }
