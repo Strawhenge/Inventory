@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Strawhenge.Inventory.Items;
+
 #pragma warning disable CS0067 // Event is never used
 
 namespace Strawhenge.Inventory.Tests
@@ -17,6 +18,12 @@ namespace Strawhenge.Inventory.Tests
         public event Action<ItemViewFake, MethodInfo> MethodInvoked;
 
         public event Action Released;
+
+        public void AppearLeftHand(Action callback = null) =>
+            HandleInvocation(nameof(AppearLeftHand), callback);
+
+        public void AppearRightHand(Action callback = null) =>
+            HandleInvocation(nameof(AppearRightHand), callback);
 
         public void DrawLeftHand(Action callback = null) =>
             HandleInvocation(nameof(DrawLeftHand), callback);
@@ -45,8 +52,11 @@ namespace Strawhenge.Inventory.Tests
         public void RightHandToLeftHand(Action callback = null) =>
             HandleInvocation(nameof(RightHandToLeftHand), callback);
 
-        public void Disappear(Action callback = null) =>
-            HandleInvocation(nameof(Disappear), callback);
+        public void DisappearLeftHand(Action callback = null) =>
+            HandleInvocation(nameof(DisappearLeftHand), callback);
+
+        public void DisappearRightHand(Action callback = null) =>
+            HandleInvocation(nameof(DisappearRightHand), callback);
 
         void HandleInvocation(string methodName, Action callback)
         {

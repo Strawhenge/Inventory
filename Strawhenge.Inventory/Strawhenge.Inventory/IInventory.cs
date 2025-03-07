@@ -6,14 +6,14 @@ namespace Strawhenge.Inventory
 {
     public interface IInventory
     {
-        IItemContainer LeftHand { get; }
+        ItemContainer LeftHand { get; }
 
-        IItemContainer RightHand { get; }
+        ItemContainer RightHand { get; }
 
-        IEnumerable<IItemContainer> Holsters { get; }
+        IEnumerable<ItemContainer> Holsters { get; }
 
-        IStoredItems StoredItems { get; }
+        StoredItems StoredItems { get; }
 
-        IEnumerable<IApparelSlot> ApparelSlots { get; }
+        IEnumerable<ApparelSlot> ApparelSlots { get; }
     }
 }

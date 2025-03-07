@@ -4,6 +4,6 @@ namespace Strawhenge.Inventory.Apparel
 {
     public interface IApparelSlots
     {
-        IEnumerable<IApparelSlot> All { get; }
+        IEnumerable<ApparelSlot> All { get; }
     }
 }

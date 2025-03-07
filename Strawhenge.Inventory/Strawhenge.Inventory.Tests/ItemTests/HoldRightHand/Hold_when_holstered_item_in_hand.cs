@@ -24,7 +24,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
 
         protected override Maybe<Item> ExpectedItemInRightHand => _spear;
 
-        protected override IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (RightHipHolster, _hammer);
         }
@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
             yield return (Hammer, RightHipHolster, x => x.DrawRightHand);
             yield return (Hammer, RightHipHolster, x => x.PutAwayRightHand);
 
-            yield return (Spear, x => x.DrawRightHand);
+            yield return (Spear, x => x.AppearRightHand);
         }
     }
 }

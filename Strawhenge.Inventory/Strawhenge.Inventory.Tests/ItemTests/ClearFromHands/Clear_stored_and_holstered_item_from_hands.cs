@@ -20,19 +20,19 @@ namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
             _hammer.ClearFromHands();
         }
 
-        protected override IEnumerable<IItem> ExpectedItemsInStorage()
+        protected override IEnumerable<Item> ExpectedItemsInStorage()
         {
             yield return _hammer;
         }
 
-        protected override IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (RightHipHolster, _hammer);
         }
 
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {
-            yield return (Hammer, x => x.DrawRightHand);
+            yield return (Hammer, x => x.AppearRightHand);
             yield return (Hammer, RightHipHolster, x => x.PutAwayRightHand);
         }
     }

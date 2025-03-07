@@ -11,11 +11,19 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldLeftHand
 
         public Hold_from_hammerspace(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            _hammer = CreateItem(Hammer);
+            SetStorageCapacity(100);
+
+            _hammer = CreateItem(Hammer, storable: true);
+            _hammer.Storable.Do(x => x.AddToStorage());
             _hammer.HoldLeftHand();
         }
 
         protected override Maybe<Item> ExpectedItemInLeftHand => _hammer;
+
+        protected override IEnumerable<Item> ExpectedItemsInStorage()
+        {
+            yield return _hammer;
+        }
 
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {

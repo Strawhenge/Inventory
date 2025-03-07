@@ -3,11 +3,11 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
 {
-    public class Clear_from_hands : BaseItemTest
+    public class Clear_transient_item_from_hands : BaseItemTest
     {
-        public Clear_from_hands(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public Clear_transient_item_from_hands(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            var hammer = CreateItem(Hammer);
+            var hammer = CreateTransientItem(Hammer);
             hammer.HoldRightHand();
             hammer.ClearFromHands();
         }
@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {
             yield return (Hammer, x => x.AppearRightHand);
-            yield return (Hammer, x => x.DropRightHand);
+            yield return (Hammer, x => x.DisappearRightHand);
         }
     }
 }

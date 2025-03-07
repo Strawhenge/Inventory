@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Strawhenge.Inventory.Items;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Strawhenge.Inventory.Unity.Menu.Storage
@@ -12,7 +13,7 @@ namespace Strawhenge.Inventory.Unity.Menu.Storage
         [SerializeField] Button _consumeRightHandButton;
         [SerializeField] Button _dropButton;
 
-        IItem _item;
+        Item _item;
 
         void Awake()
         {
@@ -23,7 +24,7 @@ namespace Strawhenge.Inventory.Unity.Menu.Storage
             _dropButton.onClick.AddListener(Drop);
         }
 
-        internal void Set(IItem item)
+        internal void Set(Item item)
         {
             _itemNameText.text = item.Name;
             _item = item;

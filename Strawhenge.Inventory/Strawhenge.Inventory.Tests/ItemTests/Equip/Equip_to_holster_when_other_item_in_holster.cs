@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Equip
             _knife.Holsters[RightHipHolster].Do(x => x.Equip());
         }
 
-        protected override IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (RightHipHolster, _knife);
         }
@@ -27,7 +27,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Equip
         protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
         {
             yield return (Hammer, RightHipHolster, x => x.Show);
-            yield return (Hammer, RightHipHolster, x => x.Hide);
+            yield return (Hammer, RightHipHolster, x => x.Drop);
 
             yield return (Knife, RightHipHolster, x => x.Show);
         }

@@ -103,12 +103,12 @@ public static class DependencyInjection
 
         builder
             .RegisterType<Hands>()
-            .As<IHands>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder
             .RegisterType<Holsters>()
-            .As<IHolsters>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder
@@ -145,14 +145,12 @@ public static class DependencyInjection
 
         builder
             .RegisterType<EquippedItems>()
-            .As<IEquippedItems>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder
             .RegisterType<StoredItems>()
             .AsSelf()
-            .As<IStoredItems>()
-            .As<IStoredItemsWeightCapacitySetter>()
             .InstancePerLifetimeScope();
 
         builder
@@ -162,12 +160,12 @@ public static class DependencyInjection
 
         builder
             .RegisterType<TransientItemLocator>()
-            .As<ITransientItemLocator>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder
             .RegisterType<TransientItemHolder>()
-            .As<ITransientItemHolder>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder
@@ -235,7 +233,7 @@ public static class DependencyInjection
 
         builder
             .RegisterType<EffectFactory>()
-            .As<IEffectFactory>()
+            .AsSelf()
             .InstancePerLifetimeScope();
     }
 }

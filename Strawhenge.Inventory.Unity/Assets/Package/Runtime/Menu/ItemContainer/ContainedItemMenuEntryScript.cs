@@ -33,14 +33,12 @@ namespace Strawhenge.Inventory.Unity
 
         void OnHoldRightHandButton() => Hold(i => i.HoldRightHand());
 
-        void Hold(Action<IItem> hold)
+        void Hold(Action<Item> hold)
         {
             if (_inventory == null || _containedItem == null)
                 return;
 
             var item = _inventory.CreateItem(_containedItem.Item);
-            item.ClearFromHandsPreference = ClearFromHandsPreference.Drop;
-            item.ClearFromHolsterPreference = ClearFromHolsterPreference.Drop;
             hold(item);
 
             _containedItem.RemoveFromContainer();

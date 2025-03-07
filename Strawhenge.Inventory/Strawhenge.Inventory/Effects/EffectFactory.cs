@@ -3,7 +3,7 @@ using Strawhenge.Common.Logging;
 
 namespace Strawhenge.Inventory.Effects
 {
-    public class EffectFactory : IEffectFactory
+    public class EffectFactory
     {
         readonly IAbstractFactory _abstractFactory;
         readonly ILogger _logger;

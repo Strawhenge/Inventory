@@ -36,7 +36,7 @@ namespace Strawhenge.Inventory.Tests.ApparelPieceTests
             for (int i = 0; i < 3; i++)
                 _hat.Equip();
 
-            _hatViewMock.Verify(x => x.Equip(), Times.Once);
+            _hatViewMock.Verify(x => x.Show(), Times.Once);
         }
 
         [Fact]
@@ -54,16 +54,18 @@ namespace Strawhenge.Inventory.Tests.ApparelPieceTests
             _hat.Unequip();
             _hat.Equip();
 
-            _hatViewMock.Verify(x => x.Unequip(), Times.Never);
+            _hatViewMock.Verify(x => x.Drop(), Times.Never);
+            _hatViewMock.Verify(x => x.Hide(), Times.Never);
 
             for (int i = 0; i < 3; i++)
                 _hat.Unequip();
 
-            _hatViewMock.Verify(x => x.Unequip(), Times.Once);
+            _hatViewMock.Verify(x => x.Drop(), Times.Once);
+            _hatViewMock.Verify(x => x.Hide(), Times.Never);
         }
 
         [Fact]
-        public void Equip_ThenEquipAnotherPieceWithSameSlot_FirstPieceShouldbeUnbequipped()
+        public void Equip_ThenEquipAnotherPieceWithSameSlot_FirstPieceShouldBeUnequipped()
         {
             _hat.Equip();
             _helmet.Equip();
@@ -72,13 +74,13 @@ namespace Strawhenge.Inventory.Tests.ApparelPieceTests
         }
 
         [Fact]
-        public void Equip_ThenEquipAnotherPieceWithSameSlot_FirstPieceShouldCallViewUnequip()
+        public void Equip_ThenEquipAnotherPieceWithSameSlot_FirstPieceShouldCallViewDrop()
         {
             _hat.Equip();
             _helmet.Equip();
 
-            _hatViewMock.Verify(x => x.Unequip());
-            _helmetViewMock.Verify(x => x.Equip());
+            _hatViewMock.Verify(x => x.Drop());
+            _helmetViewMock.Verify(x => x.Show());
         }
 
         [Fact]
@@ -96,6 +98,24 @@ namespace Strawhenge.Inventory.Tests.ApparelPieceTests
             _hat.Unequip();
 
             _headSlot.CurrentPiece.VerifyIsNone();
+        }
+
+        [Fact]
+        public void DiscardPiece_ShouldNotBeEquipped()
+        {
+            _hat.Equip();
+            _hat.Discard();
+
+            Assert.False(_hat.IsEquipped);
+        }
+
+        [Fact]
+        public void DiscardPiece_ShouldCallView()
+        {
+            _hat.Equip();
+            _hat.Discard();
+
+            _hatViewMock.Verify(x => x.Hide(), Times.Once);
         }
 
         (ApparelPiece piece, Mock<IApparelView> viewMock) CreateTorsoPiece(string name)

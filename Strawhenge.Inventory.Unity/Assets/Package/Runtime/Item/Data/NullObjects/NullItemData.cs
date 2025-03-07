@@ -1,4 +1,5 @@
 ﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Consumables;
 using System.Collections.Generic;
 using System.Linq;

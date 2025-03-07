@@ -1,3 +1,4 @@
+using Strawhenge.Inventory.Items;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,12 +11,12 @@ namespace Strawhenge.Inventory.Unity.Menu.Storage
         [SerializeField] StoredItemMenuEntryScript _menuEntryPrefab;
         [SerializeField] RectTransform _entryContainer;
 
-        readonly Dictionary<IItem, StoredItemMenuEntryScript> _entries =
-            new Dictionary<IItem, StoredItemMenuEntryScript>();
+        readonly Dictionary<Item, StoredItemMenuEntryScript> _entries =
+            new Dictionary<Item, StoredItemMenuEntryScript>();
 
-        IStoredItems _storedItems;
+        StoredItems _storedItems;
 
-        internal void Set(IStoredItems storedItems)
+        internal void Set(StoredItems storedItems)
         {
             _storedItems = storedItems;
 
@@ -26,7 +27,7 @@ namespace Strawhenge.Inventory.Unity.Menu.Storage
             _storedItems.ItemRemoved += Remove;
         }
 
-        void Add(IItem item)
+        void Add(Item item)
         {
             var entry = Instantiate(_menuEntryPrefab, parent: _entryContainer);
             entry.Set(item);
@@ -35,7 +36,7 @@ namespace Strawhenge.Inventory.Unity.Menu.Storage
             UpdateWeightText();
         }
 
-        void Remove(IItem item)
+        void Remove(Item item)
         {
             Destroy(_entries[item].gameObject);
             _entries.Remove(item);

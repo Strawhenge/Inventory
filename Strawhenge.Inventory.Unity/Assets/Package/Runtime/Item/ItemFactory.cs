@@ -1,7 +1,7 @@
 ﻿using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Holsters;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Items.Data;
@@ -17,24 +17,24 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemFactory : IItemFactory
     {
-        readonly IHands _hands;
-        readonly IHolsters _holsters;
+        readonly Hands _hands;
+        readonly Holsters _holsters;
         readonly StoredItems _storedItems;
         readonly HolsterComponents _holsterComponents;
         readonly ProcedureQueue _procedureQueue;
         readonly IProcedureFactory _procedureFactory;
-        readonly IEffectFactory _effectFactory;
+        readonly EffectFactory _effectFactory;
         readonly IItemDropPoint _itemDropPoint;
         readonly ILogger _logger;
 
         public ItemFactory(
-            IHands hands,
-            IHolsters holsters,
+            Hands hands,
+            Holsters holsters,
             StoredItems storedItems,
             HolsterComponents holsterComponents,
             ProcedureQueue procedureQueue,
             IProcedureFactory procedureFactory,
-            IEffectFactory effectFactory,
+            EffectFactory effectFactory,
             IItemDropPoint itemDropPoint,
             ILogger logger)
         {
@@ -49,27 +49,32 @@ namespace Strawhenge.Inventory.Unity.Items
             _logger = logger;
         }
 
-        public IItem Create(IItemData data)
+        public Item Create(IItemData data)
         {
             var component = new ItemHelper(data, _itemDropPoint);
             return Create(component, data);
         }
 
-        public IItem Create(IItemData data, ItemContext context)
+        public Item Create(IItemData data, ItemContext context)
         {
             var component = new ItemHelper(data, _itemDropPoint, context);
             return Create(component, data);
         }
 
-        IItem Create(ItemHelper component, IItemData data)
+        public Item CreateTransient(IItemData data)
+        {
+            var component = new ItemHelper(data, _itemDropPoint);
+            return Create(component, data, isTransient: true);
+        }
+
+        Item Create(ItemHelper component, IItemData data, bool isTransient = false)
         {
             var view = new ItemView(component, _procedureQueue, _procedureFactory);
 
-            var itemSize = CreateItemSize(data.Size);
+            var item = new Item(data.Name, _hands, view, data.Size, isTransient);
 
-            var item = new Item(data.Name, _hands, view, itemSize);
-
-            item.SetupHolsters(CreateHolstersForItem(component));
+            if (!isTransient)
+                item.SetupHolsters(CreateHolstersForItem(component));
 
             data.ConsumableData.Do(consumableData =>
             {
@@ -79,7 +84,7 @@ namespace Strawhenge.Inventory.Unity.Items
                 item.SetupConsumable(consumableView, effects);
             });
 
-            if (data.IsStorable)
+            if (data.IsStorable && !isTransient)
                 item.SetupStorable(_storedItems, data.Weight);
 
             return item;
@@ -105,19 +110,6 @@ namespace Strawhenge.Inventory.Unity.Items
             }
 
             return holstersForItem;
-        }
-
-        ItemSize CreateItemSize(Data.ItemSize size)
-        {
-            switch (size)
-            {
-                case Data.ItemSize.OneHanded:
-                    return ItemSize.OneHanded;
-
-                default:
-                case Data.ItemSize.TwoHanded:
-                    return ItemSize.TwoHanded;
-            }
         }
     }
 }

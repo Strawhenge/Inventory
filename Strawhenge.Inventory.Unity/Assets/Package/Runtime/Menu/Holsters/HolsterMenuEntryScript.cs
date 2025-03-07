@@ -10,14 +10,14 @@ namespace Strawhenge.Inventory.Unity.Menu.Holsters
         [SerializeField] Text _itemNameText;
         [SerializeField] Button _removeButton;
 
-        IItemContainer _holster;
+        ItemContainer _holster;
 
         void Awake()
         {
             _removeButton.onClick.AddListener(OnRemoveButton);
         }
 
-        internal void Set(IItemContainer holster)
+        internal void Set(ItemContainer holster)
         {
             _holster = holster;
             _holster.Changed += OnChanged;

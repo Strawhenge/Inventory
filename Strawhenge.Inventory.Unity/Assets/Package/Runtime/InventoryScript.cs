@@ -19,8 +19,6 @@ namespace Strawhenge.Inventory.Unity
 
         public IInventory Inventory { get; set; }
 
-        public IStoredItemsWeightCapacitySetter StoredItemsWeightCapacity { private get; set; }
-
         public ApparelSlotScripts ApparelSlots { private get; set; }
 
         public HandComponents HandComponents { private get; set; }
@@ -65,7 +63,7 @@ namespace Strawhenge.Inventory.Unity
             if (_apparelContainerPrefab != null)
                 ApparelContainer.Set(_apparelContainerPrefab);
 
-            StoredItemsWeightCapacity.SetWeightCapacity(_maxStoredItemsWeight);
+            Inventory.StoredItems.SetWeightCapacity(_maxStoredItemsWeight);
 
             IsConfigurationComplete = true;
         }

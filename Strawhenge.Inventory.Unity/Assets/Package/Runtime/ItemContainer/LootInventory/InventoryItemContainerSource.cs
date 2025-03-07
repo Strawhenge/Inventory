@@ -43,7 +43,7 @@ namespace Strawhenge.Inventory.Unity
                 {
                     return _apparelRepository
                         .FindByName(apparelPiece.Name)
-                        .Map(data => new ContainedItem<IApparelPieceData>(data, apparelPiece.Unequip))
+                        .Map(data => new ContainedItem<IApparelPieceData>(data, apparelPiece.Discard))
                         .AsEnumerable();
                 })
                 .ToArray();

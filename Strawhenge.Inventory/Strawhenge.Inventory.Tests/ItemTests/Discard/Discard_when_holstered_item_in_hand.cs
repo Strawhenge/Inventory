@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Discard
         {
             yield return (Hammer, RightHipHolster, x => x.Show);
             yield return (Hammer, RightHipHolster, x => x.DrawRightHand);
-            yield return (Hammer, x => x.Disappear);
+            yield return (Hammer, x => x.DisappearRightHand);
         }
     }
 }

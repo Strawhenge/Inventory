@@ -3,7 +3,7 @@ using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.Apparel
 {
-    public class ApparelSlot : IApparelSlot
+    public class ApparelSlot
     {
         public ApparelSlot(string name)
         {
@@ -14,9 +14,9 @@ namespace Strawhenge.Inventory.Apparel
 
         public string Name { get; }
 
-        public Maybe<IApparelPiece> CurrentPiece { get; private set; } = Maybe.None<IApparelPiece>();
+        public Maybe<ApparelPiece> CurrentPiece { get; private set; } = Maybe.None<ApparelPiece>();
 
-        internal void Set(IApparelPiece piece)
+        internal void Set(ApparelPiece piece)
         {
             CurrentPiece.Do(x => x.Unequip());
             CurrentPiece = Maybe.Some(piece);
@@ -26,7 +26,7 @@ namespace Strawhenge.Inventory.Apparel
 
         internal void Unset()
         {
-            CurrentPiece = Maybe.None<IApparelPiece>();
+            CurrentPiece = Maybe.None<ApparelPiece>();
             Changed?.Invoke();
         }
     }

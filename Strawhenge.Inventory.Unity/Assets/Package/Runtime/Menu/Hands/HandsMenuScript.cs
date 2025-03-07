@@ -10,32 +10,26 @@ namespace Strawhenge.Inventory.Unity.Menu.Hands
         [SerializeField] ItemInHandMenuEntryScript _rightHandMenu;
         [SerializeField] Button _swapHandButton;
 
-        IItemContainer _leftHand;
-        IItemContainer _rightHand;
+        IInventory _inventory;
 
         void Awake()
         {
             _swapHandButton.onClick.AddListener(OnSwapHandButton);
         }
 
-        internal void Set(IItemContainer leftHand, IItemContainer rightHand)
+        internal void Set(IInventory inventory)
         {
-            _leftHand = leftHand;
-            _leftHandMenu.Set(leftHand);
-
-            _rightHand = rightHand;
-            _rightHandMenu.Set(rightHand);
+            _inventory = inventory;
+            _leftHandMenu.Set(inventory.LeftHand);
+            _rightHandMenu.Set(inventory.RightHand);
         }
 
         void OnSwapHandButton()
         {
-            if (_leftHand == null || _rightHand == null)
+            if (_inventory == null)
                 return;
 
-            var rightHandItem = _rightHand.CurrentItem;
-
-            _leftHand.CurrentItem.Do(x => x.HoldRightHand());
-            rightHandItem.Do(x => x.HoldLeftHand());
+            _inventory.SwapHands();
         }
     }
 }

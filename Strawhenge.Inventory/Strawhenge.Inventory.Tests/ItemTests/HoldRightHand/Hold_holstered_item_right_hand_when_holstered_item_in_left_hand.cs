@@ -31,7 +31,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
 
         protected override Maybe<Item> ExpectedItemInRightHand => _knife;
 
-        protected override IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (LeftHipHolster, _knife);
             yield return (RightHipHolster, _hammer);

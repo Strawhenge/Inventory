@@ -6,13 +6,13 @@ using Strawhenge.Inventory.Effects;
 
 namespace Strawhenge.Inventory.Items.Consumables
 {
-    public class Consumable : IConsumable
+    public class Consumable
     {
-        readonly IItem _item;
+        readonly Item _item;
         readonly IConsumableView _view;
         readonly Effect[] _effects;
 
-        public Consumable(IItem item, IConsumableView view, IEnumerable<Effect> effects)
+        public Consumable(Item item, IConsumableView view, IEnumerable<Effect> effects)
         {
             _item = item;
             _view = view;

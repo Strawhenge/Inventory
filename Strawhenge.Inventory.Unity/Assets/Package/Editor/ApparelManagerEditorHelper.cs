@@ -9,7 +9,7 @@ namespace Strawhenge.Inventory.Unity.Editor
     public class ApparelManagerEditorHelper
     {
         readonly EditorTarget<IInventory> _target;
-        IApparelPiece _piece;
+        ApparelPiece _piece;
         bool _displaySlots;
 
         public ApparelManagerEditorHelper(Func<IInventory> getTarget)
@@ -58,7 +58,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
         }
 
-        void InspectPiece(IApparelPiece piece)
+        void InspectPiece(ApparelPiece piece)
         {
             var info = $"{piece.Name}{Environment.NewLine}Slot: {piece.SlotName}";
 

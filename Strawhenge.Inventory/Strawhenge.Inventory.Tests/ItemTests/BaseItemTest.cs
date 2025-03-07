@@ -86,7 +86,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         protected void AddHolster(string name) => _inventoryContext.AddHolster(name);
 
         protected void SetStorageCapacity(int capacity) =>
-            _inventoryContext.StoredItemsWeightCapacity.SetWeightCapacity(capacity);
+            _inventoryContext.SetStorageCapacity(capacity);
 
         protected Item CreateItem(string name, bool storable = false) =>
             CreateItem(name, Array.Empty<string>(), storable);
@@ -100,14 +100,17 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         protected Item CreateTwoHandedItem(string name, string[] holsterNames, bool storable = false) =>
             _inventoryContext.CreateItem(name, ItemSize.TwoHanded, holsterNames, storable);
 
+        protected Item CreateTransientItem(string name) => 
+            _inventoryContext.CreateTransientItem(name);
+
         protected virtual Maybe<Item> ExpectedItemInLeftHand => Maybe.None<Item>();
 
         protected virtual Maybe<Item> ExpectedItemInRightHand => Maybe.None<Item>();
 
-        protected virtual IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters() =>
-            Enumerable.Empty<(string holsterName, IItem expectedItem)>();
+        protected virtual IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters() =>
+            Enumerable.Empty<(string holsterName, Item expectedItem)>();
 
-        protected virtual IEnumerable<IItem> ExpectedItemsInStorage() => Enumerable.Empty<IItem>();
+        protected virtual IEnumerable<Item> ExpectedItemsInStorage() => Enumerable.Empty<Item>();
 
         protected abstract IEnumerable<ViewCallInfo> ExpectedViewCalls();
     }

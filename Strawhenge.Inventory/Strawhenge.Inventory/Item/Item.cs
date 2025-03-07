@@ -1,67 +1,61 @@
-﻿using Strawhenge.Inventory.Containers;
-using Strawhenge.Inventory.Items.HolsterForItem;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
-using Strawhenge.Inventory.Items.Storables;
 using Strawhenge.Inventory.Items.Consumables;
+using Strawhenge.Inventory.Items.Holsters;
+using Strawhenge.Inventory.Items.Storables;
 
 namespace Strawhenge.Inventory.Items
 {
-    public class Item : IItem
+    public class Item
     {
-        readonly IHands _hands;
+        readonly Hands _hands;
         readonly IItemView _itemView;
         readonly ItemSize _size;
-        IHolstersForItem _holsters;
 
-        public Item(
-            string name,
-            IHands hands,
+        public Item(string name,
+            Hands hands,
             IItemView itemView,
-            ItemSize size)
+            ItemSize size,
+            bool isTransient = false)
         {
             Name = name;
+            IsTransient = isTransient;
 
             _hands = hands;
             _itemView = itemView;
             _size = size;
-            _holsters = HolstersForItem.None;
+            Holsters = HolstersForItem.None;
 
             itemView.Released += OnRemoved;
         }
 
         public string Name { get; }
 
-        public IHolstersForItem Holsters => _holsters;
+        public HolstersForItem Holsters { get; private set; }
 
-        public Maybe<IConsumable> Consumable { get; private set; } = Maybe.None<IConsumable>();
+        public Maybe<Consumable> Consumable { get; private set; } = Maybe.None<Consumable>();
 
-        public Maybe<IStorable> Storable { get; private set; } = Maybe.None<IStorable>();
+        public Maybe<Storable> Storable { get; private set; } = Maybe.None<Storable>();
 
         public bool IsInHand => IsInLeftHand() || IsInRightHand();
 
-        public bool IsTwoHanded => _size.IsTwoHanded;
+        public bool IsTwoHanded => _size == ItemSize.TwoHanded;
 
-        public ClearFromHandsPreference ClearFromHandsPreference { get; set; } =
-            ClearFromHandsPreference.Disappear;
+        public bool IsTransient { get; }
 
-        public ClearFromHolsterPreference ClearFromHolsterPreference
-        {
-            set
-            {
-                foreach (var holster in _holsters)
-                    holster.ClearFromHolsterPreference = value;
-            }
-        }
+        public bool IsInStorage => Storable
+            .Map(x => x.IsStored)
+            .Reduce(() => false);
 
         public void SetupHolsters(IEnumerable<(ItemContainer container, IHolsterForItemView view)> holsters) =>
-            _holsters = new HolstersForItem(
-                holsters.Select(x => new HolsterForItem.HolsterForItem(this, x.container, x.view)));
+            Holsters = new HolstersForItem(
+                holsters.Select(x => new HolsterForItem(this, x.container, x.view)));
 
-        public void SetupHolsters(IHolstersForItem holsters) => _holsters = holsters;
+        public void SetupHolsters(HolstersForItem holsters) => Holsters = holsters;
 
         public void SetupConsumable(IConsumableView view, IEnumerable<Effect> effects) =>
             Consumable = new Consumable(this, view, effects);
@@ -75,15 +69,23 @@ namespace Strawhenge.Inventory.Items
             {
                 UnequipFromHolster();
                 _hands.UnsetItemLeftHand();
-                _itemView.DropLeftHand(callback);
+
+                if (IsTransient)
+                    _itemView.DisappearLeftHand();
+                else
+                    _itemView.DropLeftHand(callback);
             }
             else if (IsInRightHand())
             {
                 UnequipFromHolster();
                 _hands.UnsetItemRightHand();
-                _itemView.DropRightHand(callback);
+
+                if (IsTransient)
+                    _itemView.DisappearRightHand();
+                else
+                    _itemView.DropRightHand(callback);
             }
-            else if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
+            else if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
             {
                 holster.Drop(callback);
             }
@@ -126,7 +128,11 @@ namespace Strawhenge.Inventory.Items
             }
 
             _hands.SetItemLeftHand(this);
-            _itemView.DrawLeftHand(callback);
+
+            if (IsInStorage)
+                _itemView.DrawLeftHand(callback);
+            else
+                _itemView.AppearLeftHand();
         }
 
         public void HoldRightHand(Action callback = null)
@@ -160,7 +166,11 @@ namespace Strawhenge.Inventory.Items
             }
 
             _hands.SetItemRightHand(this);
-            _itemView.DrawRightHand(callback);
+
+            if (IsInStorage)
+                _itemView.DrawRightHand(callback);
+            else
+                _itemView.AppearRightHand();
         }
 
         public void PutAway(Action callback = null)
@@ -194,7 +204,7 @@ namespace Strawhenge.Inventory.Items
 
         public void UnequipFromHolster(Action callback = null)
         {
-            if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
+            if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
             {
                 holster.Unequip(callback);
                 return;
@@ -211,8 +221,12 @@ namespace Strawhenge.Inventory.Items
 
                 if (IsEquippedToHolster(out var holster))
                     holster.PutAwayLeftHand(callback);
+                else if (IsInStorage)
+                    _itemView.PutAwayLeftHand(callback);
+                else if (IsTransient)
+                    _itemView.DisappearLeftHand();
                 else
-                    ClearFromHandsPreference.PerformClearLeftHand(_itemView, callback);
+                    _itemView.DropLeftHand();
 
                 return;
             }
@@ -223,8 +237,12 @@ namespace Strawhenge.Inventory.Items
 
                 if (IsEquippedToHolster(out var holster))
                     holster.PutAwayRightHand(callback);
+                else if (IsInStorage)
+                    _itemView.PutAwayRightHand(callback);
+                else if (IsTransient)
+                    _itemView.DisappearRightHand();
                 else
-                    ClearFromHandsPreference.PerformClearRightHand(_itemView, callback);
+                    _itemView.DropRightHand();
 
                 return;
             }
@@ -234,21 +252,66 @@ namespace Strawhenge.Inventory.Items
 
         public void Discard()
         {
-            if (_holsters.IsEquippedToHolster(out IHolsterForItem holster))
+            if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
                 holster.Discard();
 
             if (IsInLeftHand())
             {
                 _hands.UnsetItemLeftHand();
-                _itemView.Disappear();
+                _itemView.DisappearLeftHand();
             }
             else if (IsInRightHand())
             {
                 _hands.UnsetItemRightHand();
-                _itemView.Disappear();
+                _itemView.DisappearRightHand();
             }
 
             Storable.Do(x => x.RemoveFromStorage());
+        }
+
+        public void SwapHands()
+        {
+            if (IsInLeftHand())
+            {
+                if (!_hands.RightHand.CurrentItem.HasSome(out var otherItem))
+                {
+                    HoldRightHand();
+                    return;
+                }
+
+                _hands.RightHand.SetItem(this);
+                _hands.LeftHand.SetItem(otherItem);
+
+                otherItem._itemView.DisappearRightHand();
+                _itemView.LeftHandToRightHand();
+                otherItem._itemView.AppearLeftHand();
+            }
+            else if (IsInRightHand())
+            {
+                if (!_hands.LeftHand.CurrentItem.HasSome(out var otherItem))
+                {
+                    HoldLeftHand();
+                    return;
+                }
+
+                _hands.LeftHand.SetItem(this);
+                _hands.RightHand.SetItem(otherItem);
+
+                otherItem._itemView.DisappearLeftHand();
+                _itemView.RightHandToLeftHand();
+                otherItem._itemView.AppearRightHand();
+            }
+        }
+
+        internal void DisappearFromHolster(Action callback = null)
+        {
+            if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
+            {
+                holster.Disappear(callback);
+                return;
+            }
+
+            callback?.Invoke();
         }
 
         void ClearLeftHand()
@@ -278,7 +341,7 @@ namespace Strawhenge.Inventory.Items
         bool IsInRightHand() => _hands.IsInRightHand(this);
 
         bool IsEquippedToHolster(out IHolsterForItemView holsterItemView) =>
-            _holsters.IsEquippedToHolster(out holsterItemView);
+            Holsters.IsEquippedToHolster(out holsterItemView);
 
         void OnRemoved()
         {

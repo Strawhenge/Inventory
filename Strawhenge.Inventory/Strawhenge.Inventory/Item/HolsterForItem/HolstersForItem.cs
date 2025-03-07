@@ -4,38 +4,38 @@ using System.Collections.Generic;
 using System.Linq;
 using FunctionalUtilities;
 
-namespace Strawhenge.Inventory.Items.HolsterForItem
+namespace Strawhenge.Inventory.Items.Holsters
 {
-    public class HolstersForItem : IHolstersForItem
+    public class HolstersForItem : IEnumerable<HolsterForItem>
     {
-        public static HolstersForItem None { get; } = new HolstersForItem(Array.Empty<IHolsterForItem>());
+        public static HolstersForItem None { get; } = new HolstersForItem(Array.Empty<HolsterForItem>());
 
-        readonly IReadOnlyDictionary<string, IHolsterForItem> _holsters;
+        readonly IReadOnlyDictionary<string, HolsterForItem> _holsters;
 
-        public HolstersForItem(IEnumerable<IHolsterForItem> inner)
+        public HolstersForItem(IEnumerable<HolsterForItem> inner)
         {
             _holsters = inner
                 .ToDictionary(x => x.HolsterName, x => x);
         }
 
-        public Maybe<IHolsterForItem> this[string name] => _holsters.TryGetValue(name, out var holster)
+        public Maybe<HolsterForItem> this[string name] => _holsters.TryGetValue(name, out var holster)
             ? Maybe.Some(holster)
-            : Maybe.None<IHolsterForItem>();
+            : Maybe.None<HolsterForItem>();
 
-        public bool IsEquippedToHolster(out IHolsterForItem holsterItem)
+        public bool IsEquippedToHolster(out HolsterForItem holsterItem)
         {
             holsterItem = _holsters.Values.FirstOrDefault(x => x.IsEquipped);
             return holsterItem != null;
         }
 
-        public bool IsEquippedToHolster(out IHolsterForItemView holsterItemView)
+        internal bool IsEquippedToHolster(out IHolsterForItemView holsterItemView)
         {
-            var isEquipped = IsEquippedToHolster(out IHolsterForItem holsterItem);
+            var isEquipped = IsEquippedToHolster(out HolsterForItem holsterItem);
             holsterItemView = holsterItem?.GetView();
             return isEquipped;
         }
 
-        IEnumerator<IHolsterForItem> IEnumerable<IHolsterForItem>.GetEnumerator() => _holsters.Values.GetEnumerator();
+        IEnumerator<HolsterForItem> IEnumerable<HolsterForItem>.GetEnumerator() => _holsters.Values.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => (_holsters.Values as IEnumerable).GetEnumerator();
     }

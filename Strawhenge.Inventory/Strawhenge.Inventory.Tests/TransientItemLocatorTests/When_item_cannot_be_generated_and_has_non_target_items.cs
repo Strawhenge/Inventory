@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Strawhenge.Inventory.Items;
 using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
@@ -11,18 +12,18 @@ namespace Strawhenge.Inventory.Tests.TransientItemLocatorTests
 
         protected override bool GetItemByName_ShouldReturnTargetItem => false;
 
-        protected override IItem ItemInLeftHand => NonTargetItem();
+        protected override Item ItemInLeftHand => NonTargetItem();
 
-        protected override IItem ItemInRightHand => NonTargetItem();
+        protected override Item ItemInRightHand => NonTargetItem();
 
-        protected override IEnumerable<(string holsterName, IItem item)> ItemsInHolsters()
+        protected override IEnumerable<(string holsterName, Item item)> ItemsInHolsters()
         {
             yield return (LeftHipHolster, NonTargetItem());
             yield return (RightHipHolster, NonTargetItem());
             yield return (BackHolster, NonTargetItem());
         }
 
-        protected override IEnumerable<IItem> ItemsInStorage()
+        protected override IEnumerable<Item> ItemsInStorage()
         {
             yield return NonTargetItem();
             yield return NonTargetItem();

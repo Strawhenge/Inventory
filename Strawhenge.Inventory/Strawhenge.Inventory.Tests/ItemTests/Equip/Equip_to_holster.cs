@@ -16,7 +16,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Equip
             _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
         }
 
-        protected override IEnumerable<(string holsterName, IItem expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (RightHipHolster, _hammer);
         }

@@ -1,15 +1,15 @@
 ﻿using Strawhenge.Inventory.Containers;
 using System;
 
-namespace Strawhenge.Inventory.Items.HolsterForItem
+namespace Strawhenge.Inventory.Items.Holsters
 {
-    public class HolsterForItem : IHolsterForItem
+    public class HolsterForItem
     {
-        readonly IItem _item;
+        readonly Item _item;
         readonly ItemContainer _itemContainer;
         readonly IHolsterForItemView _view;
 
-        public HolsterForItem(IItem item, ItemContainer itemContainer, IHolsterForItemView view)
+        public HolsterForItem(Item item, ItemContainer itemContainer, IHolsterForItemView view)
         {
             _item = item;
             _itemContainer = itemContainer;
@@ -22,9 +22,6 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
 
         public bool IsEquipped => _itemContainer.IsCurrentItem(_item);
 
-        public ClearFromHolsterPreference ClearFromHolsterPreference { private get; set; } =
-            ClearFromHolsterPreference.Disappear;
-
         public void Equip(Action callback = null)
         {
             if (IsEquipped)
@@ -35,7 +32,7 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
 
             ClearHolster();
 
-            _item.UnequipFromHolster();
+            _item.DisappearFromHolster();
             _itemContainer.SetItem(_item);
 
             if (_item.IsInHand)
@@ -55,12 +52,18 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
             _itemContainer.UnsetItem();
 
             if (_item.IsInHand)
+            {
                 callback?.Invoke();
+                return;
+            }
+
+            if (_item.IsInStorage)
+                _view.Hide(callback);
             else
-                ClearFromHolsterPreference.PerformClear(_view, callback);
+                _view.Drop(callback);
         }
 
-        public void Discard(Action callback = null)
+        internal void Disappear(Action callback = null)
         {
             if (!IsEquipped)
             {
@@ -76,7 +79,7 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
                 _view.Hide();
         }
 
-        public void Drop(Action callback = null)
+        internal void Drop(Action callback = null)
         {
             if (!IsEquipped)
             {
@@ -92,7 +95,23 @@ namespace Strawhenge.Inventory.Items.HolsterForItem
                 _view.Drop();
         }
 
-        public IHolsterForItemView GetView()
+        internal void Discard(Action callback = null)
+        {
+            if (!IsEquipped)
+            {
+                callback?.Invoke();
+                return;
+            }
+
+            _itemContainer.UnsetItem();
+
+            if (_item.IsInHand)
+                callback?.Invoke();
+            else
+                _view.Hide();
+        }
+
+        internal IHolsterForItemView GetView()
         {
             return _view;
         }

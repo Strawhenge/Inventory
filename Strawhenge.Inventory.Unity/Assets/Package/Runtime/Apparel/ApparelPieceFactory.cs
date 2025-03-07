@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
         readonly IApparelGameObjectInitializer _gameObjectInitializer;
         readonly IApparelLayerAccessor _layerAccessor;
         readonly IApparelDrop _apparelDrop;
-        readonly IEffectFactory _effectFactory;
+        readonly EffectFactory _effectFactory;
         readonly ILogger _logger;
 
         public ApparelPieceFactory(
@@ -20,7 +20,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
             IApparelGameObjectInitializer gameObjectInitializer,
             IApparelLayerAccessor layerAccessor,
             IApparelDrop apparelDrop,
-            IEffectFactory effectFactory,
+            EffectFactory effectFactory,
             ILogger logger)
         {
             _apparelSlotScripts = apparelSlotScripts;
@@ -31,7 +31,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
             _logger = logger;
         }
 
-        public IApparelPiece Create(IApparelPieceData source)
+        public ApparelPiece Create(IApparelPieceData source)
         {
             if (!_apparelSlotScripts.FindByName(source.Slot).HasSome(out var slotScript))
             {

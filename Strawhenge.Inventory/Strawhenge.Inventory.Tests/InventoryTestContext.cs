@@ -5,7 +5,7 @@ using FunctionalUtilities;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.HolsterForItem;
+using Strawhenge.Inventory.Items.Holsters;
 using Strawhenge.Inventory.TransientItems;
 using Xunit.Abstractions;
 
@@ -25,7 +25,7 @@ namespace Strawhenge.Inventory.Tests
             var logger = new TestOutputLogger(testOutputHelper);
             _viewCallsTracker = new ViewCallsTracker(logger);
 
-            _storedItems = new StoredItems();
+            _storedItems = new StoredItems(logger);
             _hands = new Hands();
             _holsters = new Holsters(logger);
             _apparelSlots = new ApparelSlotsFake();
@@ -48,8 +48,6 @@ namespace Strawhenge.Inventory.Tests
 
         public TransientItemLocator TransientItemLocator { get; }
 
-        public IStoredItemsWeightCapacitySetter StoredItemsWeightCapacity => _storedItems;
-
         public void AddHolsters(IEnumerable<string> holsters)
         {
             foreach (var holster in holsters)
@@ -60,9 +58,11 @@ namespace Strawhenge.Inventory.Tests
 
         public void AddApparelSlot(string name) => _apparelSlots.Add(name);
 
-        public void SetGeneratedItem(string name, IItem item) => _itemGenerator.Set(name, item);
+        public void SetStorageCapacity(int capacity) => _storedItems.SetWeightCapacity(capacity);
 
-        public Item CreateItem(string name, ItemSize size = null, string[] holsterNames = null, bool storable = false)
+        public void SetGeneratedItem(string name, Item item) => _itemGenerator.Set(name, item);
+
+        public Item CreateItem(string name, ItemSize? size = null, string[] holsterNames = null, bool storable = false)
         {
             size ??= ItemSize.OneHanded;
             holsterNames ??= Array.Empty<string>();
@@ -70,7 +70,7 @@ namespace Strawhenge.Inventory.Tests
             var itemView = new ItemViewFake(name);
             _viewCallsTracker.Track(itemView);
 
-            var item = new Item(name, _hands, itemView, size);
+            var item = new Item(name, _hands, itemView, size.Value);
 
             var holsters = holsterNames.Select(holsterName =>
             {
@@ -90,6 +90,16 @@ namespace Strawhenge.Inventory.Tests
                 item.SetupStorable(_storedItems, 1);
 
             return item;
+        }
+
+        public Item CreateTransientItem(string name, ItemSize? size = null)
+        {
+            size ??= ItemSize.OneHanded;
+
+            var itemView = new ItemViewFake(name);
+            _viewCallsTracker.Track(itemView);
+
+            return new Item(name, _hands, itemView, size.Value, isTransient: true);
         }
 
         public ApparelPiece CreateApparel(string name, string slotName)

@@ -1,5 +1,6 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Common.Unity.Serialization;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Consumables;
 using System.Collections.Generic;
 using UnityEngine;

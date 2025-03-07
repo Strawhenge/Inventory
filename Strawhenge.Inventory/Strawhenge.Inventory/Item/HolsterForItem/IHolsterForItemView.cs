@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Strawhenge.Inventory.Items.HolsterForItem
+namespace Strawhenge.Inventory.Items.Holsters
 {
     public interface IHolsterForItemView
     {

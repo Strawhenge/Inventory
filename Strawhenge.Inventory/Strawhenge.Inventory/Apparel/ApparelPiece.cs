@@ -6,7 +6,7 @@ using Strawhenge.Inventory.Effects;
 
 namespace Strawhenge.Inventory.Apparel
 {
-    public class ApparelPiece : IApparelPiece
+    public class ApparelPiece
     {
         readonly ApparelSlot _slot;
         readonly IApparelView _view;
@@ -32,8 +32,6 @@ namespace Strawhenge.Inventory.Apparel
 
         public bool IsEquipped { get; private set; }
 
-        public UnequipPreference UnequipPreference { private get; set; } = UnequipPreference.Disappear;
-
         public void Equip()
         {
             if (IsEquipped)
@@ -41,18 +39,22 @@ namespace Strawhenge.Inventory.Apparel
 
             IsEquipped = true;
             _slot.Set(this);
-            _view.Equip();
+            _view.Show();
             _effects.ForEach(x => x.Apply());
         }
 
-        public void Unequip()
+        public void Unequip() => PerformUnequip(x => x.Drop());
+
+        public void Discard() => PerformUnequip(x => x.Hide());
+
+        void PerformUnequip(Action<IApparelView> viewStrategy)
         {
             if (!IsEquipped)
                 return;
 
             IsEquipped = false;
             _slot.Unset();
-            UnequipPreference.PerformUnequip(_view);
+            viewStrategy(_view);
             _effects.ForEach(x => x.Revert());
         }
     }

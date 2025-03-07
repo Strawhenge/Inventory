@@ -2,31 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory
 {
-    public class EquippedItems : IEquippedItems
+    public class EquippedItems
     {
-        readonly IHands _hands;
-        readonly IHolsters _holsters;
+        readonly Hands _hands;
+        readonly Holsters _holsters;
 
-        public EquippedItems(IHands hands, IHolsters holsters)
+        public EquippedItems(Hands hands, Holsters holsters)
         {
             _hands = hands;
             _holsters = holsters;
         }
 
-        public Maybe<IItem> GetItemInLeftHand()
+        public Maybe<Item> GetItemInLeftHand()
         {
             return _hands.ItemInLeftHand;
         }
 
-        public Maybe<IItem> GetItemInRightHand()
+        public Maybe<Item> GetItemInRightHand()
         {
             return _hands.ItemInRightHand;
         }
 
-        public IEnumerable<IItem> GetItemsInHolsters()
+        public IEnumerable<Item> GetItemsInHolsters()
         {
             return _holsters
                 .GetAll()

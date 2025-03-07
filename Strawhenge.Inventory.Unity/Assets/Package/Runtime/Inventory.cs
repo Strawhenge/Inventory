@@ -1,5 +1,6 @@
 ﻿using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Items;
@@ -13,9 +14,9 @@ namespace Strawhenge.Inventory.Unity
         readonly IApparelPieceFactory _apparelPieceFactory;
 
         public Inventory(
-            IStoredItems storedItems,
-            IHands hands,
-            IHolsters holsters,
+            StoredItems storedItems,
+            Hands hands,
+            Holsters holsters,
             IApparelSlots apparelSlots,
             IItemFactory itemFactory,
             IApparelPieceFactory apparelPieceFactory)
@@ -25,19 +26,19 @@ namespace Strawhenge.Inventory.Unity
             _apparelPieceFactory = apparelPieceFactory;
         }
 
-        public IItem CreateItem(ItemPickupScript pickup)
+        public Item CreateItem(ItemPickupScript pickup)
         {
             var context = new ItemContext();
             pickup.ContextOut(context);
             return _itemFactory.Create(pickup.PickupItem(), context);
         }
 
-        public IItem CreateItem(IItemData data)
+        public Item CreateItem(IItemData data)
         {
             return _itemFactory.Create(data);
         }
 
-        public IApparelPiece CreateApparelPiece(IApparelPieceData data)
+        public ApparelPiece CreateApparelPiece(IApparelPieceData data)
         {
             return _apparelPieceFactory.Create(data);
         }

@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.Unity.Menu.Holsters
             _container = new PanelContainer(_entryContainer, rectTransform);
         }
 
-        internal void Set(IEnumerable<IItemContainer> holsters)
+        internal void Set(IEnumerable<ItemContainer> holsters)
         {
             foreach (var holster in holsters)
             {
