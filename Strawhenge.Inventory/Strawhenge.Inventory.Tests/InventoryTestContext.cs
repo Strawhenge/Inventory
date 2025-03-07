@@ -92,6 +92,16 @@ namespace Strawhenge.Inventory.Tests
             return item;
         }
 
+        public Item CreateTransientItem(string name, ItemSize? size = null)
+        {
+            size ??= ItemSize.OneHanded;
+
+            var itemView = new ItemViewFake(name);
+            _viewCallsTracker.Track(itemView);
+
+            return new Item(name, _hands, itemView, size.Value, isTransient: true);
+        }
+
         public ApparelPiece CreateApparel(string name, string slotName)
         {
             var slot = (ApparelSlot)_apparelSlots.All

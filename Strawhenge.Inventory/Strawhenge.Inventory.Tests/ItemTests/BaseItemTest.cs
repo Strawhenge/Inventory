@@ -100,6 +100,9 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         protected Item CreateTwoHandedItem(string name, string[] holsterNames, bool storable = false) =>
             _inventoryContext.CreateItem(name, ItemSize.TwoHanded, holsterNames, storable);
 
+        protected Item CreateTransientItem(string name) => 
+            _inventoryContext.CreateTransientItem(name);
+
         protected virtual Maybe<Item> ExpectedItemInLeftHand => Maybe.None<Item>();
 
         protected virtual Maybe<Item> ExpectedItemInRightHand => Maybe.None<Item>();

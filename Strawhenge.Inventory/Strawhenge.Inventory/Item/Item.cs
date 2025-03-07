@@ -16,13 +16,14 @@ namespace Strawhenge.Inventory.Items
         readonly IItemView _itemView;
         readonly ItemSize _size;
 
-        public Item(
-            string name,
+        public Item(string name,
             Hands hands,
             IItemView itemView,
-            ItemSize size)
+            ItemSize size,
+            bool isTransient = false)
         {
             Name = name;
+            IsTransient = isTransient;
 
             _hands = hands;
             _itemView = itemView;
@@ -43,6 +44,8 @@ namespace Strawhenge.Inventory.Items
         public bool IsInHand => IsInLeftHand() || IsInRightHand();
 
         public bool IsTwoHanded => _size == ItemSize.TwoHanded;
+
+        public bool IsTransient { get; }
 
         public bool IsInStorage => Storable
             .Map(x => x.IsStored)
@@ -66,13 +69,21 @@ namespace Strawhenge.Inventory.Items
             {
                 UnequipFromHolster();
                 _hands.UnsetItemLeftHand();
-                _itemView.DropLeftHand(callback);
+
+                if (IsTransient)
+                    _itemView.DisappearLeftHand();
+                else
+                    _itemView.DropLeftHand(callback);
             }
             else if (IsInRightHand())
             {
                 UnequipFromHolster();
                 _hands.UnsetItemRightHand();
-                _itemView.DropRightHand(callback);
+
+                if (IsTransient)
+                    _itemView.DisappearRightHand();
+                else
+                    _itemView.DropRightHand(callback);
             }
             else if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
             {
@@ -212,6 +223,8 @@ namespace Strawhenge.Inventory.Items
                     holster.PutAwayLeftHand(callback);
                 else if (IsInStorage)
                     _itemView.PutAwayLeftHand(callback);
+                else if (IsTransient)
+                    _itemView.DisappearLeftHand();
                 else
                     _itemView.DropLeftHand();
 
@@ -226,6 +239,8 @@ namespace Strawhenge.Inventory.Items
                     holster.PutAwayRightHand(callback);
                 else if (IsInStorage)
                     _itemView.PutAwayRightHand(callback);
+                else if (IsTransient)
+                    _itemView.DisappearRightHand();
                 else
                     _itemView.DropRightHand();
 
@@ -278,7 +293,7 @@ namespace Strawhenge.Inventory.Items
                     HoldLeftHand();
                     return;
                 }
-               
+
                 _hands.LeftHand.SetItem(this);
                 _hands.RightHand.SetItem(otherItem);
 
