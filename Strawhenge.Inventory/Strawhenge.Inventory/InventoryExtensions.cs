@@ -20,9 +20,11 @@ namespace Strawhenge.Inventory
             if (ignoreTwoHanded && inventory.IsHoldingTwoHandedItem())
                 return;
 
-            var leftHandItem = inventory.LeftHand.CurrentItem;
-            inventory.RightHand.CurrentItem.Do(item => item.HoldLeftHand());
-            leftHandItem.Do(item => item.HoldRightHand());
+            if (inventory.RightHand.CurrentItem.HasSome(out var item) ||
+                inventory.LeftHand.CurrentItem.HasSome(out item))
+            {
+                item.SwapHands();
+            }
         }
 
         public static bool IsHoldingTwoHandedItem(this IInventory inventory)

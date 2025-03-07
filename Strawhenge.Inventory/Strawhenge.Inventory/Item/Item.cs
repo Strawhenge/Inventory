@@ -254,6 +254,40 @@ namespace Strawhenge.Inventory.Items
             Storable.Do(x => x.RemoveFromStorage());
         }
 
+        public void SwapHands()
+        {
+            if (IsInLeftHand())
+            {
+                if (!_hands.RightHand.CurrentItem.HasSome(out var otherItem))
+                {
+                    HoldRightHand();
+                    return;
+                }
+
+                _hands.RightHand.SetItem(this);
+                _hands.LeftHand.SetItem(otherItem);
+
+                otherItem._itemView.DisappearRightHand();
+                _itemView.LeftHandToRightHand();
+                otherItem._itemView.AppearLeftHand();
+            }
+            else if (IsInRightHand())
+            {
+                if (!_hands.LeftHand.CurrentItem.HasSome(out var otherItem))
+                {
+                    HoldLeftHand();
+                    return;
+                }
+               
+                _hands.LeftHand.SetItem(this);
+                _hands.RightHand.SetItem(otherItem);
+
+                otherItem._itemView.DisappearLeftHand();
+                _itemView.RightHandToLeftHand();
+                otherItem._itemView.AppearRightHand();
+            }
+        }
+
         internal void DisappearFromHolster(Action callback = null)
         {
             if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
