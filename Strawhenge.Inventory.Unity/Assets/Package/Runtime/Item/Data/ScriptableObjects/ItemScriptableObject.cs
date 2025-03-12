@@ -11,6 +11,34 @@ namespace Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Item")]
     public class ItemScriptableObject : ScriptableObject, IItemData
     {
+        public ItemData ToItemData()
+        {
+            var builder = ItemDataBuilder
+                .Create(name, _size, _isStorable, _weight, x =>
+                {
+                    x.Set(_prefab);
+
+                    if (_pickupPrefab != null)
+                        x.Set(_pickupPrefab);
+
+                    x.Set(new HoldItemData(_leftHandHoldItemData, _rightHandHoldItemData));
+                });
+
+            foreach (var holsterItemData in _holsterItemData)
+            {
+                builder.AddHolster(holsterItemData.HolsterName, x =>
+                {
+                    x.Set(holsterItemData);
+                    x.Set(_prefab);
+
+                    if (_pickupPrefab != null)
+                        x.Set(_pickupPrefab);
+                });
+            }
+
+            return builder.Build();
+        }
+
         [FormerlySerializedAs("prefab"), SerializeField]
         ItemScript _prefab;
 
