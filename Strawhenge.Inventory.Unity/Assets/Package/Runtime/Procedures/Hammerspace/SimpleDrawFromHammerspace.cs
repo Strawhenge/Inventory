@@ -8,9 +8,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
     public class SimpleDrawFromHammerspace : Procedure
     {
         readonly IItemHelper _item;
-        readonly HandComponent _hand;
+        readonly HandScript _hand;
 
-        public SimpleDrawFromHammerspace(IItemHelper item, HandComponent hand)
+        public SimpleDrawFromHammerspace(IItemHelper item, HandScript hand)
         {
             _item = item;
             _hand = hand;

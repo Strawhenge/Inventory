@@ -73,6 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4565140873840940750}
+  - component: {fileID: 2356412199393607007}
   m_Layer: 0
   m_Name: mixamorig:RightHand
   m_TagString: Untagged
@@ -100,6 +101,18 @@ Transform:
   m_Father: {fileID: 395280285277379758}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2356412199393607007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234379575897490439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6564e834d2c748df881550aeae945c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &363809606005039864
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,6 +781,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8994651000907152581}
+  - component: {fileID: 2332462616707277587}
   m_Layer: 0
   m_Name: mixamorig:LeftHand
   m_TagString: Untagged
@@ -795,6 +809,18 @@ Transform:
   m_Father: {fileID: 4627536376188770303}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2332462616707277587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769438082206441674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da5ed3eedb6421f88f51d9903cf6dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1859633281532688091
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,8 +1302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25077917a488b14595ff4bd3b4d2545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftHand: {fileID: 8994651000907152581}
-  _rightHand: {fileID: 4565140873840940750}
+  _leftHand: {fileID: 2332462616707277587}
+  _rightHand: {fileID: 2356412199393607007}
   _maxStoredItemsWeight: 100
   _apparelContainerPrefab: {fileID: 7557200200927040949, guid: 5c3de92d1c034b94b9a70e2aadd14690, type: 3}
 --- !u!114 &1019188618605515532

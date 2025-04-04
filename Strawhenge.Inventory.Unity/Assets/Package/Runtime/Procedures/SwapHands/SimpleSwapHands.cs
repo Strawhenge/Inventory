@@ -1,15 +1,16 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
+using Strawhenge.Inventory.Unity.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.SwapHands
 {
     public class SimpleSwapHands : Procedure
     {
-        readonly HandComponent _sourceHand;
-        readonly HandComponent _destinationHand;
+        readonly HandScript _sourceHand;
+        readonly HandScript _destinationHand;
 
-        public SimpleSwapHands(HandComponent sourceHand, HandComponent destinationHand)
+        public SimpleSwapHands(HandScript sourceHand, HandScript destinationHand)
         {
             _sourceHand = sourceHand;
             _destinationHand = destinationHand;

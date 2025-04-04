@@ -1,14 +1,15 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
+using Strawhenge.Inventory.Unity.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 {
     public class SimplePutInHammerspace : Procedure
     {
-        readonly HandComponent _hand;
+        readonly HandScript _hand;
 
-        public SimplePutInHammerspace(HandComponent hand)
+        public SimplePutInHammerspace(HandScript hand)
         {
             _hand = hand;
         }

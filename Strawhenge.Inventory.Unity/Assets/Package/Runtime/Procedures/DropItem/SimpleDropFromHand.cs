@@ -1,14 +1,15 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
+using Strawhenge.Inventory.Unity.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 {
     public class SimpleDropFromHand : Procedure
     {
-        readonly HandComponent _hand;
+        readonly HandScript _hand;
 
-        public SimpleDropFromHand(HandComponent hand)
+        public SimpleDropFromHand(HandScript hand)
         {
             _hand = hand;
         }

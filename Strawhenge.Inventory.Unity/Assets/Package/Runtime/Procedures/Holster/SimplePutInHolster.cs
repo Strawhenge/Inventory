@@ -7,10 +7,10 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 {
     public class SimplePutInHolster : Procedure
     {
-        readonly HandComponent _hand;
+        readonly HandScript _hand;
         readonly HolsterScript _holster;
 
-        public SimplePutInHolster(HandComponent hand, HolsterScript holster)
+        public SimplePutInHolster(HandScript hand, HolsterScript holster)
         {
             _hand = hand;
             _holster = holster;

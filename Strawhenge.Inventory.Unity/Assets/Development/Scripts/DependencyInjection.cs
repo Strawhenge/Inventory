@@ -112,9 +112,9 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<HandComponents>()
+            .RegisterType<HandScriptContainer>()
             .AsSelf()
-            .As<HandComponents>()
+            .As<HandScriptContainer>()
             .InstancePerLifetimeScope();
 
         builder

@@ -10,8 +10,8 @@ namespace Strawhenge.Inventory.Unity
 {
     public class InventoryScript : MonoBehaviour
     {
-        [SerializeField] Transform _leftHand;
-        [SerializeField] Transform _rightHand;
+        [SerializeField] LeftHandScript _leftHand;
+        [SerializeField] RightHandScript _rightHand;
         [SerializeField] int _maxStoredItemsWeight;
         [SerializeField] FixedItemContainerScript _apparelContainerPrefab;
 
@@ -21,7 +21,7 @@ namespace Strawhenge.Inventory.Unity
 
         public ApparelSlotScripts ApparelSlots { private get; set; }
 
-        public HandComponents HandComponents { private get; set; }
+        public HandScriptContainer HandScriptContainer { private get; set; }
 
         public HolsterScriptCollection HolsterScriptCollection { private get; set; }
 
@@ -50,7 +50,7 @@ namespace Strawhenge.Inventory.Unity
         void Start()
         {
             if (_leftHand != null && _rightHand != null)
-                HandComponents.Initialize(_leftHand, _rightHand);
+                HandScriptContainer.Initialize(_leftHand, _rightHand);
             else
                 Debug.LogError("Hand components not set.", this);
 

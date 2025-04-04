@@ -8,9 +8,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
     public class SimpleDrawFromHolster : Procedure
     {
         readonly HolsterScript _holster;
-        readonly HandComponent _hand;
+        readonly HandScript _hand;
 
-        public SimpleDrawFromHolster(HolsterScript holster, HandComponent hand)
+        public SimpleDrawFromHolster(HolsterScript holster, HandScript hand)
         {
             _holster = holster;
             _hand = hand;
