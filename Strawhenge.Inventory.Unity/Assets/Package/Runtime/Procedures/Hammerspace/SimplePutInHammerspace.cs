@@ -24,8 +24,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 
         void RemoveItemFromHand()
         {
-            var item = _hand.TakeItem();
-            item.Despawn();
+            _hand.TakeItem()
+                .Do(x => x.Despawn());
         }
     }
 }

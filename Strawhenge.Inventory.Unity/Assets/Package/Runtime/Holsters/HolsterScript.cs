@@ -12,11 +12,11 @@ namespace Strawhenge.Inventory.Unity.Items
         [FormerlySerializedAs("holster"), SerializeField]
         HolsterScriptableObject _holster;
 
-        IItemHelper _item;
+        ItemHelper _item;
 
         public string Name => _holster.Name;
 
-        public void SetItem(IItemHelper item)
+        public void SetItem(ItemHelper item)
         {
             _item = item;
 
@@ -36,17 +36,18 @@ namespace Strawhenge.Inventory.Unity.Items
             itemTransform.localRotation = data.RotationOffset;
         }
 
-        public IItemHelper TakeItem()
+        public Maybe<ItemHelper> TakeItem()
         {
             if (_item == null)
             {
                 Debug.LogError("No item in holster.");
-                return new NullItemHelper();
+                return Maybe.None<ItemHelper>();
             }
 
-            var result = _item;
+            var item = _item;
             _item = null;
-            return result;
+            
+            return Maybe.Some(item);
         }
     }
 }

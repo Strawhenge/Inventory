@@ -21,9 +21,9 @@ namespace Strawhenge.Inventory.Unity
 
         public ApparelSlotScripts ApparelSlots { private get; set; }
 
-        public HandScriptContainer HandScriptContainer { private get; set; }
+        public HandScriptsContainer HandScriptsContainer { private get; set; }
 
-        public HolsterScriptCollection HolsterScriptCollection { private get; set; }
+        public HolsterScriptsContainer HolsterScriptsContainer { private get; set; }
 
         public ISetApparelContainerPrefab ApparelContainer { private get; set; }
 
@@ -50,12 +50,12 @@ namespace Strawhenge.Inventory.Unity
         void Start()
         {
             if (_leftHand != null && _rightHand != null)
-                HandScriptContainer.Initialize(_leftHand, _rightHand);
+                HandScriptsContainer.Initialize(_leftHand, _rightHand);
             else
                 Debug.LogError("Hand components not set.", this);
 
             foreach (var holster in GetComponentsInChildren<HolsterScript>())
-                HolsterScriptCollection.Add(holster);
+                HolsterScriptsContainer.Add(holster);
 
             foreach (var apparelSlot in GetComponentsInChildren<ApparelSlotScript>())
                 ApparelSlots.Add(apparelSlot);

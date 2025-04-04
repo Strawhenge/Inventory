@@ -27,7 +27,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 
         void Drop()
         {
-            _hand.TakeItem().Release();
+            _hand.TakeItem().Do(
+                x => x.Release());
         }
     }
 }

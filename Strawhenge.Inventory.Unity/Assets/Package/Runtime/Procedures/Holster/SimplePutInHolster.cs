@@ -18,16 +18,16 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 
         protected override void OnBegin(Action endProcedure)
         {
-            var item = _hand.TakeItem();
-            _holster.SetItem(item);
+            _hand.TakeItem().Do(
+                item => _holster.SetItem(item));
+
             endProcedure();
         }
 
         protected override void OnSkip()
         {
-            var item = _hand.TakeItem();
-            _holster.SetItem(item);
+            _hand.TakeItem().Do(
+                item => _holster.SetItem(item));
         }
     }
 }
-

@@ -7,7 +7,7 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public static class ItemHelperExtensions
     {
-        public static IHolsterItemData GetHolsterData(this IItemHelper item, HolsterScript holster, ILogger logger)
+        public static IHolsterItemData GetHolsterData(this ItemHelper item, HolsterScript holster, ILogger logger)
         {
             if (IsHolsterCompatible(item, holster, logger, out var data))
             {
@@ -18,11 +18,11 @@ namespace Strawhenge.Inventory.Unity.Items
             return new NullHolsterItemData(holster.Name);
         }
 
-        public static bool IsHolsterCompatible(this IItemHelper item, HolsterScript holster, ILogger logger) =>
+        public static bool IsHolsterCompatible(this ItemHelper item, HolsterScript holster, ILogger logger) =>
             IsHolsterCompatible(item, holster, logger, out _);
 
         public static bool IsHolsterCompatible(
-            this IItemHelper item,
+            this ItemHelper item,
             HolsterScript holster,
             ILogger logger,
             out IHolsterItemData data)

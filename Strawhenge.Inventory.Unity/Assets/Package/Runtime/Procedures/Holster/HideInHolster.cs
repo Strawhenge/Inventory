@@ -28,7 +28,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         void Hide()
         {
             _holster.TakeItem()
-                .Despawn();
+                .Do(x => x.Despawn());
         }
     }
 }

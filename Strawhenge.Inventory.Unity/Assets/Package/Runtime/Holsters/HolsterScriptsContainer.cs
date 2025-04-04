@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace Strawhenge.Inventory.Unity.Components
 {
-    public class HolsterScriptCollection
+    public class HolsterScriptsContainer
     {
         readonly List<HolsterScript> _holsterScripts = new();
         readonly Holsters _holsters;
 
-        public HolsterScriptCollection(Holsters holsters)
+        public HolsterScriptsContainer(Holsters holsters)
         {
             _holsters = holsters;
         }

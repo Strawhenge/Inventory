@@ -3,7 +3,7 @@ using System;
 
 namespace Strawhenge.Inventory.Unity.Components
 {
-    public class HandScriptContainer
+    public class HandScriptsContainer
     {
         HandScript _left;
         HandScript _right;
@@ -11,10 +11,10 @@ namespace Strawhenge.Inventory.Unity.Components
         public event Action Initialized;
 
         public HandScript Left =>
-            _left ?? throw new InvalidOperationException($"'{nameof(HandScriptContainer)}' has not been initialized.");
+            _left ?? throw new InvalidOperationException($"'{nameof(HandScriptsContainer)}' has not been initialized.");
 
         public HandScript Right =>
-            _right ?? throw new InvalidOperationException($"'{nameof(HandScriptContainer)}' has not been initialized.");
+            _right ?? throw new InvalidOperationException($"'{nameof(HandScriptsContainer)}' has not been initialized.");
 
         public void Initialize(LeftHandScript left, RightHandScript right)
         {

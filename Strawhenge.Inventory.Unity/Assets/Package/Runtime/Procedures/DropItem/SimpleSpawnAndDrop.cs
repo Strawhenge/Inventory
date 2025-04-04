@@ -6,9 +6,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 {
     public class SimpleSpawnAndDrop : Procedure
     {
-        readonly IItemHelper _item;
+        readonly ItemHelper _item;
 
-        public SimpleSpawnAndDrop(IItemHelper item)
+        public SimpleSpawnAndDrop(ItemHelper item)
         {
             _item = item;
         }

@@ -29,8 +29,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.SwapHands
 
         void Swap()
         {
-            _destinationHand.SetItem(
-                _sourceHand.TakeItem());
+            _sourceHand.TakeItem()
+                .Do(_destinationHand.SetItem);
         }
     }
 }

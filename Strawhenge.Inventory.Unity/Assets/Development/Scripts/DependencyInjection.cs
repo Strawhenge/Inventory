@@ -112,9 +112,9 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<HandScriptContainer>()
+            .RegisterType<HandScriptsContainer>()
             .AsSelf()
-            .As<HandScriptContainer>()
+            .As<HandScriptsContainer>()
             .InstancePerLifetimeScope();
 
         builder
@@ -133,7 +133,7 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<HolsterScriptCollection>()
+            .RegisterType<HolsterScriptsContainer>()
             .AsSelf()
             .InstancePerLifetimeScope();
 

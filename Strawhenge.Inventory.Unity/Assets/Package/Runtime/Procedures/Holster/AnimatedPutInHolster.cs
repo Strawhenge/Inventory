@@ -1,6 +1,5 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
-using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Items;
 using System;
 
@@ -17,7 +16,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         bool _itemInHolster;
         bool _hasEnded;
 
-        public AnimatedPutInHolster(IProduceItemAnimationHandler animationHandler, HandScript hand, HolsterScript holster, int animationId)
+        public AnimatedPutInHolster(IProduceItemAnimationHandler animationHandler, HandScript hand,
+            HolsterScript holster, int animationId)
         {
             _animationHandler = animationHandler;
             _hand = hand;
@@ -46,8 +46,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         {
             _itemInHolster = true;
             _animationHandler.ReleaseItem -= PutItemInHolster;
-            var item = _hand.TakeItem();
-            _holster.SetItem(item);
+
+            _hand.TakeItem()
+                .Do(item => _holster.SetItem(item));
         }
 
         void End()

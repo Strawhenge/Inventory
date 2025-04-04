@@ -53,8 +53,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         {
             _animationHandler.ReleaseItem -= AnimationHandler_ReleaseItem;
             _itemIsPutAway = true;
-            var item = _hand.TakeItem();
-            item.Despawn();
+            
+            _hand.TakeItem().Do(x => x.Despawn());
         }
     }
 

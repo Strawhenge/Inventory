@@ -13,9 +13,9 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public IHoldItemAnimationHandler AnimationHandler { private get; set; }
 
-        public Maybe<IItemHelper> Item { get; private set; } = Maybe.None<IItemHelper>();
+        public Maybe<ItemHelper> Item { get; private set; } = Maybe.None<ItemHelper>();
 
-        public void SetItem(IItemHelper item)
+        public void SetItem(ItemHelper item)
         {
             var holdData = GetHoldItemData(item.Data);
 
@@ -32,22 +32,21 @@ namespace Strawhenge.Inventory.Unity.Items
             Added?.Invoke(itemScript);
         }
 
-        public IItemHelper TakeItem()
+        public Maybe<ItemHelper> TakeItem()
         {
             AnimationHandler.Unhold();
 
-            var item = Item.Reduce(() =>
+            if (!Item.HasSome(out var item))
             {
                 Debug.LogError("No item in hand.");
-                return new NullItemHelper();
-            });
+                return Maybe.None<ItemHelper>();
+            }
 
-            Item = Maybe.None<IItemHelper>();
-
+            Item = Maybe.None<ItemHelper>();
             item.Spawn().transform.parent = null;
-
+            
             Removed?.Invoke();
-            return item;
+            return Maybe.Some(item);
         }
 
         public abstract IHoldItemData GetHoldItemData(IItemData itemData);
