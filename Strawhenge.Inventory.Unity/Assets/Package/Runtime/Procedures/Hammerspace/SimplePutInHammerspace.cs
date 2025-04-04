@@ -1,14 +1,15 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
+using Strawhenge.Inventory.Unity.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 {
     public class SimplePutInHammerspace : Procedure
     {
-        readonly IHandComponent _hand;
+        readonly HandScript _hand;
 
-        public SimplePutInHammerspace(IHandComponent hand)
+        public SimplePutInHammerspace(HandScript hand)
         {
             _hand = hand;
         }
@@ -23,8 +24,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 
         void RemoveItemFromHand()
         {
-            var item = _hand.TakeItem();
-            item.Despawn();
+            _hand.TakeItem()
+                .Do(x => x.Despawn());
         }
     }
 }

@@ -8,12 +8,12 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public class HolsterForItemView : IHolsterForItemView
     {
-        readonly IItemHelper _item;
-        readonly IHolsterComponent _holster;
+        readonly ItemHelper _item;
+        readonly HolsterScript _holster;
         readonly ProcedureQueue _procedureQueue;
         readonly IProcedureFactory _procedureFactory;
 
-        public HolsterForItemView(IItemHelper item, IHolsterComponent holster, ProcedureQueue procedureQueue,
+        public HolsterForItemView(ItemHelper item, HolsterScript holster, ProcedureQueue procedureQueue,
             IProcedureFactory procedureFactory)
         {
             _item = item;

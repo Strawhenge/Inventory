@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
-    public class ItemHelper : IItemHelper
+    public class ItemHelper
     {
         readonly IItemDropPoint _itemDropPoint;
         readonly ItemContext _context;

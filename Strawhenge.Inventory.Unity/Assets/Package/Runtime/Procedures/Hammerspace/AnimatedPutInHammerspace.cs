@@ -1,6 +1,7 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Components;
+using Strawhenge.Inventory.Unity.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
@@ -8,14 +9,14 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
     public class AnimatedPutInHammerspace : Procedure
     {
         readonly IProduceItemAnimationHandler _animationHandler;
-        readonly IHandComponent _hand;
+        readonly HandScript _hand;
         readonly int _animationId;
 
         Action _endProcedure;
         bool _itemIsPutAway;
         bool _hasEnded;
 
-        public AnimatedPutInHammerspace(IProduceItemAnimationHandler animationHandler, IHandComponent hand, int animationId)
+        public AnimatedPutInHammerspace(IProduceItemAnimationHandler animationHandler, HandScript hand, int animationId)
         {
             _animationHandler = animationHandler;
             _hand = hand;
@@ -52,8 +53,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         {
             _animationHandler.ReleaseItem -= AnimationHandler_ReleaseItem;
             _itemIsPutAway = true;
-            var item = _hand.TakeItem();
-            item.Despawn();
+            
+            _hand.TakeItem().Do(x => x.Despawn());
         }
     }
 

@@ -1,15 +1,16 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
+using Strawhenge.Inventory.Unity.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.SwapHands
 {
     public class SimpleSwapHands : Procedure
     {
-        readonly IHandComponent _sourceHand;
-        readonly IHandComponent _destinationHand;
+        readonly HandScript _sourceHand;
+        readonly HandScript _destinationHand;
 
-        public SimpleSwapHands(IHandComponent sourceHand, IHandComponent destinationHand)
+        public SimpleSwapHands(HandScript sourceHand, HandScript destinationHand)
         {
             _sourceHand = sourceHand;
             _destinationHand = destinationHand;
@@ -28,8 +29,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.SwapHands
 
         void Swap()
         {
-            _destinationHand.SetItem(
-                _sourceHand.TakeItem());
+            _sourceHand.TakeItem()
+                .Do(_destinationHand.SetItem);
         }
     }
 }

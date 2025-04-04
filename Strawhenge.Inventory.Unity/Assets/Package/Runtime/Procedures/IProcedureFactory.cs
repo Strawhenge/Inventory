@@ -7,43 +7,43 @@ namespace Strawhenge.Inventory.Unity.Procedures
 {
     public interface IProcedureFactory
     {
-        Procedure AppearLeftHand(IItemHelper item);
+        Procedure AppearLeftHand(ItemHelper item);
         
-        Procedure AppearRightHand(IItemHelper item);
+        Procedure AppearRightHand(ItemHelper item);
         
-        Procedure DrawLeftHandFromHammerspace(IItemHelper item);
+        Procedure DrawLeftHandFromHammerspace(ItemHelper item);
 
-        Procedure DrawRightHandFromHammerspace(IItemHelper item);
+        Procedure DrawRightHandFromHammerspace(ItemHelper item);
 
-        Procedure PutAwayLeftHandToHammerspace(IItemHelper item);
+        Procedure PutAwayLeftHandToHammerspace(ItemHelper item);
 
-        Procedure PutAwayRightHandToHammerspace(IItemHelper item);
+        Procedure PutAwayRightHandToHammerspace(ItemHelper item);
 
-        Procedure DropFromLeftHand(IItemHelper item);
+        Procedure DropFromLeftHand(ItemHelper item);
 
-        Procedure DropFromRightHand(IItemHelper item);
+        Procedure DropFromRightHand(ItemHelper item);
 
-        Procedure SwapFromLeftHandToRightHand(IItemHelper item);
+        Procedure SwapFromLeftHandToRightHand(ItemHelper item);
 
-        Procedure SwapFromRightHandToLeftHand(IItemHelper item);
+        Procedure SwapFromRightHandToLeftHand(ItemHelper item);
 
-        Procedure SpawnAndDrop(IItemHelper item);
+        Procedure SpawnAndDrop(ItemHelper item);
 
-        Procedure DisappearLeftHand(IItemHelper item);
+        Procedure DisappearLeftHand(ItemHelper item);
        
-        Procedure DisappearRightHand(IItemHelper item);
+        Procedure DisappearRightHand(ItemHelper item);
 
-        Procedure DrawLeftHandFromHolster(IItemHelper item, IHolsterComponent holster);
+        Procedure DrawLeftHandFromHolster(ItemHelper item, HolsterScript holster);
 
-        Procedure DrawRightHandFromHolster(IItemHelper item, IHolsterComponent holster);
+        Procedure DrawRightHandFromHolster(ItemHelper item, HolsterScript holster);
 
-        Procedure PutAwayLeftHandToHolster(IItemHelper item, IHolsterComponent holster);
+        Procedure PutAwayLeftHandToHolster(ItemHelper item, HolsterScript holster);
 
-        Procedure PutAwayRightHandToHolster(IItemHelper item, IHolsterComponent holster);
+        Procedure PutAwayRightHandToHolster(ItemHelper item, HolsterScript holster);
 
-        Procedure ShowInHolster(IItemHelper item, IHolsterComponent holster);
+        Procedure ShowInHolster(ItemHelper item, HolsterScript holster);
 
-        Procedure HideInHolster(IItemHelper item, IHolsterComponent holster);
+        Procedure HideInHolster(ItemHelper item, HolsterScript holster);
 
         Procedure ConsumeLeftHand(IConsumableData data);
 

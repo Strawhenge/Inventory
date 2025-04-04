@@ -7,11 +7,11 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemView : IItemView
     {
-        readonly IItemHelper _item;
+        readonly ItemHelper _item;
         readonly ProcedureQueue _procedureQueue;
         readonly IProcedureFactory _procedureFactory;
 
-        public ItemView(IItemHelper item, ProcedureQueue procedureQueue, IProcedureFactory procedureFactory)
+        public ItemView(ItemHelper item, ProcedureQueue procedureQueue, IProcedureFactory procedureFactory)
         {
             _item = item;
             _procedureQueue = procedureQueue;

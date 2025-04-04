@@ -1,14 +1,15 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
+using Strawhenge.Inventory.Unity.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Holster
 {
     public class HideInHolster : Procedure
     {
-        readonly IHolsterComponent _holster;
+        readonly HolsterScript _holster;
 
-        public HideInHolster(IHolsterComponent holster)
+        public HideInHolster(HolsterScript holster)
         {
             _holster = holster;
         }
@@ -27,7 +28,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         void Hide()
         {
             _holster.TakeItem()
-                .Despawn();
+                .Do(x => x.Despawn());
         }
     }
 }

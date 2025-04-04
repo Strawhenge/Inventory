@@ -1,15 +1,16 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
+using Strawhenge.Inventory.Unity.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Holster
 {
     public class SimplePutInHolster : Procedure
     {
-        readonly IHandComponent _hand;
-        readonly IHolsterComponent _holster;
+        readonly HandScript _hand;
+        readonly HolsterScript _holster;
 
-        public SimplePutInHolster(IHandComponent hand, IHolsterComponent holster)
+        public SimplePutInHolster(HandScript hand, HolsterScript holster)
         {
             _hand = hand;
             _holster = holster;
@@ -17,16 +18,16 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 
         protected override void OnBegin(Action endProcedure)
         {
-            var item = _hand.TakeItem();
-            _holster.SetItem(item);
+            _hand.TakeItem().Do(
+                item => _holster.SetItem(item));
+
             endProcedure();
         }
 
         protected override void OnSkip()
         {
-            var item = _hand.TakeItem();
-            _holster.SetItem(item);
+            _hand.TakeItem().Do(
+                item => _holster.SetItem(item));
         }
     }
 }
-
