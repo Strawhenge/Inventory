@@ -1,6 +1,7 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Components;
+using Strawhenge.Inventory.Unity.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Holster
@@ -9,14 +10,14 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
     {
         readonly IProduceItemAnimationHandler _animationHandler;
         readonly HandComponent _hand;
-        readonly HolsterComponent _holster;
+        readonly HolsterScript _holster;
         readonly int _animationId;
 
         Action _endProcedure;
         bool _itemInHolster;
         bool _hasEnded;
 
-        public AnimatedPutInHolster(IProduceItemAnimationHandler animationHandler, HandComponent hand, HolsterComponent holster, int animationId)
+        public AnimatedPutInHolster(IProduceItemAnimationHandler animationHandler, HandComponent hand, HolsterScript holster, int animationId)
         {
             _animationHandler = animationHandler;
             _hand = hand;

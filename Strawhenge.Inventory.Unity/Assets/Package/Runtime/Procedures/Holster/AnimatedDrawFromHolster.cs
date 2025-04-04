@@ -1,6 +1,7 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Components;
+using Strawhenge.Inventory.Unity.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Holster
@@ -8,7 +9,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
     public class AnimatedDrawFromHolster : Procedure
     {
         readonly IProduceItemAnimationHandler _animationHandler;
-        readonly HolsterComponent _holster;
+        readonly HolsterScript _holster;
         readonly HandComponent _hand;
         readonly int _animationId;
 
@@ -16,7 +17,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         bool _itemInHand;
         bool _hasEnded;
 
-        public AnimatedDrawFromHolster(IProduceItemAnimationHandler animationHandler, HolsterComponent holster, HandComponent hand, int animationId)
+        public AnimatedDrawFromHolster(IProduceItemAnimationHandler animationHandler, HolsterScript holster, HandComponent hand, int animationId)
         {
             _animationHandler = animationHandler;
             _holster = holster;

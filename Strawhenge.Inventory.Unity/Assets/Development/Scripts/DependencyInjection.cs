@@ -133,7 +133,7 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<HolsterComponents>()
+            .RegisterType<HolsterScriptCollection>()
             .AsSelf()
             .InstancePerLifetimeScope();
 

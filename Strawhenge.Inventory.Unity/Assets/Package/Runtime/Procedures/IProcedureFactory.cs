@@ -33,17 +33,17 @@ namespace Strawhenge.Inventory.Unity.Procedures
        
         Procedure DisappearRightHand(IItemHelper item);
 
-        Procedure DrawLeftHandFromHolster(IItemHelper item, HolsterComponent holster);
+        Procedure DrawLeftHandFromHolster(IItemHelper item, HolsterScript holster);
 
-        Procedure DrawRightHandFromHolster(IItemHelper item, HolsterComponent holster);
+        Procedure DrawRightHandFromHolster(IItemHelper item, HolsterScript holster);
 
-        Procedure PutAwayLeftHandToHolster(IItemHelper item, HolsterComponent holster);
+        Procedure PutAwayLeftHandToHolster(IItemHelper item, HolsterScript holster);
 
-        Procedure PutAwayRightHandToHolster(IItemHelper item, HolsterComponent holster);
+        Procedure PutAwayRightHandToHolster(IItemHelper item, HolsterScript holster);
 
-        Procedure ShowInHolster(IItemHelper item, HolsterComponent holster);
+        Procedure ShowInHolster(IItemHelper item, HolsterScript holster);
 
-        Procedure HideInHolster(IItemHelper item, HolsterComponent holster);
+        Procedure HideInHolster(IItemHelper item, HolsterScript holster);
 
         Procedure ConsumeLeftHand(IConsumableData data);
 

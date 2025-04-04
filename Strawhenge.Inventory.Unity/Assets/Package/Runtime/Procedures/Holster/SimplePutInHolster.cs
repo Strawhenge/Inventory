@@ -1,5 +1,6 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Components;
+using Strawhenge.Inventory.Unity.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Holster
@@ -7,9 +8,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
     public class SimplePutInHolster : Procedure
     {
         readonly HandComponent _hand;
-        readonly HolsterComponent _holster;
+        readonly HolsterScript _holster;
 
-        public SimplePutInHolster(HandComponent hand, HolsterComponent holster)
+        public SimplePutInHolster(HandComponent hand, HolsterScript holster)
         {
             _hand = hand;
             _holster = holster;

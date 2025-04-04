@@ -20,7 +20,7 @@ namespace Strawhenge.Inventory.Unity.Items
         readonly Hands _hands;
         readonly Holsters _holsters;
         readonly StoredItems _storedItems;
-        readonly HolsterComponents _holsterComponents;
+        readonly HolsterScriptCollection _holsterScriptCollection;
         readonly ProcedureQueue _procedureQueue;
         readonly IProcedureFactory _procedureFactory;
         readonly EffectFactory _effectFactory;
@@ -31,7 +31,7 @@ namespace Strawhenge.Inventory.Unity.Items
             Hands hands,
             Holsters holsters,
             StoredItems storedItems,
-            HolsterComponents holsterComponents,
+            HolsterScriptCollection holsterScriptCollection,
             ProcedureQueue procedureQueue,
             IProcedureFactory procedureFactory,
             EffectFactory effectFactory,
@@ -41,7 +41,7 @@ namespace Strawhenge.Inventory.Unity.Items
             _hands = hands;
             _holsters = holsters;
             _storedItems = storedItems;
-            _holsterComponents = holsterComponents;
+            _holsterScriptCollection = holsterScriptCollection;
             _procedureQueue = procedureQueue;
             _procedureFactory = procedureFactory;
             _effectFactory = effectFactory;
@@ -94,7 +94,7 @@ namespace Strawhenge.Inventory.Unity.Items
         {
             var holstersForItem = new List<(ItemContainer, IHolsterForItemView)>();
 
-            foreach (var holsterComponent in _holsterComponents.Components)
+            foreach (var holsterComponent in _holsterScriptCollection.HolsterScripts)
             {
                 if (!itemComponent.IsHolsterCompatible(holsterComponent, _logger))
                     continue;
