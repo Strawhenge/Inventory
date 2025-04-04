@@ -5,13 +5,13 @@ using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Components
 {
-    public class HandComponents : IHandComponents
+    public class HandComponents
     {
         readonly IHoldItemAnimationHandler _holdItemAnimationHandler;
         readonly ILogger _logger;
 
-        IHandComponent _left;
-        IHandComponent _right;
+        HandComponent _left;
+        HandComponent _right;
 
         public HandComponents(IHoldItemAnimationHandler holdItemAnimationHandler, ILogger logger)
         {
@@ -21,10 +21,10 @@ namespace Strawhenge.Inventory.Unity.Components
 
         public event Action Initialized;
 
-        public IHandComponent Left =>
+        public HandComponent Left =>
             _left ?? throw new InvalidOperationException($"'{nameof(HandComponents)}' has not been initialized.");
 
-        public IHandComponent Right =>
+        public HandComponent Right =>
             _right ?? throw new InvalidOperationException($"'{nameof(HandComponents)}' has not been initialized.");
 
         public void Initialize(Transform left, Transform right)

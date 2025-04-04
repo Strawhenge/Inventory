@@ -7,7 +7,7 @@ namespace Strawhenge.Inventory.Unity.Components
 {
     public class HolsterComponents
     {
-        readonly List<IHolsterComponent> _components = new List<IHolsterComponent>();
+        readonly List<HolsterComponent> _components = new List<HolsterComponent>();
         readonly Holsters _holsters;
         readonly ILogger _logger;
 
@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.Unity.Components
             _logger = logger;
         }
 
-        public IEnumerable<IHolsterComponent> Components => _components;
+        public IEnumerable<HolsterComponent> Components => _components;
 
         public void Add(string name, Transform transform)
         {

@@ -6,9 +6,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 {
     public class HideInHolster : Procedure
     {
-        readonly IHolsterComponent _holster;
+        readonly HolsterComponent _holster;
 
-        public HideInHolster(IHolsterComponent holster)
+        public HideInHolster(HolsterComponent holster)
         {
             _holster = holster;
         }

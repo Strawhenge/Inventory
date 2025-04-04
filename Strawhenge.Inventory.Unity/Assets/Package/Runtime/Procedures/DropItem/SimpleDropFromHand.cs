@@ -6,9 +6,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 {
     public class SimpleDropFromHand : Procedure
     {
-        readonly IHandComponent _hand;
+        readonly HandComponent _hand;
 
-        public SimpleDropFromHand(IHandComponent hand)
+        public SimpleDropFromHand(HandComponent hand)
         {
             _hand = hand;
         }

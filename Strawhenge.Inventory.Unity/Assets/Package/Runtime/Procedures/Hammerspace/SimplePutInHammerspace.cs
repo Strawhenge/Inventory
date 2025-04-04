@@ -6,9 +6,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 {
     public class SimplePutInHammerspace : Procedure
     {
-        readonly IHandComponent _hand;
+        readonly HandComponent _hand;
 
-        public SimplePutInHammerspace(IHandComponent hand)
+        public SimplePutInHammerspace(HandComponent hand)
         {
             _hand = hand;
         }

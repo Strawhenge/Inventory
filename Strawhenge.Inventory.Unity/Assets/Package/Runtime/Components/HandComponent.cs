@@ -8,7 +8,7 @@ using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Components
 {
-    public class HandComponent : IHandComponent
+    public class HandComponent
     {
         readonly IHoldItemAnimationHandler _animationHandler;
         readonly Transform _transform;

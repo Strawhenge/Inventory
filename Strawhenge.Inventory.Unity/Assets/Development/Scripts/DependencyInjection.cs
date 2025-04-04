@@ -114,7 +114,7 @@ public static class DependencyInjection
         builder
             .RegisterType<HandComponents>()
             .AsSelf()
-            .As<IHandComponents>()
+            .As<HandComponents>()
             .InstancePerLifetimeScope();
 
         builder

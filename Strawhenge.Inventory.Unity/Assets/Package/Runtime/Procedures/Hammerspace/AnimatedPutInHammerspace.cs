@@ -8,14 +8,14 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
     public class AnimatedPutInHammerspace : Procedure
     {
         readonly IProduceItemAnimationHandler _animationHandler;
-        readonly IHandComponent _hand;
+        readonly HandComponent _hand;
         readonly int _animationId;
 
         Action _endProcedure;
         bool _itemIsPutAway;
         bool _hasEnded;
 
-        public AnimatedPutInHammerspace(IProduceItemAnimationHandler animationHandler, IHandComponent hand, int animationId)
+        public AnimatedPutInHammerspace(IProduceItemAnimationHandler animationHandler, HandComponent hand, int animationId)
         {
             _animationHandler = animationHandler;
             _hand = hand;

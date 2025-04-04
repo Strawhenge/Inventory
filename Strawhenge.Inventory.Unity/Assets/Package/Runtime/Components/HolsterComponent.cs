@@ -4,7 +4,7 @@ using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Components
 {
-    public class HolsterComponent : IHolsterComponent
+    public class HolsterComponent
     {
         readonly Transform _transform;
         readonly ILogger _logger;

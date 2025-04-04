@@ -8,15 +8,15 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
     public class AnimatedPutInHolster : Procedure
     {
         readonly IProduceItemAnimationHandler _animationHandler;
-        readonly IHandComponent _hand;
-        readonly IHolsterComponent _holster;
+        readonly HandComponent _hand;
+        readonly HolsterComponent _holster;
         readonly int _animationId;
 
         Action _endProcedure;
         bool _itemInHolster;
         bool _hasEnded;
 
-        public AnimatedPutInHolster(IProduceItemAnimationHandler animationHandler, IHandComponent hand, IHolsterComponent holster, int animationId)
+        public AnimatedPutInHolster(IProduceItemAnimationHandler animationHandler, HandComponent hand, HolsterComponent holster, int animationId)
         {
             _animationHandler = animationHandler;
             _hand = hand;

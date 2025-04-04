@@ -10,7 +10,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
     {
         readonly IProduceItemAnimationHandler _animationHandler;
         readonly IItemHelper _item;
-        readonly IHandComponent _hand;
+        readonly HandComponent _hand;
         readonly int _animationId;
 
         Action _endProcedure = () => { };
@@ -20,7 +20,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         public AnimatedDrawFromHammerspace(
             IProduceItemAnimationHandler animationHandler,
             IItemHelper item,
-            IHandComponent hand,
+            HandComponent hand,
             int animationId)
         {
             _animationHandler = animationHandler;

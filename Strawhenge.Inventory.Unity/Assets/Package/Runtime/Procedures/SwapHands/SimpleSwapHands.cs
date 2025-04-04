@@ -6,10 +6,10 @@ namespace Strawhenge.Inventory.Unity.Procedures.SwapHands
 {
     public class SimpleSwapHands : Procedure
     {
-        readonly IHandComponent _sourceHand;
-        readonly IHandComponent _destinationHand;
+        readonly HandComponent _sourceHand;
+        readonly HandComponent _destinationHand;
 
-        public SimpleSwapHands(IHandComponent sourceHand, IHandComponent destinationHand)
+        public SimpleSwapHands(HandComponent sourceHand, HandComponent destinationHand)
         {
             _sourceHand = sourceHand;
             _destinationHand = destinationHand;
