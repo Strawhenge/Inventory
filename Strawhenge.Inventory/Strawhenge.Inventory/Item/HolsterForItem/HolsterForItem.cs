@@ -121,11 +121,5 @@ namespace Strawhenge.Inventory.Items.Holsters
             _itemContainer.CurrentItem.Do(
                 x => x.UnequipFromHolster());
         }
-
-        void OnRemoved()
-        {
-            if (_itemContainer.IsCurrentItem(_item))
-                _itemContainer.UnsetItem();
-        }
     }
 }

@@ -69,8 +69,7 @@ namespace Strawhenge.Inventory.Tests
         {
             size ??= ItemSize.OneHanded;
             holsterNames ??= Array.Empty<string>();
-
-            var itemView = new ItemViewFake(name);
+            
             var item = new Item(
                 name,
                 _hands,
@@ -80,8 +79,6 @@ namespace Strawhenge.Inventory.Tests
 
             var holsters = holsterNames.Select(holsterName =>
             {
-                var holsterForItemView = new HolsterForItemViewFake(name, holsterName);
-
                 var holster = _holsters
                     .FindByName(holsterName)
                     .Reduce(() => throw new TestSetupException($"Holster '{holsterName}' not added."));
@@ -104,8 +101,7 @@ namespace Strawhenge.Inventory.Tests
         public Item CreateTransientItem(string name, ItemSize? size = null)
         {
             size ??= ItemSize.OneHanded;
-
-            var itemView = new ItemViewFake(name);
+         
             return new Item(
                 name,
                 _hands,
@@ -117,7 +113,7 @@ namespace Strawhenge.Inventory.Tests
 
         public ApparelPiece CreateApparel(string name, string slotName)
         {
-            var slot = (ApparelSlot)_apparelSlots.All
+            var slot = _apparelSlots.All
                 .FirstOrNone(x => x.Name == slotName)
                 .Reduce(() => throw new TestSetupException($"Slot '{slotName}' not added."));
 

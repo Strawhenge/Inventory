@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using FunctionalUtilities;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
@@ -50,12 +49,6 @@ namespace Strawhenge.Inventory.Items
         public bool IsInStorage => Storable
             .Map(x => x.IsStored)
             .Reduce(() => false);
-
-        public void SetupHolsters(IEnumerable<(ItemContainer container, IHolsterForItemProcedures view)> holsters)
-        {
-            // TODO
-            throw new NotImplementedException();
-        }
 
         public void SetupHolsters(HolstersForItem holsters) => Holsters = holsters;
 
@@ -344,17 +337,6 @@ namespace Strawhenge.Inventory.Items
 
         bool IsEquippedToHolster(out HolsterForItemProcedureScheduler procedureScheduler) =>
             Holsters.IsEquippedToHolster(out procedureScheduler);
-
-        void OnRemoved()
-        {
-            if (IsInLeftHand())
-                _hands.UnsetItemLeftHand();
-
-            if (IsInRightHand())
-                _hands.UnsetItemRightHand();
-
-            Storable.Do(x => x.RemoveFromStorage());
-        }
 
         public override string ToString()
         {
