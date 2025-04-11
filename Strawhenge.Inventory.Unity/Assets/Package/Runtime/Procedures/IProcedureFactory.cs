@@ -1,5 +1,4 @@
 ﻿using Strawhenge.Inventory.Procedures;
-using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Consumables;
 

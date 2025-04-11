@@ -2,9 +2,9 @@
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Components;
-using Strawhenge.Inventory.Unity.Items.Data;
-using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Consumables;
+using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Procedures.ConsumeItem;
 using Strawhenge.Inventory.Unity.Procedures.DropItem;
 using Strawhenge.Inventory.Unity.Procedures.Hammerspace;

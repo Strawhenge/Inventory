@@ -2,32 +2,32 @@
 using Strawhenge.Inventory.Unity.Items;
 using System;
 
-namespace Strawhenge.Inventory.Unity.Procedures.Holster
+namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 {
-    public class HideInHolster : Procedure
+    public class SimpleDropFromHolster : Procedure
     {
         readonly HolsterScript _holster;
 
-        public HideInHolster(HolsterScript holster)
+        public SimpleDropFromHolster(HolsterScript holster)
         {
             _holster = holster;
         }
 
         protected override void OnBegin(Action endProcedure)
         {
-            Hide();
+            Drop();
             endProcedure();
         }
 
         protected override void OnSkip()
         {
-            Hide();
+            Drop();
         }
 
-        void Hide()
+        void Drop()
         {
-            _holster.TakeItem()
-                .Do(x => x.Despawn());
+            _holster.TakeItem().Do(
+                x => x.Release());
         }
     }
 }

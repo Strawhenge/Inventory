@@ -1,4 +1,3 @@
-using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Unity.Apparel;
 using UnityEngine;
 using UnityEngine.UI;
