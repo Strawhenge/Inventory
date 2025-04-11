@@ -37,13 +37,13 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
             yield return (RightHipHolster, _hammer);
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, RightHipHolster, x => x.Show);
-            yield return (Knife, LeftHipHolster, x => x.Show);
+            yield return (Hammer, RightHipHolster, Show);
+            yield return (Knife, LeftHipHolster, Show);
 
-            yield return (Hammer, RightHipHolster, x => x.DrawLeftHand);
-            yield return (Knife, LeftHipHolster, x => x.DrawRightHand);
+            yield return (Hammer, RightHipHolster, DrawLeftHand);
+            yield return (Knife, LeftHipHolster, DrawRightHand);
         }
     }
 }

@@ -20,12 +20,12 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
 
         protected override Maybe<Item> ExpectedItemInRightHand => _spear;
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, x => x.AppearRightHand);
-            yield return (Hammer, x => x.DropRightHand);
+            yield return (Hammer, AppearRightHand);
+            yield return (Hammer, DropRightHand);
 
-            yield return (Spear, x => x.AppearRightHand);
+            yield return (Spear, AppearRightHand);
         }
     }
 }

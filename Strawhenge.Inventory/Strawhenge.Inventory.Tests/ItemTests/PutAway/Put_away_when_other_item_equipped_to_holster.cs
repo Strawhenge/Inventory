@@ -27,14 +27,14 @@ namespace Strawhenge.Inventory.Tests.ItemTests.PutAway
             yield return (RightHipHolster, _knife);
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, RightHipHolster, x => x.Show);
-            yield return (Hammer, RightHipHolster, x => x.DrawRightHand);
+            yield return (Hammer, RightHipHolster, Show);
+            yield return (Hammer, RightHipHolster, DrawRightHand);
 
-            yield return (Knife, RightHipHolster, x => x.Show);
+            yield return (Knife, RightHipHolster, Show);
 
-            yield return (Hammer, x => x.PutAwayRightHand);
+            yield return (Hammer, PutAwayRightHand);
         }
     }
 }

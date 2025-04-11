@@ -25,14 +25,14 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Swap
 
         protected override Maybe<Item> ExpectedItemInRightHand => _knife;
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, x => x.AppearRightHand);
-            yield return (Knife, x => x.AppearLeftHand);
+            yield return (Hammer, AppearRightHand);
+            yield return (Knife, AppearLeftHand);
 
-            yield return (Knife, x => x.DisappearLeftHand);
-            yield return (Hammer, x => x.RightHandToLeftHand);
-            yield return (Knife, x => x.AppearRightHand);
+            yield return (Knife, DisappearLeftHand);
+            yield return (Hammer, RightHandToLeftHand);
+            yield return (Knife, AppearRightHand);
         }
     }
 }

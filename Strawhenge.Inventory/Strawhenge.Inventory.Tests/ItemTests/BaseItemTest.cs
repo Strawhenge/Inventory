@@ -13,9 +13,25 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         protected const string Hammer = "Hammer";
         protected const string Knife = "Knife";
         protected const string Spear = "Spear";
+       
         protected const string LeftHipHolster = "Left Hip";
         protected const string RightHipHolster = "Right Hip";
         protected const string BackHolster = "Back";
+
+        protected const string Show = "Show";
+        protected const string Hide = "Hide";
+        protected const string AppearRightHand = "AppearRightHand";
+        protected const string DropRightHand = "DropRightHand";
+        protected const string PutAwayRightHand = "PutAwayRightHand";
+        protected const string DisappearRightHand = "DisappearRightHand";
+        protected const string DrawRightHand = "DrawRightHand";
+        protected const string SpawnAndDrop = "AppearRightHand";
+        protected const string DrawLeftHand = "DrawLeftHand";
+        protected const string PutAwayLeftHand = "PutAwayLeftHand";
+        protected const string DisappearLeftHand = "DisappearLeftHand";
+        protected const string AppearLeftHand = "AppearLeftHand";
+        protected const string RightHandToLeftHand = "RightHandToLeftHand";
+        protected const string Drop = "Drop";
 
         readonly InventoryTestContext _inventoryContext;
         readonly Inventory _inventory;
@@ -75,10 +91,10 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         }
 
         [Fact]
-        public void Verify_view_calls()
+        public void Verify_procedures_completed()
         {
             _inventoryContext
-                .VerifyViewCalls(ExpectedViewCalls().ToArray());
+                .VerifyProcedures(ExpectedProceduresCompleted().ToArray());
         }
 
         protected IInventory Inventory => _inventory;
@@ -112,6 +128,6 @@ namespace Strawhenge.Inventory.Tests.ItemTests
 
         protected virtual IEnumerable<Item> ExpectedItemsInStorage() => Enumerable.Empty<Item>();
 
-        protected abstract IEnumerable<ViewCallInfo> ExpectedViewCalls();
+        protected abstract IEnumerable<ProcedureInfo> ExpectedProceduresCompleted();
     }
 }

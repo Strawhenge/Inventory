@@ -13,7 +13,7 @@ namespace Strawhenge.Inventory.Tests
 {
     class InventoryTestContext
     {
-        readonly ViewCallsTracker _viewCallsTracker;
+        readonly ProcedureTracker _procedureTracker;
         readonly Hands _hands;
         readonly Holsters _holsters;
         readonly StoredItems _storedItems;
@@ -23,7 +23,7 @@ namespace Strawhenge.Inventory.Tests
         public InventoryTestContext(ITestOutputHelper testOutputHelper)
         {
             var logger = new TestOutputLogger(testOutputHelper);
-            _viewCallsTracker = new ViewCallsTracker(logger);
+            _procedureTracker = new ProcedureTracker(logger);
 
             _storedItems = new StoredItems(logger);
             _hands = new Hands();
@@ -68,14 +68,11 @@ namespace Strawhenge.Inventory.Tests
             holsterNames ??= Array.Empty<string>();
 
             var itemView = new ItemViewFake(name);
-            _viewCallsTracker.Track(itemView);
-
             var item = new Item(name, _hands, itemView, size.Value);
 
             var holsters = holsterNames.Select(holsterName =>
             {
                 var holsterForItemView = new HolsterForItemViewFake(name, holsterName);
-                _viewCallsTracker.Track(holsterForItemView);
 
                 var holster = _holsters
                     .FindByName(holsterName)
@@ -97,8 +94,6 @@ namespace Strawhenge.Inventory.Tests
             size ??= ItemSize.OneHanded;
 
             var itemView = new ItemViewFake(name);
-            _viewCallsTracker.Track(itemView);
-
             return new Item(name, _hands, itemView, size.Value, isTransient: true);
         }
 
@@ -111,7 +106,7 @@ namespace Strawhenge.Inventory.Tests
             return new ApparelPiece(name, slot, new ApparelViewFake());
         }
 
-        public void VerifyViewCalls(params ViewCallInfo[] expectedViewCalls) =>
-            _viewCallsTracker.VerifyViewCalls(expectedViewCalls);
+        public void VerifyProcedures(params ProcedureInfo[] expectedProcedures) =>
+            _procedureTracker.VerifyProcedures(expectedProcedures);
     }
 }
