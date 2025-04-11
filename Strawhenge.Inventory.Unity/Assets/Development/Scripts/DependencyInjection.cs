@@ -17,7 +17,6 @@ using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Loader;
 using Strawhenge.Inventory.Unity.Menu;
-using Strawhenge.Inventory.Unity.Procedures;
 using UnityEngine;
 using IInventory = Strawhenge.Inventory.IInventory;
 using ILogger = Strawhenge.Common.Logging.ILogger;

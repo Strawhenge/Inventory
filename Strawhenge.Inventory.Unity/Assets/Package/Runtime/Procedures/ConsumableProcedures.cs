@@ -21,8 +21,8 @@ namespace Strawhenge.Inventory.Unity.Procedures
 
         public Procedure ConsumeLeftHand() => Consume(_data.AnimationId, true);
 
-        public Procedure ConsumeRightHand()=> Consume(_data.AnimationId, false);
-        
+        public Procedure ConsumeRightHand() => Consume(_data.AnimationId, false);
+
         Procedure Consume(int animationId, bool inverted)
         {
             if (animationId == 0)
