@@ -52,8 +52,8 @@ namespace Strawhenge.Inventory.Items
 
         public void SetupHolsters(HolstersForItem holsters) => Holsters = holsters;
 
-        public void SetupConsumable(IConsumableView view, IEnumerable<Effect> effects) =>
-            Consumable = new Consumable(this, view, effects);
+        public void SetupConsumable(IConsumableProcedures procedures, IEnumerable<Effect> effects) =>
+            Consumable = new Consumable(this, effects, procedures, _procedureScheduler.Queue);
 
         public void SetupStorable(StoredItems storage, int weight) =>
             Storable = new Storable(this, storage, weight);

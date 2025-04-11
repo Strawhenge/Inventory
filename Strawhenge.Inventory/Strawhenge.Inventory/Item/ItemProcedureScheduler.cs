@@ -14,6 +14,8 @@ namespace Strawhenge.Inventory.Items
             _queue = queue;
         }
 
+        public ProcedureQueue Queue => _queue;
+
         public void AppearLeftHand(Action callback = null) => Schedule(_procedures.AppearLeftHand(), callback);
 
         public void AppearRightHand(Action callback = null) => Schedule(_procedures.AppearRightHand(), callback);
@@ -32,9 +34,11 @@ namespace Strawhenge.Inventory.Items
 
         public void SpawnAndDrop(Action callback = null) => Schedule(_procedures.SpawnAndDrop(), callback);
 
-        public void LeftHandToRightHand(Action callback = null) => Schedule(_procedures.LeftHandToRightHand(), callback);
+        public void LeftHandToRightHand(Action callback = null) =>
+            Schedule(_procedures.LeftHandToRightHand(), callback);
 
-        public void RightHandToLeftHand(Action callback = null) => Schedule(_procedures.RightHandToLeftHand(), callback);
+        public void RightHandToLeftHand(Action callback = null) =>
+            Schedule(_procedures.RightHandToLeftHand(), callback);
 
         public void DisappearLeftHand(Action callback = null) => Schedule(_procedures.DisappearLeftHand(), callback);
 
