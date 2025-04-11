@@ -92,11 +92,6 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<ProcedureFactory>()
-            .As<IProcedureFactory>()
-            .InstancePerLifetimeScope();
-
-        builder
             .RegisterType<ItemDropPoint>()
             .As<IItemDropPoint>()
             .InstancePerLifetimeScope();

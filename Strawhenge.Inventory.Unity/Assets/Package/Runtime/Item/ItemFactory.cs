@@ -23,10 +23,10 @@ namespace Strawhenge.Inventory.Unity.Items
         readonly StoredItems _storedItems;
         readonly HolsterScriptsContainer _holsterScriptsContainer;
         readonly ProcedureQueue _procedureQueue;
-        readonly IProcedureFactory _procedureFactory;
         readonly EffectFactory _effectFactory;
         readonly IItemDropPoint _itemDropPoint;
         readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
+        readonly IConsumeItemAnimationHandler _consumeItemAnimationHandler;
         readonly ILogger _logger;
 
         public ItemFactory(
@@ -36,10 +36,10 @@ namespace Strawhenge.Inventory.Unity.Items
             StoredItems storedItems,
             HolsterScriptsContainer holsterScriptsContainer,
             ProcedureQueue procedureQueue,
-            IProcedureFactory procedureFactory,
             EffectFactory effectFactory,
             IItemDropPoint itemDropPoint,
             IProduceItemAnimationHandler produceItemAnimationHandler,
+            IConsumeItemAnimationHandler consumeItemAnimationHandler,
             ILogger logger)
         {
             _hands = hands;
@@ -48,10 +48,10 @@ namespace Strawhenge.Inventory.Unity.Items
             _storedItems = storedItems;
             _holsterScriptsContainer = holsterScriptsContainer;
             _procedureQueue = procedureQueue;
-            _procedureFactory = procedureFactory;
             _effectFactory = effectFactory;
             _itemDropPoint = itemDropPoint;
             _produceItemAnimationHandler = produceItemAnimationHandler;
+            _consumeItemAnimationHandler = consumeItemAnimationHandler;
             _logger = logger;
         }
 
@@ -91,9 +91,12 @@ namespace Strawhenge.Inventory.Unity.Items
             data.ConsumableData.Do(consumableData =>
             {
                 var effects = consumableData.Effects.Select(_effectFactory.Create);
-                var consumableView = new ConsumableView(_procedureQueue, _procedureFactory, consumableData);
 
-                item.SetupConsumable(consumableView, effects);
+                var consumableProcedures = new ConsumableProcedures(
+                    consumableData,
+                    _consumeItemAnimationHandler);
+
+                item.SetupConsumable(consumableProcedures, effects);
             });
 
             if (data.IsStorable && !isTransient)
