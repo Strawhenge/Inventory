@@ -25,7 +25,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         protected const string PutAwayRightHand = "PutAwayRightHand";
         protected const string DisappearRightHand = "DisappearRightHand";
         protected const string DrawRightHand = "DrawRightHand";
-        protected const string SpawnAndDrop = "AppearRightHand";
+        protected const string SpawnAndDrop = "SpawnAndDrop";
         protected const string DrawLeftHand = "DrawLeftHand";
         protected const string PutAwayLeftHand = "PutAwayLeftHand";
         protected const string DisappearLeftHand = "DisappearLeftHand";

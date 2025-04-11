@@ -28,10 +28,10 @@ namespace Strawhenge.Inventory.Items.Holsters
             return holsterItem != null;
         }
 
-        internal bool IsEquippedToHolster(out IHolsterForItemView holsterItemView)
+        internal bool IsEquippedToHolster(out HolsterForItemProcedureScheduler procedureScheduler)
         {
             var isEquipped = IsEquippedToHolster(out HolsterForItem holsterItem);
-            holsterItemView = holsterItem?.GetView();
+            procedureScheduler = holsterItem?.GetProcedureScheduler();
             return isEquipped;
         }
 

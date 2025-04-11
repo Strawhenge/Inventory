@@ -22,6 +22,7 @@ namespace Strawhenge.Inventory.Tests
         protected override void OnBegin(Action endProcedure)
         {
             Completed?.Invoke(_info);
+            endProcedure();
         }
 
         protected override void OnSkip()

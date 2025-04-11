@@ -6,6 +6,7 @@ using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.Holsters;
+using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.TransientItems;
 using Xunit.Abstractions;
 
@@ -13,6 +14,7 @@ namespace Strawhenge.Inventory.Tests
 {
     class InventoryTestContext
     {
+        readonly ProcedureQueue _procedureQueue;
         readonly ProcedureTracker _procedureTracker;
         readonly Hands _hands;
         readonly Holsters _holsters;
@@ -23,6 +25,7 @@ namespace Strawhenge.Inventory.Tests
         public InventoryTestContext(ITestOutputHelper testOutputHelper)
         {
             var logger = new TestOutputLogger(testOutputHelper);
+            _procedureQueue = new ProcedureQueue();
             _procedureTracker = new ProcedureTracker(logger);
 
             _storedItems = new StoredItems(logger);
@@ -68,7 +71,12 @@ namespace Strawhenge.Inventory.Tests
             holsterNames ??= Array.Empty<string>();
 
             var itemView = new ItemViewFake(name);
-            var item = new Item(name, _hands, itemView, size.Value);
+            var item = new Item(
+                name,
+                _hands,
+                new ItemProceduresFake(_procedureTracker, name),
+                _procedureQueue,
+                size.Value);
 
             var holsters = holsterNames.Select(holsterName =>
             {
@@ -78,7 +86,11 @@ namespace Strawhenge.Inventory.Tests
                     .FindByName(holsterName)
                     .Reduce(() => throw new TestSetupException($"Holster '{holsterName}' not added."));
 
-                return new HolsterForItem(item, holster, holsterForItemView);
+                return new HolsterForItem(
+                    item,
+                    holster,
+                    new HolsterForItemProceduresFake(_procedureTracker, name, holsterName),
+                    _procedureQueue);
             });
 
             item.SetupHolsters(new HolstersForItem(holsters));
@@ -94,7 +106,13 @@ namespace Strawhenge.Inventory.Tests
             size ??= ItemSize.OneHanded;
 
             var itemView = new ItemViewFake(name);
-            return new Item(name, _hands, itemView, size.Value, isTransient: true);
+            return new Item(
+                name,
+                _hands,
+                new ItemProceduresFake(_procedureTracker, name),
+                _procedureQueue,
+                size.Value,
+                isTransient: true);
         }
 
         public ApparelPiece CreateApparel(string name, string slotName)
