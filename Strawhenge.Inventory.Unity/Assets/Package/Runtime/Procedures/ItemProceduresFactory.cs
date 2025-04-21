@@ -65,10 +65,10 @@ namespace Strawhenge.Inventory.Unity.Procedures
             }
 
             itemData.Consumable
-                .Do(_ =>
+                .Do(consumableData =>
                 {
                     dto.SetConsumable(new ConsumableProcedures(
-                        itemData.Get<IConsumableData>().Reduce(() => new SerializedConsumableData()),
+                        consumableData.Get<IConsumableData>().Reduce(() => new SerializedConsumableData()),
                         _consumeItemAnimationHandler
                     ));
                 });

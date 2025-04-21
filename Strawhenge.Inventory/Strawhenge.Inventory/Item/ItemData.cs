@@ -25,9 +25,7 @@ namespace Strawhenge.Inventory.Items
         readonly List<(string name, Action<IDataSetter> setData)> _holsters =
             new List<(string name, Action<IDataSetter> setData)>();
 
-        readonly List<Effect> _consumableEffects = new List<Effect>();
-
-        bool _isConsumable;
+        (Effect[] effects, Action<IDataSetter> setData)? _consumable;
 
         ItemDataBuilder(string name, ItemSize size, bool isStorable, int weight, Action<IDataSetter> setData)
         {
@@ -41,13 +39,8 @@ namespace Strawhenge.Inventory.Items
         public void AddHolster(string name, Action<IDataSetter> setData) =>
             _holsters.Add((name, setData));
 
-        public void SetConsumable(IEnumerable<Effect> effects = null)
-        {
-            _isConsumable = true;
-
-            if (effects != null)
-                _consumableEffects.AddRange(effects);
-        }
+        public void SetConsumable(IEnumerable<Effect> effects, Action<IDataSetter> setData) =>
+            _consumable = (effects.ToArray(), setData);
 
         public ItemData Build()
         {
@@ -61,9 +54,13 @@ namespace Strawhenge.Inventory.Items
                 return new HolsterItemData(x.name, genericHolsterData);
             });
 
-            var consumable = _isConsumable
-                ? new ConsumableItemData(_consumableEffects)
-                : Maybe.None<ConsumableItemData>();
+            var consumable = Maybe.None<ConsumableItemData>();
+            if (_consumable.HasValue)
+            {
+                var genericConsumableData = new GenericData();
+                _consumable.Value.setData(genericConsumableData);
+                consumable = new ConsumableItemData(_consumable.Value.effects, genericConsumableData);
+            }
 
             return new ItemData(_name, _size, _isStorable, _weight, consumable, holsters, genericData);
         }
@@ -144,11 +141,16 @@ namespace Strawhenge.Inventory.Items
 
     public class ConsumableItemData
     {
-        internal ConsumableItemData(IEnumerable<Effect> effects)
+        readonly GenericData _genericData;
+
+        internal ConsumableItemData(IEnumerable<Effect> effects, GenericData genericData)
         {
+            _genericData = genericData;
             Effects = effects.ToArray();
         }
 
         public IReadOnlyList<Effect> Effects { get; }
+
+        public Maybe<T> Get<T>() where T : class => _genericData.Get<T>();
     }
 }
