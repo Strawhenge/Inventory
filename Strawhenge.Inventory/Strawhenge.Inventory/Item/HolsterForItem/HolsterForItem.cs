@@ -1,5 +1,6 @@
 ﻿using Strawhenge.Inventory.Containers;
 using System;
+using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory.Items.Holsters
 {
@@ -7,15 +8,17 @@ namespace Strawhenge.Inventory.Items.Holsters
     {
         readonly Item _item;
         readonly ItemContainer _itemContainer;
-        readonly IHolsterForItemView _view;
+        readonly HolsterForItemProcedureScheduler _procedures;
 
-        public HolsterForItem(Item item, ItemContainer itemContainer, IHolsterForItemView view)
+        public HolsterForItem(
+            Item item,
+            ItemContainer itemContainer,
+            IHolsterForItemProcedures procedures,
+            ProcedureQueue procedureQueue)
         {
             _item = item;
             _itemContainer = itemContainer;
-            _view = view;
-
-            view.Released += OnRemoved;
+            _procedures = new HolsterForItemProcedureScheduler(procedures, procedureQueue);
         }
 
         public string HolsterName => _itemContainer.Name;
@@ -38,7 +41,7 @@ namespace Strawhenge.Inventory.Items.Holsters
             if (_item.IsInHand)
                 callback?.Invoke();
             else
-                _view.Show(callback);
+                _procedures.Show(callback);
         }
 
         public void Unequip(Action callback = null)
@@ -58,9 +61,9 @@ namespace Strawhenge.Inventory.Items.Holsters
             }
 
             if (_item.IsInStorage)
-                _view.Hide(callback);
+                _procedures.Hide(callback);
             else
-                _view.Drop(callback);
+                _procedures.Drop(callback);
         }
 
         internal void Disappear(Action callback = null)
@@ -76,7 +79,7 @@ namespace Strawhenge.Inventory.Items.Holsters
             if (_item.IsInHand)
                 callback?.Invoke();
             else
-                _view.Hide();
+                _procedures.Hide();
         }
 
         internal void Drop(Action callback = null)
@@ -92,7 +95,7 @@ namespace Strawhenge.Inventory.Items.Holsters
             if (_item.IsInHand)
                 callback?.Invoke();
             else
-                _view.Drop();
+                _procedures.Drop();
         }
 
         internal void Discard(Action callback = null)
@@ -108,24 +111,15 @@ namespace Strawhenge.Inventory.Items.Holsters
             if (_item.IsInHand)
                 callback?.Invoke();
             else
-                _view.Hide();
+                _procedures.Hide();
         }
 
-        internal IHolsterForItemView GetView()
-        {
-            return _view;
-        }
+        internal HolsterForItemProcedureScheduler GetProcedureScheduler() => _procedures;
 
         void ClearHolster()
         {
             _itemContainer.CurrentItem.Do(
                 x => x.UnequipFromHolster());
-        }
-
-        void OnRemoved()
-        {
-            if (_itemContainer.IsCurrentItem(_item))
-                _itemContainer.UnsetItem();
         }
     }
 }

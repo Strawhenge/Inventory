@@ -14,10 +14,10 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Drop
             hammer.Drop();
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, RightHipHolster, x => x.Show);
-            yield return (Hammer, RightHipHolster, x => x.Drop);
+            yield return (Hammer, RightHipHolster, Show);
+            yield return (Hammer, RightHipHolster, Drop);
         }
     }
 }

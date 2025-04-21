@@ -1,6 +1,5 @@
 using Strawhenge.Common.Unity.Helpers;
 using Strawhenge.Inventory.Unity;
-using System;
 using UnityEngine;
 
 public class LootboxScript : MonoBehaviour

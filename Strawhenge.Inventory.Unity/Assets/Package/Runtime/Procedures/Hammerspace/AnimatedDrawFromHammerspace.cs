@@ -1,6 +1,5 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
-using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Items;
 using System;
 

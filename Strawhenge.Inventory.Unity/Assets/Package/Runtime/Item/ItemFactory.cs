@@ -3,49 +3,54 @@ using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.Holsters;
 using Strawhenge.Inventory.Procedures;
+using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Components;
-using Strawhenge.Inventory.Unity.Items.Data;
-using Strawhenge.Inventory.Unity.Consumables;
 using Strawhenge.Inventory.Unity.Items.Context;
+using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Procedures;
 using System.Collections.Generic;
 using System.Linq;
 using ILogger = Strawhenge.Common.Logging.ILogger;
-using ItemSize = Strawhenge.Inventory.Items.ItemSize;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemFactory : IItemFactory
     {
         readonly Hands _hands;
+        readonly HandScriptsContainer _handScripts;
         readonly Holsters _holsters;
         readonly StoredItems _storedItems;
         readonly HolsterScriptsContainer _holsterScriptsContainer;
         readonly ProcedureQueue _procedureQueue;
-        readonly IProcedureFactory _procedureFactory;
         readonly EffectFactory _effectFactory;
         readonly IItemDropPoint _itemDropPoint;
+        readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
+        readonly IConsumeItemAnimationHandler _consumeItemAnimationHandler;
         readonly ILogger _logger;
 
         public ItemFactory(
             Hands hands,
+            HandScriptsContainer handScripts,
             Holsters holsters,
             StoredItems storedItems,
             HolsterScriptsContainer holsterScriptsContainer,
             ProcedureQueue procedureQueue,
-            IProcedureFactory procedureFactory,
             EffectFactory effectFactory,
             IItemDropPoint itemDropPoint,
+            IProduceItemAnimationHandler produceItemAnimationHandler,
+            IConsumeItemAnimationHandler consumeItemAnimationHandler,
             ILogger logger)
         {
             _hands = hands;
+            _handScripts = handScripts;
             _holsters = holsters;
             _storedItems = storedItems;
             _holsterScriptsContainer = holsterScriptsContainer;
             _procedureQueue = procedureQueue;
-            _procedureFactory = procedureFactory;
             _effectFactory = effectFactory;
             _itemDropPoint = itemDropPoint;
+            _produceItemAnimationHandler = produceItemAnimationHandler;
+            _consumeItemAnimationHandler = consumeItemAnimationHandler;
             _logger = logger;
         }
 
@@ -69,19 +74,28 @@ namespace Strawhenge.Inventory.Unity.Items
 
         Item Create(ItemHelper component, IItemData data, bool isTransient = false)
         {
-            var view = new ItemView(component, _procedureQueue, _procedureFactory);
+            var procedures = new ItemProcedures(component, _handScripts, _produceItemAnimationHandler);
 
-            var item = new Item(data.Name, _hands, view, data.Size, isTransient);
+            var item = new Item(
+                data.Name,
+                _hands,
+                procedures,
+                _procedureQueue,
+                data.Size,
+                isTransient);
 
             if (!isTransient)
-                item.SetupHolsters(CreateHolstersForItem(component));
+                item.SetupHolsters(CreateHolstersForItem(component, item));
 
             data.ConsumableData.Do(consumableData =>
             {
                 var effects = consumableData.Effects.Select(_effectFactory.Create);
-                var consumableView = new ConsumableView(_procedureQueue, _procedureFactory, consumableData);
 
-                item.SetupConsumable(consumableView, effects);
+                var consumableProcedures = new ConsumableProcedures(
+                    consumableData,
+                    _consumeItemAnimationHandler);
+
+                item.SetupConsumable(consumableProcedures, effects);
             });
 
             if (data.IsStorable && !isTransient)
@@ -90,26 +104,35 @@ namespace Strawhenge.Inventory.Unity.Items
             return item;
         }
 
-        IEnumerable<(ItemContainer, IHolsterForItemView)> CreateHolstersForItem(ItemHelper itemComponent)
+        HolstersForItem CreateHolstersForItem(ItemHelper itemComponent, Item item)
         {
-            var holstersForItem = new List<(ItemContainer, IHolsterForItemView)>();
+            var holstersForItem = new List<HolsterForItem>();
 
             foreach (var holsterComponent in _holsterScriptsContainer.HolsterScripts)
             {
                 if (!itemComponent.IsHolsterCompatible(holsterComponent, _logger))
                     continue;
 
-                var holster = _holsters.FindByName(holsterComponent.Name);
+                _holsters
+                    .FindByName(holsterComponent.Name)
+                    .Do(holster =>
+                    {
+                        var procedures = new HolsterForItemProcedures(
+                            itemComponent,
+                            _handScripts,
+                            holsterComponent,
+                            _produceItemAnimationHandler,
+                            _logger);
 
-                holster.Do(x =>
-                {
-                    var view = new HolsterForItemView(itemComponent, holsterComponent, _procedureQueue,
-                        _procedureFactory);
-                    holstersForItem.Add((x, view));
-                });
+                        holstersForItem.Add(new HolsterForItem(
+                            item,
+                            holster,
+                            procedures,
+                            _procedureQueue));
+                    });
             }
 
-            return holstersForItem;
+            return new HolstersForItem(holstersForItem);
         }
     }
 }

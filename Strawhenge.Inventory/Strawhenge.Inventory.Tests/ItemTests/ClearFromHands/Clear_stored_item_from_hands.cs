@@ -23,10 +23,10 @@ namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
             yield return _hammer;
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, x => x.AppearRightHand);
-            yield return (Hammer, x => x.PutAwayRightHand);
+            yield return (Hammer, AppearRightHand);
+            yield return (Hammer, PutAwayRightHand);
         }
     }
 }
