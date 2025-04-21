@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Strawhenge.Common;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items.Holsters;
@@ -16,16 +15,13 @@ namespace Strawhenge.Inventory.Items
         readonly IItemProceduresFactory _proceduresFactory;
 
         public ItemFactory(
-            Hands hands,
-            Containers.Holsters holsters,
-            StoredItems storedItems,
-            ProcedureQueue procedureQueue,
+            InventoryContext inventoryContext,
             IItemProceduresFactory proceduresFactory)
         {
-            _hands = hands;
-            _holsters = holsters;
-            _storedItems = storedItems;
-            _procedureQueue = procedureQueue;
+            _hands = inventoryContext.Hands;
+            _holsters = inventoryContext.Holsters;
+            _storedItems = inventoryContext.StoredItems;
+            _procedureQueue = inventoryContext.ProcedureQueue;
             _proceduresFactory = proceduresFactory;
         }
 
