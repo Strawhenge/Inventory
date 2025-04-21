@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using FunctionalUtilities;
+using Strawhenge.Inventory.Items.Consumables;
+using Strawhenge.Inventory.Items.Holsters;
+
+namespace Strawhenge.Inventory.Items
+{
+    public class ItemProcedureDto
+    {
+        readonly IDictionary<string, IHolsterForItemProcedures> _holsterProcedures =
+            new Dictionary<string, IHolsterForItemProcedures>();
+
+        public ItemProcedureDto(IItemProcedures itemProcedures)
+        {
+            ItemProcedures = itemProcedures;
+        }
+
+        public IItemProcedures ItemProcedures { get; set; }
+
+        public Maybe<IConsumableProcedures> ConsumableProcedures { get; private set; }
+
+        public Maybe<IHolsterForItemProcedures> HolsterProcedures(string holsterName) =>
+            _holsterProcedures.TryGetValue(holsterName, out var procedures)
+                ? Maybe.Some(procedures)
+                : Maybe.None<IHolsterForItemProcedures>();
+
+        public void SetHolster(string holsterName, IHolsterForItemProcedures procedures) =>
+            _holsterProcedures[holsterName] = procedures;
+
+        public void SetConsumable(IConsumableProcedures consumableProcedures) =>
+            ConsumableProcedures = Maybe.Some<IConsumableProcedures>(consumableProcedures);
+    }
+
+    public interface IItemProceduresFactory
+    {
+        ItemProcedureDto Create(ItemData itemData);
+    }
+}

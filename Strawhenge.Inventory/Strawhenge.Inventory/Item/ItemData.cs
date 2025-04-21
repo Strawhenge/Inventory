@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Effects;
 
 namespace Strawhenge.Inventory.Items
 {
@@ -24,6 +25,10 @@ namespace Strawhenge.Inventory.Items
         readonly List<(string name, Action<IDataSetter> setData)> _holsters =
             new List<(string name, Action<IDataSetter> setData)>();
 
+        readonly List<Effect> _consumableEffects = new List<Effect>();
+
+        bool _isConsumable;
+
         ItemDataBuilder(string name, ItemSize size, bool isStorable, int weight, Action<IDataSetter> setData)
         {
             _name = name;
@@ -35,6 +40,14 @@ namespace Strawhenge.Inventory.Items
 
         public void AddHolster(string name, Action<IDataSetter> setData) =>
             _holsters.Add((name, setData));
+
+        public void SetConsumable(IEnumerable<Effect> effects = null)
+        {
+            _isConsumable = true;
+
+            if (effects != null)
+                _consumableEffects.AddRange(effects);
+        }
 
         public ItemData Build()
         {
@@ -48,7 +61,11 @@ namespace Strawhenge.Inventory.Items
                 return new HolsterItemData(x.name, genericHolsterData);
             });
 
-            return new ItemData(_name, _size, _isStorable, _weight, holsters, genericData);
+            var consumable = _isConsumable
+                ? new ConsumableItemData(_consumableEffects)
+                : Maybe.None<ConsumableItemData>();
+
+            return new ItemData(_name, _size, _isStorable, _weight, consumable, holsters, genericData);
         }
     }
 
@@ -81,6 +98,7 @@ namespace Strawhenge.Inventory.Items
             ItemSize size,
             bool isStorable,
             int weight,
+            Maybe<ConsumableItemData> consumable,
             IEnumerable<HolsterItemData> holsters,
             GenericData genericData)
         {
@@ -88,6 +106,7 @@ namespace Strawhenge.Inventory.Items
             Size = size;
             IsStorable = isStorable;
             Weight = weight;
+            Consumable = consumable;
             Holsters = holsters.ToArray();
 
             _genericData = genericData;
@@ -100,6 +119,8 @@ namespace Strawhenge.Inventory.Items
         public bool IsStorable { get; }
 
         public int Weight { get; }
+
+        public Maybe<ConsumableItemData> Consumable { get; }
 
         public IReadOnlyList<HolsterItemData> Holsters { get; }
 
@@ -119,5 +140,15 @@ namespace Strawhenge.Inventory.Items
         public string HolsterName { get; }
 
         public Maybe<T> Get<T>() where T : class => _genericData.Get<T>();
+    }
+
+    public class ConsumableItemData
+    {
+        internal ConsumableItemData(IEnumerable<Effect> effects)
+        {
+            Effects = effects.ToArray();
+        }
+
+        public IReadOnlyList<Effect> Effects { get; }
     }
 }
