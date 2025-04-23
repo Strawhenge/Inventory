@@ -25,7 +25,7 @@ namespace Strawhenge.Inventory.Items
         readonly List<(string name, Action<IDataSetter> setData)> _holsters =
             new List<(string name, Action<IDataSetter> setData)>();
 
-        (Effect[] effects, Action<IDataSetter> setData)? _consumable;
+        (EffectData[] effects, Action<IDataSetter> setData)? _consumable;
 
         ItemDataBuilder(string name, ItemSize size, bool isStorable, int weight, Action<IDataSetter> setData)
         {
@@ -39,7 +39,7 @@ namespace Strawhenge.Inventory.Items
         public void AddHolster(string name, Action<IDataSetter> setData) =>
             _holsters.Add((name, setData));
 
-        public void SetConsumable(IEnumerable<Effect> effects, Action<IDataSetter> setData) =>
+        public void SetConsumable(IEnumerable<EffectData> effects, Action<IDataSetter> setData) =>
             _consumable = (effects.ToArray(), setData);
 
         public ItemData Build()
@@ -143,13 +143,13 @@ namespace Strawhenge.Inventory.Items
     {
         readonly GenericData _genericData;
 
-        internal ConsumableItemData(IEnumerable<Effect> effects, GenericData genericData)
+        internal ConsumableItemData(IEnumerable<EffectData> effects, GenericData genericData)
         {
             _genericData = genericData;
             Effects = effects.ToArray();
         }
 
-        public IReadOnlyList<Effect> Effects { get; }
+        public IReadOnlyList<EffectData> Effects { get; }
 
         public Maybe<T> Get<T>() where T : class => _genericData.Get<T>();
     }
