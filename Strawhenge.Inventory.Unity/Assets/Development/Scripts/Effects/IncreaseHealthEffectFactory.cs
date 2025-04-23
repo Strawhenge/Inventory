@@ -1,7 +1,7 @@
 ﻿using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Effects;
 
-public class IncreaseHealthEffectFactory : IEffectFactory<IncreaseHealthEffectData>
+public class IncreaseHealthEffectFactory : IEffectFactory<IncreaseHealthEffectScriptableObject>
 {
     readonly ILogger _logger;
 
@@ -10,7 +10,7 @@ public class IncreaseHealthEffectFactory : IEffectFactory<IncreaseHealthEffectDa
         _logger = logger;
     }
 
-    public Effect Create(IncreaseHealthEffectData data)
+    public Effect Create(IncreaseHealthEffectScriptableObject data)
     {
         return new IncreaseHealthEffect(data.Amount, _logger);
     }

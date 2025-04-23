@@ -232,7 +232,7 @@ public static class DependencyInjection
 
         builder
             .RegisterType<IncreaseHealthEffectFactory>()
-            .As<IEffectFactory<IncreaseHealthEffectData>>()
+            .As<IEffectFactory<IncreaseHealthEffectScriptableObject>>()
             .InstancePerLifetimeScope();
     }
 }

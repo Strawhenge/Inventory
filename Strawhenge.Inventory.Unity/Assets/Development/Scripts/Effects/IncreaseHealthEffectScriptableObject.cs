@@ -7,5 +7,7 @@ public class IncreaseHealthEffectScriptableObject : EffectScriptableObject
 {
     [SerializeField, Min(0)] int _amount;
 
-    public override EffectData Data => EffectData.From(new IncreaseHealthEffectData(_amount));
+    public int Amount => _amount;
+
+    public override EffectData Data => EffectData.From(this);
 }
