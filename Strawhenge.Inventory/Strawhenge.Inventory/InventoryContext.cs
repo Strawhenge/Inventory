@@ -17,7 +17,6 @@ namespace Strawhenge.Inventory
             ProcedureQueue = new ProcedureQueue();
         }
 
-
         public Hands Hands { get; }
 
         public Holsters Holsters { get; }
