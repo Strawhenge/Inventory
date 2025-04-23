@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Strawhenge.Common;
-using Strawhenge.Common.Factories;
 using Strawhenge.Inventory.Containers;
+using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items.Holsters;
 using Strawhenge.Inventory.Procedures;
 
@@ -9,22 +9,23 @@ namespace Strawhenge.Inventory.Items
 {
     class ItemFactory
     {
-        readonly IAbstractFactory _abstractFactory;
         readonly Hands _hands;
         readonly Containers.Holsters _holsters;
         readonly StoredItems _storedItems;
         readonly ProcedureQueue _procedureQueue;
+        readonly EffectFactory _effectFactory;
         readonly IItemProceduresFactory _proceduresFactory;
 
         public ItemFactory(
             InventoryContext inventoryContext,
             IItemProceduresFactory proceduresFactory)
         {
-            _abstractFactory = inventoryContext.AbstractFactory;
             _hands = inventoryContext.Hands;
             _holsters = inventoryContext.Holsters;
             _storedItems = inventoryContext.StoredItems;
             _procedureQueue = inventoryContext.ProcedureQueue;
+            _effectFactory = inventoryContext.EffectFactory;
+
             _proceduresFactory = proceduresFactory;
         }
 
@@ -61,8 +62,7 @@ namespace Strawhenge.Inventory.Items
                 procedures.ConsumableProcedures.HasSome(out var consumableProcedures))
             {
                 var effects = consumableItemData.Effects
-                    .Select(x => x.Create(_abstractFactory))
-                    .WhereSome();
+                    .Select(x => _effectFactory.Create(x));
 
                 item.SetupConsumable(consumableProcedures, effects);
             }

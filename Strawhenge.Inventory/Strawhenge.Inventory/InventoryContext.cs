@@ -1,6 +1,7 @@
 ﻿using Strawhenge.Common.Factories;
 using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Containers;
+using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory
@@ -9,14 +10,13 @@ namespace Strawhenge.Inventory
     {
         public InventoryContext(IAbstractFactory abstractFactory, ILogger logger)
         {
-            AbstractFactory = abstractFactory;
+            EffectFactory = new EffectFactory(abstractFactory, logger);
             Hands = new Hands();
             Holsters = new Holsters(logger);
             StoredItems = new StoredItems(logger);
             ProcedureQueue = new ProcedureQueue();
         }
 
-        public IAbstractFactory AbstractFactory { get; }
 
         public Hands Hands { get; }
 
@@ -25,5 +25,7 @@ namespace Strawhenge.Inventory
         public StoredItems StoredItems { get; }
 
         public ProcedureQueue ProcedureQueue { get; }
+
+        public EffectFactory EffectFactory { get; }
     }
 }
