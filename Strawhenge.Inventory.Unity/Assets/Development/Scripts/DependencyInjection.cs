@@ -229,5 +229,10 @@ public static class DependencyInjection
             .RegisterType<EffectFactory>()
             .AsSelf()
             .InstancePerLifetimeScope();
+
+        builder
+            .RegisterType<IncreaseHealthEffectFactory>()
+            .As<IEffectFactory<IncreaseHealthEffectData>>()
+            .InstancePerLifetimeScope();
     }
 }
