@@ -21,15 +21,13 @@ namespace Strawhenge.Inventory.Items
         public Maybe<IConsumableProcedures> ConsumableProcedures { get; private set; }
 
         public Maybe<IHolsterForItemProcedures> HolsterProcedures(string holsterName) =>
-            _holsterProcedures.TryGetValue(holsterName, out var procedures)
-                ? Maybe.Some(procedures)
-                : Maybe.None<IHolsterForItemProcedures>();
+            _holsterProcedures.MaybeGetValue(holsterName);
 
         public void SetHolster(string holsterName, IHolsterForItemProcedures procedures) =>
             _holsterProcedures[holsterName] = procedures;
 
         public void SetConsumable(IConsumableProcedures consumableProcedures) =>
-            ConsumableProcedures = Maybe.Some<IConsumableProcedures>(consumableProcedures);
+            ConsumableProcedures = Maybe.Some(consumableProcedures);
     }
 
     public interface IItemProceduresFactory
