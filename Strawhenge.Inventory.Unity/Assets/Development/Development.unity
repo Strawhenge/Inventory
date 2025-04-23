@@ -427,7 +427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8788953921212877616, guid: fcceafb1ea0db094ab9794a4c4b2a984, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 30015
+      value: 31015.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcceafb1ea0db094ab9794a4c4b2a984, type: 3}
@@ -656,6 +656,10 @@ MonoBehaviour:
     _holster: {fileID: 0}
     _isInStorage: 0
     _inHand: 2
+  - _item: {fileID: 11400000, guid: 88d3cf08cd558ed46852f416d82933c5, type: 2}
+    _holster: {fileID: 0}
+    _isInStorage: 1
+    _inHand: 0
   _apparel:
   - _apparel: {fileID: 11400000, guid: 627702bbee9e259449f32039234037e0, type: 2}
 --- !u!1 &945952822
@@ -1007,7 +1011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7557200200927040949, guid: 5c3de92d1c034b94b9a70e2aadd14690, type: 3}
       propertyPath: _items.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7557200200927040949, guid: 5c3de92d1c034b94b9a70e2aadd14690, type: 3}
       propertyPath: _items.Array.data[0]
@@ -1017,6 +1021,10 @@ PrefabInstance:
       propertyPath: _items.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 41e1de798c8db5b44a89afd4c99e840f, type: 2}
+    - target: {fileID: 7557200200927040949, guid: 5c3de92d1c034b94b9a70e2aadd14690, type: 3}
+      propertyPath: _items.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 88d3cf08cd558ed46852f416d82933c5, type: 2}
     - target: {fileID: 7557200200927040949, guid: 5c3de92d1c034b94b9a70e2aadd14690, type: 3}
       propertyPath: _apparelPieces.Array.size
       value: 2
