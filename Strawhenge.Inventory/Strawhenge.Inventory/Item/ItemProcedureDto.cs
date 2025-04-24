@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FunctionalUtilities;
 using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Items.Holsters;

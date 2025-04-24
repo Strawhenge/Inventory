@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using FunctionalUtilities;
 using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Effects;
 
@@ -8,13 +7,13 @@ namespace Strawhenge.Inventory.Apparel
     public class ApparelPieceFactory
     {
         readonly ApparelSlot _missingApparelSlot = new ApparelSlot("Missing.");
-        readonly IApparelSlots _slots;
+        readonly ApparelSlots _slots;
         readonly EffectFactory _effectFactory;
         readonly IApparelViewFactory _apparelViewFactory;
         readonly ILogger _logger;
 
         public ApparelPieceFactory(
-            IApparelSlots slots,
+            ApparelSlots slots,
             EffectFactory effectFactory,
             IApparelViewFactory apparelViewFactory,
             ILogger logger)
@@ -27,8 +26,7 @@ namespace Strawhenge.Inventory.Apparel
 
         public ApparelPiece Create(ApparelPieceData data)
         {
-            var slot = _slots.All
-                .FirstOrNone(x => x.Name == data.Slot)
+            var slot = _slots[data.Slot]
                 .Reduce(() =>
                 {
                     _logger.LogError($"Missing apparel slot '{data.Slot}'.");

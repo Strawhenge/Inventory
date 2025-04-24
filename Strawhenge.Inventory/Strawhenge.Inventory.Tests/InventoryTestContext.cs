@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Tests
         readonly Hands _hands;
         readonly Holsters _holsters;
         readonly StoredItems _storedItems;
-        readonly ApparelSlotsFake _apparelSlots;
+        readonly ApparelSlots _apparelSlots;
         readonly ItemGeneratorFake _itemGenerator;
 
         public InventoryTestContext(ITestOutputHelper testOutputHelper)
@@ -31,7 +31,7 @@ namespace Strawhenge.Inventory.Tests
             _storedItems = new StoredItems(logger);
             _hands = new Hands();
             _holsters = new Holsters(logger);
-            _apparelSlots = new ApparelSlotsFake();
+            _apparelSlots = new ApparelSlots(logger);
             _itemGenerator = new ItemGeneratorFake();
 
             Inventory = new Inventory(
@@ -69,7 +69,7 @@ namespace Strawhenge.Inventory.Tests
         {
             size ??= ItemSize.OneHanded;
             holsterNames ??= Array.Empty<string>();
-            
+
             var item = new Item(
                 name,
                 _hands,
@@ -101,7 +101,7 @@ namespace Strawhenge.Inventory.Tests
         public Item CreateTransientItem(string name, ItemSize? size = null)
         {
             size ??= ItemSize.OneHanded;
-         
+
             return new Item(
                 name,
                 _hands,

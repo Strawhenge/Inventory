@@ -8,13 +8,13 @@ namespace Strawhenge.Inventory
     {
         readonly Hands _hands;
         readonly Holsters _holsters;
-        readonly IApparelSlots _apparelSlots;
+        readonly ApparelSlots _apparelSlots;
 
         public Inventory(
             StoredItems storedItems,
             Hands hands,
             Holsters holsters,
-            IApparelSlots apparelSlots)
+            ApparelSlots apparelSlots)
         {
             _hands = hands;
             _holsters = holsters;
