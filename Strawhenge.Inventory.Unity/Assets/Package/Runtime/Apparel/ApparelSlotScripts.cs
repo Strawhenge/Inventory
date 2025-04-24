@@ -6,13 +6,15 @@ using System.Collections.Generic;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
-    public class ApparelSlotScripts : IApparelSlots
+    public class ApparelSlotScripts
     {
         readonly Dictionary<string, ApparelSlotScript> _slotsByName = new Dictionary<string, ApparelSlotScript>();
+        readonly ApparelSlots _apparelSlots;
         readonly ILogger _logger;
 
-        public ApparelSlotScripts(ILogger logger)
+        public ApparelSlotScripts(ApparelSlots apparelSlots, ILogger logger)
         {
+            _apparelSlots = apparelSlots;
             _logger = logger;
         }
 
@@ -26,6 +28,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
                 return;
             }
 
+            _apparelSlots.Add(apparelSlotScript.ApparelSlot);
             _slotsByName.Add(apparelSlotScript.ApparelSlot.Name, apparelSlotScript);
         }
 

@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.Unity
             StoredItems storedItems,
             Hands hands,
             Holsters holsters,
-            IApparelSlots apparelSlots,
+            ApparelSlots apparelSlots,
             IItemFactory itemFactory,
             IApparelPieceFactory apparelPieceFactory)
             : base(storedItems, hands, holsters, apparelSlots)

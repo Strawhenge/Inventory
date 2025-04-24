@@ -18,6 +18,7 @@ using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Loader;
 using Strawhenge.Inventory.Unity.Menu;
 using UnityEngine;
+using ApparelPieceFactory = Strawhenge.Inventory.Unity.Apparel.ApparelPieceFactory;
 using IInventory = Strawhenge.Inventory.IInventory;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 using Inventory = Strawhenge.Inventory.Unity.Inventory;
@@ -170,7 +171,11 @@ public static class DependencyInjection
         builder
             .RegisterType<ApparelSlotScripts>()
             .AsSelf()
-            .As<IApparelSlots>()
+            .InstancePerLifetimeScope();
+
+        builder
+            .RegisterType<ApparelSlots>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder

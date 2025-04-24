@@ -28,5 +28,16 @@ namespace Strawhenge.Inventory.Apparel
 
             _slots.Add(name, new ApparelSlot(name));
         }
+
+        public void Add(ApparelSlot slot)
+        {
+            if (_slots.ContainsKey(slot.Name))
+            {
+                _logger.LogError($"Apparel slot '{slot.Name}' already exists.");
+                return;
+            }
+
+            _slots.Add(slot.Name, slot);
+        }
     }
 }
