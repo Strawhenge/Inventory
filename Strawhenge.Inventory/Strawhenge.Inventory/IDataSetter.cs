@@ -1,4 +1,4 @@
-﻿namespace Strawhenge.Inventory.Items
+﻿namespace Strawhenge.Inventory
 {
     public interface IDataSetter
     {

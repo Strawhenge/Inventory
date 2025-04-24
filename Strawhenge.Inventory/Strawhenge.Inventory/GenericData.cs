@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using FunctionalUtilities;
 
-namespace Strawhenge.Inventory.Items
+namespace Strawhenge.Inventory
 {
     class GenericData : IDataSetter
     {
