@@ -12,14 +12,13 @@ namespace Strawhenge.Inventory.Apparel
         readonly IApparelViewFactory _apparelViewFactory;
         readonly ILogger _logger;
 
-        public ApparelPieceFactory(
-            ApparelSlots slots,
-            EffectFactory effectFactory,
+        internal ApparelPieceFactory(
+            InventoryContext inventoryContext,
             IApparelViewFactory apparelViewFactory,
             ILogger logger)
         {
-            _slots = slots;
-            _effectFactory = effectFactory;
+            _slots = inventoryContext.ApparelSlots;
+            _effectFactory = inventoryContext.EffectFactory;
             _apparelViewFactory = apparelViewFactory;
             _logger = logger;
         }
