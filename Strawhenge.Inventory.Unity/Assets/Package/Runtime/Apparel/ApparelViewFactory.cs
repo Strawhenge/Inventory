@@ -27,13 +27,11 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         public IApparelView Create(ApparelPieceData data)
         {
-            var apparelPieceData = data
-                .Get<IApparelPieceData>()
-                .Reduce(() =>
-                {
-                    // TODO
-                    throw new System.NotImplementedException();
-                });
+            if (!data.Get<IApparelPieceData>().HasSome(out var apparelPieceData))
+            {
+                _logger.LogWarning($"Missing apparel data.");
+                return new NullApparelView();
+            }
 
 
             if (!_slotScripts.FindByName(apparelPieceData.Slot).HasSome(out var slotScript))

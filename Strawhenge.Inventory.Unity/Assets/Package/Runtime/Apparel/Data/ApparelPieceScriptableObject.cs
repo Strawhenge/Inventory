@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Effects;
+﻿using Strawhenge.Inventory.Apparel;
+using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Unity.Effects;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,16 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
-    [CreateAssetMenu(menuName = "Strawhenge/Inventory/Apparel/ApparelPiece")]
+    [CreateAssetMenu(menuName = "Strawhenge/Inventory/Apparel/Apparel Piece")]
     public class ApparelPieceScriptableObject : ScriptableObject, IApparelPieceData
     {
+        public ApparelPieceData ToApparelPieceData()
+        {
+            return ApparelPieceDataBuilder
+                .Create(Name, Slot, Effects, x => x.Set<IApparelPieceData>(this))
+                .Build();
+        }
+
         [SerializeField] GameObject _prefab;
         [SerializeField] ApparelSlotScriptableObject _slot;
         [SerializeField] Vector3 _position;
