@@ -3,23 +3,23 @@ using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Items.Context;
 using Strawhenge.Inventory.Unity.Items.Data;
+using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 
 namespace Strawhenge.Inventory.Unity
 {
     public class Inventory : Strawhenge.Inventory.Inventory
     {
-        readonly ItemFactory _itemFactory;
-
         public Inventory(
             StoredItems storedItems,
             Hands hands,
             Holsters holsters,
             ApparelSlots apparelSlots,
-            ItemFactory itemFactory,
+            ProcedureQueue procedureQueue,
+            IItemProceduresFactory itemProceduresFactory,
             IEffectFactoryLocator effectFactoryLocator,
             IApparelViewFactory apparelViewFactory,
             ILogger logger)
@@ -28,23 +28,28 @@ namespace Strawhenge.Inventory.Unity
                 hands,
                 holsters,
                 apparelSlots,
-                effectFactoryLocator,
+                procedureQueue,
+                itemProceduresFactory,
                 apparelViewFactory,
+                effectFactoryLocator,
                 logger)
         {
-            _itemFactory = itemFactory;
         }
 
         public Item CreateItem(ItemPickupScript pickup)
         {
-            var context = new ItemContext();
-            pickup.ContextOut(context);
-            return _itemFactory.Create(pickup.PickupItem(), context);
+            var data = pickup.PickupItem();
+
+            return CreateItem(data);
         }
 
         public Item CreateItem(IItemData data)
         {
-            return _itemFactory.Create(data);
+            var itemData = (data as ItemScriptableObject).ToItemData();
+
+            var item = base.CreateItem(itemData);
+
+            return item;
         }
 
         public ApparelPiece CreateApparelPiece(IApparelPieceData data)

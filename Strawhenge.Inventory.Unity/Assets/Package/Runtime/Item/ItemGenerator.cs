@@ -2,17 +2,18 @@
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.TransientItems;
 using Strawhenge.Inventory.Unity.Items.Data;
+using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemGenerator : IItemGenerator
     {
-        readonly ItemFactory _itemFactory;
+        readonly Strawhenge.Inventory.Inventory _inventory;
         readonly IItemRepository _itemRepository;
 
-        public ItemGenerator(ItemFactory itemFactory, IItemRepository itemRepository)
+        public ItemGenerator(Strawhenge.Inventory.Inventory inventory, IItemRepository itemRepository)
         {
-            _itemFactory = itemFactory;
+            _inventory = inventory;
             _itemRepository = itemRepository;
         }
 
@@ -20,7 +21,11 @@ namespace Strawhenge.Inventory.Unity.Items
         {
             return _itemRepository
                 .FindByName(name)
-                .Map(_itemFactory.CreateTransient);
+                .Map(data =>
+                {
+                    var itemData = (data as ItemScriptableObject).ToItemData();
+                    return _inventory.CreateTransientItem(itemData);
+                });
         }
     }
 }

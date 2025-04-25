@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.Holsters;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.TransientItems;
 using Xunit.Abstractions;
@@ -14,43 +12,43 @@ namespace Strawhenge.Inventory.Tests
 {
     class InventoryTestContext
     {
-        readonly ProcedureQueue _procedureQueue;
         readonly ProcedureTracker _procedureTracker;
-        readonly Hands _hands;
-        readonly Holsters _holsters;
-        readonly StoredItems _storedItems;
-        readonly ApparelSlots _apparelSlots;
         readonly ItemGeneratorFake _itemGenerator;
         readonly ApparelViewCallTracker _apparelViewTracker;
 
         public InventoryTestContext(ITestOutputHelper testOutputHelper)
         {
             var logger = new TestOutputLogger(testOutputHelper);
-            _procedureQueue = new ProcedureQueue();
+            var procedureQueue = new ProcedureQueue();
             _procedureTracker = new ProcedureTracker(logger);
 
-            _storedItems = new StoredItems(logger);
-            _hands = new Hands();
-            _holsters = new Holsters(logger);
-            _apparelSlots = new ApparelSlots(logger);
+            var storedItems = new StoredItems(logger);
+            var hands = new Hands();
+            var holsters = new Holsters(logger);
+            var apparelSlots = new ApparelSlots(logger);
+
             _itemGenerator = new ItemGeneratorFake();
+
+            var itemProceduresFactory = new ItemProceduresFactoryFake(_procedureTracker);
 
             _apparelViewTracker = new ApparelViewCallTracker(logger);
             var apparelViewFactory = new ApparelViewFactoryFake(_apparelViewTracker);
 
             Inventory = new Inventory(
-                _storedItems,
-                _hands,
-                _holsters,
-                _apparelSlots,
-                NullEffectFactoryLocator.Instance,
+                storedItems,
+                hands,
+                holsters,
+                apparelSlots,
+                procedureQueue,
+                itemProceduresFactory,
                 apparelViewFactory,
+                NullEffectFactoryLocator.Instance,
                 logger);
 
             TransientItemLocator = new TransientItemLocator(
-                _hands,
-                _holsters,
-                _storedItems,
+                hands,
+                holsters,
+                storedItems,
                 _itemGenerator);
         }
 
@@ -64,11 +62,11 @@ namespace Strawhenge.Inventory.Tests
                 AddHolster(holster);
         }
 
-        public void AddHolster(string name) => _holsters.Add(name);
+        public void AddHolster(string name) => Inventory.Holsters.Add(name);
 
-        public void AddApparelSlot(string name) => _apparelSlots.Add(name);
+        public void AddApparelSlot(string name) => Inventory.ApparelSlots.Add(name);
 
-        public void SetStorageCapacity(int capacity) => _storedItems.SetWeightCapacity(capacity);
+        public void SetStorageCapacity(int capacity) => Inventory.StoredItems.SetWeightCapacity(capacity);
 
         public void SetGeneratedItem(string name, Item item) => _itemGenerator.Set(name, item);
 
@@ -77,44 +75,33 @@ namespace Strawhenge.Inventory.Tests
             size ??= ItemSize.OneHanded;
             holsterNames ??= Array.Empty<string>();
 
-            var item = new Item(
-                name,
-                _hands,
-                new ItemProceduresFake(_procedureTracker, name),
-                _procedureQueue,
-                size.Value);
-
-            var holsters = holsterNames.Select(holsterName =>
+            var dataBuilder = ItemDataBuilder.Create(name, size.Value, storable, 1, _ =>
             {
-                var holster = _holsters[holsterName]
-                    .Reduce(() => throw new TestSetupException($"Holster '{holsterName}' not added."));
-
-                return new HolsterForItem(
-                    item,
-                    holster,
-                    new HolsterForItemProceduresFake(_procedureTracker, name, holsterName),
-                    _procedureQueue);
             });
 
-            item.SetupHolsters(new HolstersForItem(holsters));
+            foreach (var holsterName in holsterNames)
+            {
+                dataBuilder.AddHolster(holsterName, _ =>
+                {
+                });
+            }
 
-            if (storable)
-                item.SetupStorable(_storedItems, 1);
+            var data = dataBuilder.Build();
 
-            return item;
+            return Inventory.CreateItem(data);
         }
 
         public Item CreateTransientItem(string name, ItemSize? size = null)
         {
             size ??= ItemSize.OneHanded;
 
-            return new Item(
-                name,
-                _hands,
-                new ItemProceduresFake(_procedureTracker, name),
-                _procedureQueue,
-                size.Value,
-                isTransient: true);
+            var data = ItemDataBuilder
+                .Create(name, size.Value, false, 1, _ =>
+                {
+                })
+                .Build();
+
+            return Inventory.CreateTransientItem(data);
         }
 
         public ApparelPiece CreateApparel(string name, string slotName)

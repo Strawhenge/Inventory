@@ -2,11 +2,14 @@ using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
+using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory
 {
     public class Inventory
     {
+        readonly ItemFactory _itemFactory;
         readonly ApparelPieceFactory _apparelPieceFactory;
 
         public Inventory(
@@ -14,8 +17,10 @@ namespace Strawhenge.Inventory
             Hands hands,
             Holsters holsters,
             ApparelSlots apparelSlots,
-            IEffectFactoryLocator effectFactoryLocator,
+            ProcedureQueue procedureQueue,
+            IItemProceduresFactory itemProceduresFactory,
             IApparelViewFactory apparelViewFactory,
+            IEffectFactoryLocator effectFactoryLocator,
             ILogger logger)
         {
             Hands = hands;
@@ -24,6 +29,14 @@ namespace Strawhenge.Inventory
             StoredItems = storedItems;
 
             var effectFactory = new EffectFactory(effectFactoryLocator, logger);
+
+            _itemFactory = new ItemFactory(
+                hands,
+                holsters,
+                storedItems,
+                procedureQueue,
+                effectFactory,
+                itemProceduresFactory);
 
             _apparelPieceFactory = new ApparelPieceFactory(
                 apparelSlots,
@@ -39,6 +52,16 @@ namespace Strawhenge.Inventory
         public StoredItems StoredItems { get; }
 
         public ApparelSlots ApparelSlots { get; }
+
+        public Item CreateItem(ItemData data)
+        {
+            return _itemFactory.Create(data);
+        }
+
+        public Item CreateTransientItem(ItemData data)
+        {
+            return _itemFactory.CreateTransient(data);
+        }
 
         public ApparelPiece CreateApparelPiece(ApparelPieceData data)
         {
