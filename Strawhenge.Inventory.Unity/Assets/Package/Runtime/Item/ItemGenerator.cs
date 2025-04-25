@@ -7,10 +7,10 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemGenerator : IItemGenerator
     {
-        readonly IItemFactory _itemFactory;
+        readonly ItemFactory _itemFactory;
         readonly IItemRepository _itemRepository;
 
-        public ItemGenerator(IItemFactory itemFactory, IItemRepository itemRepository)
+        public ItemGenerator(ItemFactory itemFactory, IItemRepository itemRepository)
         {
             _itemFactory = itemFactory;
             _itemRepository = itemRepository;

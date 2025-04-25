@@ -14,7 +14,7 @@ using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
-    public class ItemFactory : IItemFactory
+    public class ItemFactory
     {
         readonly Hands _hands;
         readonly HandScriptsContainer _handScripts;

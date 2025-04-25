@@ -10,7 +10,7 @@ namespace Strawhenge.Inventory.Unity
 {
     public class Inventory : Strawhenge.Inventory.Inventory
     {
-        readonly IItemFactory _itemFactory;
+        readonly ItemFactory _itemFactory;
         readonly IApparelPieceFactory _apparelPieceFactory;
 
         public Inventory(
@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.Unity
             Hands hands,
             Holsters holsters,
             ApparelSlots apparelSlots,
-            IItemFactory itemFactory,
+            ItemFactory itemFactory,
             IApparelPieceFactory apparelPieceFactory)
             : base(storedItems, hands, holsters, apparelSlots)
         {

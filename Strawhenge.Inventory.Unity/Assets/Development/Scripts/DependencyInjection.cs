@@ -132,7 +132,6 @@ public static class DependencyInjection
 
         builder
             .RegisterType<ItemFactory>()
-            .As<IItemFactory>()
             .AsSelf()
             .InstancePerLifetimeScope();
 
