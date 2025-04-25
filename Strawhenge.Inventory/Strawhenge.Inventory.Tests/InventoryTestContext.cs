@@ -125,7 +125,7 @@ namespace Strawhenge.Inventory.Tests
                 })
                 .Build();
 
-            return Inventory.Create(data);
+            return Inventory.CreateApparelPiece(data);
         }
 
         public void VerifyProcedures(params ProcedureInfo[] expectedProcedures) =>

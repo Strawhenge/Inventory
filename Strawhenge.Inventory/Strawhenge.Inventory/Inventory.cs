@@ -40,7 +40,7 @@ namespace Strawhenge.Inventory
 
         public ApparelSlots ApparelSlots { get; }
 
-        public ApparelPiece Create(ApparelPieceData data)
+        public ApparelPiece CreateApparelPiece(ApparelPieceData data)
         {
             return _apparelPieceFactory.Create(data);
         }

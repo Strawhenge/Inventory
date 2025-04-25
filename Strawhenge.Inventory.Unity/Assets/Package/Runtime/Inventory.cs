@@ -51,7 +51,7 @@ namespace Strawhenge.Inventory.Unity
         {
             var apparelPieceData = (data as ApparelPieceScriptableObject).ToApparelPieceData();
 
-            var apparelPiece = Create(apparelPieceData);
+            var apparelPiece = base.CreateApparelPiece(apparelPieceData);
 
             return apparelPiece;
         }
