@@ -79,6 +79,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             if (_displayLeftHand && _target.HasInstance)
             {
                 _target.Instance
+                    .Hands
                     .LeftHand
                     .CurrentItem
                     .Do(InspectItem);
@@ -92,6 +93,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             if (_displayRightHand && _target.HasInstance)
             {
                 _target.Instance
+                    .Hands
                     .RightHand
                     .CurrentItem
                     .Do(InspectItem);
@@ -233,11 +235,11 @@ namespace Strawhenge.Inventory.Unity.Editor
             : "NA";
 
         string GetLeftHandItemString() => _target.HasInstance
-            ? GetItemInHandString(_target.Instance.LeftHand.CurrentItem)
+            ? GetItemInHandString(_target.Instance.Hands.LeftHand.CurrentItem)
             : "NA";
 
         string GetRightHandItemString() => _target.HasInstance
-            ? GetItemInHandString(_target.Instance.RightHand.CurrentItem)
+            ? GetItemInHandString(_target.Instance.Hands.RightHand.CurrentItem)
             : "NA";
 
         string GetItemInHandString(Maybe<Item> item) => item

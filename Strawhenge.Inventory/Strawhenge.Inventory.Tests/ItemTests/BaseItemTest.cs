@@ -13,7 +13,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         protected const string Hammer = "Hammer";
         protected const string Knife = "Knife";
         protected const string Spear = "Spear";
-       
+
         protected const string LeftHipHolster = "Left Hip";
         protected const string RightHipHolster = "Right Hip";
         protected const string BackHolster = "Back";
@@ -46,18 +46,18 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         public void Verify_item_in_left_hand()
         {
             if (ExpectedItemInLeftHand.HasSome(out var expectedItem))
-                _inventory.LeftHand.CurrentItem.VerifyIsSome(expectedItem);
+                _inventory.Hands.LeftHand.CurrentItem.VerifyIsSome(expectedItem);
             else
-                _inventory.LeftHand.CurrentItem.VerifyIsNone();
+                _inventory.Hands.LeftHand.CurrentItem.VerifyIsNone();
         }
 
         [Fact]
         public void Verify_item_in_right_hand()
         {
             if (ExpectedItemInRightHand.HasSome(out var expectedItem))
-                _inventory.RightHand.CurrentItem.VerifyIsSome(expectedItem);
+                _inventory.Hands.RightHand.CurrentItem.VerifyIsSome(expectedItem);
             else
-                _inventory.RightHand.CurrentItem.VerifyIsNone();
+                _inventory.Hands.RightHand.CurrentItem.VerifyIsNone();
         }
 
         [Fact]
@@ -116,7 +116,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         protected Item CreateTwoHandedItem(string name, string[] holsterNames, bool storable = false) =>
             _inventoryContext.CreateItem(name, ItemSize.TwoHanded, holsterNames, storable);
 
-        protected Item CreateTransientItem(string name) => 
+        protected Item CreateTransientItem(string name) =>
             _inventoryContext.CreateTransientItem(name);
 
         protected virtual Maybe<Item> ExpectedItemInLeftHand => Maybe.None<Item>();

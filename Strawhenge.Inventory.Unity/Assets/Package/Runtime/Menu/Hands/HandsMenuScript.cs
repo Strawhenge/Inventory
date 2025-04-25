@@ -19,8 +19,8 @@ namespace Strawhenge.Inventory.Unity.Menu.Hands
         internal void Set(IInventory inventory)
         {
             _inventory = inventory;
-            _leftHandMenu.Set(inventory.LeftHand);
-            _rightHandMenu.Set(inventory.RightHand);
+            _leftHandMenu.Set(inventory.Hands.LeftHand);
+            _rightHandMenu.Set(inventory.Hands.RightHand);
         }
 
         void OnSwapHandButton()

@@ -8,8 +8,8 @@ namespace Strawhenge.Inventory
     {
         public static IEnumerable<Item> AllItems(this IInventory inventory)
         {
-            return inventory.LeftHand.CurrentItem.AsEnumerable()
-                .Concat(inventory.RightHand.CurrentItem.AsEnumerable())
+            return inventory.Hands.LeftHand.CurrentItem.AsEnumerable()
+                .Concat(inventory.Hands.RightHand.CurrentItem.AsEnumerable())
                 .Concat(inventory.Holsters.SelectMany(x => x.CurrentItem.AsEnumerable()))
                 .Concat(inventory.StoredItems.Items)
                 .Distinct();
@@ -20,8 +20,8 @@ namespace Strawhenge.Inventory
             if (ignoreTwoHanded && inventory.IsHoldingTwoHandedItem())
                 return;
 
-            if (inventory.RightHand.CurrentItem.HasSome(out var item) ||
-                inventory.LeftHand.CurrentItem.HasSome(out item))
+            if (inventory.Hands.RightHand.CurrentItem.HasSome(out var item) ||
+                inventory.Hands.LeftHand.CurrentItem.HasSome(out item))
             {
                 item.SwapHands();
             }
@@ -29,8 +29,8 @@ namespace Strawhenge.Inventory
 
         public static bool IsHoldingTwoHandedItem(this IInventory inventory)
         {
-            return (inventory.RightHand.CurrentItem.HasSome(out var item) && item.IsTwoHanded) ||
-                   (inventory.LeftHand.CurrentItem.HasSome(out item) && item.IsTwoHanded);
+            return (inventory.Hands.RightHand.CurrentItem.HasSome(out var item) && item.IsTwoHanded) ||
+                   (inventory.Hands.LeftHand.CurrentItem.HasSome(out item) && item.IsTwoHanded);
         }
     }
 }

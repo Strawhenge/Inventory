@@ -25,8 +25,8 @@ namespace Strawhenge.Inventory.Info
         {
             return _inventory.StoredItems.Items
                 .Concat(_inventory.Holsters.SelectMany(x => x.CurrentItem.AsEnumerable()))
-                .Concat(_inventory.LeftHand.CurrentItem.AsEnumerable())
-                .Concat(_inventory.RightHand.CurrentItem.AsEnumerable())
+                .Concat(_inventory.Hands.LeftHand.CurrentItem.AsEnumerable())
+                .Concat(_inventory.Hands.RightHand.CurrentItem.AsEnumerable())
                 .Distinct()
                 .Select(item => new ItemInfo(
                     item.Name,
@@ -35,8 +35,8 @@ namespace Strawhenge.Inventory.Info
                         .Map(x => x.HolsterName)
                         .Reduce(() => string.Empty),
                     isInStorage: _inventory.StoredItems.Items.Contains(item),
-                    isInLeftHand: _inventory.LeftHand.IsCurrentItem(item),
-                    isInRightHand: _inventory.RightHand.IsCurrentItem(item)
+                    isInLeftHand: _inventory.Hands.LeftHand.IsCurrentItem(item),
+                    isInRightHand: _inventory.Hands.RightHand.IsCurrentItem(item)
                 ));
         }
 

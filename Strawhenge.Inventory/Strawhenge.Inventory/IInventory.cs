@@ -6,9 +6,7 @@ namespace Strawhenge.Inventory
 {
     public interface IInventory
     {
-        ItemContainer LeftHand { get; }
-
-        ItemContainer RightHand { get; }
+        Hands Hands { get; }
 
         Holsters Holsters { get; }
 
