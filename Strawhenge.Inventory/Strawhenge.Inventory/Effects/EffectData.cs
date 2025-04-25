@@ -1,6 +1,5 @@
 using System;
 using FunctionalUtilities;
-using Strawhenge.Common.Factories;
 
 namespace Strawhenge.Inventory.Effects
 {
@@ -10,7 +9,7 @@ namespace Strawhenge.Inventory.Effects
 
         internal abstract Type DataType { get; }
 
-        internal abstract Maybe<Effect> Create(IAbstractFactory abstractFactory);
+        internal abstract Maybe<Effect> Create(IEffectFactoryLocator factoryLocator);
     }
 
     public class EffectData<TData> : EffectData
@@ -24,9 +23,9 @@ namespace Strawhenge.Inventory.Effects
 
         internal override Type DataType => typeof(TData);
 
-        internal override Maybe<Effect> Create(IAbstractFactory abstractFactory) =>
-            abstractFactory
-                .TryCreate<IEffectFactory<TData>>()
+        internal override Maybe<Effect> Create(IEffectFactoryLocator factoryLocator) =>
+            factoryLocator
+                .Find<TData>()
                 .Map(factory => factory.Create(_data));
     }
 }

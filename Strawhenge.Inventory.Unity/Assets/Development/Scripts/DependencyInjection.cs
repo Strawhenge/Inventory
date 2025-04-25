@@ -38,8 +38,8 @@ public static class DependencyInjection
                 .InstancePerLifetimeScope();
 
             builder
-                .RegisterType<AutofacAbstractFactory>()
-                .As<IAbstractFactory>()
+                .RegisterType<AutofacEffectFactoryLocator>()
+                .As<IEffectFactoryLocator>()
                 .InstancePerLifetimeScope();
 
             RegisterSingletons(builder);

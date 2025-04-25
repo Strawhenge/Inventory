@@ -1,23 +1,22 @@
-﻿using Strawhenge.Common.Factories;
-using Strawhenge.Common.Logging;
+﻿using Strawhenge.Common.Logging;
 
 namespace Strawhenge.Inventory.Effects
 {
     public class EffectFactory
     {
-        readonly IAbstractFactory _abstractFactory;
+        readonly IEffectFactoryLocator _factoryLocator;
         readonly ILogger _logger;
 
-        public EffectFactory(IAbstractFactory abstractFactory, ILogger logger)
+        public EffectFactory(IEffectFactoryLocator factoryLocator, ILogger logger)
         {
-            _abstractFactory = abstractFactory;
+            _factoryLocator = factoryLocator;
             _logger = logger;
         }
 
         public Effect Create(EffectData data)
         {
             return data
-                .Create(_abstractFactory)
+                .Create(_factoryLocator)
                 .Reduce(() =>
                 {
                     _logger.LogError($"Effect factory for '{data.DataType.Name}' not found.");

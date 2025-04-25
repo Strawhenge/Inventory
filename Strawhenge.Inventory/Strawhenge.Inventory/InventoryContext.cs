@@ -9,9 +9,9 @@ namespace Strawhenge.Inventory
 {
     class InventoryContext
     {
-        public InventoryContext(IAbstractFactory abstractFactory, ILogger logger)
+        public InventoryContext(IEffectFactoryLocator effectFactoryLocator, ILogger logger)
         {
-            EffectFactory = new EffectFactory(abstractFactory, logger);
+            EffectFactory = new EffectFactory(effectFactoryLocator, logger);
             Hands = new Hands();
             Holsters = new Holsters(logger);
             StoredItems = new StoredItems(logger);
@@ -24,7 +24,7 @@ namespace Strawhenge.Inventory
         public Holsters Holsters { get; }
 
         public StoredItems StoredItems { get; }
-        
+
         public ApparelSlots ApparelSlots { get; }
 
         public ProcedureQueue ProcedureQueue { get; }
