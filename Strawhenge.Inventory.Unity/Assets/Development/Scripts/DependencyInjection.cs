@@ -17,7 +17,6 @@ using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Loader;
 using Strawhenge.Inventory.Unity.Menu;
 using UnityEngine;
-using ApparelPieceFactory = Strawhenge.Inventory.Unity.Apparel.ApparelPieceFactory;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 using Inventory = Strawhenge.Inventory.Unity.Inventory;
 
@@ -156,11 +155,6 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<ApparelPieceFactory>()
-            .AsSelf()
-            .InstancePerLifetimeScope();
-
-        builder
             .RegisterType<ApparelSlotScripts>()
             .AsSelf()
             .InstancePerLifetimeScope();
@@ -235,6 +229,11 @@ public static class DependencyInjection
         builder
             .RegisterType<IncreaseArmourEffectFactory>()
             .As<IEffectFactory<IncreaseArmourEffectScriptableObject>>()
+            .InstancePerLifetimeScope();
+
+        builder
+            .RegisterType<ApparelViewFactory>()
+            .As<IApparelViewFactory>()
             .InstancePerLifetimeScope();
     }
 }

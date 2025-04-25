@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
+using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Items.Holsters;
 using Strawhenge.Inventory.Procedures;
@@ -37,7 +38,10 @@ namespace Strawhenge.Inventory.Tests
                 _storedItems,
                 _hands,
                 _holsters,
-                _apparelSlots);
+                _apparelSlots,
+                NullEffectFactoryLocator.Instance,
+                NullApparelViewFactory.Instance,
+                logger);
 
             TransientItemLocator = new TransientItemLocator(
                 _hands,

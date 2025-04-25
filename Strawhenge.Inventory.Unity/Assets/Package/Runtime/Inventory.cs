@@ -1,18 +1,18 @@
-﻿using Strawhenge.Inventory.Apparel;
+﻿using Strawhenge.Common.Logging;
+using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
+using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Apparel;
-using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Items.Context;
-using ApparelPieceFactory = Strawhenge.Inventory.Unity.Apparel.ApparelPieceFactory;
+using Strawhenge.Inventory.Unity.Items.Data;
 
 namespace Strawhenge.Inventory.Unity
 {
     public class Inventory : Strawhenge.Inventory.Inventory
     {
         readonly ItemFactory _itemFactory;
-        readonly ApparelPieceFactory _apparelPieceFactory;
 
         public Inventory(
             StoredItems storedItems,
@@ -20,11 +20,19 @@ namespace Strawhenge.Inventory.Unity
             Holsters holsters,
             ApparelSlots apparelSlots,
             ItemFactory itemFactory,
-            ApparelPieceFactory apparelPieceFactory)
-            : base(storedItems, hands, holsters, apparelSlots)
+            IEffectFactoryLocator effectFactoryLocator,
+            IApparelViewFactory apparelViewFactory,
+            ILogger logger)
+            : base(
+                storedItems,
+                hands,
+                holsters,
+                apparelSlots,
+                effectFactoryLocator,
+                apparelViewFactory,
+                logger)
         {
             _itemFactory = itemFactory;
-            _apparelPieceFactory = apparelPieceFactory;
         }
 
         public Item CreateItem(ItemPickupScript pickup)
@@ -41,7 +49,11 @@ namespace Strawhenge.Inventory.Unity
 
         public ApparelPiece CreateApparelPiece(IApparelPieceData data)
         {
-            return _apparelPieceFactory.Create(data);
+            var apparelPieceData = (data as ApparelPieceScriptableObject).ToApparelPieceData();
+
+            var apparelPiece = Create(apparelPieceData);
+
+            return apparelPiece;
         }
     }
 }
