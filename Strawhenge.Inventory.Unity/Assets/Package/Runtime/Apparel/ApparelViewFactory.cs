@@ -30,14 +30,13 @@ namespace Strawhenge.Inventory.Unity.Apparel
             if (!data.Get<IApparelPieceData>().HasSome(out var apparelPieceData))
             {
                 _logger.LogWarning($"Missing apparel data.");
-                return new NullApparelView();
+                return NullApparelView.Instance;
             }
-
 
             if (!_slotScripts.FindByName(apparelPieceData.Slot).HasSome(out var slotScript))
             {
                 _logger.LogWarning($"Missing apparel slot: '{apparelPieceData.Slot}'.");
-                return new NullApparelView();
+                return NullApparelView.Instance;
             }
 
             var view = new ApparelView(

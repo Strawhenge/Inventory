@@ -2,6 +2,12 @@
 {
     public class NullApparelView : IApparelView
     {
+        public static IApparelView Instance { get; } = new NullApparelView();
+
+        NullApparelView()
+        {
+        }
+
         public void Show()
         {
         }
