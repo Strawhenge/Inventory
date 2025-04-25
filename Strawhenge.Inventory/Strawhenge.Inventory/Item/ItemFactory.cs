@@ -45,7 +45,7 @@ namespace Strawhenge.Inventory.Items
                 new HolstersForItem(data.Holsters
                     .Select(holster =>
                     {
-                        if (!_holsters.FindByName(holster.HolsterName).HasSome(out var container))
+                        if (!_holsters[holster.HolsterName].HasSome(out var container))
                             return null;
 
                         if (!procedures.HolsterProcedures(holster.HolsterName).HasSome(out var holsterProcedures))

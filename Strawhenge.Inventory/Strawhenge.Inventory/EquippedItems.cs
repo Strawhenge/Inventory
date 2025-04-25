@@ -30,7 +30,6 @@ namespace Strawhenge.Inventory
         public IEnumerable<Item> GetItemsInHolsters()
         {
             return _holsters
-                .GetAll()
                 .Select(x => x.CurrentItem.AsEnumerable())
                 .SelectMany(x => x)
                 .ToArray();

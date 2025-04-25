@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using FunctionalUtilities;
 using Strawhenge.Common.Logging;
 
 namespace Strawhenge.Inventory.Containers
 {
-    public class Holsters
+    public class Holsters : IEnumerable<ItemContainer>
     {
         readonly Dictionary<string, ItemContainer> _holsters = new Dictionary<string, ItemContainer>();
         readonly ILogger _logger;
@@ -13,6 +14,8 @@ namespace Strawhenge.Inventory.Containers
         {
             _logger = logger;
         }
+
+        public Maybe<ItemContainer> this[string name] => _holsters.MaybeGetValue(name);
 
         public void Add(string name)
         {
@@ -25,14 +28,8 @@ namespace Strawhenge.Inventory.Containers
             _holsters.Add(name, new ItemContainer(name));
         }
 
-        public Maybe<ItemContainer> FindByName(string name)
-        {
-            return _holsters.MaybeGetValue(name);
-        }
+        public IEnumerator<ItemContainer> GetEnumerator() => _holsters.Values.GetEnumerator();
 
-        public IEnumerable<ItemContainer> GetAll()
-        {
-            return _holsters.Values;
-        }
+        IEnumerator IEnumerable.GetEnumerator() => _holsters.Values.GetEnumerator();
     }
 }

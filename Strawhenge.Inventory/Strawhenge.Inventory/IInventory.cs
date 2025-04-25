@@ -10,10 +10,10 @@ namespace Strawhenge.Inventory
 
         ItemContainer RightHand { get; }
 
-        IEnumerable<ItemContainer> Holsters { get; }
+        Holsters Holsters { get; }
 
         StoredItems StoredItems { get; }
 
-        IEnumerable<ApparelSlot> ApparelSlots { get; }
+        ApparelSlots ApparelSlots { get; }
     }
 }

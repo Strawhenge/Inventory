@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using FunctionalUtilities;
 using Strawhenge.Common.Logging;
 
 namespace Strawhenge.Inventory.Apparel
 {
-    public class ApparelSlots
+    public class ApparelSlots : IEnumerable<ApparelSlot>
     {
         readonly Dictionary<string, ApparelSlot> _slots = new Dictionary<string, ApparelSlot>();
         readonly ILogger _logger;
@@ -13,8 +14,6 @@ namespace Strawhenge.Inventory.Apparel
         {
             _logger = logger;
         }
-
-        public IEnumerable<ApparelSlot> All => _slots.Values;
 
         public Maybe<ApparelSlot> this[string name] => _slots.MaybeGetValue(name);
 
@@ -39,5 +38,9 @@ namespace Strawhenge.Inventory.Apparel
 
             _slots.Add(slot.Name, slot);
         }
+
+        public IEnumerator<ApparelSlot> GetEnumerator() => _slots.Values.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => _slots.Values.GetEnumerator();
     }
 }

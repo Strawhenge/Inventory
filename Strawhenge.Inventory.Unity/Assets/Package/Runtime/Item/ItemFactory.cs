@@ -113,8 +113,7 @@ namespace Strawhenge.Inventory.Unity.Items
                 if (!itemComponent.IsHolsterCompatible(holsterComponent, _logger))
                     continue;
 
-                _holsters
-                    .FindByName(holsterComponent.Name)
+                _holsters[holsterComponent.Name]
                     .Do(holster =>
                     {
                         var procedures = new HolsterForItemProcedures(

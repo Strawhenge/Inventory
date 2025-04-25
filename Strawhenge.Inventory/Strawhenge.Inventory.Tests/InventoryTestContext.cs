@@ -79,8 +79,7 @@ namespace Strawhenge.Inventory.Tests
 
             var holsters = holsterNames.Select(holsterName =>
             {
-                var holster = _holsters
-                    .FindByName(holsterName)
+                var holster = _holsters[holsterName]
                     .Reduce(() => throw new TestSetupException($"Holster '{holsterName}' not added."));
 
                 return new HolsterForItem(
@@ -113,8 +112,7 @@ namespace Strawhenge.Inventory.Tests
 
         public ApparelPiece CreateApparel(string name, string slotName)
         {
-            var slot = _apparelSlots.All
-                .FirstOrNone(x => x.Name == slotName)
+            var slot = _apparelSlots[slotName]
                 .Reduce(() => throw new TestSetupException($"Slot '{slotName}' not added."));
 
             return new ApparelPiece(name, slot, new ApparelViewFake());
