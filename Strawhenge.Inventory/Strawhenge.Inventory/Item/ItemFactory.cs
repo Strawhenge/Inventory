@@ -69,5 +69,21 @@ namespace Strawhenge.Inventory.Items
 
             return item;
         }
+
+        public Item CreateTransient(ItemData data)
+        {
+            var procedures = _proceduresFactory.Create(data);
+
+            var item = new Item(
+                data.Name,
+                _hands,
+                procedures.ItemProcedures,
+                _procedureQueue,
+                data.Size,
+                isTransient: true
+            );
+
+            return item;
+        }
     }
 }
