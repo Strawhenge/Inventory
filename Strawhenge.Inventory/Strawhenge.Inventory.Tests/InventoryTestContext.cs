@@ -21,6 +21,7 @@ namespace Strawhenge.Inventory.Tests
         readonly StoredItems _storedItems;
         readonly ApparelSlots _apparelSlots;
         readonly ItemGeneratorFake _itemGenerator;
+        readonly ApparelViewCallTracker _apparelViewTracker;
 
         public InventoryTestContext(ITestOutputHelper testOutputHelper)
         {
@@ -34,13 +35,16 @@ namespace Strawhenge.Inventory.Tests
             _apparelSlots = new ApparelSlots(logger);
             _itemGenerator = new ItemGeneratorFake();
 
+            _apparelViewTracker = new ApparelViewCallTracker(logger);
+            var apparelViewFactory = new ApparelViewFactoryFake(_apparelViewTracker);
+
             Inventory = new Inventory(
                 _storedItems,
                 _hands,
                 _holsters,
                 _apparelSlots,
                 NullEffectFactoryLocator.Instance,
-                NullApparelViewFactory.Instance,
+                apparelViewFactory,
                 logger);
 
             TransientItemLocator = new TransientItemLocator(
@@ -115,13 +119,19 @@ namespace Strawhenge.Inventory.Tests
 
         public ApparelPiece CreateApparel(string name, string slotName)
         {
-            var slot = _apparelSlots[slotName]
-                .Reduce(() => throw new TestSetupException($"Slot '{slotName}' not added."));
+            var data = ApparelPieceDataBuilder
+                .Create(name, slotName, Array.Empty<EffectData>(), _ =>
+                {
+                })
+                .Build();
 
-            return new ApparelPiece(name, slot, new ApparelViewFake());
+            return Inventory.Create(data);
         }
 
         public void VerifyProcedures(params ProcedureInfo[] expectedProcedures) =>
             _procedureTracker.VerifyProcedures(expectedProcedures);
+
+        public void VerifyApparelViewCalls(params ApparelViewCallInfo[] expectedCalls) =>
+            _apparelViewTracker.VerifyCalls(expectedCalls);
     }
 }

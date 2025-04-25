@@ -1,25 +1,36 @@
-﻿using Moq;
-using Strawhenge.Inventory.Apparel;
+﻿using Strawhenge.Inventory.Apparel;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ApparelPieceTests
 {
     public class ApparelPieceTests
     {
+        const string Head = "Head";
+        
+        const string Hat = "Hat";
+        const string Helmet = "Helmet";
+        
+        const string Show = "Show";
+        const string Hide = "Hide";
+        const string Drop = "Drop";
+
+        readonly InventoryTestContext _context;
+
         readonly ApparelSlot _headSlot;
 
         readonly ApparelPiece _hat;
-        readonly Mock<IApparelView> _hatViewMock;
-
         readonly ApparelPiece _helmet;
-        readonly Mock<IApparelView> _helmetViewMock;
 
-        public ApparelPieceTests()
+        public ApparelPieceTests(ITestOutputHelper testOutputHelper)
         {
-            _headSlot = new ApparelSlot("Head");
+            _context = new InventoryTestContext(testOutputHelper);
+            _context.AddApparelSlot(Head);
 
-            (_hat, _hatViewMock) = CreateTorsoPiece("Hat");
-            (_helmet, _helmetViewMock) = CreateTorsoPiece("Helmet");
+            _headSlot = (ApparelSlot)_context.Inventory.ApparelSlots[Head];
+
+            _hat = _context.CreateApparel(Hat, Head);
+            _helmet = _context.CreateApparel(Helmet, Head);
         }
 
         [Fact]
@@ -36,7 +47,7 @@ namespace Strawhenge.Inventory.Tests.ApparelPieceTests
             for (int i = 0; i < 3; i++)
                 _hat.Equip();
 
-            _hatViewMock.Verify(x => x.Show(), Times.Once);
+            _context.VerifyApparelViewCalls((Hat, Show));
         }
 
         [Fact]
@@ -54,14 +65,12 @@ namespace Strawhenge.Inventory.Tests.ApparelPieceTests
             _hat.Unequip();
             _hat.Equip();
 
-            _hatViewMock.Verify(x => x.Drop(), Times.Never);
-            _hatViewMock.Verify(x => x.Hide(), Times.Never);
-
             for (int i = 0; i < 3; i++)
                 _hat.Unequip();
 
-            _hatViewMock.Verify(x => x.Drop(), Times.Once);
-            _hatViewMock.Verify(x => x.Hide(), Times.Never);
+            _context.VerifyApparelViewCalls(
+                (Hat, Show),
+                (Hat, Drop));
         }
 
         [Fact]
@@ -79,8 +88,10 @@ namespace Strawhenge.Inventory.Tests.ApparelPieceTests
             _hat.Equip();
             _helmet.Equip();
 
-            _hatViewMock.Verify(x => x.Drop());
-            _helmetViewMock.Verify(x => x.Show());
+            _context.VerifyApparelViewCalls(
+                (Hat, Show),
+                (Hat, Drop),
+                (Helmet, Show));
         }
 
         [Fact]
@@ -115,13 +126,9 @@ namespace Strawhenge.Inventory.Tests.ApparelPieceTests
             _hat.Equip();
             _hat.Discard();
 
-            _hatViewMock.Verify(x => x.Hide(), Times.Once);
-        }
-
-        (ApparelPiece piece, Mock<IApparelView> viewMock) CreateTorsoPiece(string name)
-        {
-            var viewMock = new Mock<IApparelView>();
-            return (new ApparelPiece(name, _headSlot, viewMock.Object), viewMock);
+            _context.VerifyApparelViewCalls(
+                (Hat, Show),
+                (Hat, Hide));
         }
     }
 }
