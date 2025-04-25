@@ -27,12 +27,7 @@ namespace Strawhenge.Inventory.Containers
 
         public Maybe<ItemContainer> FindByName(string name)
         {
-            if (_holsters.TryGetValue(name, out var holster))
-            {
-                return Maybe.Some(holster);
-            }
-
-            return Maybe.None<ItemContainer>();
+            return _holsters.MaybeGetValue(name);
         }
 
         public IEnumerable<ItemContainer> GetAll()

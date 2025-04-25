@@ -11,9 +11,7 @@ namespace Strawhenge.Inventory.Tests
 
         public Maybe<Item> GenerateByName(string name)
         {
-            return _items.TryGetValue(name, out var item)
-                ? Maybe.Some(item)
-                : Maybe.None<Item>();
+            return _items.MaybeGetValue(name);
         }
 
         public void Set(string name, Item item) => _items[name] = item;

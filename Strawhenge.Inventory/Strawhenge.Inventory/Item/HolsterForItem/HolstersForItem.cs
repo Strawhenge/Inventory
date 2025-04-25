@@ -10,7 +10,7 @@ namespace Strawhenge.Inventory.Items.Holsters
     {
         public static HolstersForItem None { get; } = new HolstersForItem(Array.Empty<HolsterForItem>());
 
-        readonly IReadOnlyDictionary<string, HolsterForItem> _holsters;
+        readonly Dictionary<string, HolsterForItem> _holsters;
 
         public HolstersForItem(IEnumerable<HolsterForItem> inner)
         {
@@ -18,9 +18,7 @@ namespace Strawhenge.Inventory.Items.Holsters
                 .ToDictionary(x => x.HolsterName, x => x);
         }
 
-        public Maybe<HolsterForItem> this[string name] => _holsters.TryGetValue(name, out var holster)
-            ? Maybe.Some(holster)
-            : Maybe.None<HolsterForItem>();
+        public Maybe<HolsterForItem> this[string name] => _holsters.MaybeGetValue(name);
 
         public bool IsEquippedToHolster(out HolsterForItem holsterItem)
         {
