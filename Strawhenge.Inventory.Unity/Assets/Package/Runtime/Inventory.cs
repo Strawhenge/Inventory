@@ -5,13 +5,14 @@ using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Items.Context;
+using ApparelPieceFactory = Strawhenge.Inventory.Unity.Apparel.ApparelPieceFactory;
 
 namespace Strawhenge.Inventory.Unity
 {
     public class Inventory : Strawhenge.Inventory.Inventory
     {
         readonly ItemFactory _itemFactory;
-        readonly IApparelPieceFactory _apparelPieceFactory;
+        readonly ApparelPieceFactory _apparelPieceFactory;
 
         public Inventory(
             StoredItems storedItems,
@@ -19,7 +20,7 @@ namespace Strawhenge.Inventory.Unity
             Holsters holsters,
             ApparelSlots apparelSlots,
             ItemFactory itemFactory,
-            IApparelPieceFactory apparelPieceFactory)
+            ApparelPieceFactory apparelPieceFactory)
             : base(storedItems, hands, holsters, apparelSlots)
         {
             _itemFactory = itemFactory;

@@ -157,7 +157,7 @@ public static class DependencyInjection
 
         builder
             .RegisterType<ApparelPieceFactory>()
-            .As<IApparelPieceFactory>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder
