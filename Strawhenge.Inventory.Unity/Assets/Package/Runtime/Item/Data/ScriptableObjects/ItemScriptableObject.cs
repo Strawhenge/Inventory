@@ -14,15 +14,7 @@ namespace Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects
         public ItemData ToItemData()
         {
             var builder = ItemDataBuilder
-                .Create(name, _size, _isStorable, _weight, x =>
-                {
-                    x.Set(_prefab);
-
-                    if (_pickupPrefab != null)
-                        x.Set(_pickupPrefab);
-
-                    x.Set(new HoldItemData(_leftHandHoldItemData, _rightHandHoldItemData));
-                });
+                .Create(name, _size, _isStorable, _weight, x => x.Set<IItemData>(this));
 
             foreach (var holsterItemData in _holsterItemData)
             {
@@ -33,6 +25,14 @@ namespace Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects
 
                     if (_pickupPrefab != null)
                         x.Set(_pickupPrefab);
+                });
+            }
+
+            if (_consumable.TryGetValue(out var consumableData))
+            {
+                builder.SetConsumable(consumableData.Effects, x =>
+                {
+                    x.Set(consumableData);
                 });
             }
 
