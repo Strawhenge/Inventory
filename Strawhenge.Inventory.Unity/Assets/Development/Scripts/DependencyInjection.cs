@@ -231,5 +231,10 @@ public static class DependencyInjection
             .RegisterType<IncreaseHealthEffectFactory>()
             .As<IEffectFactory<IncreaseHealthEffectScriptableObject>>()
             .InstancePerLifetimeScope();
+
+        builder
+            .RegisterType<IncreaseArmourEffectFactory>()
+            .As<IEffectFactory<IncreaseArmourEffectScriptableObject>>()
+            .InstancePerLifetimeScope();
     }
 }
