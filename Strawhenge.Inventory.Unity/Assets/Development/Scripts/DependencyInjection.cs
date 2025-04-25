@@ -150,11 +150,6 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<TransientItemHolder>()
-            .AsSelf()
-            .InstancePerLifetimeScope();
-
-        builder
             .RegisterType<ApparelSlotScripts>()
             .AsSelf()
             .InstancePerLifetimeScope();
