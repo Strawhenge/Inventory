@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FunctionalUtilities;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
@@ -40,9 +39,9 @@ namespace Strawhenge.Inventory.Tests
                 _holsters,
                 _apparelSlots);
 
-            var equipped = new EquippedItems(_hands, _holsters);
             TransientItemLocator = new TransientItemLocator(
-                equipped,
+                _hands,
+                _holsters,
                 _storedItems,
                 _itemGenerator);
         }

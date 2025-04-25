@@ -2,18 +2,24 @@
 using System;
 using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Containers;
 
 namespace Strawhenge.Inventory.TransientItems
 {
     public class TransientItemLocator
     {
-        readonly EquippedItems _equippedItems;
+        readonly Hands _hands;
+        readonly Holsters _holsters;
         readonly StoredItems _storedItems;
         readonly IItemGenerator _itemGenerator;
 
-        public TransientItemLocator(EquippedItems equippedItems, StoredItems storedItems, IItemGenerator itemGenerator)
+        public TransientItemLocator(
+            Hands hands,
+            Holsters holsters,
+            StoredItems storedItems, IItemGenerator itemGenerator)
         {
-            _equippedItems = equippedItems;
+            _hands = hands;
+            _holsters = holsters;
             _storedItems = storedItems;
             _itemGenerator = itemGenerator;
         }
@@ -37,21 +43,23 @@ namespace Strawhenge.Inventory.TransientItems
 
         bool IsItemInLeftHand(string name, out Item item)
         {
-            var left = _equippedItems.GetItemInLeftHand();
+            var left = _hands.LeftHand.CurrentItem;
 
             return left.HasSome(out item) && IsItemName(item, name);
         }
 
         bool IsItemInRightHand(string name, out Item item)
         {
-            var right = _equippedItems.GetItemInRightHand();
+            var right = _hands.RightHand.CurrentItem;
 
             return right.HasSome(out item) && IsItemName(item, name);
         }
 
         bool IsItemInHolster(string name, out Item item)
         {
-            item = _equippedItems.GetItemsInHolsters()
+            item = _holsters
+                .Select(x => x.CurrentItem)
+                .WhereSome()
                 .FirstOrDefault(x => IsItemName(x, name));
 
             return item != null;

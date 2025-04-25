@@ -1,6 +1,5 @@
 using Autofac;
 using Autofac.Unity;
-using Strawhenge.Common.Factories;
 using Strawhenge.Common.Unity;
 using Strawhenge.Inventory;
 using Strawhenge.Inventory.Apparel;
@@ -135,11 +134,6 @@ public static class DependencyInjection
         builder
             .RegisterType<ItemFactory>()
             .As<IItemFactory>()
-            .AsSelf()
-            .InstancePerLifetimeScope();
-
-        builder
-            .RegisterType<EquippedItems>()
             .AsSelf()
             .InstancePerLifetimeScope();
 
