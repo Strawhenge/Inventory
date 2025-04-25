@@ -17,15 +17,18 @@ namespace Strawhenge.Inventory.Items
         readonly IItemProceduresFactory _proceduresFactory;
 
         public ItemFactory(
-            InventoryContext inventoryContext,
+            Hands hands,
+            Containers.Holsters holsters,
+            StoredItems storedItems,
+            ProcedureQueue procedureQueue,
+            EffectFactory effectFactory,
             IItemProceduresFactory proceduresFactory)
         {
-            _hands = inventoryContext.Hands;
-            _holsters = inventoryContext.Holsters;
-            _storedItems = inventoryContext.StoredItems;
-            _procedureQueue = inventoryContext.ProcedureQueue;
-            _effectFactory = inventoryContext.EffectFactory;
-
+            _hands = hands;
+            _holsters = holsters;
+            _storedItems = storedItems;
+            _procedureQueue = procedureQueue;
+            _effectFactory = effectFactory;
             _proceduresFactory = proceduresFactory;
         }
 
