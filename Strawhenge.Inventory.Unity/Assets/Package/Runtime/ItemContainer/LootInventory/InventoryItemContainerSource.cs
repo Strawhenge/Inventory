@@ -7,12 +7,12 @@ namespace Strawhenge.Inventory.Unity
 {
     public class InventoryItemContainerSource : IItemContainerSource
     {
-        readonly IInventory _inventory;
+        readonly Inventory _inventory;
         readonly IItemRepository _itemRepository;
         readonly IApparelRepository _apparelRepository;
 
         public InventoryItemContainerSource(
-            IInventory inventory,
+            Inventory inventory,
             IItemRepository itemRepository,
             IApparelRepository apparelRepository)
         {

@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.Unity
 
         public bool IsConfigurationComplete { get; private set; }
 
-        public IInventory Inventory { get; set; }
+        public Inventory Inventory { get; set; }
 
         public ApparelSlotScripts ApparelSlots { private get; set; }
 

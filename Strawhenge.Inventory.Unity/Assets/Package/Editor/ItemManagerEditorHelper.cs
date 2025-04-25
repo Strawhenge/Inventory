@@ -14,7 +14,7 @@ namespace Strawhenge.Inventory.Unity.Editor
 {
     public class ItemManagerEditorHelper
     {
-        readonly EditorTarget<IInventory> _target;
+        readonly EditorTarget<Inventory> _target;
 
         Item _item;
         bool _displayLeftHand;
@@ -23,9 +23,9 @@ namespace Strawhenge.Inventory.Unity.Editor
         bool _displayInventory;
         Item _displayItem;
 
-        public ItemManagerEditorHelper(Func<IInventory> getTarget)
+        public ItemManagerEditorHelper(Func<Inventory> getTarget)
         {
-            _target = new EditorTarget<IInventory>(getTarget);
+            _target = new EditorTarget<Inventory>(getTarget);
         }
 
         public void Inspect()

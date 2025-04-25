@@ -34,30 +34,29 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         protected const string Drop = "Drop";
 
         readonly InventoryTestContext _inventoryContext;
-        readonly Inventory _inventory;
 
         protected BaseItemTest(ITestOutputHelper testOutputHelper)
         {
             _inventoryContext = new InventoryTestContext(testOutputHelper);
-            _inventory = _inventoryContext.Inventory;
+            Inventory = _inventoryContext.Inventory;
         }
 
         [Fact]
         public void Verify_item_in_left_hand()
         {
             if (ExpectedItemInLeftHand.HasSome(out var expectedItem))
-                _inventory.Hands.LeftHand.CurrentItem.VerifyIsSome(expectedItem);
+                Inventory.Hands.LeftHand.CurrentItem.VerifyIsSome(expectedItem);
             else
-                _inventory.Hands.LeftHand.CurrentItem.VerifyIsNone();
+                Inventory.Hands.LeftHand.CurrentItem.VerifyIsNone();
         }
 
         [Fact]
         public void Verify_item_in_right_hand()
         {
             if (ExpectedItemInRightHand.HasSome(out var expectedItem))
-                _inventory.Hands.RightHand.CurrentItem.VerifyIsSome(expectedItem);
+                Inventory.Hands.RightHand.CurrentItem.VerifyIsSome(expectedItem);
             else
-                _inventory.Hands.RightHand.CurrentItem.VerifyIsNone();
+                Inventory.Hands.RightHand.CurrentItem.VerifyIsNone();
         }
 
         [Fact]
@@ -67,7 +66,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests
                 .OrderBy(x => x.holsterName)
                 .ToArray();
 
-            var actualItems = _inventory.Holsters
+            var actualItems = Inventory.Holsters
                 .Select(x => x.CurrentItem.HasSome(out var item) ? (x.Name, item) : default)
                 .Where(x => x != default)
                 .OrderBy(x => x.Name)
@@ -83,7 +82,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests
                 .OrderBy(x => x.Name)
                 .ToArray();
 
-            var actualItems = _inventory.StoredItems.Items
+            var actualItems = Inventory.StoredItems.Items
                 .OrderBy(x => x.Name)
                 .ToArray();
 
@@ -97,7 +96,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests
                 .VerifyProcedures(ExpectedProceduresCompleted().ToArray());
         }
 
-        protected IInventory Inventory => _inventory;
+        protected Inventory Inventory { get; }
 
         protected void AddHolster(string name) => _inventoryContext.AddHolster(name);
 

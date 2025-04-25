@@ -8,13 +8,13 @@ namespace Strawhenge.Inventory.Unity.Editor
 {
     public class ApparelManagerEditorHelper
     {
-        readonly EditorTarget<IInventory> _target;
+        readonly EditorTarget<Inventory> _target;
         ApparelPiece _piece;
         bool _displaySlots;
 
-        public ApparelManagerEditorHelper(Func<IInventory> getTarget)
+        public ApparelManagerEditorHelper(Func<Inventory> getTarget)
         {
-            _target = new EditorTarget<IInventory>(getTarget);
+            _target = new EditorTarget<Inventory>(getTarget);
         }
 
         public void Inspect()

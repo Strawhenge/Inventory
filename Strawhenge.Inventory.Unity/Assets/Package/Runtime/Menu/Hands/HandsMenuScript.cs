@@ -9,14 +9,14 @@ namespace Strawhenge.Inventory.Unity.Menu.Hands
         [SerializeField] ItemInHandMenuEntryScript _rightHandMenu;
         [SerializeField] Button _swapHandButton;
 
-        IInventory _inventory;
+        Inventory _inventory;
 
         void Awake()
         {
             _swapHandButton.onClick.AddListener(OnSwapHandButton);
         }
 
-        internal void Set(IInventory inventory)
+        internal void Set(Inventory inventory)
         {
             _inventory = inventory;
             _leftHandMenu.Set(inventory.Hands.LeftHand);

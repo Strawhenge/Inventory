@@ -10,7 +10,7 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] Text _itemNameText;
         [SerializeField] Button _equipButton;
 
-        IInventory _inventory;
+        Inventory _inventory;
         IContainedItem<IApparelPieceData> _containedItem;
 
         void Awake()
@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.Unity
             _equipButton.onClick.AddListener(OnEquipButton);
         }
 
-        public void Set(IInventory inventory, IContainedItem<IApparelPieceData> containedItem)
+        public void Set(Inventory inventory, IContainedItem<IApparelPieceData> containedItem)
         {
             _inventory = inventory;
             _containedItem = containedItem;

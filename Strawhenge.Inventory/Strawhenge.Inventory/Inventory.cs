@@ -3,7 +3,7 @@ using Strawhenge.Inventory.Containers;
 
 namespace Strawhenge.Inventory
 {
-    public class Inventory : IInventory
+    public class Inventory
     {
         public Inventory(
             StoredItems storedItems,

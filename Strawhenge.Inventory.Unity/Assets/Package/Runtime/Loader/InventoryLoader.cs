@@ -6,10 +6,10 @@ namespace Strawhenge.Inventory.Unity.Loader
 {
     public class InventoryLoader
     {
-        readonly IInventory _inventory;
+        readonly Inventory _inventory;
         readonly ILogger _logger;
 
-        public InventoryLoader(IInventory inventory, ILogger logger)
+        public InventoryLoader(Inventory inventory, ILogger logger)
         {
             _inventory = inventory;
             _logger = logger;

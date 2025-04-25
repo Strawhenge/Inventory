@@ -6,9 +6,9 @@ namespace Strawhenge.Inventory.Info
 {
     public class InventoryInfoGenerator
     {
-        readonly IInventory _inventory;
+        readonly Inventory _inventory;
 
-        public InventoryInfoGenerator(IInventory inventory)
+        public InventoryInfoGenerator(Inventory inventory)
         {
             _inventory = inventory;
         }

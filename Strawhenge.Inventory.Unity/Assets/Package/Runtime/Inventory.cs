@@ -8,7 +8,7 @@ using Strawhenge.Inventory.Unity.Items.Context;
 
 namespace Strawhenge.Inventory.Unity
 {
-    public class Inventory : Strawhenge.Inventory.Inventory, IInventory
+    public class Inventory : Strawhenge.Inventory.Inventory
     {
         readonly IItemFactory _itemFactory;
         readonly IApparelPieceFactory _apparelPieceFactory;
