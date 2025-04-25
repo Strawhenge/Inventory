@@ -28,9 +28,4 @@ namespace Strawhenge.Inventory.Items
         public void SetConsumable(IConsumableProcedures consumableProcedures) =>
             ConsumableProcedures = Maybe.Some(consumableProcedures);
     }
-
-    public interface IItemProceduresFactory
-    {
-        ItemProcedureDto Create(ItemData itemData);
-    }
 }
