@@ -1,9 +1,9 @@
-﻿using Strawhenge.Inventory.Unity.Apparel;
+﻿using Strawhenge.Inventory.Apparel;
 
 namespace Strawhenge.Inventory.Unity.Loader
 {
     public interface ILoadApparelPiece
     {
-        IApparelPieceData ApparelPiece { get; }
+        ApparelPieceData ApparelPiece { get; }
     }
 }

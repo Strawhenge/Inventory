@@ -1,7 +1,9 @@
-﻿namespace Strawhenge.Inventory.Unity.Apparel
+﻿using Strawhenge.Inventory.Apparel;
+
+namespace Strawhenge.Inventory.Unity.Apparel
 {
     public interface IApparelDrop
     {
-        void Drop(IApparelPieceData data);
+        void Drop(ApparelPieceData data);
     }
 }

@@ -1,3 +1,4 @@
+using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
@@ -18,7 +19,8 @@ namespace Strawhenge.Inventory.Unity
         void Awake()
         {
             var items = _items.Select(x => x.ToItemData());
-            _source = new FixedItemContainerSource(items, _apparelPieces);
+            var apparelPieces = _apparelPieces.Select(x => x.ToApparelPieceData());
+            _source = new FixedItemContainerSource(items, apparelPieces);
         }
 
         void Start()
@@ -31,7 +33,7 @@ namespace Strawhenge.Inventory.Unity
 
         public void Add(ItemData item) => _source.Add(item);
 
-        public void Add(IApparelPieceData apparelPiece) => _source.Add(apparelPiece);
+        public void Add(ApparelPieceData apparelPiece) => _source.Add(apparelPiece);
 
         public void MergeContainer(FixedItemContainerSource source) => _source.Merge(source);
 

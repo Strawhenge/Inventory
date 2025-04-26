@@ -1,4 +1,5 @@
 ﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Apparel;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,12 +17,11 @@ namespace Strawhenge.Inventory.Unity.Apparel
                 .ToDictionary(apparel => apparel.name, apparel => apparel);
         }
 
-        public Maybe<IApparelPieceData> FindByName(string name)
+        public Maybe<ApparelPieceData> FindByName(string name)
         {
-            if (_scriptableObjects.TryGetValue(name, out var apparel))
-                return Maybe.Some<IApparelPieceData>(apparel);
-
-            return Maybe.None<IApparelPieceData>();
+            return _scriptableObjects
+                .MaybeGetValue(name)
+                .Map(x => x.ToApparelPieceData());
         }
     }
 }

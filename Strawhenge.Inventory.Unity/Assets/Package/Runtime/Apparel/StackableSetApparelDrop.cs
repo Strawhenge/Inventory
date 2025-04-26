@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Unity.Menu;
+﻿using Strawhenge.Inventory.Apparel;
+using Strawhenge.Inventory.Unity.Menu;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
 {
     public class StackableSetApparelDrop : IApparelDrop, ISetApparelContainerPrefab
     {
-        readonly Queue<IApparelPieceData> _queue = new();
+        readonly Queue<ApparelPieceData> _queue = new();
         readonly IInventoryMenu _inventoryMenu;
         readonly IItemContainerMenu _itemContainerMenu;
         readonly IItemDropPoint _itemDropPoint;
@@ -31,7 +32,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
             _itemContainerMenu.Closed += StateChanged;
         }
 
-        public void Drop(IApparelPieceData data)
+        public void Drop(ApparelPieceData data)
         {
             if (ReferenceEquals(_containerPrefab, null))
             {

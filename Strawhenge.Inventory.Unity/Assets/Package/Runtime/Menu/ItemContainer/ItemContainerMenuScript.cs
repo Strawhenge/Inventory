@@ -1,7 +1,7 @@
 using Strawhenge.Common;
 using Strawhenge.Common.Unity;
+using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Unity.Apparel;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -81,7 +81,7 @@ namespace Strawhenge.Inventory.Unity
             };
         }
 
-        void AddApparelPiece(IContainedItem<IApparelPieceData> apparelPiece)
+        void AddApparelPiece(IContainedItem<ApparelPieceData> apparelPiece)
         {
             var menuEntry = Instantiate(_apparelPieceMenuEntryPrefab, parent: _entriesContainer);
             menuEntry.Set(_inventoryScript.Inventory, apparelPiece);

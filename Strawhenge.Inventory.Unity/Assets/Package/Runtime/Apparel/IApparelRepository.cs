@@ -1,9 +1,10 @@
 ﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Apparel;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
     public interface IApparelRepository
     {
-        Maybe<IApparelPieceData> FindByName(string name);
+        Maybe<ApparelPieceData> FindByName(string name);
     }
 }

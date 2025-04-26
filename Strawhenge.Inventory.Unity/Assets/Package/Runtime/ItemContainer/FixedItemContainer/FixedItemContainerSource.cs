@@ -1,5 +1,5 @@
-﻿using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Unity.Apparel;
+﻿using Strawhenge.Inventory.Apparel;
+using Strawhenge.Inventory.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +9,11 @@ namespace Strawhenge.Inventory.Unity
     public class FixedItemContainerSource : IItemContainerSource, IFixedItemContainerInfo
     {
         readonly List<ItemData> _items;
-        readonly List<IApparelPieceData> _apparelPieces;
+        readonly List<ApparelPieceData> _apparelPieces;
 
         public FixedItemContainerSource(
             IEnumerable<ItemData> items,
-            IEnumerable<IApparelPieceData> apparelPieces)
+            IEnumerable<ApparelPieceData> apparelPieces)
         {
             _items = items.ToList();
             _apparelPieces = apparelPieces.ToList();
@@ -29,7 +29,7 @@ namespace Strawhenge.Inventory.Unity
             StateChanged?.Invoke();
         }
 
-        public void Add(IApparelPieceData apparelPiece)
+        public void Add(ApparelPieceData apparelPiece)
         {
             _apparelPieces.Add(apparelPiece);
             StateChanged?.Invoke();
@@ -47,10 +47,10 @@ namespace Strawhenge.Inventory.Unity
                         }))
                 .ToArray();
 
-        public IReadOnlyList<IContainedItem<IApparelPieceData>> GetApparelPieces() =>
+        public IReadOnlyList<IContainedItem<ApparelPieceData>> GetApparelPieces() =>
             _apparelPieces
                 .Select(apparelPiece =>
-                    new ContainedItem<IApparelPieceData>(
+                    new ContainedItem<ApparelPieceData>(
                         apparelPiece,
                         removeStrategy: () =>
                         {

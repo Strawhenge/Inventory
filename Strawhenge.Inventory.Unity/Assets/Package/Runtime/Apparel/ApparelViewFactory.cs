@@ -27,20 +27,14 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         public IApparelView Create(ApparelPieceData data)
         {
-            if (!data.Get<IApparelPieceData>().HasSome(out var apparelPieceData))
+            if (!_slotScripts.FindByName(data.Slot).HasSome(out var slotScript))
             {
-                _logger.LogWarning($"Missing apparel data.");
-                return NullApparelView.Instance;
-            }
-
-            if (!_slotScripts.FindByName(apparelPieceData.Slot).HasSome(out var slotScript))
-            {
-                _logger.LogWarning($"Missing apparel slot: '{apparelPieceData.Slot}'.");
+                _logger.LogWarning($"Missing apparel slot: '{data.Slot}'.");
                 return NullApparelView.Instance;
             }
 
             var view = new ApparelView(
-                apparelPieceData,
+                data,
                 _gameObjectInitializer,
                 _layerAccessor,
                 _apparelDrop,

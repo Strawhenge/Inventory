@@ -4,7 +4,6 @@ using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
-using Strawhenge.Inventory.Unity.Apparel;
 
 namespace Strawhenge.Inventory.Unity
 {
@@ -31,15 +30,6 @@ namespace Strawhenge.Inventory.Unity
                 effectFactoryLocator,
                 logger)
         {
-        }
-
-        public ApparelPiece CreateApparelPiece(IApparelPieceData data)
-        {
-            var apparelPieceData = (data as ApparelPieceScriptableObject).ToApparelPieceData();
-
-            var apparelPiece = base.CreateApparelPiece(apparelPieceData);
-
-            return apparelPiece;
         }
     }
 }
