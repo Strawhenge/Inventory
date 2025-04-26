@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,12 +18,11 @@ namespace Strawhenge.Inventory.Unity.Items.Data
                 .ToDictionary(item => item.name, item => item);
         }
 
-        public Maybe<IItemData> FindByName(string name)
+        public Maybe<ItemData> FindByName(string name)
         {
-            if (_scriptableObjects.TryGetValue(name, out var item))
-                return Maybe.Some<IItemData>(item);
-
-            return Maybe.None<IItemData>();
+            return _scriptableObjects
+                .MaybeGetValue(name)
+                .Map(x => x.ToItemData());
         }
     }
 }

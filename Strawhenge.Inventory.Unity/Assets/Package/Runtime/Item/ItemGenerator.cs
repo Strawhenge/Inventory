@@ -2,7 +2,6 @@
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.TransientItems;
 using Strawhenge.Inventory.Unity.Items.Data;
-using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
@@ -21,11 +20,7 @@ namespace Strawhenge.Inventory.Unity.Items
         {
             return _itemRepository
                 .FindByName(name)
-                .Map(data =>
-                {
-                    var itemData = (data as ItemScriptableObject).ToItemData();
-                    return _inventory.CreateTransientItem(itemData);
-                });
+                .Map(data => _inventory.CreateTransientItem(data));
         }
     }
 }

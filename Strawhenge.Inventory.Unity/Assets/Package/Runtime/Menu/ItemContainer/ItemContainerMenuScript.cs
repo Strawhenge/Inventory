@@ -1,7 +1,7 @@
 using Strawhenge.Common;
 using Strawhenge.Common.Unity;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Apparel;
-using Strawhenge.Inventory.Unity.Items.Data;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -67,7 +67,7 @@ namespace Strawhenge.Inventory.Unity
             Closed?.Invoke();
         }
 
-        void AddItem(IContainedItem<IItemData> item)
+        void AddItem(IContainedItem<ItemData> item)
         {
             var menuEntry = Instantiate(_containedItemMenuEntryPrefab, parent: _entriesContainer);
             menuEntry.Set(_inventoryScript.Inventory, item);

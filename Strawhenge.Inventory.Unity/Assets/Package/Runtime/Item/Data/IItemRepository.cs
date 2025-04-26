@@ -1,9 +1,10 @@
 ﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory.Unity.Items.Data
 {
     public interface IItemRepository
     {
-        Maybe<IItemData> FindByName(string name);
+        Maybe<ItemData> FindByName(string name);
     }
 }

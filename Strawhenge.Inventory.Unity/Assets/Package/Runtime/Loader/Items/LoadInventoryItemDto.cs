@@ -1,17 +1,17 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Inventory.Unity.Items.Data;
+using Strawhenge.Inventory.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Loader
 {
     public class LoadInventoryItemDto : ILoadInventoryItem
     {
-        public LoadInventoryItemDto(IItemData itemData)
+        public LoadInventoryItemDto(ItemData itemData)
         {
             ItemData = itemData ?? throw new ArgumentNullException(nameof(itemData));
         }
 
-        public IItemData ItemData { get; }
+        public ItemData ItemData { get; }
 
         public Maybe<string> HolsterName { get; private set; } = Maybe.None<string>();
 

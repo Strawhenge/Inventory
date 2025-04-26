@@ -1,6 +1,7 @@
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Apparel;
-using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,7 +17,8 @@ namespace Strawhenge.Inventory.Unity
 
         void Awake()
         {
-            _source = new FixedItemContainerSource(_items, _apparelPieces);
+            var items = _items.Select(x => x.ToItemData());
+            _source = new FixedItemContainerSource(items, _apparelPieces);
         }
 
         void Start()
@@ -27,7 +29,7 @@ namespace Strawhenge.Inventory.Unity
 
         public IItemContainerSource Source => _source;
 
-        public void Add(IItemData item) => _source.Add(item);
+        public void Add(ItemData item) => _source.Add(item);
 
         public void Add(IApparelPieceData apparelPiece) => _source.Add(apparelPiece);
 

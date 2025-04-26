@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Unity.Apparel;
+﻿using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items.Data;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Strawhenge.Inventory.Unity
             _apparelRepository = apparelRepository;
         }
 
-        public IReadOnlyList<IContainedItem<IItemData>> GetItems()
+        public IReadOnlyList<IContainedItem<ItemData>> GetItems()
         {
             return _inventory
                 .AllItems()
@@ -29,7 +30,7 @@ namespace Strawhenge.Inventory.Unity
                 {
                     return _itemRepository
                         .FindByName(item.Name)
-                        .Map(data => new ContainedItem<IItemData>(data, removeStrategy: item.Discard))
+                        .Map(data => new ContainedItem<ItemData>(data, removeStrategy: item.Discard))
                         .AsEnumerable();
                 })
                 .ToArray();

@@ -1,11 +1,11 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Inventory.Unity.Items.Data;
+using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory.Unity.Loader
 {
     public interface ILoadInventoryItem
     {
-        IItemData ItemData { get; }
+        ItemData ItemData { get; }
 
         Maybe<string> HolsterName { get; }
 

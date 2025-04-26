@@ -1,5 +1,5 @@
-﻿using Strawhenge.Inventory.Unity.Apparel;
-using Strawhenge.Inventory.Unity.Items.Data;
+﻿using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Unity.Apparel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +8,11 @@ namespace Strawhenge.Inventory.Unity
 {
     public class FixedItemContainerSource : IItemContainerSource, IFixedItemContainerInfo
     {
-        readonly List<IItemData> _items;
+        readonly List<ItemData> _items;
         readonly List<IApparelPieceData> _apparelPieces;
 
         public FixedItemContainerSource(
-            IEnumerable<IItemData> items,
+            IEnumerable<ItemData> items,
             IEnumerable<IApparelPieceData> apparelPieces)
         {
             _items = items.ToList();
@@ -23,7 +23,7 @@ namespace Strawhenge.Inventory.Unity
 
         public int Count => _items.Count + _apparelPieces.Count;
 
-        public void Add(IItemData item)
+        public void Add(ItemData item)
         {
             _items.Add(item);
             StateChanged?.Invoke();
@@ -35,10 +35,10 @@ namespace Strawhenge.Inventory.Unity
             StateChanged?.Invoke();
         }
 
-        public IReadOnlyList<IContainedItem<IItemData>> GetItems() =>
+        public IReadOnlyList<IContainedItem<ItemData>> GetItems() =>
             _items
                 .Select(item =>
-                    new ContainedItem<IItemData>(
+                    new ContainedItem<ItemData>(
                         item,
                         removeStrategy: () =>
                         {

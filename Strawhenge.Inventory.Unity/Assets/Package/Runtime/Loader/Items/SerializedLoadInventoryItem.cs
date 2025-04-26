@@ -1,5 +1,5 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Inventory.Unity.Items.Data;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using System;
 using UnityEngine;
@@ -14,7 +14,7 @@ namespace Strawhenge.Inventory.Unity.Loader
         [SerializeField] bool _isInStorage;
         [SerializeField] LoadInventoryItemInHand _inHand;
 
-        public IItemData ItemData => _item;
+        public ItemData ItemData => _item.ToItemData();
 
         public Maybe<string> HolsterName => _holster?.Name ?? Maybe.None<string>();
 

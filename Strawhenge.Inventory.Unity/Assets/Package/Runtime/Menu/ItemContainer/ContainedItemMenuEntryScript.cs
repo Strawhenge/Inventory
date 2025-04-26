@@ -1,5 +1,4 @@
 ﻿using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Unity.Items.Data;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +12,7 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] Button _holdRightHandButton;
 
         Inventory _inventory;
-        IContainedItem<IItemData> _containedItem;
+        IContainedItem<ItemData> _containedItem;
 
         void Awake()
         {
@@ -21,7 +20,7 @@ namespace Strawhenge.Inventory.Unity
             _holdRightHandButton.onClick.AddListener(OnHoldRightHandButton);
         }
 
-        public void Set(Inventory inventory, IContainedItem<IItemData> containedItem)
+        public void Set(Inventory inventory, IContainedItem<ItemData> containedItem)
         {
             _inventory = inventory;
             _containedItem = containedItem;

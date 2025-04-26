@@ -1,6 +1,6 @@
 using Strawhenge.Common;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Items.Context;
-using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using UnityEngine;
 
@@ -11,23 +11,16 @@ namespace Strawhenge.Inventory.Unity.Items
         [SerializeField] ItemScriptableObject _data;
         [SerializeField] ItemContextHandlerScript[] _contextHandlers;
 
-        IItemData _itemData;
-
         void Awake()
         {
-            _itemData = _data;
-
-            if (_itemData == null)
-            {
+            if (_data == null)
                 Debug.LogError($"Missing {nameof(_data)}.", this);
-                _itemData = new NullItemData();
-            }
         }
 
-        internal IItemData PickupItem()
+        internal ItemData PickupItem()
         {
             OnPickup();
-            return _data;
+            return _data.ToItemData(); // TODO Error handling for missing scriptable object field.
         }
 
         /// <summary>
