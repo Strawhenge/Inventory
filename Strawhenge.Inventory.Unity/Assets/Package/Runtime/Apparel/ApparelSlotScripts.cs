@@ -1,7 +1,5 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Common;
 using Strawhenge.Common.Logging;
-using Strawhenge.Inventory.Apparel;
 using System.Collections.Generic;
 
 namespace Strawhenge.Inventory.Unity.Apparel
@@ -9,27 +7,22 @@ namespace Strawhenge.Inventory.Unity.Apparel
     public class ApparelSlotScripts
     {
         readonly Dictionary<string, ApparelSlotScript> _slotsByName = new Dictionary<string, ApparelSlotScript>();
-        readonly ApparelSlots _apparelSlots;
         readonly ILogger _logger;
 
-        public ApparelSlotScripts(ApparelSlots apparelSlots, ILogger logger)
+        public ApparelSlotScripts(ILogger logger)
         {
-            _apparelSlots = apparelSlots;
             _logger = logger;
         }
 
-        public IEnumerable<ApparelSlot> All => _slotsByName.Values.ToArray(x => x.ApparelSlot);
-
         internal void Add(ApparelSlotScript apparelSlotScript)
         {
-            if (_slotsByName.ContainsKey(apparelSlotScript.ApparelSlot.Name))
+            if (_slotsByName.ContainsKey(apparelSlotScript.SlotName))
             {
-                _logger.LogWarning($"Duplicate apparel slot: '{apparelSlotScript.ApparelSlot.Name}'.");
+                _logger.LogWarning($"Duplicate apparel slot: '{apparelSlotScript.SlotName}'.");
                 return;
             }
-
-            _apparelSlots.Add(apparelSlotScript.ApparelSlot);
-            _slotsByName.Add(apparelSlotScript.ApparelSlot.Name, apparelSlotScript);
+            
+            _slotsByName.Add(apparelSlotScript.SlotName, apparelSlotScript);
         }
 
         internal Maybe<ApparelSlotScript> FindByName(string name) =>

@@ -14,7 +14,7 @@ namespace Strawhenge.Inventory.Unity.Items
 
         ItemHelper _item;
 
-        public string Name => _holster.Name;
+        public string HolsterName => _holster.Name;
 
         public void SetItem(ItemHelper item)
         {

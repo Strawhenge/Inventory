@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Strawhenge.Inventory.Apparel;
-using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.TransientItems;
 using Xunit.Abstractions;
 
@@ -19,13 +17,7 @@ namespace Strawhenge.Inventory.Tests
         public InventoryTestContext(ITestOutputHelper testOutputHelper)
         {
             var logger = new TestOutputLogger(testOutputHelper);
-            var procedureQueue = new ProcedureQueue();
             _procedureTracker = new ProcedureTracker(logger);
-
-            var storedItems = new StoredItems(logger);
-            var hands = new Hands();
-            var holsters = new Holsters(logger);
-            var apparelSlots = new ApparelSlots(logger);
 
             _itemGenerator = new ItemGeneratorFake();
 
@@ -35,20 +27,15 @@ namespace Strawhenge.Inventory.Tests
             var apparelViewFactory = new ApparelViewFactoryFake(_apparelViewTracker);
 
             Inventory = new Inventory(
-                storedItems,
-                hands,
-                holsters,
-                apparelSlots,
-                procedureQueue,
                 itemProceduresFactory,
                 apparelViewFactory,
                 NullEffectFactoryLocator.Instance,
                 logger);
 
             TransientItemLocator = new TransientItemLocator(
-                hands,
-                holsters,
-                storedItems,
+                Inventory.Hands,
+                Inventory.Holsters,
+                Inventory.StoredItems,
                 _itemGenerator);
         }
 

@@ -55,10 +55,16 @@ namespace Strawhenge.Inventory.Unity
                 Debug.LogError("Hand components not set.", this);
 
             foreach (var holster in GetComponentsInChildren<HolsterScript>())
+            {
                 HolsterScriptsContainer.Add(holster);
+                Inventory.Holsters.Add(holster.HolsterName);
+            }
 
             foreach (var apparelSlot in GetComponentsInChildren<ApparelSlotScript>())
+            {
                 ApparelSlots.Add(apparelSlot);
+                Inventory.ApparelSlots.Add(apparelSlot.SlotName);
+            }
 
             if (_apparelContainerPrefab != null)
                 ApparelContainer.Set(_apparelContainerPrefab);

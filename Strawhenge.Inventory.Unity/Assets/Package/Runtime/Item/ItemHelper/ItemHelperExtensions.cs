@@ -13,8 +13,8 @@ namespace Strawhenge.Inventory.Unity.Items
                 return data;
             }
 
-            logger.LogError($"Item '{item.Data.Name}' not setup for holster '{holster.Name}'.");
-            return new NullHolsterItemData(holster.Name);
+            logger.LogError($"Item '{item.Data.Name}' not setup for holster '{holster.HolsterName}'.");
+            return new NullHolsterItemData(holster.HolsterName);
         }
 
         public static bool IsHolsterCompatible(this ItemHelper item, HolsterScript holster, ILogger logger) =>
@@ -27,11 +27,11 @@ namespace Strawhenge.Inventory.Unity.Items
             out IHolsterItemData data)
         {
             var matchingData = item.Data.HolsterItemData
-                .Where(x => holster.Name.Equals(x.HolsterName))
+                .Where(x => holster.HolsterName.Equals(x.HolsterName))
                 .ToArray();
 
             if (matchingData.Length > 1)
-                logger.LogError($"Item '{item.Data.Name}' has multiple setups for holster '{holster.Name}'.");
+                logger.LogError($"Item '{item.Data.Name}' has multiple setups for holster '{holster.HolsterName}'.");
 
             data = matchingData.FirstOrDefault();
             return data != null;

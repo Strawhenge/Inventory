@@ -13,33 +13,29 @@ namespace Strawhenge.Inventory
         readonly ApparelPieceFactory _apparelPieceFactory;
 
         public Inventory(
-            StoredItems storedItems,
-            Hands hands,
-            Holsters holsters,
-            ApparelSlots apparelSlots,
-            ProcedureQueue procedureQueue,
             IItemProceduresFactory itemProceduresFactory,
             IApparelViewFactory apparelViewFactory,
             IEffectFactoryLocator effectFactoryLocator,
             ILogger logger)
         {
-            Hands = hands;
-            Holsters = holsters;
-            ApparelSlots = apparelSlots;
-            StoredItems = storedItems;
+            Hands = new Hands();
+            Holsters = new Holsters(logger);
+            StoredItems = new StoredItems(logger);
+            ApparelSlots = new ApparelSlots(logger);
 
+            var procedureQueue = new ProcedureQueue();
             var effectFactory = new EffectFactory(effectFactoryLocator, logger);
 
             _itemFactory = new ItemFactory(
-                hands,
-                holsters,
-                storedItems,
+                Hands,
+                Holsters,
+                StoredItems,
                 procedureQueue,
                 effectFactory,
                 itemProceduresFactory);
 
             _apparelPieceFactory = new ApparelPieceFactory(
-                apparelSlots,
+                ApparelSlots,
                 effectFactory,
                 apparelViewFactory,
                 logger);

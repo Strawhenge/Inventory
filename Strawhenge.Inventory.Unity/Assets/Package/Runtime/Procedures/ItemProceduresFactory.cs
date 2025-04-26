@@ -50,7 +50,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
             foreach (var holsterData in itemData.Holsters)
             {
                 _holsterScripts.HolsterScripts
-                    .FirstOrNone(x => x.Name == holsterData.HolsterName)
+                    .FirstOrNone(x => x.HolsterName == holsterData.HolsterName)
                     .Do(holsterScript =>
                     {
                         var holsterProcedures = new HolsterForItemProcedures(

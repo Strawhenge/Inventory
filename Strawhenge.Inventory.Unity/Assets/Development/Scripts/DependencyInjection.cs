@@ -85,23 +85,18 @@ public static class DependencyInjection
     static void RegisterScoped(ContainerBuilder builder)
     {
         builder
-            .RegisterType<ProcedureQueue>()
-            .AsSelf()
-            .InstancePerLifetimeScope();
-
-        builder
             .RegisterType<ItemDropPoint>()
             .As<IItemDropPoint>()
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<Hands>()
-            .AsSelf()
+            .Register(x => x.Resolve<Inventory>().Hands)
+            .As<Hands>()
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<Holsters>()
-            .AsSelf()
+            .Register(x => x.Resolve<Inventory>().Holsters)
+            .As<Holsters>()
             .InstancePerLifetimeScope();
 
         builder
@@ -131,8 +126,8 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<StoredItems>()
-            .AsSelf()
+            .Register(x => x.Resolve<Inventory>().StoredItems)
+            .As<StoredItems>()
             .InstancePerLifetimeScope();
 
         builder
@@ -151,8 +146,8 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<ApparelSlots>()
-            .AsSelf()
+            .Register(x => x.Resolve<Inventory>().ApparelSlots)
+            .As<ApparelSlots>()
             .InstancePerLifetimeScope();
 
         builder
