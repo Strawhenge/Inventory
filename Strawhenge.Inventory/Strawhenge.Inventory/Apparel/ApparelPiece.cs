@@ -12,21 +12,31 @@ namespace Strawhenge.Inventory.Apparel
         readonly IApparelView _view;
         readonly IEnumerable<Effect> _effects;
 
-        public ApparelPiece(string name, ApparelSlot slot, IApparelView view)
-            : this(name, slot, view, Array.Empty<Effect>())
+        public ApparelPiece(
+            ApparelPieceData data,
+            ApparelSlot slot,
+            IApparelView view)
+            : this(data, slot, view, Array.Empty<Effect>())
         {
         }
 
-        public ApparelPiece(string name, ApparelSlot slot, IApparelView view, IEnumerable<Effect> effects)
+        public ApparelPiece(
+            ApparelPieceData data,
+            ApparelSlot slot,
+            IApparelView view,
+            IEnumerable<Effect> effects)
         {
             _slot = slot;
             _view = view;
             _effects = effects.ToArray();
 
-            Name = name;
+            Name = data.Name;
+            Data = data;
         }
 
         public string Name { get; }
+
+        public ApparelPieceData Data { get; }
 
         public string SlotName => _slot.Name;
 

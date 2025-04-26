@@ -16,23 +16,26 @@ namespace Strawhenge.Inventory.Items
         readonly ItemSize _size;
         readonly ItemProcedureScheduler _procedureScheduler;
 
-        public Item(string name,
+        public Item(
+            ItemData data,
             Hands hands,
             IItemProcedures procedures,
             ProcedureQueue procedureQueue,
-            ItemSize size,
             bool isTransient = false)
         {
-            Name = name;
+            Name = data.Name;
+            Data = data;
             IsTransient = isTransient;
 
             _hands = hands;
             _procedureScheduler = new ItemProcedureScheduler(procedures, procedureQueue);
-            _size = size;
+            _size = data.Size;
             Holsters = HolstersForItem.None;
         }
 
         public string Name { get; }
+
+        public ItemData Data { get; }
 
         public HolstersForItem Holsters { get; private set; }
 

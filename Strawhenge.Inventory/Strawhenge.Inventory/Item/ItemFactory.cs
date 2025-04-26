@@ -37,11 +37,10 @@ namespace Strawhenge.Inventory.Items
             var procedures = _proceduresFactory.Create(data);
 
             var item = new Item(
-                data.Name,
+                data,
                 _hands,
                 procedures.ItemProcedures,
-                _procedureQueue,
-                data.Size
+                _procedureQueue
             );
 
             item.SetupHolsters(
@@ -78,11 +77,10 @@ namespace Strawhenge.Inventory.Items
             var procedures = _proceduresFactory.Create(data);
 
             var item = new Item(
-                data.Name,
+                data,
                 _hands,
                 procedures.ItemProcedures,
                 _procedureQueue,
-                data.Size,
                 isTransient: true
             );
 

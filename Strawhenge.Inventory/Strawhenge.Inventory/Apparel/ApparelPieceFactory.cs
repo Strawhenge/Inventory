@@ -39,7 +39,7 @@ namespace Strawhenge.Inventory.Apparel
                 .Select(_effectFactory.Create);
 
             var apparelPiece = new ApparelPiece(
-                data.Name,
+                data,
                 slot,
                 view,
                 effects
