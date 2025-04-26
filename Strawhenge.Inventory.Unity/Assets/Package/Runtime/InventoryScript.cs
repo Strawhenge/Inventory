@@ -3,7 +3,6 @@ using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Loader;
-using System.Collections;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity
@@ -33,16 +32,9 @@ namespace Strawhenge.Inventory.Unity
 
         public void Load(LoadInventoryData data)
         {
-            if (IsConfigurationComplete)
-                Loader.Load(data);
-            else
-                StartCoroutine(LoadCoroutine());
-
-            IEnumerator LoadCoroutine()
-            {
-                yield return new WaitUntil(() => IsConfigurationComplete);
-                Loader.Load(data);
-            }
+            this.InvokeAsSoonAs(
+                condition: () => IsConfigurationComplete, 
+                action: () => Loader.Load(data));
         }
 
         public InventoryInfo GenerateCurrentInfo() => InfoGenerator.GenerateCurrentInfo();
