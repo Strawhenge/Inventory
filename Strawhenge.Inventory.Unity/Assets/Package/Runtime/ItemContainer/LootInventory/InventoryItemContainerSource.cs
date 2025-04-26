@@ -15,21 +15,21 @@ namespace Strawhenge.Inventory.Unity
             _inventory = inventory;
         }
 
-        public IReadOnlyList<IContainedItem<ItemData>> GetItems()
+        public IReadOnlyList<ContainedItem<ItemData>> GetItems()
         {
             return _inventory
                 .AllItems()
-                .Select(item => new ContainedItem<ItemData>(item.Data, removeStrategy: item.Discard))
+                .Select(item => new ContainedItem<ItemData>(item.Data, onRemove: item.Discard))
                 .ToArray();
         }
 
-        public IReadOnlyList<IContainedItem<ApparelPieceData>> GetApparelPieces()
+        public IReadOnlyList<ContainedItem<ApparelPieceData>> GetApparelPieces()
         {
             return _inventory.ApparelSlots
                 .Select(x => x.CurrentPiece)
                 .WhereSome()
                 .Select(apparelPiece =>
-                    new ContainedItem<ApparelPieceData>(apparelPiece.Data, removeStrategy: apparelPiece.Discard))
+                    new ContainedItem<ApparelPieceData>(apparelPiece.Data, onRemove: apparelPiece.Discard))
                 .ToArray();
         }
     }

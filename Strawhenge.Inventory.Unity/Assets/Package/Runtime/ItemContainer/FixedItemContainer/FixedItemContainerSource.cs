@@ -35,24 +35,24 @@ namespace Strawhenge.Inventory.Unity
             StateChanged?.Invoke();
         }
 
-        public IReadOnlyList<IContainedItem<ItemData>> GetItems() =>
+        public IReadOnlyList<ContainedItem<ItemData>> GetItems() =>
             _items
                 .Select(item =>
                     new ContainedItem<ItemData>(
                         item,
-                        removeStrategy: () =>
+                        onRemove: () =>
                         {
                             _items.Remove(item);
                             StateChanged?.Invoke();
                         }))
                 .ToArray();
 
-        public IReadOnlyList<IContainedItem<ApparelPieceData>> GetApparelPieces() =>
+        public IReadOnlyList<ContainedItem<ApparelPieceData>> GetApparelPieces() =>
             _apparelPieces
                 .Select(apparelPiece =>
                     new ContainedItem<ApparelPieceData>(
                         apparelPiece,
-                        removeStrategy: () =>
+                        onRemove: () =>
                         {
                             _apparelPieces.Remove(apparelPiece);
                             StateChanged?.Invoke();

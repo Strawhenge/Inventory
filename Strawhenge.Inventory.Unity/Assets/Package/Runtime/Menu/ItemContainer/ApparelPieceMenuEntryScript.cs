@@ -11,14 +11,14 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] Button _equipButton;
 
         Inventory _inventory;
-        IContainedItem<ApparelPieceData> _containedItem;
+        ContainedItem<ApparelPieceData> _containedItem;
 
         void Awake()
         {
             _equipButton.onClick.AddListener(OnEquipButton);
         }
 
-        public void Set(Inventory inventory, IContainedItem<ApparelPieceData> containedItem)
+        public void Set(Inventory inventory, ContainedItem<ApparelPieceData> containedItem)
         {
             _inventory = inventory;
             _containedItem = containedItem;

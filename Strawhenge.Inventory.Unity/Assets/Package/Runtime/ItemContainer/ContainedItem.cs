@@ -2,13 +2,14 @@
 
 namespace Strawhenge.Inventory.Unity
 {
-    public class ContainedItem<T> : IContainedItem<T>
+    public class ContainedItem<T>
     {
-        readonly Action _removeStrategy;
+        readonly Action _onRemove;
 
-        public ContainedItem(T item, Action removeStrategy)
+        public ContainedItem(T item, Action onRemove = null)
         {
-            _removeStrategy = removeStrategy;
+            _onRemove = onRemove ?? (() => { });
+
             Item = item;
         }
 
@@ -18,7 +19,7 @@ namespace Strawhenge.Inventory.Unity
 
         public void RemoveFromContainer()
         {
-            _removeStrategy();
+            _onRemove();
             Removed?.Invoke();
         }
     }

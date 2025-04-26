@@ -6,8 +6,8 @@ namespace Strawhenge.Inventory.Unity
 {
     public interface IItemContainerSource
     {
-        IReadOnlyList<IContainedItem<ItemData>> GetItems();
+        IReadOnlyList<ContainedItem<ItemData>> GetItems();
 
-        IReadOnlyList<IContainedItem<ApparelPieceData>> GetApparelPieces();
+        IReadOnlyList<ContainedItem<ApparelPieceData>> GetApparelPieces();
     }
 }

@@ -67,7 +67,7 @@ namespace Strawhenge.Inventory.Unity
             Closed?.Invoke();
         }
 
-        void AddItem(IContainedItem<ItemData> item)
+        void AddItem(ContainedItem<ItemData> item)
         {
             var menuEntry = Instantiate(_containedItemMenuEntryPrefab, parent: _entriesContainer);
             menuEntry.Set(_inventoryScript.Inventory, item);
@@ -81,7 +81,7 @@ namespace Strawhenge.Inventory.Unity
             };
         }
 
-        void AddApparelPiece(IContainedItem<ApparelPieceData> apparelPiece)
+        void AddApparelPiece(ContainedItem<ApparelPieceData> apparelPiece)
         {
             var menuEntry = Instantiate(_apparelPieceMenuEntryPrefab, parent: _entriesContainer);
             menuEntry.Set(_inventoryScript.Inventory, apparelPiece);
