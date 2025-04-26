@@ -9,7 +9,7 @@ namespace Strawhenge.Inventory.Unity
     public static class InventoryExtensions
     {
         public static Item CreateItem(
-            this Strawhenge.Inventory.Inventory inventory,
+            this Inventory inventory,
             ItemPickupScript pickup)
         {
             var data = pickup.PickupItem();
@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.Unity
         }
 
         public static Item CreateItem(
-            this Strawhenge.Inventory.Inventory inventory,
+            this Inventory inventory,
             ItemScriptableObject scriptableObject)
         {
             var data = scriptableObject.ToItemData();
@@ -25,7 +25,7 @@ namespace Strawhenge.Inventory.Unity
         }
 
         public static ApparelPiece CreateApparelPiece(
-            this Strawhenge.Inventory.Inventory inventory,
+            this Inventory inventory,
             ApparelPieceScriptableObject scriptableObject)
         {
             var data = scriptableObject.ToApparelPieceData();

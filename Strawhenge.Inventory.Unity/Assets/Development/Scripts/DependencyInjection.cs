@@ -20,7 +20,6 @@ using Strawhenge.Inventory.Unity.Menu;
 using Strawhenge.Inventory.Unity.Procedures;
 using UnityEngine;
 using ILogger = Strawhenge.Common.Logging.ILogger;
-using Inventory = Strawhenge.Inventory.Unity.Inventory;
 
 public static class DependencyInjection
 {
@@ -159,7 +158,6 @@ public static class DependencyInjection
         builder
             .RegisterType<Inventory>()
             .AsSelf()
-            .As<Strawhenge.Inventory.Inventory>()
             .InstancePerLifetimeScope();
 
         builder
