@@ -1,18 +1,23 @@
 using Strawhenge.Common.Unity.Helpers;
 using Strawhenge.Inventory.Unity;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class NpcScript : MonoBehaviour
 {
-    [SerializeField] LootInventoryScript _lootInventory;
+    [SerializeField] InventoryScript _inventory;
     [SerializeField] ItemContainerMenuScript _itemContainerMenu;
     [SerializeField] Camera _camera;
 
+    InventoryItemContainerSource _lootSource;
+
     void Awake()
     {
-        ComponentRefHelper.EnsureHierarchyComponent(ref _lootInventory, nameof(_lootInventory), this);
+        ComponentRefHelper.EnsureHierarchyComponent(ref _inventory, nameof(_inventory), this);
         ComponentRefHelper.EnsureSceneComponent(ref _itemContainerMenu, nameof(_itemContainerMenu), this);
         ComponentRefHelper.EnsureCamera(ref _camera, nameof(_camera), this);
+
+        _lootSource = new InventoryItemContainerSource(_inventory.Inventory);
     }
 
     void Update()
@@ -20,8 +25,8 @@ public class NpcScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             _itemContainerMenu.Close();
 
-        if (ClickedOnNpc() && _lootInventory.CanBeLooted(out var itemSource))
-            _itemContainerMenu.Open(itemSource);
+        if (ClickedOnNpc())
+            _itemContainerMenu.Open(_lootSource);
     }
 
     bool ClickedOnNpc()
