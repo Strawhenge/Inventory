@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using Strawhenge.Common;
+using Strawhenge.Inventory.Loader;
+using System.Linq;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Loader
@@ -23,9 +25,15 @@ namespace Strawhenge.Inventory.Unity.Loader
 
         LoadInventoryData GetLoadData()
         {
-            return new LoadInventoryData(
-                _items.Where(x => x != null && x.ItemData != null),
-                _apparel.Where(x => x != null && x.ApparelPiece != null));
+            var loadItems = _items
+                .ExcludeNull()
+                .Select(x => x.Map());
+
+            var loadApparelPieces = _apparel
+                .ExcludeNull()
+                .Select(x => x.Map());
+
+            return new LoadInventoryData(loadItems, loadApparelPieces);
         }
     }
 }

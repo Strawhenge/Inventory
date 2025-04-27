@@ -2,11 +2,11 @@
 using Strawhenge.Inventory.Items;
 using System;
 
-namespace Strawhenge.Inventory.Unity.Loader
+namespace Strawhenge.Inventory.Loader
 {
-    public class LoadInventoryItemDto : ILoadInventoryItem
+    public class LoadInventoryItem
     {
-        public LoadInventoryItemDto(ItemData itemData)
+        public LoadInventoryItem(ItemData itemData)
         {
             ItemData = itemData ?? throw new ArgumentNullException(nameof(itemData));
         }

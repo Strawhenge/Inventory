@@ -1,11 +1,11 @@
 ﻿using Strawhenge.Inventory.Apparel;
 using System;
 
-namespace Strawhenge.Inventory.Unity.Loader
+namespace Strawhenge.Inventory.Loader
 {
-    public class LoadApparelPieceDto : ILoadApparelPiece
+    public class LoadApparelPiece
     {
-        public LoadApparelPieceDto(ApparelPieceData apparelPiece)
+        public LoadApparelPiece(ApparelPieceData apparelPiece)
         {
             ApparelPiece = apparelPiece ?? throw new ArgumentNullException(nameof(apparelPiece));
         }

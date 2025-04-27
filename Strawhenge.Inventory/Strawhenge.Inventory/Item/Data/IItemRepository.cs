@@ -1,7 +1,6 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Inventory.Items;
 
-namespace Strawhenge.Inventory.Unity.Items.Data
+namespace Strawhenge.Inventory.Items
 {
     public interface IItemRepository
     {

@@ -2,7 +2,7 @@
 using Strawhenge.Common.Logging;
 using System.Collections.Generic;
 
-namespace Strawhenge.Inventory.Unity.Loader
+namespace Strawhenge.Inventory.Loader
 {
     public class InventoryLoader
     {
@@ -21,7 +21,7 @@ namespace Strawhenge.Inventory.Unity.Loader
             LoadApparel(data.ApparelPieces);
         }
 
-        void LoadItems(IReadOnlyList<ILoadInventoryItem> items)
+        void LoadItems(IReadOnlyList<LoadInventoryItem> items)
         {
             _logger.LogInformation("Loading items into inventory.");
 
@@ -29,7 +29,7 @@ namespace Strawhenge.Inventory.Unity.Loader
                 LoadItem(item);
         }
 
-        void LoadItem(ILoadInventoryItem loadItem)
+        void LoadItem(LoadInventoryItem loadItem)
         {
             var item = _inventory.CreateItem(loadItem.ItemData);
 
@@ -45,7 +45,7 @@ namespace Strawhenge.Inventory.Unity.Loader
                 item.HoldRightHand();
         }
 
-        void LoadApparel(IEnumerable<ILoadApparelPiece> apparelPieces)
+        void LoadApparel(IEnumerable<LoadApparelPiece> apparelPieces)
         {
             _logger.LogInformation("Loading apparel into inventory.");
 
@@ -53,7 +53,7 @@ namespace Strawhenge.Inventory.Unity.Loader
                 LoadApparelPiece(apparelPiece);
         }
 
-        void LoadApparelPiece(ILoadApparelPiece loadApparelPiece)
+        void LoadApparelPiece(LoadApparelPiece loadApparelPiece)
         {
             var apparelPiece = _inventory.CreateApparelPiece(loadApparelPiece.ApparelPiece);
             apparelPiece.Equip();

@@ -1,10 +1,10 @@
-﻿using Strawhenge.Common.Logging;
+﻿using System.Collections.Generic;
+using Strawhenge.Common.Logging;
+using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Info;
-using Strawhenge.Inventory.Unity.Apparel;
-using Strawhenge.Inventory.Unity.Items.Data;
-using System.Collections.Generic;
+using Strawhenge.Inventory.Items;
 
-namespace Strawhenge.Inventory.Unity.Loader
+namespace Strawhenge.Inventory.Loader
 {
     public class LoadInventoryDataFactory
     {
@@ -27,7 +27,7 @@ namespace Strawhenge.Inventory.Unity.Loader
             return new LoadInventoryData(GetLoadItems(info), GetLoadApparel(info));
         }
 
-        IEnumerable<ILoadInventoryItem> GetLoadItems(InventoryInfo info)
+        IEnumerable<LoadInventoryItem> GetLoadItems(InventoryInfo info)
         {
             foreach (var itemInfo in info.Items)
             {
@@ -37,7 +37,7 @@ namespace Strawhenge.Inventory.Unity.Loader
                     continue;
                 }
 
-                var dto = new LoadInventoryItemDto(item)
+                var dto = new LoadInventoryItem(item)
                 {
                     InHand = itemInfo.IsInRightHand
                         ? LoadInventoryItemInHand.Right
@@ -54,7 +54,7 @@ namespace Strawhenge.Inventory.Unity.Loader
             }
         }
 
-        IEnumerable<ILoadApparelPiece> GetLoadApparel(InventoryInfo info)
+        IEnumerable<LoadApparelPiece> GetLoadApparel(InventoryInfo info)
         {
             foreach (var apparelPieceName in info.EquippedApparel)
             {
@@ -64,7 +64,7 @@ namespace Strawhenge.Inventory.Unity.Loader
                     continue;
                 }
 
-                yield return new LoadApparelPieceDto(apparelPiece);
+                yield return new LoadApparelPiece(apparelPiece);
             }
         }
     }

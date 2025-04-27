@@ -1,4 +1,5 @@
 using Strawhenge.Inventory.Info;
+using Strawhenge.Inventory.Loader;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Items;

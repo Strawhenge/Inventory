@@ -1,7 +1,6 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Inventory.Apparel;
 
-namespace Strawhenge.Inventory.Unity.Apparel
+namespace Strawhenge.Inventory.Apparel
 {
     public interface IApparelRepository
     {

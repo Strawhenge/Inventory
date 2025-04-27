@@ -1,4 +1,5 @@
 ﻿using Strawhenge.Inventory.Apparel;
+using Strawhenge.Inventory.Loader;
 using Strawhenge.Inventory.Unity.Apparel;
 using System;
 using UnityEngine;
@@ -6,10 +7,10 @@ using UnityEngine;
 namespace Strawhenge.Inventory.Unity.Loader
 {
     [Serializable]
-    class SerializedLoadApparelPiece : ILoadApparelPiece
+    class SerializedLoadApparelPiece
     {
         [SerializeField] ApparelPieceScriptableObject _apparel;
 
-        public ApparelPieceData ApparelPiece => _apparel.ToApparelPieceData();
+        public LoadApparelPiece Map() => new(_apparel.ToApparelPieceData());
     }
 }
