@@ -1,7 +1,7 @@
 using Strawhenge.Common.Unity.Helpers;
+using Strawhenge.Inventory.Loot;
 using Strawhenge.Inventory.Unity;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class NpcScript : MonoBehaviour
 {
@@ -9,7 +9,7 @@ public class NpcScript : MonoBehaviour
     [SerializeField] ItemContainerMenuScript _itemContainerMenu;
     [SerializeField] Camera _camera;
 
-    InventoryItemContainerSource _lootSource;
+    InventoryLootSource _lootSource;
 
     void Awake()
     {
@@ -17,7 +17,7 @@ public class NpcScript : MonoBehaviour
         ComponentRefHelper.EnsureSceneComponent(ref _itemContainerMenu, nameof(_itemContainerMenu), this);
         ComponentRefHelper.EnsureCamera(ref _camera, nameof(_camera), this);
 
-        _lootSource = new InventoryItemContainerSource(_inventory.Inventory);
+        _lootSource = new InventoryLootSource(_inventory.Inventory);
     }
 
     void Update()

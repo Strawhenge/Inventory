@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] LeftHandScript _leftHand;
         [SerializeField] RightHandScript _rightHand;
         [SerializeField] int _maxStoredItemsWeight;
-        [SerializeField] FixedItemContainerScript _apparelContainerPrefab;
+        [SerializeField] LootCollectionScript _apparelContainerPrefab;
 
         public bool IsConfigurationComplete { get; private set; }
 

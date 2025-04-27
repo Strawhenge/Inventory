@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
         readonly IItemDropPoint _itemDropPoint;
         readonly ILogger _logger;
 
-        FixedItemContainerScript _containerPrefab;
+        LootCollectionScript _containerPrefab;
 
         public StackableSetApparelDrop(
             IInventoryMenu inventoryMenu,
@@ -36,7 +36,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
         {
             if (ReferenceEquals(_containerPrefab, null))
             {
-                _logger.LogError($"'{nameof(FixedItemContainerScript)}' is missing from apparel drop.");
+                _logger.LogError($"'{nameof(LootCollectionScript)}' is missing from apparel drop.");
                 return;
             }
 
@@ -50,7 +50,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
             container.Add(data);
         }
 
-        public void Set(FixedItemContainerScript prefab) => _containerPrefab = prefab;
+        public void Set(LootCollectionScript prefab) => _containerPrefab = prefab;
 
         void StateChanged()
         {
@@ -65,7 +65,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         bool ShouldWait() => _inventoryMenu.IsOpen || _itemContainerMenu.IsOpen;
 
-        FixedItemContainerScript CreateContainer()
+        LootCollectionScript CreateContainer()
         {
             var spawnPoint = _itemDropPoint.GetPoint();
             return Object.Instantiate(_containerPrefab, spawnPoint.Position, spawnPoint.Rotation);

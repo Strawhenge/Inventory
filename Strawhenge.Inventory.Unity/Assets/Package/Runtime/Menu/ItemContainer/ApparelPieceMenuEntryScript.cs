@@ -1,4 +1,5 @@
 using Strawhenge.Inventory.Apparel;
+using Strawhenge.Inventory.Loot;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,14 +12,14 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] Button _equipButton;
 
         Inventory _inventory;
-        ContainedItem<ApparelPieceData> _containedItem;
+        Loot<ApparelPieceData> _containedItem;
 
         void Awake()
         {
             _equipButton.onClick.AddListener(OnEquipButton);
         }
 
-        public void Set(Inventory inventory, ContainedItem<ApparelPieceData> containedItem)
+        public void Set(Inventory inventory, Loot<ApparelPieceData> containedItem)
         {
             _inventory = inventory;
             _containedItem = containedItem;
@@ -35,7 +36,7 @@ namespace Strawhenge.Inventory.Unity
             var apparelPiece = _inventory.CreateApparelPiece(_containedItem.Item);
             apparelPiece.Equip();
 
-            _containedItem.RemoveFromContainer();
+            _containedItem.Take();
         }
     }
 }

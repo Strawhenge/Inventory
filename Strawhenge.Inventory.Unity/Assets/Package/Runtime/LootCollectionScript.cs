@@ -1,5 +1,6 @@
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Loot;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using System.Linq;
@@ -8,19 +9,23 @@ using UnityEngine.Events;
 
 namespace Strawhenge.Inventory.Unity
 {
-    public class FixedItemContainerScript : MonoBehaviour
+    public class LootCollectionScript : MonoBehaviour
     {
         [SerializeField] ItemScriptableObject[] _items;
         [SerializeField] ApparelPieceScriptableObject[] _apparelPieces;
-        [SerializeField] UnityEvent<IFixedItemContainerInfo> _stateChanged;
+        [SerializeField] UnityEvent<ILootCollectionInfo> _stateChanged;
 
-        FixedItemContainerSource _source;
+        LootCollectionSource _source;
 
         void Awake()
         {
-            var items = _items.Select(x => x.ToItemData());
-            var apparelPieces = _apparelPieces.Select(x => x.ToApparelPieceData());
-            _source = new FixedItemContainerSource(items, apparelPieces);
+            var items = _items
+                .Select(x => x.ToItemData());
+            
+            var apparelPieces = _apparelPieces
+                .Select(x => x.ToApparelPieceData());
+            
+            _source = new LootCollectionSource(items, apparelPieces);
         }
 
         void Start()
@@ -29,15 +34,15 @@ namespace Strawhenge.Inventory.Unity
             OnStateChanged();
         }
 
-        public IItemContainerSource Source => _source;
+        public ILootSource Source => _source;
 
         public void Add(ItemData item) => _source.Add(item);
 
         public void Add(ApparelPieceData apparelPiece) => _source.Add(apparelPiece);
 
-        public void MergeContainer(FixedItemContainerSource source) => _source.Merge(source);
+        public void MergeContainer(LootCollectionSource source) => _source.Merge(source);
 
-        public FixedItemContainerSource CloneContainer() => _source.Clone();
+        public LootCollectionSource CloneContainer() => _source.Clone();
 
         void OnStateChanged() => _stateChanged.Invoke(_source);
     }

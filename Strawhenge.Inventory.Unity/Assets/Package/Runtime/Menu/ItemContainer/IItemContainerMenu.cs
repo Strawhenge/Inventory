@@ -1,4 +1,5 @@
 ﻿using System;
+using Strawhenge.Inventory.Loot;
 
 namespace Strawhenge.Inventory.Unity
 {
@@ -10,7 +11,7 @@ namespace Strawhenge.Inventory.Unity
 
         bool IsOpen { get; }
 
-        void Open(IItemContainerSource source);
+        void Open(ILootSource source);
 
         void Close();
     }

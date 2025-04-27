@@ -2,6 +2,6 @@
 {
     public interface ISetApparelContainerPrefab
     {
-        void Set(FixedItemContainerScript prefab);
+        void Set(LootCollectionScript prefab);
     }
 }

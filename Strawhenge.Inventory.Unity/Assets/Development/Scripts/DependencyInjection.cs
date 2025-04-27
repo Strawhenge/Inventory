@@ -7,6 +7,7 @@ using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Loot;
 using Strawhenge.Inventory.TransientItems;
 using Strawhenge.Inventory.Unity;
 using Strawhenge.Inventory.Unity.Animation;
@@ -175,12 +176,12 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<InventoryItemContainerSource>()
+            .RegisterType<InventoryLootSource>()
             .AsSelf()
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<FixedItemContainerSource>()
+            .RegisterType<LootCollectionSource>()
             .AsSelf()
             .InstancePerLifetimeScope();
 

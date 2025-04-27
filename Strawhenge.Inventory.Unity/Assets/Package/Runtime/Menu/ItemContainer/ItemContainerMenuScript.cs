@@ -5,6 +5,7 @@ using Strawhenge.Inventory.Items;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Strawhenge.Inventory.Loot;
 
 namespace Strawhenge.Inventory.Unity
 {
@@ -36,7 +37,7 @@ namespace Strawhenge.Inventory.Unity
             MenuContainer.Set(this);
         }
 
-        public void Open(IItemContainerSource source)
+        public void Open(ILootSource source)
         {
             if (IsOpen)
                 Close();
@@ -67,13 +68,13 @@ namespace Strawhenge.Inventory.Unity
             Closed?.Invoke();
         }
 
-        void AddItem(ContainedItem<ItemData> item)
+        void AddItem(Loot<ItemData> item)
         {
             var menuEntry = Instantiate(_containedItemMenuEntryPrefab, parent: _entriesContainer);
             menuEntry.Set(_inventoryScript.Inventory, item);
             _menuEntries.Add(menuEntry.gameObject);
 
-            item.Removed += () =>
+            item.Taken += () =>
             {
                 if (_menuEntries.Contains(menuEntry.gameObject))
                     _menuEntries.Remove(menuEntry.gameObject);
@@ -81,13 +82,13 @@ namespace Strawhenge.Inventory.Unity
             };
         }
 
-        void AddApparelPiece(ContainedItem<ApparelPieceData> apparelPiece)
+        void AddApparelPiece(Loot<ApparelPieceData> apparelPiece)
         {
             var menuEntry = Instantiate(_apparelPieceMenuEntryPrefab, parent: _entriesContainer);
             menuEntry.Set(_inventoryScript.Inventory, apparelPiece);
             _menuEntries.Add(menuEntry.gameObject);
 
-            apparelPiece.Removed += () =>
+            apparelPiece.Taken += () =>
             {
                 if (_menuEntries.Contains(menuEntry.gameObject))
                     _menuEntries.Remove(menuEntry.gameObject);

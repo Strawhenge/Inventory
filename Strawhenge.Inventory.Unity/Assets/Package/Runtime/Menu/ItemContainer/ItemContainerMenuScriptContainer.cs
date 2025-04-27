@@ -1,4 +1,5 @@
 using Strawhenge.Common.Logging;
+using Strawhenge.Inventory.Loot;
 using System;
 
 namespace Strawhenge.Inventory.Unity
@@ -18,7 +19,7 @@ namespace Strawhenge.Inventory.Unity
 
         public bool IsOpen => _menu.IsOpen;
 
-        public void Open(IItemContainerSource source)
+        public void Open(ILootSource source)
         {
             if (ReferenceEquals(_menu, null))
             {

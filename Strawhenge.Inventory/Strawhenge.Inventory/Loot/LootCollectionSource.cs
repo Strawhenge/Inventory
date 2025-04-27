@@ -1,22 +1,28 @@
-﻿using Strawhenge.Inventory.Apparel;
+﻿using Strawhenge.Common;
+using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Loot
 {
-    public class FixedItemContainerSource : IItemContainerSource, IFixedItemContainerInfo
+    public class LootCollectionSource : ILootSource, ILootCollectionInfo
     {
         readonly List<ItemData> _items;
         readonly List<ApparelPieceData> _apparelPieces;
 
-        public FixedItemContainerSource(
-            IEnumerable<ItemData> items,
-            IEnumerable<ApparelPieceData> apparelPieces)
+        public LootCollectionSource(
+            IEnumerable<ItemData> items = null,
+            IEnumerable<ApparelPieceData> apparelPieces = null)
         {
-            _items = items.ToList();
-            _apparelPieces = apparelPieces.ToList();
+            _items = items
+                .ExcludeNull()
+                .ToList();
+
+            _apparelPieces = apparelPieces
+                .ExcludeNull()
+                .ToList();
         }
 
         public event Action StateChanged;
@@ -35,33 +41,33 @@ namespace Strawhenge.Inventory.Unity
             StateChanged?.Invoke();
         }
 
-        public IReadOnlyList<ContainedItem<ItemData>> GetItems() =>
+        public IReadOnlyList<Loot<ItemData>> GetItems() =>
             _items
                 .Select(item =>
-                    new ContainedItem<ItemData>(
+                    new Loot<ItemData>(
                         item,
-                        onRemove: () =>
+                        onTake: () =>
                         {
                             _items.Remove(item);
                             StateChanged?.Invoke();
                         }))
                 .ToArray();
 
-        public IReadOnlyList<ContainedItem<ApparelPieceData>> GetApparelPieces() =>
+        public IReadOnlyList<Loot<ApparelPieceData>> GetApparelPieces() =>
             _apparelPieces
                 .Select(apparelPiece =>
-                    new ContainedItem<ApparelPieceData>(
+                    new Loot<ApparelPieceData>(
                         apparelPiece,
-                        onRemove: () =>
+                        onTake: () =>
                         {
                             _apparelPieces.Remove(apparelPiece);
                             StateChanged?.Invoke();
                         }))
                 .ToArray();
 
-        public FixedItemContainerSource Clone() => new(_items, _apparelPieces);
+        public LootCollectionSource Clone() => new LootCollectionSource(_items, _apparelPieces);
 
-        public void Merge(FixedItemContainerSource source)
+        public void Merge(LootCollectionSource source)
         {
             _items.AddRange(source._items);
             _apparelPieces.AddRange(source._apparelPieces);

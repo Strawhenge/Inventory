@@ -1,10 +1,11 @@
 using Strawhenge.Common.Unity.Helpers;
+using Strawhenge.Inventory.Loot;
 using Strawhenge.Inventory.Unity;
 using UnityEngine;
 
 public class LootboxScript : MonoBehaviour
 {
-    [SerializeField] FixedItemContainerScript _itemContainer;
+    [SerializeField] LootCollectionScript _itemContainer;
     [SerializeField] ItemContainerMenuScript _itemContainerMenu;
     [SerializeField] Camera _camera;
 
@@ -31,7 +32,7 @@ public class LootboxScript : MonoBehaviour
                hit.transform.root == transform;
     }
 
-    public void OnStateChanged(IFixedItemContainerInfo info)
+    public void OnStateChanged(ILootCollectionInfo info)
     {
         if (info.Count == 0)
             Destroy(gameObject);
