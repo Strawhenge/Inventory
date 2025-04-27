@@ -9,18 +9,18 @@ namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemHelper
     {
-        readonly IItemDropPoint _itemDropPoint;
+        readonly DropPoint _dropPoint;
         readonly ItemContext _context;
         ItemScript _script;
 
-        public ItemHelper(IItemData data, IItemDropPoint itemDropPoint)
-            : this(data, itemDropPoint, new ItemContext())
+        public ItemHelper(IItemData data, DropPoint dropPoint)
+            : this(data, dropPoint, new ItemContext())
         {
         }
 
-        public ItemHelper(IItemData data, IItemDropPoint itemDropPoint, ItemContext context)
+        public ItemHelper(IItemData data, DropPoint dropPoint, ItemContext context)
         {
-            _itemDropPoint = itemDropPoint;
+            _dropPoint = dropPoint;
             _context = context;
             Data = data;
         }
@@ -56,7 +56,7 @@ namespace Strawhenge.Inventory.Unity.Items
                 .Map(pickupPrefab =>
                 {
                     var spawnPoint = _script == null
-                        ? _itemDropPoint.GetPoint()
+                        ? _dropPoint.GetPoint()
                         : _script.transform.GetPositionAndRotation();
 
                     return Object.Instantiate(pickupPrefab, spawnPoint.Position, spawnPoint.Rotation);

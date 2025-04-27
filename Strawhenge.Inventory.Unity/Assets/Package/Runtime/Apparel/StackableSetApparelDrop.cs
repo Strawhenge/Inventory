@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
         readonly Queue<ApparelPieceData> _queue = new();
         readonly IInventoryMenu _inventoryMenu;
         readonly IItemContainerMenu _itemContainerMenu;
-        readonly IItemDropPoint _itemDropPoint;
+        readonly DropPoint _dropPoint;
         readonly ILogger _logger;
 
         LootCollectionScript _containerPrefab;
@@ -20,12 +20,12 @@ namespace Strawhenge.Inventory.Unity.Apparel
         public StackableSetApparelDrop(
             IInventoryMenu inventoryMenu,
             IItemContainerMenu itemContainerMenu,
-            IItemDropPoint itemDropPoint,
+            DropPoint dropPoint,
             ILogger logger)
         {
             _inventoryMenu = inventoryMenu;
             _itemContainerMenu = itemContainerMenu;
-            _itemDropPoint = itemDropPoint;
+            _dropPoint = dropPoint;
             _logger = logger;
 
             _inventoryMenu.Closed += StateChanged;
@@ -67,7 +67,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         LootCollectionScript CreateContainer()
         {
-            var spawnPoint = _itemDropPoint.GetPoint();
+            var spawnPoint = _dropPoint.GetPoint();
             return Object.Instantiate(_containerPrefab, spawnPoint.Position, spawnPoint.Rotation);
         }
     }

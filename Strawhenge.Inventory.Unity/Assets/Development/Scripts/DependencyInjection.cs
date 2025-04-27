@@ -85,8 +85,8 @@ public static class DependencyInjection
     static void RegisterScoped(ContainerBuilder builder)
     {
         builder
-            .RegisterType<ItemDropPoint>()
-            .As<IItemDropPoint>()
+            .RegisterType<DropPoint>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder

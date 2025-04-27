@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity
 {
-    public class ItemDropPoint : IItemDropPoint
+    public class DropPoint
     {
         readonly Transform _transform;
 
-        public ItemDropPoint(Transform transform)
+        public DropPoint(Transform transform)
         {
             _transform = transform;
         }

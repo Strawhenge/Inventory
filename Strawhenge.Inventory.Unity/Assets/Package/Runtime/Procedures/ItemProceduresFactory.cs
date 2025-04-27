@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
         readonly HolsterScriptsContainer _holsterScripts;
         readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
         readonly IConsumeItemAnimationHandler _consumeItemAnimationHandler;
-        readonly IItemDropPoint _itemDropPoint;
+        readonly DropPoint _dropPoint;
         readonly ILogger _logger;
 
         public ItemProceduresFactory(
@@ -23,14 +23,14 @@ namespace Strawhenge.Inventory.Unity.Procedures
             HolsterScriptsContainer holsterScripts,
             IProduceItemAnimationHandler produceItemAnimationHandler,
             IConsumeItemAnimationHandler consumeItemAnimationHandler,
-            IItemDropPoint itemDropPoint,
+            DropPoint dropPoint,
             ILogger logger)
         {
             _handScripts = handScripts;
             _holsterScripts = holsterScripts;
             _produceItemAnimationHandler = produceItemAnimationHandler;
             _consumeItemAnimationHandler = consumeItemAnimationHandler;
-            _itemDropPoint = itemDropPoint;
+            _dropPoint = dropPoint;
             _logger = logger;
         }
 
@@ -38,7 +38,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
         {
             var itemHelper = new ItemHelper(
                 itemData.Get<IItemData>().Reduce(() => new NullItemData()),
-                _itemDropPoint);
+                _dropPoint);
 
             var itemProcedures = new ItemProcedures(
                 itemHelper,
