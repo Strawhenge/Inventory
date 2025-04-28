@@ -37,7 +37,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 
         void PlaceItemInHand()
         {
-            _holster.TakeItem();
+            _holster.UnsetItem();
             _hand.SetItem(_itemHelper, _holdItemData);
         }
     }

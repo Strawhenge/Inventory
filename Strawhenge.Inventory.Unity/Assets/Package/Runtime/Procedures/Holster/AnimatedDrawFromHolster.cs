@@ -67,7 +67,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         {
             _animationHandler.GrabItem -= PutItemInHand;
 
-            _holster.TakeItem();
+            _holster.UnsetItem();
             _hand.SetItem(_itemHelper, _holdItemData);
 
             _itemInHand = true;

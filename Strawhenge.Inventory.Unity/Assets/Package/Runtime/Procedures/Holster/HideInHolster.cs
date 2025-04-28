@@ -6,10 +6,14 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 {
     public class HideInHolster : Procedure
     {
+        readonly ItemHelper _itemHelper;
         readonly HolsterScript _holster;
 
-        public HideInHolster(HolsterScript holster)
+        public HideInHolster(
+            ItemHelper itemHelper,
+            HolsterScript holster)
         {
+            _itemHelper = itemHelper;
             _holster = holster;
         }
 
@@ -26,8 +30,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 
         void Hide()
         {
-            _holster.TakeItem()
-                .Do(x => x.Despawn());
+            _holster.UnsetItem();
+            _itemHelper.Despawn();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.SwapHands
 
         void Swap()
         {
-            _sourceHand.TakeItem();
+            _sourceHand.UnsetItem();
             _destinationHand.SetItem(_itemHelper, _holdItemData);
         }
     }

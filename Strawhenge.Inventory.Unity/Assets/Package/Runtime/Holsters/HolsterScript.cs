@@ -13,16 +13,12 @@ namespace Strawhenge.Inventory.Unity.Items
         [FormerlySerializedAs("holster"), SerializeField]
         HolsterScriptableObject _holster;
 
-        ItemHelper _item;
-
         public string HolsterName => _holster.Name;
 
         public PositionAndRotation GetItemDropPoint() => transform.GetPositionAndRotation();
 
         public void SetItem(ItemHelper item, IHolsterItemData data)
         {
-            _item = item;
-
             var itemScript = item.Spawn();
             var itemTransform = itemScript.transform;
             itemTransform.parent = transform;
@@ -30,18 +26,8 @@ namespace Strawhenge.Inventory.Unity.Items
             itemTransform.localRotation = data.RotationOffset;
         }
 
-        public Maybe<ItemHelper> TakeItem()
+        public void UnsetItem()
         {
-            if (_item == null)
-            {
-                Debug.LogError("No item in holster.");
-                return Maybe.None<ItemHelper>();
-            }
-
-            var item = _item;
-            _item = null;
-
-            return Maybe.Some(item);
         }
     }
 }

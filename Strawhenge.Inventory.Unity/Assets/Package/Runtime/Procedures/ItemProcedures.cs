@@ -62,9 +62,9 @@ namespace Strawhenge.Inventory.Unity.Procedures
         Procedure PutAway(HandScript hand, IHoldItemData holdData)
         {
             if (holdData.PutInHammerspaceId == 0)
-                return new SimplePutInHammerspace(hand);
+                return new SimplePutInHammerspace(_item, hand);
 
-            return new AnimatedPutInHammerspace(_produceItemAnimationHandler, hand, holdData.PutInHammerspaceId);
+            return new AnimatedPutInHammerspace(_produceItemAnimationHandler, _item, hand, holdData.PutInHammerspaceId);
         }
 
         public Procedure DropLeftHand() => new SimpleDropFromHand(_item, _itemData, _handScripts.Left);
@@ -85,8 +85,8 @@ namespace Strawhenge.Inventory.Unity.Procedures
             _handScripts.Right,
             _handScripts.Left);
 
-        public Procedure DisappearLeftHand() => new SimplePutInHammerspace(_handScripts.Left);
+        public Procedure DisappearLeftHand() => new SimplePutInHammerspace(_item, _handScripts.Left);
 
-        public Procedure DisappearRightHand() => new SimplePutInHammerspace(_handScripts.Right);
+        public Procedure DisappearRightHand() => new SimplePutInHammerspace(_item, _handScripts.Right);
     }
 }

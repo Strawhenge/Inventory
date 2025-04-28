@@ -8,6 +8,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
     public class AnimatedPutInHammerspace : Procedure
     {
         readonly IProduceItemAnimationHandler _animationHandler;
+        readonly ItemHelper _itemHelper;
         readonly HandScript _hand;
         readonly int _animationId;
 
@@ -15,9 +16,14 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         bool _itemIsPutAway;
         bool _hasEnded;
 
-        public AnimatedPutInHammerspace(IProduceItemAnimationHandler animationHandler, HandScript hand, int animationId)
+        public AnimatedPutInHammerspace(
+            IProduceItemAnimationHandler animationHandler,
+            ItemHelper itemHelper,
+            HandScript hand,
+            int animationId)
         {
             _animationHandler = animationHandler;
+            _itemHelper = itemHelper;
             _hand = hand;
             _animationId = animationId;
         }
@@ -52,8 +58,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         {
             _animationHandler.ReleaseItem -= AnimationHandler_ReleaseItem;
             _itemIsPutAway = true;
-            
-            _hand.TakeItem().Do(x => x.Despawn());
+
+            _hand.UnsetItem();
+            _itemHelper.Despawn();
         }
     }
 

@@ -62,7 +62,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
 
         public Procedure Show() => new ShowInHolster(_item, _holsterItemData, _holster);
 
-        public Procedure Hide() => new HideInHolster(_holster);
+        public Procedure Hide() => new HideInHolster(_item, _holster);
 
         public Procedure Drop() => new SimpleDropFromHolster(_item, _itemData, _holster);
     }

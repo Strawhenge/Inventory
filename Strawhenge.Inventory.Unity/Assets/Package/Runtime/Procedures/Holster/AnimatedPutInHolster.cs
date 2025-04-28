@@ -57,7 +57,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
             _itemInHolster = true;
             _animationHandler.ReleaseItem -= PutItemInHolster;
 
-            _hand.TakeItem();
+            _hand.UnsetItem();
             _holster.SetItem(_itemHelper, _data);
         }
 
