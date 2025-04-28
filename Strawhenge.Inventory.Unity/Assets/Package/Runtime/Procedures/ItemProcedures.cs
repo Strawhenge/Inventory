@@ -75,13 +75,13 @@ namespace Strawhenge.Inventory.Unity.Procedures
 
         public Procedure LeftHandToRightHand() => new SimpleSwapHands(
             _item,
-            _itemData.LeftHandHoldData,
+            _itemData.RightHandHoldData,
             _handScripts.Left,
             _handScripts.Right);
 
         public Procedure RightHandToLeftHand() => new SimpleSwapHands(
             _item,
-            _itemData.RightHandHoldData,
+            _itemData.LeftHandHoldData,
             _handScripts.Right,
             _handScripts.Left);
 
