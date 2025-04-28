@@ -34,16 +34,18 @@ namespace Strawhenge.Inventory.Unity.Procedures
             _produceItemAnimationHandler = produceItemAnimationHandler;
         }
 
-        public Procedure DrawLeftHand() => Draw(_handScripts.Left, _holsterItemData.DrawFromHolsterLeftHandId);
+        public Procedure DrawLeftHand() =>
+            Draw(_handScripts.Left, _itemData.LeftHandHoldData, _holsterItemData.DrawFromHolsterLeftHandId);
 
-        public Procedure DrawRightHand() => Draw(_handScripts.Right, _holsterItemData.DrawFromHolsterRightHandId);
+        public Procedure DrawRightHand() =>
+            Draw(_handScripts.Right, _itemData.RightHandHoldData, _holsterItemData.DrawFromHolsterRightHandId);
 
-        Procedure Draw(HandScript hand, int id)
+        Procedure Draw(HandScript hand, IHoldItemData data, int id)
         {
             if (id == 0)
-                return new SimpleDrawFromHolster(_holster, hand);
+                return new SimpleDrawFromHolster(_item, data, _holster, hand);
 
-            return new AnimatedDrawFromHolster(_produceItemAnimationHandler, _holster, hand, id);
+            return new AnimatedDrawFromHolster(_produceItemAnimationHandler, _item, data, _holster, hand, id);
         }
 
         public Procedure PutAwayLeftHand() => PutAway(_handScripts.Left, _holsterItemData.PutInHolsterLeftHandId);

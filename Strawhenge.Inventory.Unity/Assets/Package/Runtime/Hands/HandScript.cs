@@ -18,17 +18,15 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public PositionAndRotation GetItemDropPoint() => transform.GetPositionAndRotation();
 
-        public void SetItem(ItemHelper item)
+        public void SetItem(ItemHelper item, IHoldItemData data)
         {
-            var holdData = GetHoldItemData(item.Data);
-
             var itemScript = item.Spawn();
             var itemTransform = itemScript.transform;
             itemTransform.parent = transform;
-            itemTransform.localPosition = holdData.PositionOffset;
-            itemTransform.localRotation = holdData.RotationOffset;
+            itemTransform.localPosition = data.PositionOffset;
+            itemTransform.localRotation = data.RotationOffset;
 
-            AnimationHandler.Hold(holdData.AnimationId);
+            AnimationHandler.Hold(data.AnimationId);
 
             Item = Maybe.Some(item);
 
@@ -51,7 +49,5 @@ namespace Strawhenge.Inventory.Unity.Items
             Removed?.Invoke();
             return Maybe.Some(item);
         }
-
-        public abstract IHoldItemData GetHoldItemData(IItemData itemData);
     }
 }

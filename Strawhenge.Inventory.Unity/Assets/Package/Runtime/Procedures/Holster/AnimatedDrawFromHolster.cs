@@ -1,6 +1,7 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Items.Data;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Holster
@@ -8,6 +9,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
     public class AnimatedDrawFromHolster : Procedure
     {
         readonly IProduceItemAnimationHandler _animationHandler;
+        readonly ItemHelper _itemHelper;
+        readonly IHoldItemData _holdItemData;
         readonly HolsterScript _holster;
         readonly HandScript _hand;
         readonly int _animationId;
@@ -16,9 +19,17 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         bool _itemInHand;
         bool _hasEnded;
 
-        public AnimatedDrawFromHolster(IProduceItemAnimationHandler animationHandler, HolsterScript holster, HandScript hand, int animationId)
+        public AnimatedDrawFromHolster(
+            IProduceItemAnimationHandler animationHandler,
+            ItemHelper itemHelper,
+            IHoldItemData holdItemData,
+            HolsterScript holster,
+            HandScript hand,
+            int animationId)
         {
             _animationHandler = animationHandler;
+            _itemHelper = itemHelper;
+            _holdItemData = holdItemData;
             _holster = holster;
             _hand = hand;
             _animationId = animationId;
@@ -56,9 +67,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         {
             _animationHandler.GrabItem -= PutItemInHand;
 
-            _holster.TakeItem()
-                .Do(_hand.SetItem);
-            
+            _holster.TakeItem();
+            _hand.SetItem(_itemHelper, _holdItemData);
+
             _itemInHand = true;
         }
     }

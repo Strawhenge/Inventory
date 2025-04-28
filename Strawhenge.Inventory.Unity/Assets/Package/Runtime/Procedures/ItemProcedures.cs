@@ -32,9 +32,11 @@ namespace Strawhenge.Inventory.Unity.Procedures
             _produceItemAnimationHandler = produceItemAnimationHandler;
         }
 
-        public Procedure AppearLeftHand() => new SimpleDrawFromHammerspace(_item, _handScripts.Left);
+        public Procedure AppearLeftHand() =>
+            new SimpleDrawFromHammerspace(_item, _itemData.LeftHandHoldData, _handScripts.Left);
 
-        public Procedure AppearRightHand() => new SimpleDrawFromHammerspace(_item, _handScripts.Right);
+        public Procedure AppearRightHand() =>
+            new SimpleDrawFromHammerspace(_item, _itemData.RightHandHoldData, _handScripts.Right);
 
         public Procedure DrawLeftHand() => Draw(_handScripts.Left, _itemData.LeftHandHoldData);
 
@@ -43,9 +45,13 @@ namespace Strawhenge.Inventory.Unity.Procedures
         Procedure Draw(HandScript hand, IHoldItemData holdData)
         {
             if (holdData.DrawFromHammerspaceId == 0)
-                return new SimpleDrawFromHammerspace(_item, hand);
+                return new SimpleDrawFromHammerspace(_item, holdData, hand);
 
-            return new AnimatedDrawFromHammerspace(_produceItemAnimationHandler, _item, hand,
+            return new AnimatedDrawFromHammerspace(
+                _produceItemAnimationHandler,
+                _item,
+                holdData,
+                hand,
                 holdData.DrawFromHammerspaceId);
         }
 
@@ -67,9 +73,17 @@ namespace Strawhenge.Inventory.Unity.Procedures
 
         public Procedure SpawnAndDrop() => new SimpleSpawnAndDrop(_item, _itemData, _dropPoint);
 
-        public Procedure LeftHandToRightHand() => new SimpleSwapHands(_handScripts.Left, _handScripts.Right);
+        public Procedure LeftHandToRightHand() => new SimpleSwapHands(
+            _item,
+            _itemData.LeftHandHoldData,
+            _handScripts.Left,
+            _handScripts.Right);
 
-        public Procedure RightHandToLeftHand() => new SimpleSwapHands(_handScripts.Right, _handScripts.Left);
+        public Procedure RightHandToLeftHand() => new SimpleSwapHands(
+            _item,
+            _itemData.RightHandHoldData,
+            _handScripts.Right,
+            _handScripts.Left);
 
         public Procedure DisappearLeftHand() => new SimplePutInHammerspace(_handScripts.Left);
 

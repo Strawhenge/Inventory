@@ -1,6 +1,7 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Items.Data;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
@@ -9,6 +10,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
     {
         readonly IProduceItemAnimationHandler _animationHandler;
         readonly ItemHelper _item;
+        readonly IHoldItemData _holdItemData;
         readonly HandScript _hand;
         readonly int _animationId;
 
@@ -19,11 +21,13 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         public AnimatedDrawFromHammerspace(
             IProduceItemAnimationHandler animationHandler,
             ItemHelper item,
+            IHoldItemData holdItemData,
             HandScript hand,
             int animationId)
         {
             _animationHandler = animationHandler;
             _item = item;
+            _holdItemData = holdItemData;
             _hand = hand;
             _animationId = animationId;
         }
@@ -63,9 +67,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         {
             _animationHandler.GrabItem -= AnimationHandler_GrabItem;
 
-            _hand.SetItem(_item);
+            _hand.SetItem(_item, _holdItemData);
             _itemInHand = true;
         }
     }
-
 }

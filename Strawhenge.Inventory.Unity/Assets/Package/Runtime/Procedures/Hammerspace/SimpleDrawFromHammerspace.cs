@@ -1,5 +1,6 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Items.Data;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
@@ -7,11 +8,16 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
     public class SimpleDrawFromHammerspace : Procedure
     {
         readonly ItemHelper _item;
+        readonly IHoldItemData _holdItemData;
         readonly HandScript _hand;
 
-        public SimpleDrawFromHammerspace(ItemHelper item, HandScript hand)
+        public SimpleDrawFromHammerspace(
+            ItemHelper item,
+            IHoldItemData holdItemData,
+            HandScript hand)
         {
             _item = item;
+            _holdItemData = holdItemData;
             _hand = hand;
         }
 
@@ -28,7 +34,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 
         void PlaceItemInHand()
         {
-            _hand.SetItem(_item);
+            _hand.SetItem(_item, _holdItemData);
         }
     }
 }
