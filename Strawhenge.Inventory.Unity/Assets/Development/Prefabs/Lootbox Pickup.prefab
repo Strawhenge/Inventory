@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1418991714370201550
+--- !u!1 &7147758152532163652
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,109 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5120073595887187485}
-  - component: {fileID: 3021744873463739715}
+  - component: {fileID: 4003298298279538071}
+  - component: {fileID: 7557200200927040949}
+  - component: {fileID: 8711101979340735240}
+  - component: {fileID: 6554305205511841765}
+  - component: {fileID: 5162341250469461844}
   m_Layer: 0
-  m_Name: Lootbox
+  m_Name: Lootbox Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5120073595887187485
+--- !u!4 &4003298298279538071
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1418991714370201550}
+  m_GameObject: {fileID: 7147758152532163652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.748, y: 0.5, z: -2.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2909910936191760601}
+  - {fileID: 6404859523456901971}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3021744873463739715
+--- !u!114 &7557200200927040949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1418991714370201550}
+  m_GameObject: {fileID: 7147758152532163652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f3ca25ab4359de4f93d90ea496451a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a208f0a7bc481240b624d5cb2ff0aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _items: []
+  _apparelPieces: []
+  _stateChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8711101979340735240}
+        m_TargetAssemblyTypeName: LootboxScript, Development
+        m_MethodName: OnStateChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8711101979340735240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7147758152532163652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac07bd65b1e071478ab396c6e42b162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemContainer: {fileID: 7557200200927040949}
+  _itemContainerMenu: {fileID: 0}
+  _camera: {fileID: 0}
+--- !u!54 &6554305205511841765
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7147758152532163652}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5162341250469461844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7147758152532163652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d617a2f1f5ad39c4cb788919d2fb5060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data: {fileID: 11400000, guid: af08df978c947cc4292cdac51cba87c2, type: 2}
   _contextHandlers: []
---- !u!1 &1926432957701900701
+--- !u!1 &7655175745491931671
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,10 +118,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2909910936191760601}
-  - component: {fileID: 2625715521693847338}
-  - component: {fileID: 3332055204835032930}
-  - component: {fileID: 5630154820254713609}
+  - component: {fileID: 6404859523456901971}
+  - component: {fileID: 6120637100050896032}
+  - component: {fileID: 6826722387052471528}
+  - component: {fileID: 4513423367820975235}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -65,36 +129,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2909910936191760601
+--- !u!4 &6404859523456901971
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926432957701900701}
+  m_GameObject: {fileID: 7655175745491931671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5120073595887187485}
+  m_Father: {fileID: 4003298298279538071}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2625715521693847338
+--- !u!33 &6120637100050896032
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926432957701900701}
+  m_GameObject: {fileID: 7655175745491931671}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3332055204835032930
+--- !u!23 &6826722387052471528
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926432957701900701}
+  m_GameObject: {fileID: 7655175745491931671}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -130,13 +194,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5630154820254713609
+--- !u!65 &4513423367820975235
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926432957701900701}
+  m_GameObject: {fileID: 7655175745491931671}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
