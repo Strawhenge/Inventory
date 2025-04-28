@@ -1,5 +1,4 @@
-﻿using Strawhenge.Inventory.Containers;
-using Strawhenge.Inventory.Unity.Items;
+﻿using Strawhenge.Inventory.Unity.Items;
 using System.Collections.Generic;
 
 namespace Strawhenge.Inventory.Unity.Components

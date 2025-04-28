@@ -1,8 +1,6 @@
-﻿using FunctionalUtilities;
-using Strawhenge.Common.Unity;
+﻿using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
