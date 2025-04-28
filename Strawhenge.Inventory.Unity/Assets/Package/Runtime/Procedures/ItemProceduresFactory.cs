@@ -51,7 +51,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
             {
                 var unityHolsterData = holsterData
                     .Get<IHolsterItemData>()
-                    .Reduce(() => new NullHolsterItemData(holsterData.HolsterName));
+                    .Reduce(() => NullHolsterItemData.Instance);
 
                 _holsterScripts.HolsterScripts
                     .FirstOrNone(x => x.HolsterName == holsterData.HolsterName)

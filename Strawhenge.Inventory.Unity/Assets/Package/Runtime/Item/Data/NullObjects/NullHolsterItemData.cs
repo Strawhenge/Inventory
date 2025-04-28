@@ -1,15 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Items.Data
 {
     public class NullHolsterItemData : IHolsterItemData
     {
-        public NullHolsterItemData(string holsterName)
+        public static IHolsterItemData Instance { get; } = new NullHolsterItemData();
+
+        NullHolsterItemData()
         {
-            HolsterName = holsterName;
         }
 
-        public string HolsterName { get; }
+        public string HolsterName => string.Empty;
 
         public Vector3 PositionOffset => Vector3.zero;
 
