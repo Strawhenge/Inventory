@@ -1,32 +1,30 @@
 ﻿using Strawhenge.Inventory.Unity.Items.Context;
-using Strawhenge.Inventory.Unity.Items.Data;
 using Object = UnityEngine.Object;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
     public class ItemHelper
     {
+        readonly ItemScript _prefab;
         readonly ItemContext _context;
+
         ItemScript _script;
 
-        public ItemHelper(IItemData data)
-            : this(data, new ItemContext())
+        public ItemHelper(ItemScript prefab) : this(prefab, new ItemContext())
         {
         }
 
-        public ItemHelper(IItemData data, ItemContext context)
+        public ItemHelper(ItemScript prefab, ItemContext context)
         {
+            _prefab = prefab;
             _context = context;
-            Data = data;
         }
-
-        public IItemData Data { get; }
 
         public ItemScript Spawn()
         {
             if (_script == null)
             {
-                _script = Object.Instantiate(Data.Prefab);
+                _script = Object.Instantiate(_prefab);
                 _script.ContextIn(_context);
             }
 
