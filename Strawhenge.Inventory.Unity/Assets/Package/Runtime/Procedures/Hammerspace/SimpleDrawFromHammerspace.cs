@@ -7,12 +7,12 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 {
     public class SimpleDrawFromHammerspace : Procedure
     {
-        readonly ItemHelper _item;
+        readonly ItemScriptInstance _item;
         readonly IHoldItemData _holdItemData;
         readonly HandScript _hand;
 
         public SimpleDrawFromHammerspace(
-            ItemHelper item,
+            ItemScriptInstance item,
             IHoldItemData holdItemData,
             HandScript hand)
         {

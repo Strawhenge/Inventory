@@ -12,14 +12,14 @@ namespace Strawhenge.Inventory.Unity.Procedures
 {
     class ItemProcedures : IItemProcedures
     {
-        readonly ItemHelper _item;
+        readonly ItemScriptInstance _item;
         readonly IItemData _itemData;
         readonly HandScriptsContainer _handScripts;
         readonly DropPoint _dropPoint;
         readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
 
         public ItemProcedures(
-            ItemHelper item,
+            ItemScriptInstance item,
             IItemData itemData,
             HandScriptsContainer handScripts,
             DropPoint dropPoint,

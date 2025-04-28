@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
 {
     class HolsterForItemProcedures : IHolsterForItemProcedures
     {
-        readonly ItemHelper _item;
+        readonly ItemScriptInstance _item;
         readonly IItemData _itemData;
         readonly IHolsterItemData _holsterItemData;
         readonly HandScriptsContainer _handScripts;
@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
         readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
 
         public HolsterForItemProcedures(
-            ItemHelper item,
+            ItemScriptInstance item,
             IItemData itemData,
             IHolsterItemData holsterItemHolsterItemData,
             HandScriptsContainer handScripts,

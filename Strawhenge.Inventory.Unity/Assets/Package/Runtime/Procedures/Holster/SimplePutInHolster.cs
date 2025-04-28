@@ -7,18 +7,18 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 {
     public class SimplePutInHolster : Procedure
     {
-        readonly ItemHelper _itemHelper;
+        readonly ItemScriptInstance _itemScriptInstance;
         readonly IHolsterItemData _data;
         readonly HandScript _hand;
         readonly HolsterScript _holster;
 
         public SimplePutInHolster(
-            ItemHelper itemHelper,
+            ItemScriptInstance itemScriptInstance,
             IHolsterItemData data,
             HandScript hand,
             HolsterScript holster)
         {
-            _itemHelper = itemHelper;
+            _itemScriptInstance = itemScriptInstance;
             _data = data;
             _hand = hand;
             _holster = holster;
@@ -38,7 +38,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         void PutInHolster()
         {
             _hand.UnsetItem();
-            _holster.SetItem(_itemHelper, _data);
+            _holster.SetItem(_itemScriptInstance, _data);
         }
     }
 }

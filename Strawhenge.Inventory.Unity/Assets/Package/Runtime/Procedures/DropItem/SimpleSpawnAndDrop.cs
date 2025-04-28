@@ -8,16 +8,16 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 {
     public class SimpleSpawnAndDrop : Procedure
     {
-        readonly ItemHelper _itemHelper;
+        readonly ItemScriptInstance _itemScriptInstance;
         readonly IItemData _itemData;
         readonly DropPoint _dropPoint;
 
         public SimpleSpawnAndDrop(
-            ItemHelper itemHelper,
+            ItemScriptInstance itemScriptInstance,
             IItemData itemData,
             DropPoint dropPoint)
         {
-            _itemHelper = itemHelper;
+            _itemScriptInstance = itemScriptInstance;
             _itemData = itemData;
             _dropPoint = dropPoint;
         }
@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 
         void Drop()
         {
-            _itemHelper.Despawn();
+            _itemScriptInstance.Despawn();
             _itemData.PickupPrefab.Do(pickupPrefab =>
             {
                 var spawnPoint = _dropPoint.GetPoint();

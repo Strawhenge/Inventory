@@ -8,16 +8,16 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 {
     public class SimpleDropFromHolster : Procedure
     {
-        readonly ItemHelper _itemHelper;
+        readonly ItemScriptInstance _itemScriptInstance;
         readonly IItemData _itemData;
         readonly HolsterScript _holster;
 
         public SimpleDropFromHolster(
-            ItemHelper itemHelper,
+            ItemScriptInstance itemScriptInstance,
             IItemData itemData,
             HolsterScript holster)
         {
-            _itemHelper = itemHelper;
+            _itemScriptInstance = itemScriptInstance;
             _itemData = itemData;
             _holster = holster;
         }
@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 
         void Drop()
         {
-            _itemHelper.Despawn();
+            _itemScriptInstance.Despawn();
             _itemData.PickupPrefab.Do(pickupPrefab =>
             {
                 var spawnPoint = _holster.GetItemDropPoint();

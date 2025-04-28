@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public PositionAndRotation GetItemDropPoint() => transform.GetPositionAndRotation();
 
-        public void SetItem(ItemHelper item, IHolsterItemData data)
+        public void SetItem(ItemScriptInstance item, IHolsterItemData data)
         {
             var itemScript = item.Spawn();
             var itemTransform = itemScript.transform;

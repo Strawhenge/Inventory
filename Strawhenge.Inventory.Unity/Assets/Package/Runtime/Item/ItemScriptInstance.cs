@@ -3,18 +3,18 @@ using Object = UnityEngine.Object;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
-    public class ItemHelper
+    public class ItemScriptInstance
     {
         readonly ItemScript _prefab;
         readonly ItemContext _context;
 
         ItemScript _script;
 
-        public ItemHelper(ItemScript prefab) : this(prefab, new ItemContext())
+        public ItemScriptInstance(ItemScript prefab) : this(prefab, new ItemContext())
         {
         }
 
-        public ItemHelper(ItemScript prefab, ItemContext context)
+        public ItemScriptInstance(ItemScript prefab, ItemContext context)
         {
             _prefab = prefab;
             _context = context;
