@@ -18,22 +18,12 @@ namespace Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects
 
             foreach (var holsterItemData in _holsterItemData)
             {
-                builder.AddHolster(holsterItemData.HolsterName, x =>
-                {
-                    x.Set(holsterItemData);
-                    x.Set(_prefab);
-
-                    if (_pickupPrefab != null)
-                        x.Set(_pickupPrefab);
-                });
+                builder.AddHolster(holsterItemData.HolsterName, x => x.Set<IHolsterItemData>(holsterItemData));
             }
 
             if (_consumable.TryGetValue(out var consumableData))
             {
-                builder.SetConsumable(consumableData.Effects, x =>
-                {
-                    x.Set(consumableData);
-                });
+                builder.SetConsumable(consumableData.Effects, x => x.Set(consumableData));
             }
 
             return builder.Build();
