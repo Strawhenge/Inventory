@@ -38,12 +38,13 @@ namespace Strawhenge.Inventory.Unity.Procedures
         {
             var unityItemData = itemData.Get<IItemData>().Reduce(() => new NullItemData());
 
-            var itemHelper = new ItemHelper(unityItemData, _dropPoint);
+            var itemHelper = new ItemHelper(unityItemData);
 
             var itemProcedures = new ItemProcedures(
                 itemHelper,
                 unityItemData,
                 _handScripts,
+                _dropPoint,
                 _produceItemAnimationHandler);
 
             var dto = new ItemProcedureDto(itemProcedures);
@@ -56,6 +57,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
                     {
                         var holsterProcedures = new HolsterForItemProcedures(
                             itemHelper,
+                            unityItemData,
                             _handScripts,
                             holsterScript,
                             _produceItemAnimationHandler,

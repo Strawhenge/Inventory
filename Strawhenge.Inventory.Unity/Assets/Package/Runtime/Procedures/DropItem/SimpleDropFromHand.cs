@@ -1,15 +1,24 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Items.Data;
 using System;
+using Object = UnityEngine.Object;
 
 namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 {
     public class SimpleDropFromHand : Procedure
     {
+        readonly ItemHelper _itemHelper;
+        readonly IItemData _itemData;
         readonly HandScript _hand;
 
-        public SimpleDropFromHand(HandScript hand)
+        public SimpleDropFromHand(
+            ItemHelper itemHelper,
+            IItemData itemData,
+            HandScript hand)
         {
+            _itemHelper = itemHelper;
+            _itemData = itemData;
             _hand = hand;
         }
 
@@ -26,8 +35,12 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
 
         void Drop()
         {
-            _hand.TakeItem().Do(
-                x => x.Release());
+            _itemHelper.Despawn();
+            _itemData.PickupPrefab.Do(pickupPrefab =>
+            {
+                var spawnPoint = _hand.GetItemDropPoint();
+                Object.Instantiate(pickupPrefab, spawnPoint.Position, spawnPoint.Rotation);
+            });
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FunctionalUtilities;
+using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public string HolsterName => _holster.Name;
 
+        public PositionAndRotation GetItemDropPoint() => transform.GetPositionAndRotation();
+        
         public void SetItem(ItemHelper item)
         {
             _item = item;

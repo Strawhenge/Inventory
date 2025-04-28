@@ -1,4 +1,5 @@
 ﻿using FunctionalUtilities;
+using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Items.Data;
 using System;
@@ -14,6 +15,8 @@ namespace Strawhenge.Inventory.Unity.Items
         public IHoldItemAnimationHandler AnimationHandler { private get; set; }
 
         public Maybe<ItemHelper> Item { get; private set; } = Maybe.None<ItemHelper>();
+
+        public PositionAndRotation GetItemDropPoint() => transform.GetPositionAndRotation();
 
         public void SetItem(ItemHelper item)
         {
