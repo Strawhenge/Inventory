@@ -36,12 +36,13 @@ namespace Strawhenge.Inventory.Unity.Procedures
 
         public ItemProcedureDto Create(ItemData itemData)
         {
-            var itemHelper = new ItemHelper(
-                itemData.Get<IItemData>().Reduce(() => new NullItemData()),
-                _dropPoint);
+            var unityItemData = itemData.Get<IItemData>().Reduce(() => new NullItemData());
+
+            var itemHelper = new ItemHelper(unityItemData, _dropPoint);
 
             var itemProcedures = new ItemProcedures(
                 itemHelper,
+                unityItemData,
                 _handScripts,
                 _produceItemAnimationHandler);
 

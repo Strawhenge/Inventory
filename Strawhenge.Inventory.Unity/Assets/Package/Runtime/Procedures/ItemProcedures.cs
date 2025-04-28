@@ -13,15 +13,18 @@ namespace Strawhenge.Inventory.Unity.Procedures
     class ItemProcedures : IItemProcedures
     {
         readonly ItemHelper _item;
+        readonly IItemData _itemData;
         readonly HandScriptsContainer _handScripts;
         readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
 
         public ItemProcedures(
             ItemHelper item,
+            IItemData itemData,
             HandScriptsContainer handScripts,
             IProduceItemAnimationHandler produceItemAnimationHandler)
         {
             _item = item;
+            _itemData = itemData;
             _handScripts = handScripts;
             _produceItemAnimationHandler = produceItemAnimationHandler;
         }
@@ -30,9 +33,9 @@ namespace Strawhenge.Inventory.Unity.Procedures
 
         public Procedure AppearRightHand() => new SimpleDrawFromHammerspace(_item, _handScripts.Right);
 
-        public Procedure DrawLeftHand() => Draw(_handScripts.Left, _item.Data.LeftHandHoldData);
+        public Procedure DrawLeftHand() => Draw(_handScripts.Left, _itemData.LeftHandHoldData);
 
-        public Procedure DrawRightHand() => Draw(_handScripts.Right, _item.Data.RightHandHoldData);
+        public Procedure DrawRightHand() => Draw(_handScripts.Right, _itemData.RightHandHoldData);
 
         Procedure Draw(HandScript hand, IHoldItemData holdData)
         {
@@ -43,9 +46,9 @@ namespace Strawhenge.Inventory.Unity.Procedures
                 holdData.DrawFromHammerspaceId);
         }
 
-        public Procedure PutAwayLeftHand() => PutAway(_handScripts.Left, _item.Data.LeftHandHoldData);
+        public Procedure PutAwayLeftHand() => PutAway(_handScripts.Left, _itemData.LeftHandHoldData);
 
-        public Procedure PutAwayRightHand() => PutAway(_handScripts.Right, _item.Data.RightHandHoldData);
+        public Procedure PutAwayRightHand() => PutAway(_handScripts.Right, _itemData.RightHandHoldData);
 
         Procedure PutAway(HandScript hand, IHoldItemData holdData)
         {
