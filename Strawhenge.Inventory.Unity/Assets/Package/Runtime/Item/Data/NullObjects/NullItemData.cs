@@ -1,6 +1,7 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Consumables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,24 +10,21 @@ namespace Strawhenge.Inventory.Unity.Items.Data
 {
     public class NullItemData : IItemData
     {
-        public string Name => string.Empty;
+        public static IItemData Instance { get; } = new NullItemData();
 
-        public ItemScript Prefab => new GameObject(nameof(NullItemData)).AddComponent<ItemScript>();
+        static readonly Lazy<ItemScript> PrefabLazy = new(() =>
+            new GameObject(nameof(NullItemData)).AddComponent<ItemScript>());
 
-        public Maybe<ItemPickupScript> PickupPrefab => Maybe.None<ItemPickupScript>();
+        NullItemData()
+        {
+        }
 
-        public ItemSize Size => ItemSize.OneHanded;
+        public ItemScript Prefab => PrefabLazy.Value;
 
-        public bool IsStorable => false;
+        public Maybe<ItemPickupScript> PickupPrefab { get; } = Maybe.None<ItemPickupScript>();
 
-        public int Weight => 0;
+        public IHoldItemData LeftHandHoldData => NullHoldItemData.Instance;
 
-        public IHoldItemData LeftHandHoldData => new NullHoldItemData();
-
-        public IHoldItemData RightHandHoldData => new NullHoldItemData();
-
-        public IEnumerable<IHolsterItemData> HolsterItemData => Enumerable.Empty<IHolsterItemData>();
-
-        public Maybe<IConsumableData> ConsumableData => Maybe.None<IConsumableData>();
+        public IHoldItemData RightHandHoldData => NullHoldItemData.Instance;
     }
 }
