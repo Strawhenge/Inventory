@@ -1,6 +1,7 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Items.Data;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Holster
@@ -8,6 +9,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
     public class AnimatedPutInHolster : Procedure
     {
         readonly IProduceItemAnimationHandler _animationHandler;
+        readonly ItemHelper _itemHelper;
+        readonly IHolsterItemData _data;
         readonly HandScript _hand;
         readonly HolsterScript _holster;
         readonly int _animationId;
@@ -16,10 +19,17 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         bool _itemInHolster;
         bool _hasEnded;
 
-        public AnimatedPutInHolster(IProduceItemAnimationHandler animationHandler, HandScript hand,
-            HolsterScript holster, int animationId)
+        public AnimatedPutInHolster(
+            IProduceItemAnimationHandler animationHandler,
+            ItemHelper itemHelper,
+            IHolsterItemData data,
+            HandScript hand,
+            HolsterScript holster, 
+            int animationId)
         {
             _animationHandler = animationHandler;
+            _itemHelper = itemHelper;
+            _data = data;
             _hand = hand;
             _holster = holster;
             _animationId = animationId;
@@ -47,8 +57,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
             _itemInHolster = true;
             _animationHandler.ReleaseItem -= PutItemInHolster;
 
-            _hand.TakeItem()
-                .Do(item => _holster.SetItem(item));
+            _hand.TakeItem();
+            _holster.SetItem(_itemHelper, _data);
         }
 
         void End()
@@ -56,7 +66,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
             _hasEnded = true;
             _animationHandler.PutAwayEnded -= End;
 
-            if (!_itemInHolster) PutItemInHolster();
+            if (!_itemInHolster) 
+                PutItemInHolster();
 
             _endProcedure();
         }

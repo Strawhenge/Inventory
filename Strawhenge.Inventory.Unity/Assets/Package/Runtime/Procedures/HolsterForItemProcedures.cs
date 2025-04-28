@@ -53,12 +53,12 @@ namespace Strawhenge.Inventory.Unity.Procedures
         Procedure PutAway(HandScript hand, int id)
         {
             if (id == 0)
-                return new SimplePutInHolster(hand, _holster);
+                return new SimplePutInHolster(_item, _holsterItemData, hand, _holster);
 
-            return new AnimatedPutInHolster(_produceItemAnimationHandler, hand, _holster, id);
+            return new AnimatedPutInHolster(_produceItemAnimationHandler, _item, _holsterItemData, hand, _holster, id);
         }
 
-        public Procedure Show() => new ShowInHolster(_item, _holster);
+        public Procedure Show() => new ShowInHolster(_item, _holsterItemData, _holster);
 
         public Procedure Hide() => new HideInHolster(_holster);
 

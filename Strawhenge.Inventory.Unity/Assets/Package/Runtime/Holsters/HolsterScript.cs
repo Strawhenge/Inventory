@@ -18,19 +18,10 @@ namespace Strawhenge.Inventory.Unity.Items
         public string HolsterName => _holster.Name;
 
         public PositionAndRotation GetItemDropPoint() => transform.GetPositionAndRotation();
-        
-        public void SetItem(ItemHelper item)
+
+        public void SetItem(ItemHelper item, IHolsterItemData data)
         {
             _item = item;
-
-            var data = item.Data.HolsterItemData
-                .Where(x => _holster.Name.Equals(x.HolsterName))
-                .FirstOrNone()
-                .Reduce(() =>
-                {
-                    Debug.LogError($"Item '{item.Data.Name}' not setup for holster '{_holster.Name}'.");
-                    return new NullHolsterItemData(_holster.Name);
-                });
 
             var itemScript = item.Spawn();
             var itemTransform = itemScript.transform;
@@ -49,7 +40,7 @@ namespace Strawhenge.Inventory.Unity.Items
 
             var item = _item;
             _item = null;
-            
+
             return Maybe.Some(item);
         }
     }

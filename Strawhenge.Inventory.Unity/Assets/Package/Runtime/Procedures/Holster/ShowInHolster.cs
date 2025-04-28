@@ -1,5 +1,6 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Items.Data;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Procedures.Holster
@@ -7,11 +8,16 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
     public class ShowInHolster : Procedure
     {
         readonly ItemHelper _item;
+        readonly IHolsterItemData _data;
         readonly HolsterScript _holster;
 
-        public ShowInHolster(ItemHelper item, HolsterScript holster)
+        public ShowInHolster(
+            ItemHelper item,
+            IHolsterItemData data,
+            HolsterScript holster)
         {
             _item = item;
+            _data = data;
             _holster = holster;
         }
 
@@ -28,7 +34,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 
         void Show()
         {
-            _holster.SetItem(_item);
+            _holster.SetItem(_item, _data);
         }
     }
 }
