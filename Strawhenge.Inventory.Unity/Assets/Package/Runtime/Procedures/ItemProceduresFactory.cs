@@ -1,5 +1,4 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Components;
@@ -16,27 +15,26 @@ namespace Strawhenge.Inventory.Unity.Procedures
         readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
         readonly IConsumeItemAnimationHandler _consumeItemAnimationHandler;
         readonly DropPoint _dropPoint;
-        readonly ILogger _logger;
 
         public ItemProceduresFactory(
             HandScriptsContainer handScripts,
             HolsterScriptsContainer holsterScripts,
             IProduceItemAnimationHandler produceItemAnimationHandler,
             IConsumeItemAnimationHandler consumeItemAnimationHandler,
-            DropPoint dropPoint,
-            ILogger logger)
+            DropPoint dropPoint)
         {
             _handScripts = handScripts;
             _holsterScripts = holsterScripts;
             _produceItemAnimationHandler = produceItemAnimationHandler;
             _consumeItemAnimationHandler = consumeItemAnimationHandler;
             _dropPoint = dropPoint;
-            _logger = logger;
         }
 
         public ItemProcedureDto Create(ItemData itemData)
         {
-            var unityItemData = itemData.Get<IItemData>().Reduce(() => new NullItemData());
+            var unityItemData = itemData
+                .Get<IItemData>()
+                .Reduce(() => new NullItemData());
 
             var itemHelper = new ItemHelper(unityItemData);
 
@@ -51,6 +49,10 @@ namespace Strawhenge.Inventory.Unity.Procedures
 
             foreach (var holsterData in itemData.Holsters)
             {
+                var unityHolsterData = holsterData
+                    .Get<IHolsterItemData>()
+                    .Reduce(() => new NullHolsterItemData(holsterData.HolsterName));
+
                 _holsterScripts.HolsterScripts
                     .FirstOrNone(x => x.HolsterName == holsterData.HolsterName)
                     .Do(holsterScript =>
@@ -58,10 +60,10 @@ namespace Strawhenge.Inventory.Unity.Procedures
                         var holsterProcedures = new HolsterForItemProcedures(
                             itemHelper,
                             unityItemData,
+                            unityHolsterData,
                             _handScripts,
                             holsterScript,
-                            _produceItemAnimationHandler,
-                            _logger);
+                            _produceItemAnimationHandler);
 
                         dto.SetHolster(holsterData.HolsterName, holsterProcedures);
                     });

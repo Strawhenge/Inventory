@@ -1,5 +1,4 @@
-﻿using Strawhenge.Common.Logging;
-using Strawhenge.Inventory.Items.Holsters;
+﻿using Strawhenge.Inventory.Items.Holsters;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Components;
@@ -14,7 +13,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
     {
         readonly ItemHelper _item;
         readonly IItemData _itemData;
-        readonly IHolsterItemData _data;
+        readonly IHolsterItemData _holsterItemData;
         readonly HandScriptsContainer _handScripts;
         readonly HolsterScript _holster;
         readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
@@ -22,22 +21,22 @@ namespace Strawhenge.Inventory.Unity.Procedures
         public HolsterForItemProcedures(
             ItemHelper item,
             IItemData itemData,
+            IHolsterItemData holsterItemHolsterItemData,
             HandScriptsContainer handScripts,
             HolsterScript holster,
-            IProduceItemAnimationHandler produceItemAnimationHandler,
-            ILogger logger)
+            IProduceItemAnimationHandler produceItemAnimationHandler)
         {
             _item = item;
             _itemData = itemData;
-            _data = item.GetHolsterData(holster, logger);
+            _holsterItemData = holsterItemHolsterItemData;
             _handScripts = handScripts;
             _holster = holster;
             _produceItemAnimationHandler = produceItemAnimationHandler;
         }
 
-        public Procedure DrawLeftHand() => Draw(_handScripts.Left, _data.DrawFromHolsterLeftHandId);
+        public Procedure DrawLeftHand() => Draw(_handScripts.Left, _holsterItemData.DrawFromHolsterLeftHandId);
 
-        public Procedure DrawRightHand() => Draw(_handScripts.Right, _data.DrawFromHolsterRightHandId);
+        public Procedure DrawRightHand() => Draw(_handScripts.Right, _holsterItemData.DrawFromHolsterRightHandId);
 
         Procedure Draw(HandScript hand, int id)
         {
@@ -47,9 +46,9 @@ namespace Strawhenge.Inventory.Unity.Procedures
             return new AnimatedDrawFromHolster(_produceItemAnimationHandler, _holster, hand, id);
         }
 
-        public Procedure PutAwayLeftHand() => PutAway(_handScripts.Left, _data.PutInHolsterLeftHandId);
+        public Procedure PutAwayLeftHand() => PutAway(_handScripts.Left, _holsterItemData.PutInHolsterLeftHandId);
 
-        public Procedure PutAwayRightHand() => PutAway(_handScripts.Right, _data.PutInHolsterRightHandId);
+        public Procedure PutAwayRightHand() => PutAway(_handScripts.Right, _holsterItemData.PutInHolsterRightHandId);
 
         Procedure PutAway(HandScript hand, int id)
         {
