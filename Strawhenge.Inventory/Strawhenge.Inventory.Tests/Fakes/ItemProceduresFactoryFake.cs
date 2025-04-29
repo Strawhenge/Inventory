@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory.Tests
             _tracker = tracker;
         }
 
-        public ItemProcedureDto Create(ItemData itemData)
+        public ItemProcedureDto Create(ItemData itemData, Context context)
         {
             var itemProcedures = new ItemProceduresFake(_tracker, itemData.Name);
 

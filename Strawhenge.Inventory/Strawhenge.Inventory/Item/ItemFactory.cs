@@ -32,12 +32,15 @@ namespace Strawhenge.Inventory.Items
             _proceduresFactory = proceduresFactory;
         }
 
-        public Item Create(ItemData data)
+        public Item Create(ItemData data) => Create(data, new Context());
+
+        public Item Create(ItemData data, Context context)
         {
-            var procedures = _proceduresFactory.Create(data);
+            var procedures = _proceduresFactory.Create(data, context);
 
             var item = new Item(
                 data,
+                context,
                 _hands,
                 procedures.ItemProcedures,
                 _procedureQueue
@@ -74,10 +77,12 @@ namespace Strawhenge.Inventory.Items
 
         public Item CreateTransient(ItemData data)
         {
-            var procedures = _proceduresFactory.Create(data);
+            var context = new Context();
+            var procedures = _proceduresFactory.Create(data, context);
 
             var item = new Item(
                 data,
+                context,
                 _hands,
                 procedures.ItemProcedures,
                 _procedureQueue,

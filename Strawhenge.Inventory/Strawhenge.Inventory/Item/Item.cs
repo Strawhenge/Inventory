@@ -18,6 +18,7 @@ namespace Strawhenge.Inventory.Items
 
         public Item(
             ItemData data,
+            Context context,
             Hands hands,
             IItemProcedures procedures,
             ProcedureQueue procedureQueue,
@@ -25,6 +26,7 @@ namespace Strawhenge.Inventory.Items
         {
             Name = data.Name;
             Data = data;
+            Context = context;
             IsTransient = isTransient;
 
             _hands = hands;
@@ -36,6 +38,8 @@ namespace Strawhenge.Inventory.Items
         public string Name { get; }
 
         public ItemData Data { get; }
+
+        public Context Context { get; }
 
         public HolstersForItem Holsters { get; private set; }
 

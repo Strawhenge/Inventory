@@ -30,7 +30,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
             _dropPoint = dropPoint;
         }
 
-        public ItemProcedureDto Create(ItemData itemData)
+        public ItemProcedureDto Create(ItemData itemData, Context context)
         {
             var unityItemData = itemData
                 .Get<IItemData>()
