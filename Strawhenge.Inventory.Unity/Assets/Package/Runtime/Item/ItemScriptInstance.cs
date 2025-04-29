@@ -1,4 +1,4 @@
-﻿using Strawhenge.Inventory.Unity.Items.Context;
+﻿using Strawhenge.Inventory.Unity.Items;
 using Object = UnityEngine.Object;
 
 namespace Strawhenge.Inventory.Unity.Items
@@ -6,15 +6,15 @@ namespace Strawhenge.Inventory.Unity.Items
     public class ItemScriptInstance
     {
         readonly ItemScript _prefab;
-        readonly ItemContext _context;
+        readonly Context _context;
 
         ItemScript _script;
 
-        public ItemScriptInstance(ItemScript prefab) : this(prefab, new ItemContext())
+        public ItemScriptInstance(ItemScript prefab) : this(prefab, new Context())
         {
         }
 
-        public ItemScriptInstance(ItemScript prefab, ItemContext context)
+        public ItemScriptInstance(ItemScript prefab, Context context)
         {
             _prefab = prefab;
             _context = context;

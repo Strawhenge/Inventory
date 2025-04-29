@@ -1,5 +1,4 @@
 using Strawhenge.Common;
-using Strawhenge.Inventory.Unity.Items.Context;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Items
@@ -8,10 +7,10 @@ namespace Strawhenge.Inventory.Unity.Items
     {
         [SerializeField] ItemContextHandlerScript[] _contextHandlers;
 
-        internal void ContextIn(ItemContext itemContext) =>
+        internal void ContextIn(Context itemContext) =>
             _contextHandlers.ForEach(handler => handler.ContextIn(itemContext));
 
-        internal void ContextOut(ItemContext itemContext) =>
+        internal void ContextOut(Context itemContext) =>
             _contextHandlers.ForEach(handler => handler.ContextOut(itemContext));
     }
 }
