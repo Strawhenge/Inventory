@@ -21,7 +21,7 @@ namespace Strawhenge.Inventory.Unity.Items
         internal void SetContext(Context context)
         {
             _context = context;
-            _contextHandlers.ForEach(x => x.ContextOut(_context));
+            _contextHandlers.ForEach(x => x.Handle(_context));
         }
 
         internal (ItemData, Context) PickupItem()
@@ -31,7 +31,7 @@ namespace Strawhenge.Inventory.Unity.Items
             if (_context == null)
             {
                 _context = new Context();
-                _contextHandlers.ForEach(x => x.ContextIn(_context));
+                _contextHandlers.ForEach(x => x.Handle(_context));
             }
 
             // TODO Error handling for missing scriptable object field.

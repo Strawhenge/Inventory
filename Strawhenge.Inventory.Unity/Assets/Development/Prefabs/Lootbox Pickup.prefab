@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8711101979340735240}
   - component: {fileID: 6554305205511841765}
   - component: {fileID: 5162341250469461844}
+  - component: {fileID: 8836126000618956646}
   m_Layer: 0
   m_Name: Lootbox Pickup
   m_TagString: Untagged
@@ -109,7 +110,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: af08df978c947cc4292cdac51cba87c2, type: 2}
-  _contextHandlers: []
+  _contextHandlers:
+  - {fileID: 8836126000618956646}
+--- !u!114 &8836126000618956646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7147758152532163652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d68c5de73d417cbcbe61781bfcad79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lootCollection: {fileID: 7557200200927040949}
 --- !u!1 &7655175745491931671
 GameObject:
   m_ObjectHideFlags: 0

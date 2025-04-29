@@ -15,35 +15,33 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] ApparelPieceScriptableObject[] _apparelPieces;
         [SerializeField] UnityEvent<ILootCollectionInfo> _stateChanged;
 
-        LootCollectionSource _source;
-
         void Awake()
         {
             var items = _items
                 .Select(x => x.ToItemData());
-            
+
             var apparelPieces = _apparelPieces
                 .Select(x => x.ToApparelPieceData());
-            
-            _source = new LootCollectionSource(items, apparelPieces);
+
+            Source = new LootCollectionSource(items, apparelPieces);
         }
 
         void Start()
         {
-            _source.StateChanged += OnStateChanged;
+            Source.StateChanged += OnStateChanged;
             OnStateChanged();
         }
 
-        public ILootSource Source => _source;
+        public LootCollectionSource Source { get; private set; }
 
-        public void Add(ItemData item) => _source.Add(item);
+        public void Add(ItemData item) => Source.Add(item);
 
-        public void Add(ApparelPieceData apparelPiece) => _source.Add(apparelPiece);
+        public void Add(ApparelPieceData apparelPiece) => Source.Add(apparelPiece);
 
-        public void MergeContainer(LootCollectionSource source) => _source.Merge(source);
+        public void Merge(LootCollectionSource source) => Source.Merge(source);
 
-        public LootCollectionSource CloneContainer() => _source.Clone();
+        public LootCollectionSource CloneContainer() => Source.Clone();
 
-        void OnStateChanged() => _stateChanged.Invoke(_source);
+        void OnStateChanged() => _stateChanged.Invoke(Source);
     }
 }

@@ -25,7 +25,7 @@ namespace Strawhenge.Inventory.Unity.Items
             if (_script == null)
             {
                 _script = Object.Instantiate(_prefab);
-                _script.ContextIn(_context);
+                _script.SetContext(_context);
             }
 
             return _script;
@@ -35,8 +35,7 @@ namespace Strawhenge.Inventory.Unity.Items
         {
             if (_script == null)
                 return;
-
-            _script.ContextOut(_context);
+         
             Object.Destroy(_script.gameObject);
             _script = null;
         }

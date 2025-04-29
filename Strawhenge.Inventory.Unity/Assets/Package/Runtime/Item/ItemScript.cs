@@ -7,10 +7,7 @@ namespace Strawhenge.Inventory.Unity.Items
     {
         [SerializeField] ItemContextHandlerScript[] _contextHandlers;
 
-        internal void ContextIn(Context itemContext) =>
-            _contextHandlers.ForEach(handler => handler.ContextIn(itemContext));
-
-        internal void ContextOut(Context itemContext) =>
-            _contextHandlers.ForEach(handler => handler.ContextOut(itemContext));
+        internal void SetContext(Context context) =>
+            _contextHandlers.ForEach(handler => handler.Handle(context));
     }
 }
