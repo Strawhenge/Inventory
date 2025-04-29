@@ -14,7 +14,6 @@ using Strawhenge.Inventory.Unity;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Components;
-using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Menu;
 using Strawhenge.Inventory.Unity.Procedures;
@@ -131,7 +130,7 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<ItemGenerator>()
+            .RegisterType<RepositoryItemGenerator>()
             .As<IItemGenerator>()
             .InstancePerLifetimeScope();
 

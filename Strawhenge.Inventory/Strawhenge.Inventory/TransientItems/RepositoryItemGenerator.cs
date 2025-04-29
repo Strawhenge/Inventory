@@ -1,15 +1,14 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.TransientItems;
 
-namespace Strawhenge.Inventory.Unity.Items
+namespace Strawhenge.Inventory.TransientItems
 {
-    public class ItemGenerator : IItemGenerator
+    public class RepositoryItemGenerator : IItemGenerator
     {
         readonly Inventory _inventory;
         readonly IItemRepository _itemRepository;
 
-        public ItemGenerator(Inventory inventory, IItemRepository itemRepository)
+        public RepositoryItemGenerator(Inventory inventory, IItemRepository itemRepository)
         {
             _inventory = inventory;
             _itemRepository = itemRepository;
