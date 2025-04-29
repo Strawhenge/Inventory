@@ -49,9 +49,11 @@ namespace Strawhenge.Inventory
 
         public ApparelSlots ApparelSlots { get; }
 
-        public Item CreateItem(ItemData data)
+        public Item CreateItem(ItemData data) => CreateItem(data, new Context());
+
+        public Item CreateItem(ItemData data, Context context)
         {
-            return _itemFactory.Create(data);
+            return _itemFactory.Create(data, context);
         }
 
         public Item CreateTransientItem(ItemData data)

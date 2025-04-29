@@ -32,8 +32,6 @@ namespace Strawhenge.Inventory.Items
             _proceduresFactory = proceduresFactory;
         }
 
-        public Item Create(ItemData data) => Create(data, new Context());
-
         public Item Create(ItemData data, Context context)
         {
             var procedures = _proceduresFactory.Create(data, context);
