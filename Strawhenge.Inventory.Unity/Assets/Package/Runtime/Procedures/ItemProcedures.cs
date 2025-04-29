@@ -14,6 +14,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
     {
         readonly ItemScriptInstance _item;
         readonly IItemData _itemData;
+        readonly Context _itemContext;
         readonly HandScriptsContainer _handScripts;
         readonly DropPoint _dropPoint;
         readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
@@ -21,12 +22,14 @@ namespace Strawhenge.Inventory.Unity.Procedures
         public ItemProcedures(
             ItemScriptInstance item,
             IItemData itemData,
+            Context itemContext,
             HandScriptsContainer handScripts,
             DropPoint dropPoint,
             IProduceItemAnimationHandler produceItemAnimationHandler)
         {
             _item = item;
             _itemData = itemData;
+            _itemContext = itemContext;
             _handScripts = handScripts;
             _dropPoint = dropPoint;
             _produceItemAnimationHandler = produceItemAnimationHandler;
@@ -67,11 +70,11 @@ namespace Strawhenge.Inventory.Unity.Procedures
             return new AnimatedPutInHammerspace(_produceItemAnimationHandler, _item, hand, holdData.PutInHammerspaceId);
         }
 
-        public Procedure DropLeftHand() => new SimpleDropFromHand(_item, _itemData, _handScripts.Left);
+        public Procedure DropLeftHand() => new SimpleDropFromHand(_item, _itemData, _itemContext, _handScripts.Left);
 
-        public Procedure DropRightHand() => new SimpleDropFromHand(_item, _itemData, _handScripts.Right);
+        public Procedure DropRightHand() => new SimpleDropFromHand(_item, _itemData, _itemContext, _handScripts.Right);
 
-        public Procedure SpawnAndDrop() => new SimpleSpawnAndDrop(_item, _itemData, _dropPoint);
+        public Procedure SpawnAndDrop() => new SimpleSpawnAndDrop(_item, _itemData, _itemContext, _dropPoint);
 
         public Procedure LeftHandToRightHand() => new SimpleSwapHands(
             _item,

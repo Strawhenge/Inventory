@@ -41,6 +41,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
             var itemProcedures = new ItemProcedures(
                 itemHelper,
                 unityItemData,
+                context,
                 _handScripts,
                 _dropPoint,
                 _produceItemAnimationHandler);
@@ -60,6 +61,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
                         var holsterProcedures = new HolsterForItemProcedures(
                             itemHelper,
                             unityItemData,
+                            context,
                             unityHolsterData,
                             _handScripts,
                             holsterScript,

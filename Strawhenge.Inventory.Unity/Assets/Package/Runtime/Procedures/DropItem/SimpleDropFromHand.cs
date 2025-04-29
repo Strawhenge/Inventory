@@ -10,15 +10,18 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
     {
         readonly ItemScriptInstance _itemScriptInstance;
         readonly IItemData _itemData;
+        readonly Context _itemContext;
         readonly HandScript _hand;
 
         public SimpleDropFromHand(
             ItemScriptInstance itemScriptInstance,
             IItemData itemData,
+            Context itemContext,
             HandScript hand)
         {
             _itemScriptInstance = itemScriptInstance;
             _itemData = itemData;
+            _itemContext = itemContext;
             _hand = hand;
         }
 
@@ -39,7 +42,8 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
             _itemData.PickupPrefab.Do(pickupPrefab =>
             {
                 var spawnPoint = _hand.GetItemDropPoint();
-                Object.Instantiate(pickupPrefab, spawnPoint.Position, spawnPoint.Rotation);
+                var pickup = Object.Instantiate(pickupPrefab, spawnPoint.Position, spawnPoint.Rotation);
+                pickup.SetContext(_itemContext);
             });
         }
     }

@@ -12,8 +12,8 @@ namespace Strawhenge.Inventory.Unity
             this Inventory inventory,
             ItemPickupScript pickup)
         {
-            var data = pickup.PickupItem();
-            return inventory.CreateItem(data);
+            var (data, context) = pickup.PickupItem();
+            return inventory.CreateItem(data, context);
         }
 
         public static Item CreateItem(

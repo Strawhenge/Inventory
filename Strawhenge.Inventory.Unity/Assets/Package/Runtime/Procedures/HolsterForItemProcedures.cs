@@ -13,6 +13,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
     {
         readonly ItemScriptInstance _item;
         readonly IItemData _itemData;
+        readonly Context _itemContext;
         readonly IHolsterItemData _holsterItemData;
         readonly HandScriptsContainer _handScripts;
         readonly HolsterScript _holster;
@@ -21,6 +22,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
         public HolsterForItemProcedures(
             ItemScriptInstance item,
             IItemData itemData,
+            Context itemContext,
             IHolsterItemData holsterItemHolsterItemData,
             HandScriptsContainer handScripts,
             HolsterScript holster,
@@ -28,6 +30,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
         {
             _item = item;
             _itemData = itemData;
+            _itemContext = itemContext;
             _holsterItemData = holsterItemHolsterItemData;
             _handScripts = handScripts;
             _holster = holster;
@@ -64,6 +67,6 @@ namespace Strawhenge.Inventory.Unity.Procedures
 
         public Procedure Hide() => new HideInHolster(_item, _holster);
 
-        public Procedure Drop() => new SimpleDropFromHolster(_item, _itemData, _holster);
+        public Procedure Drop() => new SimpleDropFromHolster(_item, _itemData, _itemContext, _holster);
     }
 }
