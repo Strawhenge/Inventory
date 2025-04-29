@@ -36,7 +36,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
                 .Get<IItemData>()
                 .Reduce(() => NullItemData.Instance);
 
-            var itemHelper = new ItemScriptInstance(unityItemData.Prefab);
+            var itemHelper = new ItemScriptInstance(unityItemData.Prefab, context);
 
             var itemProcedures = new ItemProcedures(
                 itemHelper,

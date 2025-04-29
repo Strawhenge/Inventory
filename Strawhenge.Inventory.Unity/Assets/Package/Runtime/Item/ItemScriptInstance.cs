@@ -10,10 +10,6 @@ namespace Strawhenge.Inventory.Unity.Items
 
         ItemScript _script;
 
-        public ItemScriptInstance(ItemScript prefab) : this(prefab, new Context())
-        {
-        }
-
         public ItemScriptInstance(ItemScript prefab, Context context)
         {
             _prefab = prefab;
@@ -35,7 +31,7 @@ namespace Strawhenge.Inventory.Unity.Items
         {
             if (_script == null)
                 return;
-         
+
             Object.Destroy(_script.gameObject);
             _script = null;
         }
