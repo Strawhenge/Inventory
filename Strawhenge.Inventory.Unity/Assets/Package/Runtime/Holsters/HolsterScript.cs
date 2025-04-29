@@ -2,6 +2,7 @@
 using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace Strawhenge.Inventory.Unity.Items
@@ -10,6 +11,9 @@ namespace Strawhenge.Inventory.Unity.Items
     {
         [FormerlySerializedAs("holster"), SerializeField]
         HolsterScriptableObject _holster;
+
+        [SerializeField] UnityEvent<ItemScript> _itemSet;
+        [SerializeField] UnityEvent _itemUnset;
 
         public string HolsterName => _holster.Name;
 
@@ -22,10 +26,13 @@ namespace Strawhenge.Inventory.Unity.Items
             itemTransform.parent = transform;
             itemTransform.localPosition = data.PositionOffset;
             itemTransform.localRotation = data.RotationOffset;
+
+            _itemSet.Invoke(itemScript);
         }
 
         public void UnsetItem()
         {
+            _itemUnset.Invoke();
         }
     }
 }

@@ -2,11 +2,15 @@
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Items.Data;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
     public abstract class HandScript : MonoBehaviour
     {
+        [SerializeField] UnityEvent<ItemScript> _itemSet;
+        [SerializeField] UnityEvent _itemUnset;
+
         public IHoldItemAnimationHandler AnimationHandler { private get; set; }
 
         public PositionAndRotation GetItemDropPoint() => transform.GetPositionAndRotation();
@@ -20,11 +24,13 @@ namespace Strawhenge.Inventory.Unity.Items
             itemTransform.localRotation = data.RotationOffset;
 
             AnimationHandler.Hold(data.AnimationId);
+            _itemSet.Invoke(itemScript);
         }
 
         public void UnsetItem()
         {
             AnimationHandler.Unhold();
+            _itemUnset.Invoke();
         }
     }
 }
