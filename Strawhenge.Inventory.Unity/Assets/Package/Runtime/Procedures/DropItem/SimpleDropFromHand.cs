@@ -39,6 +39,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.DropItem
         void Drop()
         {
             _itemScriptInstance.Despawn();
+            _hand.UnsetItem();
             _itemData.PickupPrefab.Do(pickupPrefab =>
             {
                 var spawnPoint = _hand.GetItemDropPoint();
