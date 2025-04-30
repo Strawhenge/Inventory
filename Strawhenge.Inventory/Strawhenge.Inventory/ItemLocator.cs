@@ -20,29 +20,51 @@ namespace Strawhenge.Inventory
 
         public Maybe<Item> Locate(string itemName)
         {
-            if (_hands.ItemInRightHand
-                    .Where(x => x.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
-                    .HasSome(out var item) ||
-                _hands.ItemInLeftHand
-                    .Where(x => x.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
-                    .HasSome(out item))
+            if (IsItemInHand(itemName, out var item))
                 return item;
 
-            foreach (var holster in _holsters)
-            {
-                if (holster.CurrentItem
-                    .Where(x => x.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
-                    .HasSome(out item))
-                    return item;
-            }
+            if (IsItemInHolster(itemName, out item))
+                return item;
 
-            foreach (var storedItem in _storedItems.Items)
-            {
-                if (storedItem.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
-                    return storedItem;
-            }
+            if (IsItemInStorage(itemName, out item))
+                return item;
 
             return Maybe.None<Item>();
         }
+
+        bool IsItemInHand(string itemName, out Item item) =>
+            IsItemContained(_hands.RightHand, itemName, out item) ||
+            IsItemContained(_hands.LeftHand, itemName, out item);
+
+        bool IsItemInHolster(string itemName, out Item item)
+        {
+            foreach (var holster in _holsters)
+                if (IsItemContained(holster, itemName, out item))
+                    return true;
+
+            item = null;
+            return false;
+        }
+
+        bool IsItemInStorage(string itemName, out Item item)
+        {
+            foreach (var storedItem in _storedItems.Items)
+                if (Matches(storedItem, itemName))
+                {
+                    item = storedItem;
+                    return true;
+                }
+
+            item = null;
+            return false;
+        }
+
+        bool IsItemContained(ItemContainer itemContainer, string itemName, out Item item) =>
+            itemContainer.CurrentItem
+                .Where(x => Matches(x, itemName))
+                .HasSome(out item);
+
+        static bool Matches(Item item, string itemName) =>
+            item.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase);
     }
 }
