@@ -94,17 +94,17 @@ public static class DependencyInjection
 
         builder
             .RegisterType<HoldItemAnimationHandler>()
-            .As<IHoldItemAnimationHandler>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder
             .RegisterType<ProduceItemAnimationHandler>()
-            .As<IProduceItemAnimationHandler>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder
             .RegisterType<ConsumeItemAnimationHandler>()
-            .As<IConsumeItemAnimationHandler>()
+            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder

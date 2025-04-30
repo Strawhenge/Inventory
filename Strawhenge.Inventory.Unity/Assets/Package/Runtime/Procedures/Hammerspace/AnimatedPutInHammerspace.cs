@@ -7,7 +7,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 {
     public class AnimatedPutInHammerspace : Procedure
     {
-        readonly IProduceItemAnimationHandler _animationHandler;
+        readonly ProduceItemAnimationHandler _animationHandler;
         readonly ItemScriptInstance _itemScriptInstance;
         readonly HandScript _hand;
         readonly int _animationId;
@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         bool _hasEnded;
 
         public AnimatedPutInHammerspace(
-            IProduceItemAnimationHandler animationHandler,
+            ProduceItemAnimationHandler animationHandler,
             ItemScriptInstance itemScriptInstance,
             HandScript hand,
             int animationId)

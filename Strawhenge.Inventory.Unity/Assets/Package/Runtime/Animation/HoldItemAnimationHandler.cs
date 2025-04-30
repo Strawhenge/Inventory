@@ -2,7 +2,7 @@
 
 namespace Strawhenge.Inventory.Unity.Animation
 {
-    public class HoldItemAnimationHandler : IHoldItemAnimationHandler
+    public class HoldItemAnimationHandler
     {
         readonly Animator _animator;
 

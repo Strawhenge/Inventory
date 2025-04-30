@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory.Unity.Items
         [SerializeField] UnityEvent<ItemScript> _itemSet;
         [SerializeField] UnityEvent _itemUnset;
 
-        public IHoldItemAnimationHandler AnimationHandler { private get; set; }
+        public HoldItemAnimationHandler AnimationHandler { private get; set; }
 
         public PositionAndRotation GetItemDropPoint() => transform.GetPositionAndRotation();
 

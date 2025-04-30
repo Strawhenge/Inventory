@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
         readonly Context _itemContext;
         readonly HandScriptsContainer _handScripts;
         readonly DropPoint _dropPoint;
-        readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
+        readonly ProduceItemAnimationHandler _produceItemAnimationHandler;
 
         public ItemProcedures(
             ItemScriptInstance item,
@@ -25,7 +25,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
             Context itemContext,
             HandScriptsContainer handScripts,
             DropPoint dropPoint,
-            IProduceItemAnimationHandler produceItemAnimationHandler)
+            ProduceItemAnimationHandler produceItemAnimationHandler)
         {
             _item = item;
             _itemData = itemData;

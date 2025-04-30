@@ -9,11 +9,11 @@ namespace Strawhenge.Inventory.Unity.Procedures
     class ConsumableProcedures : IConsumableProcedures
     {
         readonly IConsumableData _data;
-        readonly IConsumeItemAnimationHandler _consumeItemAnimationHandler;
+        readonly ConsumeItemAnimationHandler _consumeItemAnimationHandler;
 
         public ConsumableProcedures(
             IConsumableData data,
-            IConsumeItemAnimationHandler consumeItemAnimationHandler)
+            ConsumeItemAnimationHandler consumeItemAnimationHandler)
         {
             _data = data;
             _consumeItemAnimationHandler = consumeItemAnimationHandler;

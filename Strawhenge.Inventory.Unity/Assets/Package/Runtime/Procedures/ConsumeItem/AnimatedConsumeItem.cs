@@ -6,14 +6,14 @@ namespace Strawhenge.Inventory.Unity.Procedures.ConsumeItem
 {
     public class AnimatedConsumeItem : Procedure
     {
-        readonly IConsumeItemAnimationHandler _consumeItemAnimationHandler;
+        readonly ConsumeItemAnimationHandler _consumeItemAnimationHandler;
         readonly int _animationId;
         readonly bool _invert;
         Action _endProcedure;
         bool _isCompleted;
 
         public AnimatedConsumeItem(
-            IConsumeItemAnimationHandler consumeItemAnimationHandler,
+            ConsumeItemAnimationHandler consumeItemAnimationHandler,
             int animationId,
             bool invert)
         {

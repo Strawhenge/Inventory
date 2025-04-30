@@ -8,7 +8,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 {
     public class AnimatedDrawFromHammerspace : Procedure
     {
-        readonly IProduceItemAnimationHandler _animationHandler;
+        readonly ProduceItemAnimationHandler _animationHandler;
         readonly ItemScriptInstance _item;
         readonly IHoldItemData _holdItemData;
         readonly HandScript _hand;
@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         bool _hasEnded;
 
         public AnimatedDrawFromHammerspace(
-            IProduceItemAnimationHandler animationHandler,
+            ProduceItemAnimationHandler animationHandler,
             ItemScriptInstance item,
             IHoldItemData holdItemData,
             HandScript hand,

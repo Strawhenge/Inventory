@@ -8,7 +8,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 {
     public class AnimatedPutInHolster : Procedure
     {
-        readonly IProduceItemAnimationHandler _animationHandler;
+        readonly ProduceItemAnimationHandler _animationHandler;
         readonly ItemScriptInstance _itemScriptInstance;
         readonly IHolsterItemData _data;
         readonly HandScript _hand;
@@ -20,7 +20,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         bool _hasEnded;
 
         public AnimatedPutInHolster(
-            IProduceItemAnimationHandler animationHandler,
+            ProduceItemAnimationHandler animationHandler,
             ItemScriptInstance itemScriptInstance,
             IHolsterItemData data,
             HandScript hand,

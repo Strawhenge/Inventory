@@ -11,15 +11,15 @@ namespace Strawhenge.Inventory.Unity.Procedures
     {
         readonly HandScriptsContainer _handScripts;
         readonly HolsterScriptsContainer _holsterScripts;
-        readonly IProduceItemAnimationHandler _produceItemAnimationHandler;
-        readonly IConsumeItemAnimationHandler _consumeItemAnimationHandler;
+        readonly ProduceItemAnimationHandler _produceItemAnimationHandler;
+        readonly ConsumeItemAnimationHandler _consumeItemAnimationHandler;
         readonly DropPoint _dropPoint;
 
         public ItemProceduresFactory(
             HandScriptsContainer handScripts,
             HolsterScriptsContainer holsterScripts,
-            IProduceItemAnimationHandler produceItemAnimationHandler,
-            IConsumeItemAnimationHandler consumeItemAnimationHandler,
+            ProduceItemAnimationHandler produceItemAnimationHandler,
+            ConsumeItemAnimationHandler consumeItemAnimationHandler,
             DropPoint dropPoint)
         {
             _handScripts = handScripts;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Animation
 {
-    public class ProduceItemAnimationHandler : IProduceItemAnimationHandler
+    public class ProduceItemAnimationHandler
     {
         readonly Animator _animator;
         readonly StateMachineEvents<DrawItemStateMachine> _drawItemEvents;
