@@ -182,6 +182,8 @@ namespace Strawhenge.Inventory.Unity.Editor
                 item.HoldLeftHand();
             if (GUILayout.Button(nameof(Item.HoldRightHand)))
                 item.HoldRightHand();
+            if (GUILayout.Button(nameof(Item.SwapHands)))
+                item.SwapHands();
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
