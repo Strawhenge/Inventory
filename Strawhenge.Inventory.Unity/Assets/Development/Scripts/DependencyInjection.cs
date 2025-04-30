@@ -61,7 +61,7 @@ public static class DependencyInjection
             .SingleInstance();
 
         builder
-            .RegisterType<ApparelRepository>()
+            .RegisterType<ResourcesApparelRepository>()
             .As<IApparelRepository>()
             .SingleInstance();
 

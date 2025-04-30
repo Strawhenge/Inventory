@@ -6,21 +6,21 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
-    public class ApparelRepository : IApparelRepository
+    public class ResourcesApparelRepository : IApparelRepository
     {
         readonly Dictionary<string, ApparelPieceScriptableObject> _scriptableObjects;
 
-        public ApparelRepository(ISettings settings)
+        public ResourcesApparelRepository(ISettings settings)
         {
             _scriptableObjects = Resources
                 .LoadAll<ApparelPieceScriptableObject>(path: settings.ApparelScriptableObjectsPath)
-                .ToDictionary(apparel => apparel.name, apparel => apparel);
+                .ToDictionary(apparel => apparel.name.ToLower(), apparel => apparel);
         }
 
         public Maybe<ApparelPieceData> FindByName(string name)
         {
             return _scriptableObjects
-                .MaybeGetValue(name)
+                .MaybeGetValue(name.ToLower())
                 .Map(x => x.ToApparelPieceData());
         }
     }
