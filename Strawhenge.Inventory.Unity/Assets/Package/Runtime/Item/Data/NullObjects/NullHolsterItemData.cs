@@ -11,8 +11,6 @@ namespace Strawhenge.Inventory.Unity.Items.Data
         {
         }
 
-        public string HolsterName => string.Empty;
-
         public Vector3 PositionOffset => Vector3.zero;
 
         public Quaternion RotationOffset => Quaternion.Euler(Vector3.zero);

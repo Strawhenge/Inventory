@@ -13,7 +13,5 @@ namespace Strawhenge.Inventory.Unity.Items.Data
         int DrawFromHammerspaceId { get; }
 
         int PutInHammerspaceId { get; }
-
-        int SwapFromHandId { get; }
     }
 }

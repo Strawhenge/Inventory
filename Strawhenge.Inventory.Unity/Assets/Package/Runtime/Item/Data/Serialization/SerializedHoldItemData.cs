@@ -22,9 +22,6 @@ namespace Strawhenge.Inventory.Unity.Items.Data
         [FormerlySerializedAs("putInHammerspaceId"), SerializeField] 
         int _putInHammerspaceId;
 
-        [FormerlySerializedAs("swapFromHandId"), SerializeField] 
-        int _swapFromHandId;
-
         public Vector3 PositionOffset => _positionOffset;
 
         public Quaternion RotationOffset => Quaternion.Euler(_rotationOffset);
@@ -34,7 +31,5 @@ namespace Strawhenge.Inventory.Unity.Items.Data
         public int DrawFromHammerspaceId => _drawFromHammerspaceId;
 
         public int PutInHammerspaceId => _putInHammerspaceId;
-
-        public int SwapFromHandId => _swapFromHandId;
     }
 }

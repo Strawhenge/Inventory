@@ -19,7 +19,5 @@ namespace Strawhenge.Inventory.Unity.Items.Data
         public int DrawFromHammerspaceId => 0;
 
         public int PutInHammerspaceId => 0;
-
-        public int SwapFromHandId => 0;
     }
 }
