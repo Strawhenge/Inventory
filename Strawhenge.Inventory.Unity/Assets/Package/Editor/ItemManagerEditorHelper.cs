@@ -17,6 +17,7 @@ namespace Strawhenge.Inventory.Unity.Editor
         readonly EditorTarget<Inventory> _target;
 
         Item _item;
+        string _locateItemText;
         bool _displayLeftHand;
         bool _displayRightHand;
         bool _displayHolsters;
@@ -49,17 +50,29 @@ namespace Strawhenge.Inventory.Unity.Editor
                     typeof(ItemPickupScript),
                     allowSceneObjects: true);
 
+                if (pickup != null)
+                    _item = _target.Instance.CreateItem(pickup);
+
                 var scriptableObject = (ItemScriptableObject)EditorGUILayout.ObjectField(
                     null,
                     typeof(ItemScriptableObject),
                     allowSceneObjects: true);
 
-                EditorGUILayout.EndHorizontal();
-
-                if (pickup != null)
-                    _item = _target.Instance.CreateItem(pickup);
-                else if (scriptableObject != null)
+                if (scriptableObject != null)
                     _item = _target.Instance.CreateItem(scriptableObject);
+
+                EditorGUILayout.EndHorizontal();
+                EditorGUILayout.BeginHorizontal();
+
+                _locateItemText = EditorGUILayout.TextField(string.Empty, _locateItemText ?? string.Empty);
+                if (GUILayout.Button(nameof(Inventory.GetItemOrCreateTemporary)))
+                {
+                    _target.Instance
+                        .GetItemOrCreateTemporary(_locateItemText)
+                        .Do(item => _item = item);
+                }
+
+                EditorGUILayout.EndHorizontal();
             }
 
             InspectHands();
