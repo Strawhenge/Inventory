@@ -11,11 +11,19 @@ namespace Strawhenge.Inventory.Tests
             Assert.False(maybe.HasSome());
         }
 
-        public static void VerifyIsSome<T>(this Maybe<T> maybe, T expectedValue)
+        public static T VerifyIsSome<T>(this Maybe<T> maybe)
         {
             Assert.NotNull(maybe);
-            Assert.True(maybe.HasSome(out var actualValue));
+            Assert.True(maybe.HasSome(out var value));
+
+            return value;
+        }
+
+        public static T VerifyIsSome<T>(this Maybe<T> maybe, T expectedValue)
+        {
+            var actualValue = maybe.VerifyIsSome();
             Assert.Equal(expectedValue, actualValue);
+            return actualValue;
         }
     }
 }

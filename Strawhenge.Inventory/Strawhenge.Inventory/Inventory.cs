@@ -1,3 +1,5 @@
+using System;
+using FunctionalUtilities;
 using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Containers;
@@ -9,6 +11,7 @@ namespace Strawhenge.Inventory
 {
     public class Inventory
     {
+        readonly IItemRepository _itemRepository;
         readonly ItemFactory _itemFactory;
         readonly ApparelPieceFactory _apparelPieceFactory;
 
@@ -16,6 +19,7 @@ namespace Strawhenge.Inventory
             IItemProceduresFactory itemProceduresFactory,
             IApparelViewFactory apparelViewFactory,
             IEffectFactoryLocator effectFactoryLocator,
+            IItemRepository itemRepository,
             ILogger logger)
         {
             Hands = new Hands();
@@ -39,6 +43,8 @@ namespace Strawhenge.Inventory
                 effectFactory,
                 apparelViewFactory,
                 logger);
+
+            _itemRepository = itemRepository;
         }
 
         public Hands Hands { get; }
@@ -64,6 +70,35 @@ namespace Strawhenge.Inventory
         public ApparelPiece CreateApparelPiece(ApparelPieceData data)
         {
             return _apparelPieceFactory.Create(data);
+        }
+
+        public Maybe<Item> GetItemOrCreateTemporary(string itemName)
+        {
+            if (Hands.ItemInRightHand
+                    .Where(x => x.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
+                    .HasSome(out var item) ||
+                Hands.ItemInLeftHand
+                    .Where(x => x.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
+                    .HasSome(out item))
+                return item;
+
+            foreach (var holster in Holsters)
+            {
+                if (holster.CurrentItem
+                    .Where(x => x.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
+                    .HasSome(out item))
+                    return item;
+            }
+
+            foreach (var storedItem in StoredItems.Items)
+            {
+                if (storedItem.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
+                    return storedItem;
+            }
+
+            return _itemRepository
+                .FindByName(itemName)
+                .Map(CreateTemporaryItem);
         }
     }
 }
