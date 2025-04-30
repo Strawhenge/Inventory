@@ -15,13 +15,13 @@ namespace Strawhenge.Inventory.Unity.Items.Data
         {
             _scriptableObjects = Resources
                 .LoadAll<ItemScriptableObject>(path: settings.ItemScriptableObjectsPath)
-                .ToDictionary(item => item.name, item => item);
+                .ToDictionary(item => item.name.ToLower(), item => item);
         }
 
         public Maybe<ItemData> FindByName(string name)
         {
             return _scriptableObjects
-                .MaybeGetValue(name)
+                .MaybeGetValue(name.ToLower())
                 .Map(x => x.ToItemData());
         }
     }
