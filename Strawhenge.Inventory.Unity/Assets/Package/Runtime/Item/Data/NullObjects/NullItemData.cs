@@ -1,9 +1,5 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Unity.Consumables;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Items.Data

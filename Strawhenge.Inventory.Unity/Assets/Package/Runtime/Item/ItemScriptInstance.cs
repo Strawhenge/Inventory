@@ -1,5 +1,4 @@
-﻿using Strawhenge.Inventory.Unity.Items;
-using Object = UnityEngine.Object;
+﻿using Object = UnityEngine.Object;
 
 namespace Strawhenge.Inventory.Unity.Items
 {

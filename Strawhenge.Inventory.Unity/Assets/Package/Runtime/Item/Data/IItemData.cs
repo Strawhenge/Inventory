@@ -1,7 +1,4 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Unity.Consumables;
-using System.Collections.Generic;
 
 namespace Strawhenge.Inventory.Unity.Items.Data
 {
