@@ -1,4 +1,3 @@
-using System;
 using FunctionalUtilities;
 using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
@@ -11,9 +10,10 @@ namespace Strawhenge.Inventory
 {
     public class Inventory
     {
-        readonly IItemRepository _itemRepository;
         readonly ItemFactory _itemFactory;
         readonly ApparelPieceFactory _apparelPieceFactory;
+        readonly ItemLocator _itemLocator;
+        readonly IItemRepository _itemRepository;
 
         public Inventory(
             IItemProceduresFactory itemProceduresFactory,
@@ -44,6 +44,7 @@ namespace Strawhenge.Inventory
                 apparelViewFactory,
                 logger);
 
+            _itemLocator = new ItemLocator(Hands, Holsters, StoredItems);
             _itemRepository = itemRepository;
         }
 
@@ -74,31 +75,11 @@ namespace Strawhenge.Inventory
 
         public Maybe<Item> GetItemOrCreateTemporary(string itemName)
         {
-            if (Hands.ItemInRightHand
-                    .Where(x => x.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
-                    .HasSome(out var item) ||
-                Hands.ItemInLeftHand
-                    .Where(x => x.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
-                    .HasSome(out item))
-                return item;
-
-            foreach (var holster in Holsters)
-            {
-                if (holster.CurrentItem
-                    .Where(x => x.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
-                    .HasSome(out item))
-                    return item;
-            }
-
-            foreach (var storedItem in StoredItems.Items)
-            {
-                if (storedItem.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
-                    return storedItem;
-            }
-
-            return _itemRepository
-                .FindByName(itemName)
-                .Map(CreateTemporaryItem);
+            return _itemLocator
+                .Locate(itemName)
+                .Combine(() => _itemRepository
+                    .FindByName(itemName)
+                    .Map(CreateTemporaryItem));
         }
     }
 }

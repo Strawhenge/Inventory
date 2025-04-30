@@ -2,7 +2,7 @@
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Strawhenge.Inventory.Tests
+namespace Strawhenge.Inventory.Tests.InventoryTests
 {
     public class GetItemOrCreateTemporaryTests
     {
