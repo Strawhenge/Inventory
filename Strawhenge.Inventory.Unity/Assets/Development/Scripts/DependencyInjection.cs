@@ -9,7 +9,6 @@ using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Loader;
 using Strawhenge.Inventory.Loot;
-using Strawhenge.Inventory.TransientItems;
 using Strawhenge.Inventory.Unity;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Apparel;
@@ -127,16 +126,6 @@ public static class DependencyInjection
         builder
             .Register(x => x.Resolve<Inventory>().StoredItems)
             .As<StoredItems>()
-            .InstancePerLifetimeScope();
-
-        builder
-            .RegisterType<RepositoryItemGenerator>()
-            .As<IItemGenerator>()
-            .InstancePerLifetimeScope();
-
-        builder
-            .RegisterType<TransientItemLocator>()
-            .AsSelf()
             .InstancePerLifetimeScope();
 
         builder

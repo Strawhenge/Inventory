@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.TransientItems;
 using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests
@@ -11,7 +10,6 @@ namespace Strawhenge.Inventory.Tests
     class InventoryTestContext
     {
         readonly ProcedureTracker _procedureTracker;
-        readonly ItemGeneratorFake _itemGenerator;
         readonly ApparelViewCallTracker _apparelViewTracker;
         readonly ItemRepositoryFake _itemRepository;
 
@@ -20,7 +18,6 @@ namespace Strawhenge.Inventory.Tests
             var logger = new TestOutputLogger(testOutputHelper);
             _procedureTracker = new ProcedureTracker(logger);
 
-            _itemGenerator = new ItemGeneratorFake();
             _itemRepository = new ItemRepositoryFake();
 
             var itemProceduresFactory = new ItemProceduresFactoryFake(_procedureTracker);
@@ -34,17 +31,9 @@ namespace Strawhenge.Inventory.Tests
                 NullEffectFactoryLocator.Instance,
                 _itemRepository,
                 logger);
-
-            TransientItemLocator = new TransientItemLocator(
-                Inventory.Hands,
-                Inventory.Holsters,
-                Inventory.StoredItems,
-                _itemGenerator);
         }
 
         public Inventory Inventory { get; }
-
-        public TransientItemLocator TransientItemLocator { get; }
 
         public void AddHolsters(IEnumerable<string> holsters)
         {
@@ -57,8 +46,6 @@ namespace Strawhenge.Inventory.Tests
         public void AddApparelSlot(string name) => Inventory.ApparelSlots.Add(name);
 
         public void SetStorageCapacity(int capacity) => Inventory.StoredItems.SetWeightCapacity(capacity);
-
-        public void SetGeneratedItem(string name, Item item) => _itemGenerator.Set(name, item);
 
         public void AddToRepository(ItemData item) => _itemRepository.Add(item);
 
