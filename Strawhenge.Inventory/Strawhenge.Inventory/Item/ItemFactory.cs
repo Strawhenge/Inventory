@@ -73,7 +73,7 @@ namespace Strawhenge.Inventory.Items
             return item;
         }
 
-        public Item CreateTransient(ItemData data)
+        public Item CreateTemporary(ItemData data)
         {
             var context = new Context();
             var procedures = _proceduresFactory.Create(data, context);
@@ -84,7 +84,7 @@ namespace Strawhenge.Inventory.Items
                 _hands,
                 procedures.ItemProcedures,
                 _procedureQueue,
-                isTransient: true
+                isTemporary: true
             );
 
             return item;

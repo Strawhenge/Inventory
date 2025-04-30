@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.TransientItems
         {
             return _itemRepository
                 .FindByName(name)
-                .Map(data => _inventory.CreateTransientItem(data));
+                .Map(data => _inventory.CreateTemporaryItem(data));
         }
     }
 }

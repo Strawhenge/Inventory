@@ -22,12 +22,12 @@ namespace Strawhenge.Inventory.Items
             Hands hands,
             IItemProcedures procedures,
             ProcedureQueue procedureQueue,
-            bool isTransient = false)
+            bool isTemporary = false)
         {
             Name = data.Name;
             Data = data;
             Context = context;
-            IsTransient = isTransient;
+            IsTemporary = isTemporary;
 
             _hands = hands;
             _procedureScheduler = new ItemProcedureScheduler(procedures, procedureQueue);
@@ -51,7 +51,7 @@ namespace Strawhenge.Inventory.Items
 
         public bool IsTwoHanded => _size == ItemSize.TwoHanded;
 
-        public bool IsTransient { get; }
+        public bool IsTemporary { get; }
 
         public bool IsInStorage => Storable
             .Map(x => x.IsStored)
@@ -72,7 +72,7 @@ namespace Strawhenge.Inventory.Items
                 UnequipFromHolster();
                 _hands.UnsetItemLeftHand();
 
-                if (IsTransient)
+                if (IsTemporary)
                     _procedureScheduler.DisappearLeftHand();
                 else
                     _procedureScheduler.DropLeftHand(callback);
@@ -82,7 +82,7 @@ namespace Strawhenge.Inventory.Items
                 UnequipFromHolster();
                 _hands.UnsetItemRightHand();
 
-                if (IsTransient)
+                if (IsTemporary)
                     _procedureScheduler.DisappearRightHand();
                 else
                     _procedureScheduler.DropRightHand(callback);
@@ -225,7 +225,7 @@ namespace Strawhenge.Inventory.Items
                     holster.PutAwayLeftHand(callback);
                 else if (IsInStorage)
                     _procedureScheduler.PutAwayLeftHand(callback);
-                else if (IsTransient)
+                else if (IsTemporary)
                     _procedureScheduler.DisappearLeftHand();
                 else
                     _procedureScheduler.DropLeftHand();
@@ -241,7 +241,7 @@ namespace Strawhenge.Inventory.Items
                     holster.PutAwayRightHand(callback);
                 else if (IsInStorage)
                     _procedureScheduler.PutAwayRightHand(callback);
-                else if (IsTransient)
+                else if (IsTemporary)
                     _procedureScheduler.DisappearRightHand();
                 else
                     _procedureScheduler.DropRightHand();

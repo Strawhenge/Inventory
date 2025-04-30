@@ -56,9 +56,9 @@ namespace Strawhenge.Inventory
             return _itemFactory.Create(data, context);
         }
 
-        public Item CreateTransientItem(ItemData data)
+        public Item CreateTemporaryItem(ItemData data)
         {
-            return _itemFactory.CreateTransient(data);
+            return _itemFactory.CreateTemporary(data);
         }
 
         public ApparelPiece CreateApparelPiece(ApparelPieceData data)
