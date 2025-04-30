@@ -21,20 +21,10 @@ namespace Strawhenge.Inventory.Tests
             _inventoryContext.AddHolster(RightHip);
             _inventory = _inventoryContext.Inventory;
 
-            var builder = ItemDataBuilder
-                .Create(Hammer, ItemSize.OneHanded, isStorable: true, 0, _ =>
-                {
-                });
-
-            builder.AddHolster(LeftHip, _ =>
-            {
-            });
-
-            builder.AddHolster(RightHip, _ =>
-            {
-            });
-
-            _hammer = builder
+            _hammer = ItemDataBuilder
+                .Create(Hammer, ItemSize.OneHanded, isStorable: true, 0)
+                .AddHolster(LeftHip)
+                .AddHolster(RightHip)
                 .Build();
         }
 

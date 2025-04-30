@@ -13,8 +13,10 @@ namespace Strawhenge.Inventory.Items
             ItemSize size,
             bool isStorable,
             int weight,
-            Action<IDataSetter> setData) =>
-            new ItemDataBuilder(name, size, isStorable, weight, setData);
+            Action<IDataSetter> setData = null) =>
+            new ItemDataBuilder(name, size, isStorable, weight, setData ?? (_ =>
+            {
+            }));
 
         readonly string _name;
         readonly ItemSize _size;
@@ -36,11 +38,25 @@ namespace Strawhenge.Inventory.Items
             _setData = setData;
         }
 
-        public void AddHolster(string name, Action<IDataSetter> setData) =>
-            _holsters.Add((name, setData));
+        public ItemDataBuilder AddHolster(string name, Action<IDataSetter> setData = null)
+        {
+            setData = setData ?? (_ =>
+            {
+            });
 
-        public void SetConsumable(IEnumerable<EffectData> effects, Action<IDataSetter> setData) =>
+            _holsters.Add((name, setData));
+            return this;
+        }
+
+        public ItemDataBuilder SetConsumable(IEnumerable<EffectData> effects, Action<IDataSetter> setData = null)
+        {
+            setData = setData ?? (_ =>
+            {
+            });
+
             _consumable = (effects.ToArray(), setData);
+            return this;
+        }
 
         public ItemData Build()
         {
