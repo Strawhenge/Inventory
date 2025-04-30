@@ -3,7 +3,6 @@ using Autofac.Unity;
 using Strawhenge.Common.Unity;
 using Strawhenge.Inventory;
 using Strawhenge.Inventory.Apparel;
-using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Items;
@@ -88,16 +87,6 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .Register(x => x.Resolve<Inventory>().Hands)
-            .As<Hands>()
-            .InstancePerLifetimeScope();
-
-        builder
-            .Register(x => x.Resolve<Inventory>().Holsters)
-            .As<Holsters>()
-            .InstancePerLifetimeScope();
-
-        builder
             .RegisterType<HandScriptsContainer>()
             .AsSelf()
             .As<HandScriptsContainer>()
@@ -124,18 +113,8 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .Register(x => x.Resolve<Inventory>().StoredItems)
-            .As<StoredItems>()
-            .InstancePerLifetimeScope();
-
-        builder
             .RegisterType<ApparelSlotScripts>()
             .AsSelf()
-            .InstancePerLifetimeScope();
-
-        builder
-            .Register(x => x.Resolve<Inventory>().ApparelSlots)
-            .As<ApparelSlots>()
             .InstancePerLifetimeScope();
 
         builder
