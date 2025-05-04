@@ -1,5 +1,6 @@
 using Strawhenge.Inventory.Containers;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Strawhenge.Inventory.Unity.NewMenu
 {
@@ -7,11 +8,14 @@ namespace Strawhenge.Inventory.Unity.NewMenu
     {
         [SerializeField] ItemMenuScript _leftHandItemMenu;
         [SerializeField] ItemMenuScript _rightHandItemMenu;
+        [SerializeField] Button _swapHandsButton;
 
         public void SetInventory(Inventory inventory)
         {
             Configure(inventory.Hands.LeftHand, _leftHandItemMenu);
             Configure(inventory.Hands.RightHand, _rightHandItemMenu);
+
+            _swapHandsButton.onClick.AddListener(() => inventory.SwapHands());
         }
 
         static void Configure(ItemContainer hand, ItemMenuScript itemMenu)

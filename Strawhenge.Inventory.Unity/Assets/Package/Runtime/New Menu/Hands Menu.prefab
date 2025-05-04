@@ -173,6 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftHandItemMenu: {fileID: 3054467955373730706}
   _rightHandItemMenu: {fileID: 2643213572316502231}
+  _swapHandsButton: {fileID: 1952293224733385966}
 --- !u!1 &1159027824050568949
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +205,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6931383914271217758}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -362,7 +363,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6931383914271217758}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -444,7 +445,7 @@ RectTransform:
   m_Children:
   - {fileID: 6083393630663566054}
   m_Father: {fileID: 6931383914271217758}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -563,9 +564,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5856662426727448774}
   - {fileID: 3842683367086176452}
   - {fileID: 6689956498497692381}
+  - {fileID: 5856662426727448774}
   m_Father: {fileID: 2706062038565961711}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
