@@ -10,10 +10,10 @@ namespace Strawhenge.Inventory.Unity.Apparel
     {
         readonly Dictionary<string, ApparelPieceScriptableObject> _scriptableObjects;
 
-        public ResourcesApparelRepository(ISettings settings)
+        public ResourcesApparelRepository()
         {
             _scriptableObjects = Resources
-                .LoadAll<ApparelPieceScriptableObject>(path: settings.ApparelScriptableObjectsPath)
+                .LoadAll<ApparelPieceScriptableObject>(string.Empty)
                 .ToDictionary(apparel => apparel.name.ToLower(), apparel => apparel);
         }
 

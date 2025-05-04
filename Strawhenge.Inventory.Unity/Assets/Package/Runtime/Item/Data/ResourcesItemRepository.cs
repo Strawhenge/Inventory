@@ -11,10 +11,10 @@ namespace Strawhenge.Inventory.Unity.Items.Data
     {
         readonly Dictionary<string, ItemScriptableObject> _scriptableObjects;
 
-        public ResourcesItemRepository(ISettings settings)
+        public ResourcesItemRepository()
         {
             _scriptableObjects = Resources
-                .LoadAll<ItemScriptableObject>(path: settings.ItemScriptableObjectsPath)
+                .LoadAll<ItemScriptableObject>(string.Empty)
                 .ToDictionary(item => item.name.ToLower(), item => item);
         }
 
