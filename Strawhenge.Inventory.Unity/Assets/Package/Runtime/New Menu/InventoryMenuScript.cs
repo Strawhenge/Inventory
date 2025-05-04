@@ -8,6 +8,7 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         [SerializeField] InventoryScript _player;
         [SerializeField] HandsMenuScript _handsMenu;
         [SerializeField] HolstersMenuScript _holstersMenu;
+        [SerializeField] StorageMenuScript _storageMenu;
         [SerializeField] Button _handsMenuButton;
         [SerializeField] Button _holstersMenuButton;
         [SerializeField] Button _storageMenuButton;
@@ -21,6 +22,7 @@ namespace Strawhenge.Inventory.Unity.NewMenu
                 {
                     _handsMenu.SetInventory(_player.Inventory);
                     _holstersMenu.SetInventory(_player.Inventory);
+                    _storageMenu.SetInventory(_player.Inventory);
                 });
 
             _handsMenuButton.onClick.AddListener(SelectHandsMenu);
@@ -35,6 +37,7 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         {
             _handsMenu.gameObject.SetActive(true);
             _holstersMenu.gameObject.SetActive(false);
+            _storageMenu.gameObject.SetActive(false);
 
             _handsMenuButton.interactable = false;
             _holstersMenuButton.interactable = true;
@@ -46,6 +49,7 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         {
             _handsMenu.gameObject.SetActive(false);
             _holstersMenu.gameObject.SetActive(true);
+            _storageMenu.gameObject.SetActive(false);
 
             _handsMenuButton.interactable = true;
             _holstersMenuButton.interactable = false;
@@ -57,6 +61,7 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         {
             _handsMenu.gameObject.SetActive(false);
             _holstersMenu.gameObject.SetActive(false);
+            _storageMenu.gameObject.SetActive(true);
 
             _handsMenuButton.interactable = true;
             _holstersMenuButton.interactable = true;
@@ -68,6 +73,7 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         {
             _handsMenu.gameObject.SetActive(false);
             _holstersMenu.gameObject.SetActive(false);
+            _storageMenu.gameObject.SetActive(false);
 
             _handsMenuButton.interactable = true;
             _holstersMenuButton.interactable = true;
