@@ -7,18 +7,15 @@ namespace Strawhenge.Inventory.Unity.Apparel
     {
         readonly ApparelSlotScripts _slotScripts;
         readonly IApparelDrop _apparelDrop;
-        readonly IApparelLayerAccessor _layerAccessor;
         readonly ILogger _logger;
 
         public ApparelViewFactory(
             ApparelSlotScripts slotScripts,
             IApparelDrop apparelDrop,
-            IApparelLayerAccessor layerAccessor,
             ILogger logger)
         {
             _slotScripts = slotScripts;
             _apparelDrop = apparelDrop;
-            _layerAccessor = layerAccessor;
             _logger = logger;
         }
 
@@ -32,7 +29,6 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
             var view = new ApparelView(
                 data,
-                _layerAccessor,
                 _apparelDrop,
                 slotScript.transform);
 

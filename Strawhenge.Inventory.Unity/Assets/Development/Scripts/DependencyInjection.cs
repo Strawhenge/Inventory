@@ -45,11 +45,6 @@ public static class DependencyInjection
     static void RegisterSingletons(ContainerBuilder builder)
     {
         builder
-            .RegisterType<Layers>()
-            .AsImplementedInterfaces()
-            .SingleInstance();
-
-        builder
             .RegisterType<Settings>()
             .As<ISettings>()
             .SingleInstance();
