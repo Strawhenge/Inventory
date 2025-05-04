@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory.Unity
 
         ApparelPiece _apparelPiece;
 
-        public void SetApparelSlot(ApparelSlot slot)
+        internal void SetApparelSlot(ApparelSlot slot)
         {
             _apparelSlotNameText.text = slot.Name;
             _apparelPieceNameText.text = string.Empty;

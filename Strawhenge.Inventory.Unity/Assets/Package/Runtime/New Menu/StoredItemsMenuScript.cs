@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         StoredItems _storedItems;
         Item _selectedItem;
 
-        public void SetInventory(Inventory inventory)
+        internal void SetInventory(Inventory inventory)
         {
             _storedItems = inventory.StoredItems;
             _storedItems.ItemAdded += item =>

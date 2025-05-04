@@ -8,7 +8,7 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         [SerializeField] HolstersMenuEntryScript _menuEntryPrefab;
         [SerializeField] RectTransform _menuEntriesParent;
 
-        public void SetInventory(Inventory inventory)
+        internal void SetInventory(Inventory inventory)
         {
             foreach (var holster in inventory.Holsters)
             {

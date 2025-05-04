@@ -46,7 +46,7 @@ namespace Strawhenge.Inventory.Unity.NewMenu
             UnsetItem();
         }
 
-        public void SetItem(Item item)
+        internal void SetItem(Item item)
         {
             _item = item;
             _itemNameText.text = item.Name;

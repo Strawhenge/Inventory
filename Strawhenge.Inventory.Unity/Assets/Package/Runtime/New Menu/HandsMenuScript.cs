@@ -10,7 +10,7 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         [SerializeField] ItemMenuScript _rightHandItemMenu;
         [SerializeField] Button _swapHandsButton;
 
-        public void SetInventory(Inventory inventory)
+        internal void SetInventory(Inventory inventory)
         {
             Configure(inventory.Hands.LeftHand, _leftHandItemMenu);
             Configure(inventory.Hands.RightHand, _rightHandItemMenu);

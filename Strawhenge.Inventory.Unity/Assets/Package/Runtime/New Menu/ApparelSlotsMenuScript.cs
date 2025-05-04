@@ -7,7 +7,7 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         [SerializeField] ApparelSlotsMenuEntryScript _menuEntryPrefab;
         [SerializeField] RectTransform _menuEntriesParent;
 
-        public void SetInventory(Inventory inventory)
+        internal void SetInventory(Inventory inventory)
         {
             foreach (var slot in inventory.ApparelSlots)
             {

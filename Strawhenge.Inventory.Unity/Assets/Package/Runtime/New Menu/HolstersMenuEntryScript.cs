@@ -12,9 +12,9 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         [SerializeField] Text _itemNameText;
         [SerializeField] Button _itemSelectButton;
 
-        public event Action<Item> Selected;
+        internal event Action<Item> Selected;
 
-        public void SetHolster(ItemContainer holster)
+        internal void SetHolster(ItemContainer holster)
         {
             _holsterNameText.text = holster.Name;
             _itemNameText.text = string.Empty;
