@@ -45,11 +45,6 @@ public static class DependencyInjection
     static void RegisterSingletons(ContainerBuilder builder)
     {
         builder
-            .RegisterType<Layers>()
-            .AsImplementedInterfaces()
-            .SingleInstance();
-
-        builder
             .RegisterType<Settings>()
             .As<ISettings>()
             .SingleInstance();
@@ -120,11 +115,6 @@ public static class DependencyInjection
         builder
             .RegisterType<Inventory>()
             .AsSelf()
-            .InstancePerLifetimeScope();
-
-        builder
-            .RegisterType<ApparelGameObjectInitializer>()
-            .As<IApparelGameObjectInitializer>()
             .InstancePerLifetimeScope();
 
         builder

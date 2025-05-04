@@ -1,5 +1,4 @@
-﻿using Strawhenge.Common.Unity;
-using Strawhenge.Inventory.Apparel;
+﻿using Strawhenge.Inventory.Apparel;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
@@ -7,8 +6,6 @@ namespace Strawhenge.Inventory.Unity.Apparel
     public class ApparelView : IApparelView
     {
         readonly ApparelPieceData _data;
-        readonly IApparelGameObjectInitializer _gameObjectInitializer;
-        readonly IApparelLayerAccessor _layerAccessor;
         readonly IApparelDrop _apparelDrop;
         readonly Transform _slot;
 
@@ -16,14 +13,10 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         public ApparelView(
             ApparelPieceData data,
-            IApparelGameObjectInitializer gameObjectInitializer,
-            IApparelLayerAccessor layerAccessor,
             IApparelDrop apparelDrop,
             Transform slot)
         {
             _data = data;
-            _gameObjectInitializer = gameObjectInitializer;
-            _layerAccessor = layerAccessor;
             _apparelDrop = apparelDrop;
             _slot = slot;
         }
@@ -38,13 +31,6 @@ namespace Strawhenge.Inventory.Unity.Apparel
                     _apparelGameObject.transform.localPosition = data.Position;
                     _apparelGameObject.transform.localRotation = data.Rotation;
                     _apparelGameObject.transform.localScale = data.Scale;
-                    _apparelGameObject.SetLayerIncludingChildren(_layerAccessor.Layer);
-
-                    foreach (var collider in _apparelGameObject.GetComponentsInChildren<Collider>())
-                    foreach (var slotCollider in _slot.root.gameObject.GetComponentsInChildren<Collider>())
-                        Physics.IgnoreCollision(collider, slotCollider);
-
-                    _gameObjectInitializer.Initialize(_apparelGameObject);
                 });
         }
 
