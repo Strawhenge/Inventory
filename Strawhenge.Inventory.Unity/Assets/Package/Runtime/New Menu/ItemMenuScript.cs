@@ -42,23 +42,72 @@ namespace Strawhenge.Inventory.Unity
             _removeFromStorageButton.onClick.AddListener(RemoveFromStorage);
             _consumeLeftHandButton.onClick.AddListener(ConsumeLeftHand);
             _consumeRightHandButton.onClick.AddListener(ConsumeRightHand);
+
+            UnsetItem();
         }
 
         public void SetItem(Item item)
         {
             _item = item;
-
             _itemNameText.text = item.Name;
+            
+            _holdLeftHandButton.interactable = true;
+            _holdRightHandButton.interactable = true;
+            _swapHandsButton.interactable = true;
+            _clearFromHandsButton.interactable = true;
+            _putAwayButton.interactable = true;
+            _dropButton.interactable = true;
+            _discardButton.interactable = true;
+            _unequipFromHolsterButton.interactable = true;
 
             _holsterListDropdown.options.Clear();
-            _holsterListDropdown.options.AddRange(
-                _item.Holsters.Select(x => new Dropdown.OptionData(x.HolsterName)));
+
+            if (item.Holsters.Any())
+            {
+                _holsterListDropdown.interactable = true;
+                _holsterEquipButton.interactable = true;
+                _holsterUnequipButton.interactable = true;
+
+                _holsterListDropdown.options.AddRange(
+                    _item.Holsters.Select(x => new Dropdown.OptionData(x.HolsterName)));
+
+                _holsterListDropdown.RefreshShownValue();
+            }
+            else
+            {
+                _holsterListDropdown.interactable = false;
+                _holsterEquipButton.interactable = false;
+                _holsterUnequipButton.interactable = false;
+            }
+
+            var isStorable = _item.Storable.HasSome();
+            _addToStorageButton.interactable = isStorable;
+            _removeFromStorageButton.interactable = isStorable;
+
+            var isConsumable = _item.Consumable.HasSome();
+            _consumeLeftHandButton.interactable = isConsumable;
+            _consumeRightHandButton.interactable = isConsumable;
         }
 
         public void UnsetItem()
         {
-            _itemNameText.text = string.Empty;
             _item = null;
+            _itemNameText.text = string.Empty;
+            _holdLeftHandButton.interactable = false;
+            _holdRightHandButton.interactable = false;
+            _swapHandsButton.interactable = false;
+            _clearFromHandsButton.interactable = false;
+            _putAwayButton.interactable = false;
+            _dropButton.interactable = false;
+            _discardButton.interactable = false;
+            _unequipFromHolsterButton.interactable = false;
+            _holsterListDropdown.interactable = false;
+            _holsterEquipButton.interactable = false;
+            _holsterUnequipButton.interactable = false;
+            _addToStorageButton.interactable = false;
+            _removeFromStorageButton.interactable = false;
+            _consumeLeftHandButton.interactable = false;
+            _consumeRightHandButton.interactable = false;
         }
 
         void HoldLeftHand() => _item?.HoldLeftHand();

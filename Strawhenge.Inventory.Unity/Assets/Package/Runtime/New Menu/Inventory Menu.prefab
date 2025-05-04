@@ -391,7 +391,7 @@ MonoBehaviour:
   _putAwayButton: {fileID: 4172154714600529240}
   _dropButton: {fileID: 6236745989279936867}
   _discardButton: {fileID: 7021301506362512109}
-  _unequipFromHolsterButton: {fileID: 0}
+  _unequipFromHolsterButton: {fileID: 2071337242445810500}
   _holsterListDropdown: {fileID: 6175811605447496526}
   _holsterEquipButton: {fileID: 6684727353177409354}
   _holsterUnequipButton: {fileID: 6171420999473946931}
