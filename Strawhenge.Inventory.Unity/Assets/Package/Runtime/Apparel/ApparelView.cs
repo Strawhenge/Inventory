@@ -7,7 +7,6 @@ namespace Strawhenge.Inventory.Unity.Apparel
     public class ApparelView : IApparelView
     {
         readonly ApparelPieceData _data;
-        readonly IApparelGameObjectInitializer _gameObjectInitializer;
         readonly IApparelLayerAccessor _layerAccessor;
         readonly IApparelDrop _apparelDrop;
         readonly Transform _slot;
@@ -16,13 +15,11 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         public ApparelView(
             ApparelPieceData data,
-            IApparelGameObjectInitializer gameObjectInitializer,
             IApparelLayerAccessor layerAccessor,
             IApparelDrop apparelDrop,
             Transform slot)
         {
             _data = data;
-            _gameObjectInitializer = gameObjectInitializer;
             _layerAccessor = layerAccessor;
             _apparelDrop = apparelDrop;
             _slot = slot;
@@ -43,8 +40,6 @@ namespace Strawhenge.Inventory.Unity.Apparel
                     foreach (var collider in _apparelGameObject.GetComponentsInChildren<Collider>())
                     foreach (var slotCollider in _slot.root.gameObject.GetComponentsInChildren<Collider>())
                         Physics.IgnoreCollision(collider, slotCollider);
-
-                    _gameObjectInitializer.Initialize(_apparelGameObject);
                 });
         }
 

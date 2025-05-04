@@ -123,11 +123,6 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<ApparelGameObjectInitializer>()
-            .As<IApparelGameObjectInitializer>()
-            .InstancePerLifetimeScope();
-
-        builder
             .RegisterType<InventoryLoader>()
             .AsSelf()
             .InstancePerLifetimeScope();
