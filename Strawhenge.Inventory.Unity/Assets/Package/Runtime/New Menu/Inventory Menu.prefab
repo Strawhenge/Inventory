@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6533741195391804055}
   - component: {fileID: 895071231363487221}
   m_Layer: 5
-  m_Name: Apparel Menu Button
+  m_Name: Apparel Slots Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Holster
+  m_Text: Holsters
 --- !u!1 &4272798135598310405
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +441,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Storage
+  m_Text: Stored Items
 --- !u!1 &5380343380467328304
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,7 +643,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Apparel
+  m_Text: Apparel Slots
 --- !u!1 &6649648700780835274
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,7 +657,7 @@ GameObject:
   - component: {fileID: 7219810841677881657}
   - component: {fileID: 6470068905890933189}
   m_Layer: 5
-  m_Name: Storage Menu Button
+  m_Name: Stored Items Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -862,7 +862,7 @@ MonoBehaviour:
   _player: {fileID: 0}
   _handsMenu: {fileID: 7941878683165656223}
   _holstersMenu: {fileID: 188543861785877193}
-  _storageMenu: {fileID: 2861662239747897255}
+  _storedItemsMenu: {fileID: 2861662239747897255}
   _handsMenuButton: {fileID: 3248980081597523141}
   _holstersMenuButton: {fileID: 9087869288454599812}
   _storageMenuButton: {fileID: 6470068905890933189}
@@ -1209,6 +1209,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Storage Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 2244077382948224862, guid: bd7b1e18e34dea64dad4adb43abbc7c7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244077382948224862, guid: bd7b1e18e34dea64dad4adb43abbc7c7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2651415866728991836, guid: bd7b1e18e34dea64dad4adb43abbc7c7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2651415866728991836, guid: bd7b1e18e34dea64dad4adb43abbc7c7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736467452802845115, guid: bd7b1e18e34dea64dad4adb43abbc7c7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5489154983066518862, guid: bd7b1e18e34dea64dad4adb43abbc7c7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1291,6 +1311,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5489154983066518862, guid: bd7b1e18e34dea64dad4adb43abbc7c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618935195527294658, guid: bd7b1e18e34dea64dad4adb43abbc7c7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618935195527294658, guid: bd7b1e18e34dea64dad4adb43abbc7c7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7246540940858878244, guid: bd7b1e18e34dea64dad4adb43abbc7c7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7246540940858878244, guid: bd7b1e18e34dea64dad4adb43abbc7c7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7246540940858878244, guid: bd7b1e18e34dea64dad4adb43abbc7c7, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
