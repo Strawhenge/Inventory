@@ -1,4 +1,5 @@
 using Strawhenge.Inventory.Items;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,14 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] Button _putAwayButton;
         [SerializeField] Button _dropButton;
         [SerializeField] Button _discardButton;
+        [SerializeField] Button _unequipFromHolsterButton;
+        [SerializeField] Dropdown _holsterListDropdown;
+        [SerializeField] Button _holsterEquipButton;
+        [SerializeField] Button _holsterUnequipButton;
+        [SerializeField] Button _addToStorageButton;
+        [SerializeField] Button _removeFromStorageButton;
+        [SerializeField] Button _consumeLeftHandButton;
+        [SerializeField] Button _consumeRightHandButton;
 
         Item _item;
 
@@ -26,12 +35,24 @@ namespace Strawhenge.Inventory.Unity
             _putAwayButton.onClick.AddListener(PutAway);
             _dropButton.onClick.AddListener(Drop);
             _discardButton.onClick.AddListener(Discard);
+            _unequipFromHolsterButton.onClick.AddListener(UnequipFromHolster);
+            _holsterEquipButton.onClick.AddListener(HolsterEquip);
+            _holsterUnequipButton.onClick.AddListener(HolsterUnequip);
+            _addToStorageButton.onClick.AddListener(AddToStorage);
+            _removeFromStorageButton.onClick.AddListener(RemoveFromStorage);
+            _consumeLeftHandButton.onClick.AddListener(ConsumeLeftHand);
+            _consumeRightHandButton.onClick.AddListener(ConsumeRightHand);
         }
 
         public void SetItem(Item item)
         {
-            _itemNameText.text = item.Name;
             _item = item;
+
+            _itemNameText.text = item.Name;
+
+            _holsterListDropdown.options.Clear();
+            _holsterListDropdown.options.AddRange(
+                _item.Holsters.Select(x => new Dropdown.OptionData(x.HolsterName)));
         }
 
         public void UnsetItem()
@@ -47,10 +68,29 @@ namespace Strawhenge.Inventory.Unity
         void SwapHands() => _item?.SwapHands();
 
         void ClearFromHands() => _item?.ClearFromHands();
+
         void PutAway() => _item?.PutAway();
 
         void Drop() => _item?.Drop();
 
         void Discard() => _item?.Discard();
+
+        void UnequipFromHolster() => _item?.UnequipFromHolster();
+
+        void HolsterEquip() => _item?
+            .Holsters[_holsterListDropdown.options[_holsterListDropdown.value].text]
+            .Do(x => x.Equip());
+
+        void HolsterUnequip() => _item?
+            .Holsters[_holsterListDropdown.options[_holsterListDropdown.value].text]
+            .Do(x => x.Unequip());
+
+        void AddToStorage() => _item?.Storable.Do(x => x.AddToStorage());
+
+        void RemoveFromStorage() => _item?.Storable.Do(x => x.RemoveFromStorage());
+
+        void ConsumeLeftHand() => _item?.Consumable.Do(x => x.ConsumeLeftHand());
+
+        void ConsumeRightHand() => _item?.Consumable.Do(x => x.ConsumeRightHand());
     }
 }
