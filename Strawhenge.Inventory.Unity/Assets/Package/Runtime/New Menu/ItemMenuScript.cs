@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.NewMenu
 {
     public class ItemMenuScript : MonoBehaviour
     {
@@ -50,7 +50,7 @@ namespace Strawhenge.Inventory.Unity
         {
             _item = item;
             _itemNameText.text = item.Name;
-            
+
             _holdLeftHandButton.interactable = true;
             _holdRightHandButton.interactable = true;
             _swapHandsButton.interactable = true;

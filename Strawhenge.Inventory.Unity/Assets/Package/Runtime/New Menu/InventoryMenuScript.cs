@@ -1,21 +1,15 @@
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.NewMenu
 {
     public class InventoryMenuScript : MonoBehaviour
     {
         [SerializeField] InventoryScript _player;
-        [SerializeField] ItemMenuScript _itemMenu;
+        [SerializeField] HandsMenuScript _handsMenu;
 
         void Start()
         {
-            _player.Inventory.Hands.RightHand.Changed += () =>
-            {
-                if (_player.Inventory.Hands.RightHand.CurrentItem.HasSome(out var item))
-                    _itemMenu.SetItem(item);
-                else 
-                    _itemMenu.UnsetItem();
-            };
+            _handsMenu.SetInventory(_player.Inventory);
         }
     }
 }
