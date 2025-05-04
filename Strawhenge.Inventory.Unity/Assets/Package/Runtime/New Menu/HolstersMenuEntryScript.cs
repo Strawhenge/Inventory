@@ -20,7 +20,7 @@ namespace Strawhenge.Inventory.Unity.NewMenu
             _itemNameText.text = string.Empty;
 
             _itemSelectButton.interactable = false;
-            _itemSelectButton.onClick.AddListener(() => { holster.CurrentItem.Do(item => Selected?.Invoke(item)); });
+            _itemSelectButton.onClick.AddListener(() => holster.CurrentItem.Do(item => Selected?.Invoke(item)));
 
             holster.Changed += () =>
             {
