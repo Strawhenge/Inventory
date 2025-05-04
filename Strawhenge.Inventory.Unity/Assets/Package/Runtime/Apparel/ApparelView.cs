@@ -1,5 +1,4 @@
-﻿using Strawhenge.Common.Unity;
-using Strawhenge.Inventory.Apparel;
+﻿using Strawhenge.Inventory.Apparel;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
