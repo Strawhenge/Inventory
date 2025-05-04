@@ -407,6 +407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuEntryPrefab: {fileID: 3612271005598005719, guid: 714a3543fdc87944fab0c012476105d6, type: 3}
+  _menuEntriesParent: {fileID: 5358538559828295784}
 --- !u!1 &6682105539996275394
 GameObject:
   m_ObjectHideFlags: 0
