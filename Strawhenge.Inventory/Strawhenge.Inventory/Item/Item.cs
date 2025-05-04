@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FunctionalUtilities;
 using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
@@ -314,6 +315,12 @@ namespace Strawhenge.Inventory.Items
             }
 
             callback?.Invoke();
+        }
+
+        internal void OnRemovedFromStorage()
+        {
+            if (!IsInHand && !Holsters.Any(x => x.IsEquipped))
+                _procedureScheduler.SpawnAndDrop();
         }
 
         void ClearLeftHand()
