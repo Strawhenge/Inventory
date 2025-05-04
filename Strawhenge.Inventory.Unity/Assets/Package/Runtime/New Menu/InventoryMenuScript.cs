@@ -10,8 +10,13 @@ namespace Strawhenge.Inventory.Unity.NewMenu
 
         void Start()
         {
-            _handsMenu.SetInventory(_player.Inventory);
-            _holstersMenu.SetInventory(_player.Inventory);
+            this.InvokeAsSoonAs(
+                () => _player.IsConfigurationComplete,
+                () =>
+                {
+                    _handsMenu.SetInventory(_player.Inventory);
+                    _holstersMenu.SetInventory(_player.Inventory);
+                });
         }
     }
 }
