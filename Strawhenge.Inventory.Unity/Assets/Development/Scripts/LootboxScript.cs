@@ -6,7 +6,7 @@ using UnityEngine;
 public class LootboxScript : MonoBehaviour
 {
     [SerializeField] LootCollectionScript _itemContainer;
-    [SerializeField] ItemContainerMenuScript _itemContainerMenu;
+    [SerializeField] LootMenuScript _itemContainerMenu;
     [SerializeField] Camera _camera;
 
     void Awake()

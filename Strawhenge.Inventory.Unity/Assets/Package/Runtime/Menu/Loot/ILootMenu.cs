@@ -3,7 +3,7 @@ using Strawhenge.Inventory.Loot;
 
 namespace Strawhenge.Inventory.Unity
 {
-    public interface IItemContainerMenu
+    public interface ILootMenu
     {
         event Action Opened;
 

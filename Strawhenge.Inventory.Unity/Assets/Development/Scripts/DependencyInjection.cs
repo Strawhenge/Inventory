@@ -62,10 +62,10 @@ public static class DependencyInjection
             .SingleInstance();
 
         builder
-            .RegisterType<ItemContainerMenuScriptContainer>()
+            .RegisterType<LootMenuScriptContainer>()
             .WithParameter(new TypedParameter(typeof(ILogger), new UnityLogger(null)))
             .AsSelf()
-            .As<IItemContainerMenu>()
+            .As<ILootMenu>()
             .SingleInstance();
     }
 

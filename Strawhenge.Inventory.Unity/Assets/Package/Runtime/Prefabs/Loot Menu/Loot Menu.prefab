@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 2503552140974658168}
   - component: {fileID: 8691680150841043025}
   m_Layer: 0
-  m_Name: Item Container Menu
+  m_Name: Loot Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

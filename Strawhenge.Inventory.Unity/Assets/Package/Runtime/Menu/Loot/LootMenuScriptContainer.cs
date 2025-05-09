@@ -4,12 +4,12 @@ using System;
 
 namespace Strawhenge.Inventory.Unity
 {
-    public class ItemContainerMenuScriptContainer : IItemContainerMenu
+    public class LootMenuScriptContainer : ILootMenu
     {
         readonly ILogger _logger;
-        ItemContainerMenuScript _menu;
+        LootMenuScript _menu;
 
-        public ItemContainerMenuScriptContainer(ILogger logger)
+        public LootMenuScriptContainer(ILogger logger)
         {
             _logger = logger;
         }
@@ -23,7 +23,7 @@ namespace Strawhenge.Inventory.Unity
         {
             if (ReferenceEquals(_menu, null))
             {
-                _logger.LogError($"Missing '{nameof(ItemContainerMenuScript)}'.");
+                _logger.LogError($"Missing '{nameof(LootMenuScript)}'.");
                 return;
             }
 
@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.Unity
         {
             if (ReferenceEquals(_menu, null))
             {
-                _logger.LogError($"Missing '{nameof(ItemContainerMenuScript)}'.");
+                _logger.LogError($"Missing '{nameof(LootMenuScript)}'.");
                 return;
             }
 
@@ -43,11 +43,11 @@ namespace Strawhenge.Inventory.Unity
             Closed?.Invoke();
         }
 
-        internal void Set(ItemContainerMenuScript menu)
+        internal void Set(LootMenuScript menu)
         {
             if (!ReferenceEquals(_menu, null))
             {
-                _logger.LogError($"'{nameof(ItemContainerMenuScript)}' is already set.");
+                _logger.LogError($"'{nameof(LootMenuScript)}' is already set.");
                 return;
             }
 

@@ -9,7 +9,7 @@ using Strawhenge.Inventory.Loot;
 
 namespace Strawhenge.Inventory.Unity
 {
-    public class ItemContainerMenuScript : MonoBehaviour
+    public class LootMenuScript : MonoBehaviour
     {
         [SerializeField] Canvas _canvas;
         [SerializeField] RectTransform _entriesContainer;
@@ -27,7 +27,7 @@ namespace Strawhenge.Inventory.Unity
         internal event System.Action Opened;
         internal event System.Action Closed;
 
-        public ItemContainerMenuScriptContainer MenuContainer { private get; set; }
+        public LootMenuScriptContainer MenuContainer { private get; set; }
 
         public bool IsOpen { get; private set; }
 

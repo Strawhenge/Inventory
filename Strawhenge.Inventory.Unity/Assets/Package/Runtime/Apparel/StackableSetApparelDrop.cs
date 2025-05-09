@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
     {
         readonly Queue<ApparelPieceData> _queue = new();
         readonly IInventoryMenu _inventoryMenu;
-        readonly IItemContainerMenu _itemContainerMenu;
+        readonly ILootMenu _itemContainerMenu;
         readonly DropPoint _dropPoint;
         readonly ILogger _logger;
 
@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         public StackableSetApparelDrop(
             IInventoryMenu inventoryMenu,
-            IItemContainerMenu itemContainerMenu,
+            ILootMenu itemContainerMenu,
             DropPoint dropPoint,
             ILogger logger)
         {

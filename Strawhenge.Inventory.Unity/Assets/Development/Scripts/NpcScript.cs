@@ -6,7 +6,7 @@ using UnityEngine;
 public class NpcScript : MonoBehaviour
 {
     [SerializeField] InventoryScript _inventory;
-    [SerializeField] ItemContainerMenuScript _itemContainerMenu;
+    [SerializeField] LootMenuScript _itemContainerMenu;
     [SerializeField] Camera _camera;
 
     InventoryLootSource _lootSource;
