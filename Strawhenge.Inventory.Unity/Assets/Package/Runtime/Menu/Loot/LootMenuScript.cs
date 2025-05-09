@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] EventScriptableObject[] _closeEvents;
         [SerializeField] UnityEvent _closed;
 
-        [SerializeField] Canvas _canvas;
+        [SerializeField] RectTransform _containerPanel;
         [SerializeField] RectTransform _entriesContainer;
 
         [FormerlySerializedAs("_itemMenuEntryPrefab")] [SerializeField]
@@ -37,7 +37,7 @@ namespace Strawhenge.Inventory.Unity
 
         void Start()
         {
-            _canvas.enabled = false;
+            _containerPanel.gameObject.SetActive(false);
             MenuContainer.Set(this);
         }
 
@@ -53,7 +53,7 @@ namespace Strawhenge.Inventory.Unity
             foreach (var apparelPiece in source.GetApparelPieces())
                 AddApparelPiece(apparelPiece);
 
-            _canvas.enabled = true;
+            _containerPanel.gameObject.SetActive(true);
             _openEvents.ForEach(x => x.Invoke(gameObject));
             _opened.Invoke();
             Opened?.Invoke();
@@ -68,7 +68,7 @@ namespace Strawhenge.Inventory.Unity
                 Destroy(gameObject);
 
             _menuEntries.Clear();
-            _canvas.enabled = false;
+            _containerPanel.gameObject.SetActive(false);
             _closeEvents.ForEach(x => x.Invoke(gameObject));
             _closed.Invoke();
             Closed?.Invoke();
