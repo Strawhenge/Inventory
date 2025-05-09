@@ -1,5 +1,7 @@
+using Strawhenge.Common;
+using Strawhenge.Common.Unity;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Strawhenge.Inventory.Unity.NewMenu
@@ -7,6 +9,12 @@ namespace Strawhenge.Inventory.Unity.NewMenu
     public class InventoryMenuScript : MonoBehaviour
     {
         [SerializeField] InventoryScript _inventory;
+        [SerializeField] EventScriptableObject[] _openEvents;
+        [SerializeField] UnityEvent _opened;
+        [SerializeField] EventScriptableObject[] _closeEvents;
+        [SerializeField] UnityEvent _closed;
+
+        [SerializeField] RectTransform _containerPanel;
         [SerializeField] HandsMenuScript _handsMenu;
         [SerializeField] HolstersMenuScript _holstersMenu;
         [SerializeField] StoredItemsMenuScript _storedItemsMenu;
@@ -15,6 +23,11 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         [SerializeField] Button _holstersMenuButton;
         [SerializeField] Button _storageMenuButton;
         [SerializeField] Button _apparelMenuButton;
+
+        void Awake()
+        {
+            _containerPanel.gameObject.SetActive(false);
+        }
 
         void Start()
         {
@@ -34,6 +47,24 @@ namespace Strawhenge.Inventory.Unity.NewMenu
 
                     SelectHandsMenu();
                 });
+        }
+
+        public bool IsOpen => _containerPanel.gameObject.activeSelf;
+
+        [ContextMenu(nameof(Open))]
+        public void Open()
+        {
+            _containerPanel.gameObject.SetActive(true);
+            _openEvents.ForEach(x => x.Invoke(gameObject));
+            _opened.Invoke();
+        }
+
+        [ContextMenu(nameof(Close))]
+        public void Close()
+        {
+            _containerPanel.gameObject.SetActive(false);
+            _closeEvents.ForEach(x => x.Invoke(gameObject));
+            _closed.Invoke();
         }
 
         void SelectHandsMenu()
