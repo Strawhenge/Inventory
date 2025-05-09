@@ -1,4 +1,5 @@
 using Strawhenge.Inventory.Items;
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -72,6 +73,9 @@ namespace Strawhenge.Inventory.Unity
 
         public void Hide()
         {
+            if (_item != null)
+                _item.Drop();
+
             _item = null;
             _itemNameText.text = string.Empty;
             _holdLeftHandButton.interactable = false;
@@ -85,42 +89,26 @@ namespace Strawhenge.Inventory.Unity
             _containerPanel.gameObject.SetActive(false);
         }
 
-        void HoldLeftHand()
-        {
-            _item?.HoldLeftHand();
-            Hide();
-        }
+        void HoldLeftHand() => Perform(i => i.HoldLeftHand());
 
-        void HoldRightHand()
-        {
-            _item?.HoldRightHand();
-            Hide();
-        }
+        void HoldRightHand() => Perform(i => i.HoldRightHand());
 
-        void HolsterEquip()
-        {
-            _item?
-                .Holsters[_holsterListDropdown.options[_holsterListDropdown.value].text]
-                .Do(x => x.Equip());
+        void HolsterEquip() => Perform(i => i
+            .Holsters[_holsterListDropdown.options[_holsterListDropdown.value].text]
+            .Do(x => x.Equip()));
 
-            Hide();
-        }
+        void AddToStorage() => Perform(i => i.Storable.Do(x => x.AddToStorage()));
 
-        void AddToStorage()
-        {
-            _item?.Storable.Do(x => x.AddToStorage());
-            Hide();
-        }
+        void ConsumeLeftHand() => Perform(i => i.Consumable.Do(x => x.ConsumeLeftHand()));
 
-        void ConsumeLeftHand()
-        {
-            _item?.Consumable.Do(x => x.ConsumeLeftHand());
-            Hide();
-        }
+        void ConsumeRightHand() => Perform(i => i.Consumable.Do(x => x.ConsumeRightHand()));
 
-        void ConsumeRightHand()
+        void Perform(Action<Item> action)
         {
-            _item?.Consumable.Do(x => x.ConsumeRightHand());
+            if (_item == null) return;
+
+            action(_item);
+            _item = null;
             Hide();
         }
     }

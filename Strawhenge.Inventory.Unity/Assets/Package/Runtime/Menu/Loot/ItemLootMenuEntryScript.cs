@@ -33,6 +33,9 @@ namespace Strawhenge.Inventory.Unity.Menu
 
         void Take()
         {
+            if (_inventory == null || _containedItem == null || _takeItemLootMenu == null)
+                return;
+            
             var item = _inventory.CreateItem(_containedItem.Take());
             _takeItemLootMenu.Show(item);
         }

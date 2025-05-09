@@ -37,7 +37,7 @@ namespace Strawhenge.Inventory.Unity.Menu
         void Awake()
         {
             _containerPanel.gameObject.SetActive(false);
-            
+
             ComponentRefHelper.EnsureSceneComponent(ref _takeItemLootMenu, nameof(_takeItemLootMenu), this);
         }
 
@@ -71,6 +71,8 @@ namespace Strawhenge.Inventory.Unity.Menu
 
             foreach (var gameObject in _menuEntries)
                 Destroy(gameObject);
+
+            _takeItemLootMenu.Hide();
 
             _menuEntries.Clear();
             _containerPanel.gameObject.SetActive(false);

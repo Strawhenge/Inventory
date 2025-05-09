@@ -7,36 +7,32 @@ namespace Strawhenge.Inventory.Unity.Menu
 {
     public class ApparelPieceLootMenuEntryScript : MonoBehaviour
     {
-        [SerializeField] Text _slotNameText;
         [SerializeField] Text _itemNameText;
-        [SerializeField] Button _equipButton;
+        [SerializeField] Button _takeButton;
 
         Inventory _inventory;
         Loot<ApparelPieceData> _containedItem;
 
         void Awake()
         {
-            _equipButton.onClick.AddListener(OnEquipButton);
+            _takeButton.onClick.AddListener(Take);
         }
 
         public void Set(Inventory inventory, Loot<ApparelPieceData> containedItem)
         {
             _inventory = inventory;
             _containedItem = containedItem;
-
-            _slotNameText.text = containedItem.Item.Slot;
+           
             _itemNameText.text = containedItem.Item.Name;
         }
 
-        void OnEquipButton()
+        void Take()
         {
             if (_inventory == null || _containedItem == null)
                 return;
 
-            var apparelPiece = _inventory.CreateApparelPiece(_containedItem.Item);
+            var apparelPiece = _inventory.CreateApparelPiece(_containedItem.Take());
             apparelPiece.Equip();
-
-            _containedItem.Take();
         }
     }
 }
