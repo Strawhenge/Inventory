@@ -1,5 +1,6 @@
 using Strawhenge.Common;
 using Strawhenge.Common.Unity;
+using Strawhenge.Inventory.Unity.Menu;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -24,6 +25,8 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         [SerializeField] Button _storageMenuButton;
         [SerializeField] Button _apparelMenuButton;
 
+        public InventoryMenuScriptContainer Container { private get; set; }
+
         void Awake()
         {
             _containerPanel.gameObject.SetActive(false);
@@ -31,6 +34,8 @@ namespace Strawhenge.Inventory.Unity.NewMenu
 
         void Start()
         {
+            Container.Set(this);
+
             this.InvokeAsSoonAs(
                 condition: () => _inventory.IsConfigurationComplete,
                 () =>

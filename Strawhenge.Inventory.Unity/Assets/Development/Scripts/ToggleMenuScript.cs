@@ -1,5 +1,5 @@
 using Strawhenge.Common.Unity.Helpers;
-using Strawhenge.Inventory.Unity.Menu;
+using Strawhenge.Inventory.Unity.NewMenu;
 using UnityEngine;
 
 public class ToggleMenuScript : MonoBehaviour
