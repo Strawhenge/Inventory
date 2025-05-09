@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.Inventory.Unity.NewMenu
+namespace Strawhenge.Inventory.Unity.Menu
 {
     public class ItemMenuScript : MonoBehaviour
     {

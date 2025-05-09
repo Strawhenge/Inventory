@@ -4,11 +4,10 @@ using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Items;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Strawhenge.Inventory.Loot;
 using UnityEngine.Events;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.Menu
 {
     public class LootMenuScript : MonoBehaviour
     {

@@ -1,11 +1,10 @@
 using Strawhenge.Common;
 using Strawhenge.Common.Unity;
-using Strawhenge.Inventory.Unity.Menu;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Strawhenge.Inventory.Unity.NewMenu
+namespace Strawhenge.Inventory.Unity.Menu
 {
     public class InventoryMenuScript : MonoBehaviour
     {

@@ -1,6 +1,7 @@
 using Strawhenge.Common.Unity.Helpers;
 using Strawhenge.Inventory.Loot;
 using Strawhenge.Inventory.Unity;
+using Strawhenge.Inventory.Unity.Menu;
 using UnityEngine;
 
 public class NpcScript : MonoBehaviour

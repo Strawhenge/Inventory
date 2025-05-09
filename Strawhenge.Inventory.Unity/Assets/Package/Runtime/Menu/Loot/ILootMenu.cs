@@ -1,7 +1,7 @@
 ﻿using System;
 using Strawhenge.Inventory.Loot;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.Menu
 {
     public interface ILootMenu
     {

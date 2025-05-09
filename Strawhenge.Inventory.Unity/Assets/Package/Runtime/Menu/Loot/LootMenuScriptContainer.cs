@@ -2,7 +2,7 @@ using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Loot;
 using System;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.Menu
 {
     public class LootMenuScriptContainer : ILootMenu
     {

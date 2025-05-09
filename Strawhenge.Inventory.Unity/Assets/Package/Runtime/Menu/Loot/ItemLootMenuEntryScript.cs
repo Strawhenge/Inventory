@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.Menu
 {
     public class ItemLootMenuEntryScript : MonoBehaviour
     {
