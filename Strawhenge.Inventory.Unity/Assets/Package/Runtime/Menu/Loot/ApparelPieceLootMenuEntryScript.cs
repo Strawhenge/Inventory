@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Strawhenge.Inventory.Unity
 {
-    public class ApparelPieceMenuEntryScript : MonoBehaviour
+    public class ApparelPieceLootMenuEntryScript : MonoBehaviour
     {
         [SerializeField] Text _slotNameText;
         [SerializeField] Text _itemNameText;

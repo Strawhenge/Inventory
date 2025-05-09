@@ -20,13 +20,10 @@ namespace Strawhenge.Inventory.Unity
 
         [SerializeField] RectTransform _containerPanel;
         [SerializeField] RectTransform _entriesContainer;
+        [SerializeField] ItemLootMenuEntryScript _itemLootMenuEntryPrefab;
+        [SerializeField] ApparelPieceLootMenuEntryScript _apparelPieceLootMenuEntryPrefab;
 
-        [FormerlySerializedAs("_itemMenuEntryPrefab")] [SerializeField]
-        ContainedItemMenuEntryScript _containedItemMenuEntryPrefab;
-
-        [SerializeField] ApparelPieceMenuEntryScript _apparelPieceMenuEntryPrefab;
-
-        readonly List<GameObject> _menuEntries = new List<GameObject>();
+        readonly List<GameObject> _menuEntries = new();
 
         internal event System.Action Opened;
         internal event System.Action Closed;
@@ -76,7 +73,7 @@ namespace Strawhenge.Inventory.Unity
 
         void AddItem(Loot<ItemData> item)
         {
-            var menuEntry = Instantiate(_containedItemMenuEntryPrefab, parent: _entriesContainer);
+            var menuEntry = Instantiate(_itemLootMenuEntryPrefab, parent: _entriesContainer);
             menuEntry.Set(_inventoryScript.Inventory, item);
             _menuEntries.Add(menuEntry.gameObject);
 
@@ -90,7 +87,7 @@ namespace Strawhenge.Inventory.Unity
 
         void AddApparelPiece(Loot<ApparelPieceData> apparelPiece)
         {
-            var menuEntry = Instantiate(_apparelPieceMenuEntryPrefab, parent: _entriesContainer);
+            var menuEntry = Instantiate(_apparelPieceLootMenuEntryPrefab, parent: _entriesContainer);
             menuEntry.Set(_inventoryScript.Inventory, apparelPiece);
             _menuEntries.Add(menuEntry.gameObject);
 
