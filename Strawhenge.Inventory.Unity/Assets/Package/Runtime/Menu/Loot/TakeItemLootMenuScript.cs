@@ -33,6 +33,9 @@ namespace Strawhenge.Inventory.Unity
 
         internal void Show(Item item)
         {
+            if (_item != null)
+                _item.Drop();
+
             _item = item;
             _itemNameText.text = item.Name;
 
@@ -78,22 +81,47 @@ namespace Strawhenge.Inventory.Unity
             _addToStorageButton.interactable = false;
             _consumeLeftHandButton.interactable = false;
             _consumeRightHandButton.interactable = false;
-            
+
             _containerPanel.gameObject.SetActive(false);
         }
 
-        void HoldLeftHand() => _item?.HoldLeftHand();
+        void HoldLeftHand()
+        {
+            _item?.HoldLeftHand();
+            Hide();
+        }
 
-        void HoldRightHand() => _item?.HoldRightHand();
+        void HoldRightHand()
+        {
+            _item?.HoldRightHand();
+            Hide();
+        }
 
-        void HolsterEquip() => _item?
-            .Holsters[_holsterListDropdown.options[_holsterListDropdown.value].text]
-            .Do(x => x.Equip());
+        void HolsterEquip()
+        {
+            _item?
+                .Holsters[_holsterListDropdown.options[_holsterListDropdown.value].text]
+                .Do(x => x.Equip());
 
-        void AddToStorage() => _item?.Storable.Do(x => x.AddToStorage());
+            Hide();
+        }
 
-        void ConsumeLeftHand() => _item?.Consumable.Do(x => x.ConsumeLeftHand());
+        void AddToStorage()
+        {
+            _item?.Storable.Do(x => x.AddToStorage());
+            Hide();
+        }
 
-        void ConsumeRightHand() => _item?.Consumable.Do(x => x.ConsumeRightHand());
+        void ConsumeLeftHand()
+        {
+            _item?.Consumable.Do(x => x.ConsumeLeftHand());
+            Hide();
+        }
+
+        void ConsumeRightHand()
+        {
+            _item?.Consumable.Do(x => x.ConsumeRightHand());
+            Hide();
+        }
     }
 }

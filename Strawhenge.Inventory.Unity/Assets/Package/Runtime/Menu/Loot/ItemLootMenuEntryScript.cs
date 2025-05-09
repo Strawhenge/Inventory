@@ -1,6 +1,5 @@
 ﻿using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Loot;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,39 +8,33 @@ namespace Strawhenge.Inventory.Unity.Menu
     public class ItemLootMenuEntryScript : MonoBehaviour
     {
         [SerializeField] Text _itemNameText;
-        [SerializeField] Button _holdLeftHandButton;
-        [SerializeField] Button _holdRightHandButton;
+        [SerializeField] Button _takeButton;
 
         Inventory _inventory;
         Loot<ItemData> _containedItem;
+        TakeItemLootMenuScript _takeItemLootMenu;
 
         void Awake()
         {
-            _holdLeftHandButton.onClick.AddListener(OnHoldLeftHandButton);
-            _holdRightHandButton.onClick.AddListener(OnHoldRightHandButton);
+            _takeButton.onClick.AddListener(Take);
         }
 
-        public void Set(Inventory inventory, Loot<ItemData> containedItem)
+        public void Set(
+            Inventory inventory,
+            Loot<ItemData> containedItem,
+            TakeItemLootMenuScript takeItemLootMenu)
         {
             _inventory = inventory;
             _containedItem = containedItem;
+            _takeItemLootMenu = takeItemLootMenu;
 
             _itemNameText.text = containedItem.Item.Name;
         }
 
-        void OnHoldLeftHandButton() => Hold(i => i.HoldLeftHand());
-
-        void OnHoldRightHandButton() => Hold(i => i.HoldRightHand());
-
-        void Hold(Action<Item> hold)
+        void Take()
         {
-            if (_inventory == null || _containedItem == null)
-                return;
-
-            var item = _inventory.CreateItem(_containedItem.Item);
-            hold(item);
-
-            _containedItem.Take();
+            var item = _inventory.CreateItem(_containedItem.Take());
+            _takeItemLootMenu.Show(item);
         }
     }
 }

@@ -1,10 +1,12 @@
 using Strawhenge.Common;
 using Strawhenge.Common.Unity;
+using Strawhenge.Common.Unity.Helpers;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Items;
 using System.Collections.Generic;
 using UnityEngine;
 using Strawhenge.Inventory.Loot;
+using System;
 using UnityEngine.Events;
 
 namespace Strawhenge.Inventory.Unity.Menu
@@ -12,6 +14,7 @@ namespace Strawhenge.Inventory.Unity.Menu
     public class LootMenuScript : MonoBehaviour
     {
         [SerializeField] InventoryScript _inventoryScript;
+        [SerializeField] TakeItemLootMenuScript _takeItemLootMenu;
         [SerializeField] EventScriptableObject[] _openEvents;
         [SerializeField] UnityEvent _opened;
         [SerializeField] EventScriptableObject[] _closeEvents;
@@ -31,9 +34,15 @@ namespace Strawhenge.Inventory.Unity.Menu
 
         public bool IsOpen { get; private set; }
 
-        void Start()
+        void Awake()
         {
             _containerPanel.gameObject.SetActive(false);
+            
+            ComponentRefHelper.EnsureSceneComponent(ref _takeItemLootMenu, nameof(_takeItemLootMenu), this);
+        }
+
+        void Start()
+        {
             MenuContainer.Set(this);
         }
 
@@ -73,7 +82,7 @@ namespace Strawhenge.Inventory.Unity.Menu
         void AddItem(Loot<ItemData> item)
         {
             var menuEntry = Instantiate(_itemLootMenuEntryPrefab, parent: _entriesContainer);
-            menuEntry.Set(_inventoryScript.Inventory, item);
+            menuEntry.Set(_inventoryScript.Inventory, item, _takeItemLootMenu);
             _menuEntries.Add(menuEntry.gameObject);
 
             item.Taken += () =>

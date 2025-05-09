@@ -511,7 +511,6 @@ GameObject:
   - component: {fileID: 2484218879060582792}
   - component: {fileID: 4976121548841390311}
   - component: {fileID: 7438834081214087130}
-  - component: {fileID: 6454748929526888525}
   m_Layer: 5
   m_Name: Container Panel
   m_TagString: Untagged
@@ -585,26 +584,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6454748929526888525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4525851552410849490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45ad2dbd1de6c9d4e8e8da7ac9cd526f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemNameText: {fileID: 5716852587825851138}
-  _holdLeftHandButton: {fileID: 5680059936492872145}
-  _holdRightHandButton: {fileID: 3370210357595587505}
-  _holsterListDropdown: {fileID: 8694654299122813131}
-  _holsterEquipButton: {fileID: 8203748689296825551}
-  _addToStorageButton: {fileID: 6106753156676703113}
-  _consumeLeftHandButton: {fileID: 2871111614684827480}
-  _consumeRightHandButton: {fileID: 3994101518440636200}
 --- !u!1 &4628746125112725637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,6 +1081,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5862821885060706845}
   - component: {fileID: 5862821885060706842}
+  - component: {fileID: 7274385743255739944}
   m_Layer: 5
   m_Name: Take Item Loot Menu
   m_TagString: Untagged
@@ -1138,6 +1118,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5862821885060706844}
   m_CullTransparentMesh: 1
+--- !u!114 &7274385743255739944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5862821885060706844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ad2dbd1de6c9d4e8e8da7ac9cd526f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _containerPanel: {fileID: 2484218879060582792}
+  _itemNameText: {fileID: 5716852587825851138}
+  _holdLeftHandButton: {fileID: 5680059936492872145}
+  _holdRightHandButton: {fileID: 3370210357595587505}
+  _holsterListDropdown: {fileID: 8694654299122813131}
+  _holsterEquipButton: {fileID: 8203748689296825551}
+  _addToStorageButton: {fileID: 6106753156676703113}
+  _consumeLeftHandButton: {fileID: 2871111614684827480}
+  _consumeRightHandButton: {fileID: 3994101518440636200}
 --- !u!1 &5904111759443182379
 GameObject:
   m_ObjectHideFlags: 0
