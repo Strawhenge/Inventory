@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Strawhenge.Inventory.Unity.NewMenu
 {
     public class InventoryMenuScript : MonoBehaviour
     {
-        [SerializeField] InventoryScript _player;
+        [SerializeField] InventoryScript _inventory;
         [SerializeField] HandsMenuScript _handsMenu;
         [SerializeField] HolstersMenuScript _holstersMenu;
         [SerializeField] StoredItemsMenuScript _storedItemsMenu;
@@ -18,21 +19,21 @@ namespace Strawhenge.Inventory.Unity.NewMenu
         void Start()
         {
             this.InvokeAsSoonAs(
-                () => _player.IsConfigurationComplete,
+                condition: () => _inventory.IsConfigurationComplete,
                 () =>
                 {
-                    _handsMenu.SetInventory(_player.Inventory);
-                    _holstersMenu.SetInventory(_player.Inventory);
-                    _storedItemsMenu.SetInventory(_player.Inventory);
-                    _apparelSlotsMenu.SetInventory(_player.Inventory);
+                    _handsMenu.SetInventory(_inventory.Inventory);
+                    _holstersMenu.SetInventory(_inventory.Inventory);
+                    _storedItemsMenu.SetInventory(_inventory.Inventory);
+                    _apparelSlotsMenu.SetInventory(_inventory.Inventory);
+
+                    _handsMenuButton.onClick.AddListener(SelectHandsMenu);
+                    _holstersMenuButton.onClick.AddListener(SelectHolstersMenu);
+                    _storageMenuButton.onClick.AddListener(SelectStoredItemsMenu);
+                    _apparelMenuButton.onClick.AddListener(SelectApparelMenu);
+
+                    SelectHandsMenu();
                 });
-
-            _handsMenuButton.onClick.AddListener(SelectHandsMenu);
-            _holstersMenuButton.onClick.AddListener(SelectHolstersMenu);
-            _storageMenuButton.onClick.AddListener(SelectStoredItemsMenu);
-            _apparelMenuButton.onClick.AddListener(SelectApparelMenu);
-
-            SelectHandsMenu();
         }
 
         void SelectHandsMenu()
