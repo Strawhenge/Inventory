@@ -6,11 +6,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Strawhenge.Inventory.Loot;
+using UnityEngine.Events;
 
 namespace Strawhenge.Inventory.Unity
 {
     public class LootMenuScript : MonoBehaviour
     {
+        [SerializeField] InventoryScript _inventoryScript;
+        [SerializeField] EventScriptableObject[] _openEvents;
+        [SerializeField] UnityEvent _opened;
+        [SerializeField] EventScriptableObject[] _closeEvents;
+        [SerializeField] UnityEvent _closed;
+
         [SerializeField] Canvas _canvas;
         [SerializeField] RectTransform _entriesContainer;
 
@@ -18,9 +25,6 @@ namespace Strawhenge.Inventory.Unity
         ContainedItemMenuEntryScript _containedItemMenuEntryPrefab;
 
         [SerializeField] ApparelPieceMenuEntryScript _apparelPieceMenuEntryPrefab;
-        [SerializeField] EventScriptableObject[] _openEvents;
-        [SerializeField] EventScriptableObject[] _closeEvents;
-        [SerializeField] InventoryScript _inventoryScript;
 
         readonly List<GameObject> _menuEntries = new List<GameObject>();
 
@@ -41,6 +45,7 @@ namespace Strawhenge.Inventory.Unity
         {
             if (IsOpen)
                 Close();
+            IsOpen = true;
 
             foreach (var item in source.GetItems())
                 AddItem(item);
@@ -50,13 +55,14 @@ namespace Strawhenge.Inventory.Unity
 
             _canvas.enabled = true;
             _openEvents.ForEach(x => x.Invoke(gameObject));
-            IsOpen = true;
+            _opened.Invoke();
             Opened?.Invoke();
         }
 
         public void Close()
         {
             if (!IsOpen) return;
+            IsOpen = false;
 
             foreach (var gameObject in _menuEntries)
                 Destroy(gameObject);
@@ -64,7 +70,7 @@ namespace Strawhenge.Inventory.Unity
             _menuEntries.Clear();
             _canvas.enabled = false;
             _closeEvents.ForEach(x => x.Invoke(gameObject));
-            IsOpen = false;
+            _closed.Invoke();
             Closed?.Invoke();
         }
 
