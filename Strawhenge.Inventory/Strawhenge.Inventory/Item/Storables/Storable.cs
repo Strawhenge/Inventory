@@ -38,10 +38,15 @@ namespace Strawhenge.Inventory.Items.Storables
 
         public void RemoveFromStorage()
         {
+            Discard();
+            _item.OnRemovedFromStorage();
+        }
+
+        internal void Discard()
+        {
             _storedItems.Remove(_item, Weight);
             IsStored = false;
             Removed?.Invoke();
-            _item.OnRemovedFromStorage();
         }
 
         bool HasInsufficientCapacity() =>
