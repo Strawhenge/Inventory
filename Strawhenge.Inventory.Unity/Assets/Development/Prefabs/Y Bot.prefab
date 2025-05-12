@@ -113,6 +113,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6564e834d2c748df881550aeae945c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemSet:
+    m_PersistentCalls:
+      m_Calls: []
+  _itemUnset:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &363809606005039864
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,6 +227,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holster: {fileID: 11400000, guid: f83b37b3d4e32c34cbf879593eca9c54, type: 2}
+  _itemSet:
+    m_PersistentCalls:
+      m_Calls: []
+  _itemUnset:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &911186566888135924
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,6 +457,51 @@ Transform:
   m_Father: {fileID: 8553082550772922942}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1175117809503360706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2676641667464337343}
+  - component: {fileID: 4518379483110380665}
+  m_Layer: 0
+  m_Name: Torso Apparel Slot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2676641667464337343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175117809503360706}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3909302250117843202}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4518379483110380665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175117809503360706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf473cbfa0d517745b75579a24b4b97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slot: {fileID: 11400000, guid: 47feaa99a50a87a47bf962b2c7341532, type: 2}
 --- !u!1 &1227359724729015422
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,6 +878,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da5ed3eedb6421f88f51d9903cf6dd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemSet:
+    m_PersistentCalls:
+      m_Calls: []
+  _itemUnset:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1859633281532688091
 GameObject:
   m_ObjectHideFlags: 0
@@ -1362,6 +1425,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holster: {fileID: 11400000, guid: eecd875d513ed9e48904312b03aa25cd, type: 2}
+  _itemSet:
+    m_PersistentCalls:
+      m_Calls: []
+  _itemUnset:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3544178225096022413
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,6 +2130,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2592918736061102441}
+  - {fileID: 2676641667464337343}
   m_Father: {fileID: 7592257380020477418}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2460,6 +2530,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holster: {fileID: 11400000, guid: 276c760cf1f22c44f980a4447ca6721d, type: 2}
+  _itemSet:
+    m_PersistentCalls:
+      m_Calls: []
+  _itemUnset:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8342295412270636429
 GameObject:
   m_ObjectHideFlags: 0

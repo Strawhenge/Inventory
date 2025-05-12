@@ -97,7 +97,7 @@ namespace Strawhenge.Inventory.Items
                 _procedureScheduler.SpawnAndDrop(callback);
             }
 
-            Storable.Do(x => x.RemoveFromStorage());
+            Storable.Do(x => x.Discard());
         }
 
         public void HoldLeftHand(Action callback = null)
@@ -269,7 +269,7 @@ namespace Strawhenge.Inventory.Items
                 _procedureScheduler.DisappearRightHand();
             }
 
-            Storable.Do(x => x.RemoveFromStorage());
+            Storable.Do(x => x.Discard());
         }
 
         public void SwapHands()

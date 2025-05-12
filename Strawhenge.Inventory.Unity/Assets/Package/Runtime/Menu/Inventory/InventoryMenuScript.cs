@@ -1,67 +1,126 @@
 using Strawhenge.Common;
 using Strawhenge.Common.Unity;
-using Strawhenge.Inventory.Unity.Menu.Apparel;
-using Strawhenge.Inventory.Unity.Menu.Hands;
-using Strawhenge.Inventory.Unity.Menu.Holsters;
-using Strawhenge.Inventory.Unity.Menu.Storage;
-using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Strawhenge.Inventory.Unity.Menu
 {
     public class InventoryMenuScript : MonoBehaviour
     {
-        [SerializeField] Canvas _canvas;
-        [SerializeField] ApparelSlotsMenuScript _apparelSlotsMenu;
+        [SerializeField] InventoryScript _inventory;
+        [SerializeField] EventScriptableObject[] _openEvents;
+        [SerializeField] UnityEvent _opened;
+        [SerializeField] EventScriptableObject[] _closeEvents;
+        [SerializeField] UnityEvent _closed;
+
+        [SerializeField] RectTransform _containerPanel;
         [SerializeField] HandsMenuScript _handsMenu;
         [SerializeField] HolstersMenuScript _holstersMenu;
-        [SerializeField] StorageMenuScript _storageMenu;
-        [SerializeField] EventScriptableObject[] _openEvents;
-        [SerializeField] EventScriptableObject[] _closeEvents;
-        [SerializeField] InventoryScript _inventoryScript;
+        [SerializeField] StoredItemsMenuScript _storedItemsMenu;
+        [SerializeField] ApparelSlotsMenuScript _apparelSlotsMenu;
+        [SerializeField] Button _handsMenuButton;
+        [SerializeField] Button _holstersMenuButton;
+        [SerializeField] Button _storageMenuButton;
+        [SerializeField] Button _apparelMenuButton;
 
         public InventoryMenuScriptContainer Container { private get; set; }
 
-        public bool IsOpen => _canvas.enabled;
+        void Awake()
+        {
+            _containerPanel.gameObject.SetActive(false);
+        }
 
         void Start()
         {
-            _canvas.enabled = false;
-            Container.Set(menu: this);
-            StartCoroutine(Setup());
+            Container.Set(this);
+
+            this.InvokeAsSoonAs(
+                condition: () => _inventory.IsConfigurationComplete,
+                () =>
+                {
+                    _handsMenu.SetInventory(_inventory.Inventory);
+                    _holstersMenu.SetInventory(_inventory.Inventory);
+                    _storedItemsMenu.SetInventory(_inventory.Inventory);
+                    _apparelSlotsMenu.SetInventory(_inventory.Inventory);
+
+                    _handsMenuButton.onClick.AddListener(SelectHandsMenu);
+                    _holstersMenuButton.onClick.AddListener(SelectHolstersMenu);
+                    _storageMenuButton.onClick.AddListener(SelectStoredItemsMenu);
+                    _apparelMenuButton.onClick.AddListener(SelectApparelMenu);
+
+                    SelectHandsMenu();
+                });
         }
 
-        void OnDestroy()
-        {
-            Container?.Clear();
-        }
-
-        IEnumerator Setup()
-        {
-            yield return new WaitUntil(() => _inventoryScript.IsConfigurationComplete);
-
-            // Sub menus currently must be configured whilst the canvas is enabled, otherwise they are positioned wrong.
-            // Remove this wait when a solution is found.
-            yield return new WaitUntil(() => _canvas.enabled);
-
-            _apparelSlotsMenu.Set(_inventoryScript.Inventory.ApparelSlots);
-            _holstersMenu.Set(_inventoryScript.Inventory.Holsters);
-            _handsMenu.Set(_inventoryScript.Inventory);
-            _storageMenu.Set(_inventoryScript.Inventory.StoredItems);
-        }
+        public bool IsOpen => _containerPanel.gameObject.activeSelf;
 
         [ContextMenu(nameof(Open))]
         public void Open()
         {
+            _containerPanel.gameObject.SetActive(true);
             _openEvents.ForEach(x => x.Invoke(gameObject));
-            _canvas.enabled = true;
+            _opened.Invoke();
         }
 
         [ContextMenu(nameof(Close))]
         public void Close()
         {
-            _canvas.enabled = false;
+            _containerPanel.gameObject.SetActive(false);
             _closeEvents.ForEach(x => x.Invoke(gameObject));
+            _closed.Invoke();
+        }
+
+        void SelectHandsMenu()
+        {
+            _handsMenu.gameObject.SetActive(true);
+            _holstersMenu.gameObject.SetActive(false);
+            _storedItemsMenu.gameObject.SetActive(false);
+            _apparelSlotsMenu.gameObject.SetActive(false);
+
+            _handsMenuButton.interactable = false;
+            _holstersMenuButton.interactable = true;
+            _storageMenuButton.interactable = true;
+            _apparelMenuButton.interactable = true;
+        }
+
+        void SelectHolstersMenu()
+        {
+            _handsMenu.gameObject.SetActive(false);
+            _holstersMenu.gameObject.SetActive(true);
+            _storedItemsMenu.gameObject.SetActive(false);
+            _apparelSlotsMenu.gameObject.SetActive(false);
+
+            _handsMenuButton.interactable = true;
+            _holstersMenuButton.interactable = false;
+            _storageMenuButton.interactable = true;
+            _apparelMenuButton.interactable = true;
+        }
+
+        void SelectStoredItemsMenu()
+        {
+            _handsMenu.gameObject.SetActive(false);
+            _holstersMenu.gameObject.SetActive(false);
+            _storedItemsMenu.gameObject.SetActive(true);
+            _apparelSlotsMenu.gameObject.SetActive(false);
+
+            _handsMenuButton.interactable = true;
+            _holstersMenuButton.interactable = true;
+            _storageMenuButton.interactable = false;
+            _apparelMenuButton.interactable = true;
+        }
+
+        void SelectApparelMenu()
+        {
+            _handsMenu.gameObject.SetActive(false);
+            _holstersMenu.gameObject.SetActive(false);
+            _storedItemsMenu.gameObject.SetActive(false);
+            _apparelSlotsMenu.gameObject.SetActive(true);
+
+            _handsMenuButton.interactable = true;
+            _holstersMenuButton.interactable = true;
+            _storageMenuButton.interactable = true;
+            _apparelMenuButton.interactable = false;
         }
     }
 }

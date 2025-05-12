@@ -1,12 +1,13 @@
 using Strawhenge.Common.Unity.Helpers;
 using Strawhenge.Inventory.Loot;
 using Strawhenge.Inventory.Unity;
+using Strawhenge.Inventory.Unity.Menu;
 using UnityEngine;
 
 public class NpcScript : MonoBehaviour
 {
     [SerializeField] InventoryScript _inventory;
-    [SerializeField] ItemContainerMenuScript _itemContainerMenu;
+    [SerializeField] LootMenuScript _itemContainerMenu;
     [SerializeField] Camera _camera;
 
     InventoryLootSource _lootSource;
