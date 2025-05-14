@@ -20,17 +20,15 @@ MonoBehaviour:
   _leftHandHoldItemData:
     _positionOffset: {x: 0, y: 0.107, z: 0.03}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationId: 0
+    _animationId: 4
     _drawFromHammerspaceId: 0
     _putInHammerspaceId: 0
-    _swapFromHandId: 0
   _rightHandHoldItemData:
     _positionOffset: {x: 0, y: 0.107, z: 0.03}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationId: 0
+    _animationId: 3
     _drawFromHammerspaceId: 0
     _putInHammerspaceId: 0
-    _swapFromHandId: 0
   _holsterItemData: []
   _consumable:
     _serialized:
