@@ -2,7 +2,7 @@
 
 namespace Strawhenge.Inventory.Unity.Items.Data
 {
-    public interface IItemAnimationSettings
+    public interface IDrawAnimationSettings
     {
         Maybe<string> DrawLeftHandTrigger { get; }
 

@@ -45,12 +45,12 @@ namespace Strawhenge.Inventory.Unity.Procedures
         public Procedure DrawLeftHand() => Draw(
             _handScripts.Left,
             _itemData.LeftHandHoldData,
-            _itemData.AnimationSettings.DrawLeftHandTrigger);
+            _itemData.DrawAnimationSettings.DrawLeftHandTrigger);
 
         public Procedure DrawRightHand() => Draw(
             _handScripts.Right,
             _itemData.RightHandHoldData,
-            _itemData.AnimationSettings.DrawRightHandTrigger);
+            _itemData.DrawAnimationSettings.DrawRightHandTrigger);
 
         Procedure Draw(HandScript hand, IHoldItemData holdData, Maybe<string> animationTrigger)
         {
@@ -66,10 +66,10 @@ namespace Strawhenge.Inventory.Unity.Procedures
         }
 
         public Procedure PutAwayLeftHand() =>
-            PutAway(_handScripts.Left, _itemData.AnimationSettings.PutAwayLeftHandTrigger);
+            PutAway(_handScripts.Left, _itemData.DrawAnimationSettings.PutAwayLeftHandTrigger);
 
         public Procedure PutAwayRightHand() =>
-            PutAway(_handScripts.Right, _itemData.AnimationSettings.PutAwayRightHandTrigger);
+            PutAway(_handScripts.Right, _itemData.DrawAnimationSettings.PutAwayRightHandTrigger);
 
         Procedure PutAway(HandScript hand, Maybe<string> animationTrigger)
         {

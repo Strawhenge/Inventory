@@ -50,7 +50,7 @@ namespace Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects
 
         [SerializeField]
         SerializedSource<IConsumableData, SerializedConsumableData, ConsumableDataScriptableObject> _consumable;
-       
+
         ItemScript IItemData.Prefab => _prefab;
 
         Maybe<ItemPickupScript> IItemData.PickupPrefab => _pickupPrefab == null
@@ -60,7 +60,7 @@ namespace Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects
         IHoldItemData IItemData.LeftHandHoldData => _leftHandHoldItemData;
 
         IHoldItemData IItemData.RightHandHoldData => _rightHandHoldItemData;
-        
-        IItemAnimationSettings IItemData.AnimationSettings => null; // TODO
+
+        IDrawAnimationSettings IItemData.DrawAnimationSettings => NullDrawAnimationSettings.Instance; // TODO
     }
 }

@@ -12,6 +12,6 @@ namespace Strawhenge.Inventory.Unity.Items.Data
 
         IHoldItemData RightHandHoldData { get; }
 
-        IItemAnimationSettings AnimationSettings { get; }
+        IDrawAnimationSettings DrawAnimationSettings { get; }
     }
 }
