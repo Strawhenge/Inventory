@@ -8,25 +8,25 @@ namespace Strawhenge.Inventory.Unity.Items.Data
     [Serializable]
     public class SerializedHolsterItemData : IHolsterItemData
     {
-        [FormerlySerializedAs("holster"), SerializeField] 
+        [FormerlySerializedAs("holster"), SerializeField]
         HolsterScriptableObject _holster;
 
-        [FormerlySerializedAs("positionOffset"), SerializeField] 
+        [FormerlySerializedAs("positionOffset"), SerializeField]
         Vector3 _positionOffset;
 
-        [FormerlySerializedAs("rotationOffset"), SerializeField] 
+        [FormerlySerializedAs("rotationOffset"), SerializeField]
         Vector3 _rotationOffset;
 
-        [FormerlySerializedAs("drawFromHolsterRightHandId"), SerializeField] 
+        [FormerlySerializedAs("drawFromHolsterRightHandId"), SerializeField]
         int _drawFromHolsterRightHandId;
 
-        [FormerlySerializedAs("putInHolsterRightHandId"), SerializeField] 
+        [FormerlySerializedAs("putInHolsterRightHandId"), SerializeField]
         int _putInHolsterRightHandId;
 
-        [FormerlySerializedAs("drawFromHolsterLeftHandId"), SerializeField] 
+        [FormerlySerializedAs("drawFromHolsterLeftHandId"), SerializeField]
         int _drawFromHolsterLeftHandId;
 
-        [FormerlySerializedAs("putInHolsterLeftHandId"), SerializeField] 
+        [FormerlySerializedAs("putInHolsterLeftHandId"), SerializeField]
         int _putInHolsterLeftHandId;
 
         public string HolsterName => _holster.Name;
@@ -34,6 +34,8 @@ namespace Strawhenge.Inventory.Unity.Items.Data
         public Vector3 PositionOffset => _positionOffset;
 
         public Quaternion RotationOffset => Quaternion.Euler(_rotationOffset);
+
+        public IDrawAnimationSettings DrawAnimationSettings => NullDrawAnimationSettings.Instance; // TODO
 
         public int DrawFromHolsterRightHandId => _drawFromHolsterRightHandId;
 

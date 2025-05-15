@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Items.Holsters;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Items.Holsters;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Components;
@@ -37,44 +38,48 @@ namespace Strawhenge.Inventory.Unity.Procedures
             _produceItemAnimationHandler = produceItemAnimationHandler;
         }
 
-        public Procedure DrawLeftHand() =>
-            Draw(_handScripts.Left, _itemData.LeftHandHoldData, _holsterItemData.DrawFromHolsterLeftHandId);
+        public Procedure DrawLeftHand() => Draw(
+            _handScripts.Left,
+            _itemData.LeftHandHoldData,
+            _holsterItemData.DrawAnimationSettings.DrawLeftHandTrigger);
 
-        public Procedure DrawRightHand() =>
-            Draw(_handScripts.Right, _itemData.RightHandHoldData, _holsterItemData.DrawFromHolsterRightHandId);
+        public Procedure DrawRightHand() => Draw(
+            _handScripts.Right,
+            _itemData.RightHandHoldData,
+            _holsterItemData.DrawAnimationSettings.DrawRightHandTrigger);
 
-        Procedure Draw(HandScript hand, IHoldItemData data, int id)
+        Procedure Draw(HandScript hand, IHoldItemData data, Maybe<string> animationTrigger)
         {
-            if (id == 0)
-                return new SimpleDrawFromHolster(_item, data, _holster, hand);
-
-            return new AnimatedDrawFromHolster(
-                _produceItemAnimationHandler, 
-                _item, 
-                data, 
-                _holster, 
-                hand, 
-                animationTrigger: "" // TODO
-                );
+            return animationTrigger
+                .Map<Procedure>(trigger => new AnimatedDrawFromHolster(
+                    _produceItemAnimationHandler,
+                    _item,
+                    data,
+                    _holster,
+                    hand,
+                    trigger)
+                )
+                .Reduce(() => new SimpleDrawFromHolster(_item, data, _holster, hand));
         }
 
-        public Procedure PutAwayLeftHand() => PutAway(_handScripts.Left, _holsterItemData.PutInHolsterLeftHandId);
+        public Procedure PutAwayLeftHand() =>
+            PutAway(_handScripts.Left, _holsterItemData.DrawAnimationSettings.PutAwayLeftHandTrigger);
 
-        public Procedure PutAwayRightHand() => PutAway(_handScripts.Right, _holsterItemData.PutInHolsterRightHandId);
+        public Procedure PutAwayRightHand() =>
+            PutAway(_handScripts.Right, _holsterItemData.DrawAnimationSettings.PutAwayRightHandTrigger);
 
-        Procedure PutAway(HandScript hand, int id)
+        Procedure PutAway(HandScript hand, Maybe<string> animationTrigger)
         {
-            if (id == 0)
-                return new SimplePutInHolster(_item, _holsterItemData, hand, _holster);
-
-            return new AnimatedPutInHolster(
-                _produceItemAnimationHandler,
-                _item,
-                _holsterItemData,
-                hand, 
-                _holster, 
-                animationTrigger: "" // TODO
-                );
+            return animationTrigger
+                .Map<Procedure>(trigger => new AnimatedPutInHolster(
+                    _produceItemAnimationHandler,
+                    _item,
+                    _holsterItemData,
+                    hand,
+                    _holster,
+                    trigger
+                ))
+                .Reduce(() => new SimplePutInHolster(_item, _holsterItemData, hand, _holster));
         }
 
         public Procedure Show() => new ShowInHolster(_item, _holsterItemData, _holster);
