@@ -22,5 +22,7 @@ namespace Strawhenge.Inventory.Unity.Items.Data
         public IHoldItemData LeftHandHoldData => NullHoldItemData.Instance;
 
         public IHoldItemData RightHandHoldData => NullHoldItemData.Instance;
+        
+        public IItemAnimationSettings AnimationSettings { get; } // TODO
     }
 }

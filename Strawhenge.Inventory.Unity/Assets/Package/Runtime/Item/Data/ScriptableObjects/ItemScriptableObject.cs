@@ -60,5 +60,7 @@ namespace Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects
         IHoldItemData IItemData.LeftHandHoldData => _leftHandHoldItemData;
 
         IHoldItemData IItemData.RightHandHoldData => _rightHandHoldItemData;
+        
+        IItemAnimationSettings IItemData.AnimationSettings => null; // TODO
     }
 }

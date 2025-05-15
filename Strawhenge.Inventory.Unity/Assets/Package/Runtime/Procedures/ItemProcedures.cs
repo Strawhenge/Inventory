@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Items;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Components;
@@ -41,39 +42,45 @@ namespace Strawhenge.Inventory.Unity.Procedures
         public Procedure AppearRightHand() =>
             new SimpleDrawFromHammerspace(_item, _itemData.RightHandHoldData, _handScripts.Right);
 
-        public Procedure DrawLeftHand() => Draw(_handScripts.Left, _itemData.LeftHandHoldData);
+        public Procedure DrawLeftHand() => Draw(
+            _handScripts.Left,
+            _itemData.LeftHandHoldData,
+            _itemData.AnimationSettings.DrawLeftHandTrigger);
 
-        public Procedure DrawRightHand() => Draw(_handScripts.Right, _itemData.RightHandHoldData);
+        public Procedure DrawRightHand() => Draw(
+            _handScripts.Right,
+            _itemData.RightHandHoldData,
+            _itemData.AnimationSettings.DrawRightHandTrigger);
 
-        Procedure Draw(HandScript hand, IHoldItemData holdData)
+        Procedure Draw(HandScript hand, IHoldItemData holdData, Maybe<string> animationTrigger)
         {
-            if (holdData.DrawFromHammerspaceId == 0)
-                return new SimpleDrawFromHammerspace(_item, holdData, hand);
-
-            return new AnimatedDrawFromHammerspace(
-                _produceItemAnimationHandler,
-                _item,
-                holdData,
-                hand,
-                animationTrigger: "" // TODO
-                );
+            return animationTrigger
+                .Map<Procedure>(trigger => new AnimatedDrawFromHammerspace(
+                    _produceItemAnimationHandler,
+                    _item,
+                    holdData,
+                    hand,
+                    trigger
+                ))
+                .Reduce(() => new SimpleDrawFromHammerspace(_item, holdData, hand));
         }
 
-        public Procedure PutAwayLeftHand() => PutAway(_handScripts.Left, _itemData.LeftHandHoldData);
+        public Procedure PutAwayLeftHand() =>
+            PutAway(_handScripts.Left, _itemData.AnimationSettings.PutAwayLeftHandTrigger);
 
-        public Procedure PutAwayRightHand() => PutAway(_handScripts.Right, _itemData.RightHandHoldData);
+        public Procedure PutAwayRightHand() =>
+            PutAway(_handScripts.Right, _itemData.AnimationSettings.PutAwayRightHandTrigger);
 
-        Procedure PutAway(HandScript hand, IHoldItemData holdData)
+        Procedure PutAway(HandScript hand, Maybe<string> animationTrigger)
         {
-            if (holdData.PutInHammerspaceId == 0)
-                return new SimplePutInHammerspace(_item, hand);
-
-            return new AnimatedPutInHammerspace(
-                _produceItemAnimationHandler,
-                _item, 
-                hand, 
-                animationTrigger: "" // TODO
-                );
+            return animationTrigger
+                .Map<Procedure>(trigger => new AnimatedPutInHammerspace(
+                    _produceItemAnimationHandler,
+                    _item,
+                    hand,
+                    trigger
+                ))
+                .Reduce(() => new SimplePutInHammerspace(_item, hand));
         }
 
         public Procedure DropLeftHand() => new SimpleDropFromHand(_item, _itemData, _itemContext, _handScripts.Left);
