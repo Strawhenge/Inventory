@@ -15,13 +15,5 @@ namespace Strawhenge.Inventory.Unity.Items.Data
         public Quaternion RotationOffset => Quaternion.Euler(Vector3.zero);
 
         public IDrawAnimationSettings DrawAnimationSettings => NullDrawAnimationSettings.Instance;
-
-        public int DrawFromHolsterRightHandId => 0;
-
-        public int PutInHolsterRightHandId => 0;
-
-        public int DrawFromHolsterLeftHandId => 0;
-
-        public int PutInHolsterLeftHandId => 0;
     }
 }

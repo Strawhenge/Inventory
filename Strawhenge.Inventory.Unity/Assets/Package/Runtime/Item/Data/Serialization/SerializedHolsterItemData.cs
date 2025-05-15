@@ -23,18 +23,6 @@ namespace Strawhenge.Inventory.Unity.Items.Data
             SerializedDrawAnimationSettings,
             DrawAnimationSettingsScriptableObject> _drawAnimationSettings;
 
-        [FormerlySerializedAs("drawFromHolsterRightHandId"), SerializeField]
-        int _drawFromHolsterRightHandId;
-
-        [FormerlySerializedAs("putInHolsterRightHandId"), SerializeField]
-        int _putInHolsterRightHandId;
-
-        [FormerlySerializedAs("drawFromHolsterLeftHandId"), SerializeField]
-        int _drawFromHolsterLeftHandId;
-
-        [FormerlySerializedAs("putInHolsterLeftHandId"), SerializeField]
-        int _putInHolsterLeftHandId;
-
         public string HolsterName => _holster.Name;
 
         public Vector3 PositionOffset => _positionOffset;
@@ -44,13 +32,5 @@ namespace Strawhenge.Inventory.Unity.Items.Data
         public IDrawAnimationSettings DrawAnimationSettings =>
             _drawAnimationSettings.GetValueOrDefault(
                 () => NullDrawAnimationSettings.Instance);
-
-        public int DrawFromHolsterRightHandId => _drawFromHolsterRightHandId;
-
-        public int PutInHolsterRightHandId => _putInHolsterRightHandId;
-
-        public int DrawFromHolsterLeftHandId => _drawFromHolsterLeftHandId;
-
-        public int PutInHolsterLeftHandId => _putInHolsterLeftHandId;
     }
 }
