@@ -4,7 +4,7 @@ namespace Strawhenge.Inventory.Unity.Items.Data
 {
     public class NullDrawAnimationSettings : IDrawAnimationSettings
     {
-        public static NullDrawAnimationSettings Instance { get; } = new NullDrawAnimationSettings();
+        public static NullDrawAnimationSettings Instance { get; } = new();
 
         NullDrawAnimationSettings()
         {

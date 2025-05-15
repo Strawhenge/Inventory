@@ -45,6 +45,11 @@ namespace Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects
         [FormerlySerializedAs("rightHandHoldItemData"), SerializeField]
         SerializedHoldItemData _rightHandHoldItemData;
 
+        [SerializeField] SerializedSource<
+            IDrawAnimationSettings,
+            SerializedDrawAnimationSettings,
+            DrawAnimationSettingsScriptableObject> _drawAnimationSettings;
+
         [FormerlySerializedAs("holsterItemData"), SerializeField]
         SerializedHolsterItemData[] _holsterItemData;
 
@@ -61,6 +66,8 @@ namespace Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects
 
         IHoldItemData IItemData.RightHandHoldData => _rightHandHoldItemData;
 
-        IDrawAnimationSettings IItemData.DrawAnimationSettings => NullDrawAnimationSettings.Instance; // TODO
+        IDrawAnimationSettings IItemData.DrawAnimationSettings =>
+            _drawAnimationSettings.GetValueOrDefault(
+                () => NullDrawAnimationSettings.Instance);
     }
 }
