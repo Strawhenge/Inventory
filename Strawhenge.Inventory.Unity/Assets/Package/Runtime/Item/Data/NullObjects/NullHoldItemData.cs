@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Items.Data
 {
@@ -15,5 +17,7 @@ namespace Strawhenge.Inventory.Unity.Items.Data
         public Quaternion RotationOffset => Quaternion.Euler(Vector3.zero);
 
         public int AnimationId => 0;
+
+        public IReadOnlyList<string> AnimationFlags => Array.Empty<string>();
     }
 }
