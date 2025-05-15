@@ -9,8 +9,6 @@ namespace Strawhenge.Inventory.Unity.Items.Data
 
         Quaternion RotationOffset { get; }
 
-        int AnimationId { get; }
-
         IReadOnlyList<string> AnimationFlags { get; }
     }
 }
