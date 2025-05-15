@@ -21,16 +21,22 @@ MonoBehaviour:
     _positionOffset: {x: -0.124, y: 0.181, z: 0.214}
     _rotationOffset: {x: 0, y: -60, z: 0}
     _animationId: 2
-    _drawFromHammerspaceId: 0
-    _putInHammerspaceId: 0
-    _swapFromHandId: 0
+    _animationFlags:
+    - Holding Box
   _rightHandHoldItemData:
     _positionOffset: {x: 0.124, y: 0.181, z: 0.214}
     _rotationOffset: {x: 0, y: -60, z: 0}
     _animationId: 2
-    _drawFromHammerspaceId: 0
-    _putInHammerspaceId: 0
-    _swapFromHandId: 0
+    _animationFlags:
+    - Holding Box
+  _drawAnimationSettings:
+    _serialized:
+      _drawLeftHandTrigger: Draw Item Left Hand
+      _drawRightHandTrigger: Draw Item Right Hand
+      _putAwayLeftHandTrigger: Put Away Item Left Hand
+      _putAwayRightHandTrigger: Put Away Item Right Hand
+    _scriptableObject: {fileID: 0}
+    _type: 0
   _holsterItemData: []
   _consumable:
     _serialized:
