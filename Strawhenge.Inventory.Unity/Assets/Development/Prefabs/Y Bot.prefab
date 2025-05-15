@@ -1367,7 +1367,7 @@ MonoBehaviour:
   _leftHand: {fileID: 2332462616707277587}
   _rightHand: {fileID: 2356412199393607007}
   _maxStoredItemsWeight: 100
-  _apparelContainerPrefab: {fileID: 7557200200927040949, guid: 5c3de92d1c034b94b9a70e2aadd14690, type: 3}
+  _lootDropPrefab: {fileID: 7557200200927040949, guid: 5c3de92d1c034b94b9a70e2aadd14690, type: 3}
 --- !u!114 &1019188618605515532
 MonoBehaviour:
   m_ObjectHideFlags: 0

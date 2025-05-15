@@ -5,9 +5,9 @@ using System.Linq;
 using UnityEngine;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 
-namespace Strawhenge.Inventory.Unity.Apparel
+namespace Strawhenge.Inventory.Unity.Loot
 {
-    public class StackableSetApparelDrop : IApparelDrop, ISetApparelContainerPrefab
+    public class LootDrop :  ISetLootDropPrefab
     {
         readonly Queue<ApparelPieceData> _queue = new();
         readonly IInventoryMenu _inventoryMenu;
@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         LootCollectionScript _containerPrefab;
 
-        public StackableSetApparelDrop(
+        public LootDrop(
             IInventoryMenu inventoryMenu,
             ILootMenu itemContainerMenu,
             DropPoint dropPoint,
