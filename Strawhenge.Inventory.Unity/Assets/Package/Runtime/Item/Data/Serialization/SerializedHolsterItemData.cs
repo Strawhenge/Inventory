@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
+﻿using Strawhenge.Common.Unity.Serialization;
+using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
 using System;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,6 +17,11 @@ namespace Strawhenge.Inventory.Unity.Items.Data
 
         [FormerlySerializedAs("rotationOffset"), SerializeField]
         Vector3 _rotationOffset;
+
+        [SerializeField] SerializedSource<
+            IDrawAnimationSettings,
+            SerializedDrawAnimationSettings,
+            DrawAnimationSettingsScriptableObject> _drawAnimationSettings;
 
         [FormerlySerializedAs("drawFromHolsterRightHandId"), SerializeField]
         int _drawFromHolsterRightHandId;
@@ -35,7 +41,9 @@ namespace Strawhenge.Inventory.Unity.Items.Data
 
         public Quaternion RotationOffset => Quaternion.Euler(_rotationOffset);
 
-        public IDrawAnimationSettings DrawAnimationSettings => NullDrawAnimationSettings.Instance; // TODO
+        public IDrawAnimationSettings DrawAnimationSettings =>
+            _drawAnimationSettings.GetValueOrDefault(
+                () => NullDrawAnimationSettings.Instance);
 
         public int DrawFromHolsterRightHandId => _drawFromHolsterRightHandId;
 
