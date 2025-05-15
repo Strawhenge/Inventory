@@ -55,7 +55,8 @@ namespace Strawhenge.Inventory.Unity.Procedures
                 _item,
                 holdData,
                 hand,
-                holdData.DrawFromHammerspaceId);
+                animationTrigger: "" // TODO
+                );
         }
 
         public Procedure PutAwayLeftHand() => PutAway(_handScripts.Left, _itemData.LeftHandHoldData);
@@ -67,7 +68,12 @@ namespace Strawhenge.Inventory.Unity.Procedures
             if (holdData.PutInHammerspaceId == 0)
                 return new SimplePutInHammerspace(_item, hand);
 
-            return new AnimatedPutInHammerspace(_produceItemAnimationHandler, _item, hand, holdData.PutInHammerspaceId);
+            return new AnimatedPutInHammerspace(
+                _produceItemAnimationHandler,
+                _item, 
+                hand, 
+                animationTrigger: "" // TODO
+                );
         }
 
         public Procedure DropLeftHand() => new SimpleDropFromHand(_item, _itemData, _itemContext, _handScripts.Left);

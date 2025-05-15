@@ -48,7 +48,14 @@ namespace Strawhenge.Inventory.Unity.Procedures
             if (id == 0)
                 return new SimpleDrawFromHolster(_item, data, _holster, hand);
 
-            return new AnimatedDrawFromHolster(_produceItemAnimationHandler, _item, data, _holster, hand, id);
+            return new AnimatedDrawFromHolster(
+                _produceItemAnimationHandler, 
+                _item, 
+                data, 
+                _holster, 
+                hand, 
+                animationTrigger: "" // TODO
+                );
         }
 
         public Procedure PutAwayLeftHand() => PutAway(_handScripts.Left, _holsterItemData.PutInHolsterLeftHandId);
@@ -60,7 +67,14 @@ namespace Strawhenge.Inventory.Unity.Procedures
             if (id == 0)
                 return new SimplePutInHolster(_item, _holsterItemData, hand, _holster);
 
-            return new AnimatedPutInHolster(_produceItemAnimationHandler, _item, _holsterItemData, hand, _holster, id);
+            return new AnimatedPutInHolster(
+                _produceItemAnimationHandler,
+                _item,
+                _holsterItemData,
+                hand, 
+                _holster, 
+                animationTrigger: "" // TODO
+                );
         }
 
         public Procedure Show() => new ShowInHolster(_item, _holsterItemData, _holster);

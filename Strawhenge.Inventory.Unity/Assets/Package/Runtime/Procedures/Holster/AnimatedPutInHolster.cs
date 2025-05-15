@@ -13,7 +13,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         readonly IHolsterItemData _data;
         readonly HandScript _hand;
         readonly HolsterScript _holster;
-        readonly int _animationId;
+        readonly string _animationTrigger;
 
         Action _endProcedure;
         bool _itemInHolster;
@@ -25,14 +25,14 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
             IHolsterItemData data,
             HandScript hand,
             HolsterScript holster, 
-            int animationId)
+            string animationTrigger)
         {
             _animationHandler = animationHandler;
             _itemScriptInstance = itemScriptInstance;
             _data = data;
             _hand = hand;
             _holster = holster;
-            _animationId = animationId;
+            _animationTrigger = animationTrigger;
         }
 
         protected override void OnBegin(Action endProcedure)
@@ -41,7 +41,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 
             _animationHandler.ReleaseItem += PutItemInHolster;
             _animationHandler.PutAwayEnded += End;
-            _animationHandler.PutAwayItem(_animationId);
+            _animationHandler.PutAwayItem(_animationTrigger);
         }
 
         protected override void OnSkip()
