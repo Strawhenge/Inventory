@@ -40,35 +40,35 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
             _endProcedure = endProcedure;
 
             _animationHandler.GrabItem += PutItemInHand;
-            _animationHandler.DrawEnded += AnimationHandler_DrawEnded;
+            _animationHandler.DrawEnded += End;
 
             _animationHandler.DrawItem(_animationTrigger);
         }
 
         protected override void OnSkip()
         {
-            if (_hasEnded) return;
-            AnimationHandler_DrawEnded();
+            End();
         }
 
-        void AnimationHandler_DrawEnded()
+        void End()
         {
+            if (_hasEnded) return;
             _hasEnded = true;
-            _animationHandler.DrawEnded -= AnimationHandler_DrawEnded;
 
-            if (!_itemInHand) PutItemInHand();
+            _animationHandler.GrabItem -= PutItemInHand;
+            _animationHandler.DrawEnded -= End;
 
+           PutItemInHand();
             _endProcedure();
         }
 
         void PutItemInHand()
         {
-            _animationHandler.GrabItem -= PutItemInHand;
+            if (_itemInHand) return;
+            _itemInHand = true;
 
             _holster.UnsetItem();
             _hand.SetItem(_itemScriptInstance, _holdItemData);
-
-            _itemInHand = true;
         }
     }
 }

@@ -36,37 +36,35 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         {
             _endProcedure = endProcedure;
 
-            _animationHandler.GrabItem += AnimationHandler_GrabItem;
-            _animationHandler.DrawEnded += AnimationHandler_DrawEnded;
+            _animationHandler.GrabItem += PlaceItemInHand;
+            _animationHandler.DrawEnded += End;
 
             _animationHandler.DrawItem(_animationTrigger);
         }
 
         protected override void OnSkip()
         {
-            if (_hasEnded) return;
-            AnimationHandler_DrawEnded();
+            End();
         }
 
-        void AnimationHandler_DrawEnded()
+        void End()
         {
+            if (_hasEnded) return;
             _hasEnded = true;
-            _animationHandler.GrabItem -= AnimationHandler_GrabItem;
 
-            if (!_itemInHand)
-            {
-                AnimationHandler_GrabItem();
-            }
+            _animationHandler.GrabItem -= PlaceItemInHand;
+            _animationHandler.DrawEnded -= End;
 
+            PlaceItemInHand();
             _endProcedure();
         }
 
-        void AnimationHandler_GrabItem()
+        void PlaceItemInHand()
         {
-            _animationHandler.GrabItem -= AnimationHandler_GrabItem;
+            if (_itemInHand) return;
+            _itemInHand = true;
 
             _hand.SetItem(_item, _holdItemData);
-            _itemInHand = true;
         }
     }
 }

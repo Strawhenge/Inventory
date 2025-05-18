@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         readonly HandScript _hand;
         readonly string _animationTrigger;
 
-        Action _endProcedure;
+        Action _endProcedure = () => { };
         bool _itemIsPutAway;
         bool _hasEnded;
 
@@ -32,34 +32,36 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         {
             _endProcedure = endProcedure;
 
-            _animationHandler.ReleaseItem += AnimationHandler_ReleaseItem;
-            _animationHandler.PutAwayEnded += AnimationHandler_PutAwayEnded;
+            _animationHandler.ReleaseItem += PutAwayItem;
+            _animationHandler.PutAwayEnded += End;
+
             _animationHandler.PutAwayItem(_animationTrigger);
         }
 
         protected override void OnSkip()
         {
-            if (_hasEnded) return;
-            AnimationHandler_PutAwayEnded();
+            End();
         }
 
-        void AnimationHandler_PutAwayEnded()
+        void End()
         {
+            if (_hasEnded) return;
             _hasEnded = true;
-            _animationHandler.PutAwayEnded -= AnimationHandler_PutAwayEnded;
-            if (!_itemIsPutAway) AnimationHandler_ReleaseItem();
 
+            _animationHandler.ReleaseItem -= PutAwayItem;
+            _animationHandler.PutAwayEnded -= End;
+
+            PutAwayItem();
             _endProcedure();
         }
 
-        void AnimationHandler_ReleaseItem()
+        void PutAwayItem()
         {
-            _animationHandler.ReleaseItem -= AnimationHandler_ReleaseItem;
+            if (_itemIsPutAway) return;
             _itemIsPutAway = true;
 
             _hand.UnsetItem();
             _itemScriptInstance.Despawn();
         }
     }
-
 }

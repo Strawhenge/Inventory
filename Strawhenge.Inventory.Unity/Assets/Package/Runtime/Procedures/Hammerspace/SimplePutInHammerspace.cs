@@ -21,7 +21,10 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
             endProcedure();
         }
 
-        protected override void OnSkip() => RemoveItemFromHand();
+        protected override void OnSkip()
+        {
+            RemoveItemFromHand();
+        }
 
         void RemoveItemFromHand()
         {

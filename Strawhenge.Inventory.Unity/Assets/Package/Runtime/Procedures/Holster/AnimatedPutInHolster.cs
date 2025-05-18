@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         readonly HolsterScript _holster;
         readonly string _animationTrigger;
 
-        Action _endProcedure;
+        Action _endProcedure = () => { };
         bool _itemInHolster;
         bool _hasEnded;
 
@@ -24,7 +24,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
             ItemScriptInstance itemScriptInstance,
             IHolsterItemData data,
             HandScript hand,
-            HolsterScript holster, 
+            HolsterScript holster,
             string animationTrigger)
         {
             _animationHandler = animationHandler;
@@ -41,33 +41,34 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
 
             _animationHandler.ReleaseItem += PutItemInHolster;
             _animationHandler.PutAwayEnded += End;
+
             _animationHandler.PutAwayItem(_animationTrigger);
         }
 
         protected override void OnSkip()
         {
-            if (_hasEnded) return;
             End();
-        }
-
-        void PutItemInHolster()
-        {
-            _itemInHolster = true;
-            _animationHandler.ReleaseItem -= PutItemInHolster;
-
-            _hand.UnsetItem();
-            _holster.SetItem(_itemScriptInstance, _data);
         }
 
         void End()
         {
+            if (_hasEnded) return;
             _hasEnded = true;
+
+            _animationHandler.ReleaseItem -= PutItemInHolster;
             _animationHandler.PutAwayEnded -= End;
 
-            if (!_itemInHolster) 
-                PutItemInHolster();
-
+            PutItemInHolster();
             _endProcedure();
+        }
+
+        void PutItemInHolster()
+        {
+            if (_itemInHolster) return;
+            _itemInHolster = true;
+
+            _hand.UnsetItem();
+            _holster.SetItem(_itemScriptInstance, _data);
         }
     }
 }
