@@ -1,7 +1,8 @@
 ﻿using Strawhenge.Inventory.Loot;
+using Strawhenge.Inventory.Unity.Items;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Items
+namespace Strawhenge.Inventory.Unity.Loot
 {
     public class LootCollectionItemContextHandlerScript : ItemContextHandlerScript
     {

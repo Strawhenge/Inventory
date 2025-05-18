@@ -10,7 +10,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         readonly ProduceItemAnimationHandler _animationHandler;
         readonly ItemScriptInstance _itemScriptInstance;
         readonly HandScript _hand;
-        readonly int _animationId;
+        readonly string _animationTrigger;
 
         Action _endProcedure;
         bool _itemIsPutAway;
@@ -20,12 +20,12 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
             ProduceItemAnimationHandler animationHandler,
             ItemScriptInstance itemScriptInstance,
             HandScript hand,
-            int animationId)
+            string animationTrigger)
         {
             _animationHandler = animationHandler;
             _itemScriptInstance = itemScriptInstance;
             _hand = hand;
-            _animationId = animationId;
+            _animationTrigger = animationTrigger;
         }
 
         protected override void OnBegin(Action endProcedure)
@@ -34,7 +34,7 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
 
             _animationHandler.ReleaseItem += AnimationHandler_ReleaseItem;
             _animationHandler.PutAwayEnded += AnimationHandler_PutAwayEnded;
-            _animationHandler.PutAwayItem(_animationId);
+            _animationHandler.PutAwayItem(_animationTrigger);
         }
 
         protected override void OnSkip()

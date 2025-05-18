@@ -13,6 +13,7 @@ using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Items.Data;
+using Strawhenge.Inventory.Unity.Loot;
 using Strawhenge.Inventory.Unity.Menu;
 using Strawhenge.Inventory.Unity.Procedures;
 using UnityEngine;
@@ -138,9 +139,9 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<StackableSetApparelDrop>()
-            .As<ISetApparelContainerPrefab>()
-            .As<IApparelDrop>()
+            .RegisterType<LootDrop>()
+            .AsSelf()
+            .As<ISetLootDropPrefab>()
             .InstancePerLifetimeScope();
 
         builder

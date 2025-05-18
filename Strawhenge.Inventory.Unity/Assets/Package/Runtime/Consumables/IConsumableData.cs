@@ -5,8 +5,8 @@ namespace Strawhenge.Inventory.Unity.Consumables
 {
     public interface IConsumableData
     {
-        int AnimationId { get; }
-        
+        IConsumeAnimationSettings AnimationSettings { get; }
+
         IEnumerable<EffectData> Effects { get; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Items.Consumables;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Items.Consumables;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Consumables;
@@ -19,16 +20,15 @@ namespace Strawhenge.Inventory.Unity.Procedures
             _consumeItemAnimationHandler = consumeItemAnimationHandler;
         }
 
-        public Procedure ConsumeLeftHand() => Consume(_data.AnimationId, true);
+        public Procedure ConsumeLeftHand() => Consume(_data.AnimationSettings.ConsumeLeftHandTrigger);
 
-        public Procedure ConsumeRightHand() => Consume(_data.AnimationId, false);
+        public Procedure ConsumeRightHand() => Consume(_data.AnimationSettings.ConsumeRightHandTrigger);
 
-        Procedure Consume(int animationId, bool inverted)
+        Procedure Consume(Maybe<string> animationTrigger)
         {
-            if (animationId == 0)
-                return Procedure.Completed;
-
-            return new AnimatedConsumeItem(_consumeItemAnimationHandler, animationId, inverted);
+            return animationTrigger
+                .Map<Procedure>(trigger => new AnimatedConsumeItem(_consumeItemAnimationHandler, trigger))
+                .Reduce(() => Procedure.Completed);
         }
     }
 }

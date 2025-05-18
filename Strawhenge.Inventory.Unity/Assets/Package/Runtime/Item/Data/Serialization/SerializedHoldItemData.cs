@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Strawhenge.Common.Unity.Serialization;
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,29 +8,23 @@ namespace Strawhenge.Inventory.Unity.Items.Data
     [Serializable]
     public class SerializedHoldItemData : IHoldItemData
     {
-        [FormerlySerializedAs("positionOffset"), SerializeField] 
+        [FormerlySerializedAs("positionOffset"), SerializeField]
         Vector3 _positionOffset;
 
-        [FormerlySerializedAs("rotationOffset"), SerializeField] 
+        [FormerlySerializedAs("rotationOffset"), SerializeField]
         Vector3 _rotationOffset;
 
-        [FormerlySerializedAs("animationId"), SerializeField] 
-        int _animationId;
-
-        [FormerlySerializedAs("drawFromHammerspaceId"), SerializeField] 
-        int _drawFromHammerspaceId;
-
-        [FormerlySerializedAs("putInHammerspaceId"), SerializeField] 
-        int _putInHammerspaceId;
+        [SerializeField] SerializedSource<
+            IHoldAnimationSettings,
+            SerializedHoldAnimationSettings,
+            HoldAnimationSettingsScriptableObject> _animationSettings;
 
         public Vector3 PositionOffset => _positionOffset;
 
         public Quaternion RotationOffset => Quaternion.Euler(_rotationOffset);
 
-        public int AnimationId => _animationId;
-
-        public int DrawFromHammerspaceId => _drawFromHammerspaceId;
-
-        public int PutInHammerspaceId => _putInHammerspaceId;
+        public IHoldAnimationSettings AnimationSettings =>
+            _animationSettings
+                .GetValueOrDefault(() => NullHoldAnimationSettings.Instance);
     }
 }

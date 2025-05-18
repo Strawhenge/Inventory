@@ -21,38 +21,52 @@ MonoBehaviour:
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 0}
     _animationId: 0
-    _drawFromHammerspaceId: 0
-    _putInHammerspaceId: 0
-    _swapFromHandId: 0
   _rightHandHoldItemData:
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 0}
     _animationId: 0
-    _drawFromHammerspaceId: 2
-    _putInHammerspaceId: 2
-    _swapFromHandId: 0
+  _drawAnimationSettings:
+    _serialized:
+      _drawLeftHandTrigger: Draw Item Left Hand
+      _drawRightHandTrigger: Draw Item Right Hand
+      _putAwayLeftHandTrigger: Put Away Item Left Hand
+      _putAwayRightHandTrigger: Put Away Item Right Hand
+    _scriptableObject: {fileID: 0}
+    _type: 1
   _holsterItemData:
   - _holster: {fileID: 11400000, guid: eecd875d513ed9e48904312b03aa25cd, type: 2}
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 0}
-    _drawFromHolsterRightHandId: 2
-    _putInHolsterRightHandId: 2
-    _drawFromHolsterLeftHandId: 0
-    _putInHolsterLeftHandId: 0
+    _drawAnimationSettings:
+      _serialized:
+        _drawLeftHandTrigger: 
+        _drawRightHandTrigger: Draw Item Right Hand
+        _putAwayLeftHandTrigger: 
+        _putAwayRightHandTrigger: Put Away Item Right Hand
+      _scriptableObject: {fileID: 0}
+      _type: 1
   - _holster: {fileID: 11400000, guid: 276c760cf1f22c44f980a4447ca6721d, type: 2}
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 0}
-    _drawFromHolsterRightHandId: 0
-    _putInHolsterRightHandId: 0
-    _drawFromHolsterLeftHandId: 0
-    _putInHolsterLeftHandId: 0
+    _drawAnimationSettings:
+      _serialized:
+        _drawLeftHandTrigger: Draw Item Left Hand
+        _drawRightHandTrigger: 
+        _putAwayLeftHandTrigger: Put Away Item Left Hand
+        _putAwayRightHandTrigger: 
+      _scriptableObject: {fileID: 0}
+      _type: 1
   - _holster: {fileID: 11400000, guid: f83b37b3d4e32c34cbf879593eca9c54, type: 2}
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 0}
-    _drawFromHolsterRightHandId: 1
-    _putInHolsterRightHandId: 1
-    _drawFromHolsterLeftHandId: 0
-    _putInHolsterLeftHandId: 0
+    _drawAnimationSettings:
+      _serialized:
+        _drawLeftHandTrigger: 
+        _drawRightHandTrigger: Draw Item Right Hand Over Shoulder
+        _putAwayLeftHandTrigger: 
+        _putAwayRightHandTrigger: Put Away Item Right Hand Over Shoulder
+      _scriptableObject: {fileID: 0}
+      _type: 1
   _consumable:
     _serialized:
       _animationId: 0

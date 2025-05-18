@@ -8,12 +8,6 @@ namespace Strawhenge.Inventory.Unity.Items.Data
 
         Quaternion RotationOffset { get; }
 
-        int DrawFromHolsterRightHandId { get; }
-
-        int PutInHolsterRightHandId { get; }
-
-        int DrawFromHolsterLeftHandId { get; }
-
-        int PutInHolsterLeftHandId { get; }
+        IDrawAnimationSettings DrawAnimationSettings { get; }
     }
 }

@@ -20,19 +20,38 @@ MonoBehaviour:
   _leftHandHoldItemData:
     _positionOffset: {x: 0, y: 0.107, z: 0.03}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationId: 4
-    _drawFromHammerspaceId: 0
-    _putInHammerspaceId: 0
+    _animationSettings:
+      _serialized:
+        _animationFlags:
+        - Holding Can Left Hand
+      _scriptableObject: {fileID: 0}
+      _type: 1
   _rightHandHoldItemData:
     _positionOffset: {x: 0, y: 0.107, z: 0.03}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationId: 3
-    _drawFromHammerspaceId: 0
-    _putInHammerspaceId: 0
+    _animationSettings:
+      _serialized:
+        _animationFlags:
+        - Holding Can Right Hand
+      _scriptableObject: {fileID: 0}
+      _type: 1
+  _drawAnimationSettings:
+    _serialized:
+      _drawLeftHandTrigger: Draw Item Left Hand
+      _drawRightHandTrigger: Draw Item Right Hand
+      _putAwayLeftHandTrigger: Put Away Item Left Hand
+      _putAwayRightHandTrigger: Put Away Item Right Hand
+    _scriptableObject: {fileID: 0}
+    _type: 1
   _holsterItemData: []
   _consumable:
     _serialized:
-      _animationId: 0
+      _animationSettings:
+        _serialized:
+          _consumeLeftHandTrigger: Drink Left Hand
+          _consumeRightHandTrigger: Drink Right Hand
+        _scriptableObject: {fileID: 0}
+        _type: 1
       _effects:
       - {fileID: 11400000, guid: c804ce871976c964f98bb96c7406e43a, type: 2}
     _scriptableObject: {fileID: 0}

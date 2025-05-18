@@ -8,10 +8,6 @@ namespace Strawhenge.Inventory.Unity.Items.Data
 
         Quaternion RotationOffset { get; }
 
-        int AnimationId { get; }
-
-        int DrawFromHammerspaceId { get; }
-
-        int PutInHammerspaceId { get; }
+        IHoldAnimationSettings AnimationSettings { get; }
     }
 }

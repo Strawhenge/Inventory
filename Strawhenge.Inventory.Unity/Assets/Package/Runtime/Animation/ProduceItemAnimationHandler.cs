@@ -33,20 +33,16 @@ namespace Strawhenge.Inventory.Unity.Animation
                 unsubscribe: _ => { });
         }
 
-        public void DrawItem(int animationId)
+        public void DrawItem(string trigger)
         {
             _drawItemEvents.PrepareIfRequired();
-
-            _animator.SetInteger(AnimatorParameters.DrawItemAnimationId, animationId);
-            _animator.SetTrigger(AnimatorParameters.DrawItem);
+            _animator.SetTrigger(trigger);
         }
 
-        public void PutAwayItem(int animationId)
+        public void PutAwayItem(string trigger)
         {
             _putAwayItemEvents.PrepareIfRequired();
-
-            _animator.SetInteger(AnimatorParameters.PutAwayItemAnimationId, animationId);
-            _animator.SetTrigger(AnimatorParameters.PutAwayItem);
+            _animator.SetTrigger(trigger);
         }
 
         public void Interupt()

@@ -1,17 +1,18 @@
 ﻿using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
+using Strawhenge.Inventory.Unity.Loot;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
     public class ApparelViewFactory : IApparelViewFactory
     {
         readonly ApparelSlotScripts _slotScripts;
-        readonly IApparelDrop _apparelDrop;
+        readonly LootDrop _apparelDrop;
         readonly ILogger _logger;
 
         public ApparelViewFactory(
             ApparelSlotScripts slotScripts,
-            IApparelDrop apparelDrop,
+            LootDrop apparelDrop,
             ILogger logger)
         {
             _slotScripts = slotScripts;

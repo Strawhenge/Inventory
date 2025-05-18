@@ -3,6 +3,7 @@ using Strawhenge.Inventory.Loader;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Components;
 using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Loot;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity
@@ -12,7 +13,7 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] LeftHandScript _leftHand;
         [SerializeField] RightHandScript _rightHand;
         [SerializeField] int _maxStoredItemsWeight;
-        [SerializeField] LootCollectionScript _apparelContainerPrefab;
+        [SerializeField] LootCollectionScript _lootDropPrefab;
 
         public bool IsConfigurationComplete { get; private set; }
 
@@ -24,7 +25,7 @@ namespace Strawhenge.Inventory.Unity
 
         public HolsterScriptsContainer HolsterScriptsContainer { private get; set; }
 
-        public ISetApparelContainerPrefab ApparelContainer { private get; set; }
+        public ISetLootDropPrefab LootDrop { private get; set; }
 
         public InventoryLoader Loader { private get; set; }
 
@@ -33,7 +34,7 @@ namespace Strawhenge.Inventory.Unity
         public void Load(LoadInventoryData data)
         {
             this.InvokeAsSoonAs(
-                condition: () => IsConfigurationComplete, 
+                condition: () => IsConfigurationComplete,
                 action: () => Loader.Load(data));
         }
 
@@ -58,8 +59,8 @@ namespace Strawhenge.Inventory.Unity
                 Inventory.ApparelSlots.Add(apparelSlot.SlotName);
             }
 
-            if (_apparelContainerPrefab != null)
-                ApparelContainer.Set(_apparelContainerPrefab);
+            if (_lootDropPrefab != null)
+                LootDrop.Set(_lootDropPrefab);
 
             Inventory.StoredItems.SetWeightCapacity(_maxStoredItemsWeight);
 
