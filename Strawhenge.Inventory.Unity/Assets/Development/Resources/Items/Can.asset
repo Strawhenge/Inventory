@@ -37,6 +37,12 @@ MonoBehaviour:
   _consumable:
     _serialized:
       _animationId: 1
+      _animationSettings:
+        _serialized:
+          _consumeLeftHandTrigger: Drink Left Hand
+          _consumeRightHandTrigger: Drink Right Hand
+        _scriptableObject: {fileID: 0}
+        _type: 1
       _effects:
       - {fileID: 11400000, guid: c804ce871976c964f98bb96c7406e43a, type: 2}
     _scriptableObject: {fileID: 0}
