@@ -8,8 +8,9 @@ namespace Strawhenge.Inventory.Unity.Procedures.ConsumeItem
     {
         readonly ConsumeItemAnimationHandler _consumeItemAnimationHandler;
         readonly string _animationTrigger;
-        Action _endProcedure;
-        bool _isCompleted;
+
+        Action _endProcedure = () => { };
+        bool _hasEnded;
 
         public AnimatedConsumeItem(
             ConsumeItemAnimationHandler consumeItemAnimationHandler,
@@ -23,22 +24,21 @@ namespace Strawhenge.Inventory.Unity.Procedures.ConsumeItem
         {
             _endProcedure = endProcedure;
 
-            _consumeItemAnimationHandler.Consumed += OnCompleted;
+            _consumeItemAnimationHandler.Consumed += End;
             _consumeItemAnimationHandler.Consume(_animationTrigger);
         }
 
         protected override void OnSkip()
         {
-            if (_isCompleted) return;
-            OnCompleted();
+            End();
         }
 
-        void OnCompleted()
+        void End()
         {
-            if (_isCompleted) return;
-            _isCompleted = true;
-            _consumeItemAnimationHandler.Consumed -= OnCompleted;
+            if (_hasEnded) return;
+            _hasEnded = true;
 
+            _consumeItemAnimationHandler.Consumed -= End;
             _endProcedure();
         }
     }
