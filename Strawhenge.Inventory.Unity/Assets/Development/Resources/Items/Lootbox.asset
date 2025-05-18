@@ -20,15 +20,21 @@ MonoBehaviour:
   _leftHandHoldItemData:
     _positionOffset: {x: -0.124, y: 0.181, z: 0.214}
     _rotationOffset: {x: 0, y: -60, z: 0}
-    _animationId: 2
-    _animationFlags:
-    - Holding Box
+    _animationSettings:
+      _serialized:
+        _animationFlags:
+        - Holding Box
+      _scriptableObject: {fileID: 0}
+      _type: 1
   _rightHandHoldItemData:
     _positionOffset: {x: 0.124, y: 0.181, z: 0.214}
     _rotationOffset: {x: 0, y: -60, z: 0}
-    _animationId: 2
-    _animationFlags:
-    - Holding Box
+    _animationSettings:
+      _serialized:
+        _animationFlags:
+        - Holding Box
+      _scriptableObject: {fileID: 0}
+      _type: 1
   _drawAnimationSettings:
     _serialized:
       _drawLeftHandTrigger: Draw Item Left Hand
@@ -40,7 +46,12 @@ MonoBehaviour:
   _holsterItemData: []
   _consumable:
     _serialized:
-      _animationId: 0
+      _animationSettings:
+        _serialized:
+          _consumeLeftHandTrigger: 
+          _consumeRightHandTrigger: 
+        _scriptableObject: {fileID: 0}
+        _type: 0
       _effects: []
     _scriptableObject: {fileID: 0}
     _type: 0

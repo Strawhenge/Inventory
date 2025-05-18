@@ -20,11 +20,21 @@ MonoBehaviour:
   _leftHandHoldItemData:
     _positionOffset: {x: 0, y: 0.107, z: 0.03}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationFlags: []
+    _animationSettings:
+      _serialized:
+        _animationFlags:
+        - Holding Can Left Hand
+      _scriptableObject: {fileID: 0}
+      _type: 1
   _rightHandHoldItemData:
     _positionOffset: {x: 0, y: 0.107, z: 0.03}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationFlags: []
+    _animationSettings:
+      _serialized:
+        _animationFlags:
+        - Holding Can Right Hand
+      _scriptableObject: {fileID: 0}
+      _type: 1
   _drawAnimationSettings:
     _serialized:
       _drawLeftHandTrigger: Draw Item Left Hand
@@ -36,7 +46,6 @@ MonoBehaviour:
   _holsterItemData: []
   _consumable:
     _serialized:
-      _animationId: 1
       _animationSettings:
         _serialized:
           _consumeLeftHandTrigger: Drink Left Hand

@@ -20,15 +20,21 @@ MonoBehaviour:
   _leftHandHoldItemData:
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationId: 1
-    _animationFlags:
-    - Holding Big Stick Left Hand
+    _animationSettings:
+      _serialized:
+        _animationFlags:
+        - Holding Big Stick Left Hand
+      _scriptableObject: {fileID: 0}
+      _type: 1
   _rightHandHoldItemData:
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationId: 1
-    _animationFlags:
-    - Holding Big Stick Right Hand
+    _animationSettings:
+      _serialized:
+        _animationFlags:
+        - Holding Big Stick Right Hand
+      _scriptableObject: {fileID: 0}
+      _type: 1
   _drawAnimationSettings:
     _serialized:
       _drawLeftHandTrigger: Draw Item Left Hand Over Shoulder
@@ -51,7 +57,12 @@ MonoBehaviour:
       _type: 1
   _consumable:
     _serialized:
-      _animationId: 0
+      _animationSettings:
+        _serialized:
+          _consumeLeftHandTrigger: 
+          _consumeRightHandTrigger: 
+        _scriptableObject: {fileID: 0}
+        _type: 0
       _effects: []
     _scriptableObject: {fileID: 0}
     _type: 0
