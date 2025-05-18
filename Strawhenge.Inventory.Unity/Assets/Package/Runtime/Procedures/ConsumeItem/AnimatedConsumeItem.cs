@@ -30,8 +30,6 @@ namespace Strawhenge.Inventory.Unity.Procedures.ConsumeItem
         protected override void OnSkip()
         {
             if (_isCompleted) return;
-
-            _consumeItemAnimationHandler.Interrupt();
             OnCompleted();
         }
 

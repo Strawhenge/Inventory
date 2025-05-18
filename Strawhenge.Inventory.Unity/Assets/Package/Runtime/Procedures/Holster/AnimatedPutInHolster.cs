@@ -47,8 +47,6 @@ namespace Strawhenge.Inventory.Unity.Procedures.Holster
         protected override void OnSkip()
         {
             if (_hasEnded) return;
-
-            _animationHandler.Interupt();
             End();
         }
 

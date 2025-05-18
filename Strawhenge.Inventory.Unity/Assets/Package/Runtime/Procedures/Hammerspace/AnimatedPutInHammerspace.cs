@@ -40,8 +40,6 @@ namespace Strawhenge.Inventory.Unity.Procedures.Hammerspace
         protected override void OnSkip()
         {
             if (_hasEnded) return;
-
-            _animationHandler.Interupt();
             AnimationHandler_PutAwayEnded();
         }
 

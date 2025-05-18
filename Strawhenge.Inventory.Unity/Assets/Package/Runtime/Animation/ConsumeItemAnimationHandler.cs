@@ -26,12 +26,6 @@ namespace Strawhenge.Inventory.Unity.Animation
             _animator.SetTrigger(trigger);
         }
 
-        public void Interrupt()
-        {
-            _animator.ResetTrigger(AnimatorParameters.Interrupt);
-            _animator.SetTrigger(AnimatorParameters.Interrupt);
-        }
-
         void OnConsumeEnded() => Consumed?.Invoke();
     }
 }
