@@ -25,17 +25,13 @@ namespace Strawhenge.Inventory.Unity.Animation
             _events.PrepareIfRequired();
             _animator.SetTrigger(trigger);
         }
-        
+
         public void Interrupt()
         {
             _animator.ResetTrigger(AnimatorParameters.Interrupt);
             _animator.SetTrigger(AnimatorParameters.Interrupt);
         }
 
-        void OnConsumeEnded()
-        {
-            _animator.ResetTrigger(AnimatorParameters.ConsumeItem);
-            Consumed?.Invoke();
-        }
+        void OnConsumeEnded() => Consumed?.Invoke();
     }
 }
