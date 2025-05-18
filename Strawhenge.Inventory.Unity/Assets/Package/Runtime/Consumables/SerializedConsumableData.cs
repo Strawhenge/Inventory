@@ -15,6 +15,8 @@ namespace Strawhenge.Inventory.Unity.Consumables
 
         public int AnimationId => _animationId;
 
+        public IConsumeAnimationSettings AnimationSettings => NullConsumeAnimationSettings.Instance;
+
         public IEnumerable<EffectData> Effects => _effects.Select(x => x.Data);
     }
 }

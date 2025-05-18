@@ -20,11 +20,11 @@ MonoBehaviour:
   _leftHandHoldItemData:
     _positionOffset: {x: 0, y: 0.107, z: 0.03}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationId: 4
+    _animationFlags: []
   _rightHandHoldItemData:
     _positionOffset: {x: 0, y: 0.107, z: 0.03}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationId: 3
+    _animationFlags: []
   _drawAnimationSettings:
     _serialized:
       _drawLeftHandTrigger: Draw Item Left Hand
@@ -36,7 +36,7 @@ MonoBehaviour:
   _holsterItemData: []
   _consumable:
     _serialized:
-      _animationId: 0
+      _animationId: 1
       _effects:
       - {fileID: 11400000, guid: c804ce871976c964f98bb96c7406e43a, type: 2}
     _scriptableObject: {fileID: 0}
