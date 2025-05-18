@@ -14,6 +14,7 @@ namespace Strawhenge.Inventory
         readonly ApparelPieceFactory _apparelPieceFactory;
         readonly ItemLocator _itemLocator;
         readonly IItemRepository _itemRepository;
+        readonly ProcedureQueue _procedureQueue;
 
         public Inventory(
             IItemProceduresFactory itemProceduresFactory,
@@ -27,14 +28,14 @@ namespace Strawhenge.Inventory
             StoredItems = new StoredItems(logger);
             ApparelSlots = new ApparelSlots(logger);
 
-            var procedureQueue = new ProcedureQueue();
+            _procedureQueue = new ProcedureQueue();
             var effectFactory = new EffectFactory(effectFactoryLocator, logger);
 
             _itemFactory = new ItemFactory(
                 Hands,
                 Holsters,
                 StoredItems,
-                procedureQueue,
+                _procedureQueue,
                 effectFactory,
                 itemProceduresFactory);
 
@@ -81,5 +82,7 @@ namespace Strawhenge.Inventory
                     .FindByName(itemName)
                     .Map(CreateTemporaryItem));
         }
+
+        public void Interrupt() => _procedureQueue.SkipAllScheduledProcedures();
     }
 }

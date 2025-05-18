@@ -31,6 +31,9 @@ namespace Strawhenge.Inventory.Unity
 
         public InventoryInfoGenerator InfoGenerator { private get; set; }
 
+        [ContextMenu(nameof(Interrupt))]
+        public void Interrupt() => Inventory.Interrupt();
+
         public void Load(LoadInventoryData data)
         {
             this.InvokeAsSoonAs(
