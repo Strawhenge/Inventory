@@ -10,16 +10,12 @@ namespace Strawhenge.Inventory.Unity.Consumables
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Consumable")]
     public class ConsumableDataScriptableObject : ScriptableObject, IConsumableData
     {
-        [SerializeField] int _animationId;
-
         [SerializeField] SerializedSource<
             IConsumeAnimationSettings,
             SerializedConsumeAnimationSettings,
             ConsumeAnimationSettingsScriptableObject> _animationSettings;
 
         [SerializeField] EffectScriptableObject[] _effects;
-
-        public int AnimationId => _animationId;
 
         public IConsumeAnimationSettings AnimationSettings =>
             _animationSettings
