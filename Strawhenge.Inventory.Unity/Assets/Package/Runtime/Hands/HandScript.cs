@@ -20,7 +20,7 @@ namespace Strawhenge.Inventory.Unity.Items
         public void SetItem(ItemScriptInstance item, IHoldItemData data)
         {
             if (_holdItemData != null)
-                AnimationHandler.Unhold(_holdItemData.AnimationFlags);
+                AnimationHandler.Unhold(_holdItemData.AnimationSettings.AnimationFlags);
             
             _holdItemData = data;
 
@@ -30,14 +30,14 @@ namespace Strawhenge.Inventory.Unity.Items
             itemTransform.localPosition = data.PositionOffset;
             itemTransform.localRotation = data.RotationOffset;
 
-            AnimationHandler.Hold(_holdItemData.AnimationFlags);
+            AnimationHandler.Hold(_holdItemData.AnimationSettings.AnimationFlags);
             _itemSet.Invoke(itemScript);
         }
 
         public void UnsetItem()
         {
             if (_holdItemData != null)
-                AnimationHandler.Unhold(_holdItemData.AnimationFlags);
+                AnimationHandler.Unhold(_holdItemData.AnimationSettings.AnimationFlags);
             
             _itemUnset.Invoke();
         }

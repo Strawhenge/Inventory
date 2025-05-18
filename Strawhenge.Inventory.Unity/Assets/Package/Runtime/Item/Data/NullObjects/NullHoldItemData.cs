@@ -16,6 +16,6 @@ namespace Strawhenge.Inventory.Unity.Items.Data
 
         public Quaternion RotationOffset => Quaternion.Euler(Vector3.zero);
 
-        public IReadOnlyList<string> AnimationFlags => Array.Empty<string>();
+        public IHoldAnimationSettings AnimationSettings => NullHoldAnimationSettings.Instance;
     }
 }
