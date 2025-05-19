@@ -1,5 +1,6 @@
 ﻿using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
+using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Loot;
 
 namespace Strawhenge.Inventory.Unity.Apparel
@@ -20,7 +21,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
             _logger = logger;
         }
 
-        public IApparelView Create(ApparelPieceData data)
+        public IApparelView Create(ApparelPiece data)
         {
             if (!_slotScripts.FindByName(data.Slot).HasSome(out var slotScript))
             {

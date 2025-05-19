@@ -1,10 +1,7 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.Consumables;
-using Strawhenge.Inventory.Items.Holsters;
-using Strawhenge.Inventory.Items.Storables;
 using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
+using Strawhenge.Inventory.Unity.Items.ItemData;
 using System;
 using System.Linq;
 using UnityEditor;
@@ -16,13 +13,13 @@ namespace Strawhenge.Inventory.Unity.Editor
     {
         readonly EditorTarget<Inventory> _target;
 
-        Item _item;
+        InventoryItem _item;
         string _locateItemText;
         bool _displayLeftHand;
         bool _displayRightHand;
         bool _displayHolsters;
         bool _displayInventory;
-        Item _displayItem;
+        InventoryItem _displayItem;
 
         public ItemManagerEditorHelper(Func<Inventory> getTarget)
         {
@@ -142,7 +139,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
         }
 
-        void InspectItemWithToggle(Item item)
+        void InspectItemWithToggle(InventoryItem item)
         {
             bool show = EditorGUILayout.Foldout(item == _displayItem, item.Name, toggleOnLabelClick: true);
 
@@ -159,7 +156,7 @@ namespace Strawhenge.Inventory.Unity.Editor
                 InspectItem(item);
         }
 
-        void InspectItem(Item item)
+        void InspectItem(InventoryItem item)
         {
             EditorGUILayout.HelpBox(GetItemInfoString(item), MessageType.Info);
 
@@ -178,29 +175,29 @@ namespace Strawhenge.Inventory.Unity.Editor
 
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button(nameof(Item.HoldLeftHand)))
+            if (GUILayout.Button(nameof(InventoryItem.HoldLeftHand)))
                 item.HoldLeftHand();
-            if (GUILayout.Button(nameof(Item.HoldRightHand)))
+            if (GUILayout.Button(nameof(InventoryItem.HoldRightHand)))
                 item.HoldRightHand();
-            if (GUILayout.Button(nameof(Item.SwapHands)))
+            if (GUILayout.Button(nameof(InventoryItem.SwapHands)))
                 item.SwapHands();
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button(nameof(Item.Drop)))
+            if (GUILayout.Button(nameof(InventoryItem.Drop)))
                 item.Drop();
-            if (GUILayout.Button(nameof(Item.PutAway)))
+            if (GUILayout.Button(nameof(InventoryItem.PutAway)))
                 item.PutAway();
-            if (GUILayout.Button(nameof(Item.ClearFromHands)))
+            if (GUILayout.Button(nameof(InventoryItem.ClearFromHands)))
                 item.ClearFromHands();
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button(nameof(Item.UnequipFromHolster)))
+            if (GUILayout.Button(nameof(InventoryItem.UnequipFromHolster)))
                 item.UnequipFromHolster();
-            if (GUILayout.Button(nameof(Item.Discard)))
+            if (GUILayout.Button(nameof(InventoryItem.Discard)))
                 item.Discard();
 
             EditorGUILayout.EndHorizontal();
@@ -220,22 +217,22 @@ namespace Strawhenge.Inventory.Unity.Editor
                 EditorGUILayout.LabelField(holster.HolsterName);
                 EditorGUILayout.BeginHorizontal();
 
-                if (GUILayout.Button(nameof(HolsterForItem.Equip)))
+                if (GUILayout.Button(nameof(InventoryItemHolster.Equip)))
                     holster.Equip();
-                if (GUILayout.Button(nameof(HolsterForItem.Unequip)))
+                if (GUILayout.Button(nameof(InventoryItemHolster.Unequip)))
                     holster.Unequip();
 
                 EditorGUILayout.EndHorizontal();
             }
         }
 
-        string GetItemInfoString(Item item)
+        string GetItemInfoString(InventoryItem item)
         {
             var lines = new[]
             {
                 item.Name,
                 item.IsTwoHanded ? "Two Handed" : "One Handed",
-                $"Holster: {(item.Holsters.FirstOrDefault(x => x.IsEquipped) is HolsterForItem holster ? holster.HolsterName : "None")}"
+                $"Holster: {(item.Holsters.FirstOrDefault(x => x.IsEquipped) is InventoryItemHolster holster ? holster.HolsterName : "None")}"
             };
 
             return string.Join(Environment.NewLine, lines);
@@ -257,7 +254,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             ? GetItemInHandString(_target.Instance.Hands.RightHand.CurrentItem)
             : "NA";
 
-        string GetItemInHandString(Maybe<Item> item) => item
+        string GetItemInHandString(Maybe<InventoryItem> item) => item
             .Map(x => x.Name)
             .Reduce(() => "none");
     }

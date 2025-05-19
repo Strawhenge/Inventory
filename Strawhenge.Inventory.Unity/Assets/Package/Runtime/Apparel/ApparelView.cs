@@ -1,4 +1,5 @@
 ﻿using Strawhenge.Inventory.Apparel;
+using Strawhenge.Inventory.Unity.Apparel.ApparelPieceData;
 using Strawhenge.Inventory.Unity.Loot;
 using UnityEngine;
 
@@ -6,25 +7,25 @@ namespace Strawhenge.Inventory.Unity.Apparel
 {
     public class ApparelView : IApparelView
     {
-        readonly ApparelPieceData _data;
+        readonly ApparelPiece _apparelPiece;
         readonly LootDrop _lootDrop;
         readonly Transform _slot;
 
         GameObject _apparelGameObject;
 
         public ApparelView(
-            ApparelPieceData data,
+            ApparelPiece apparelPiece,
             LootDrop lootDrop,
             Transform slot)
         {
-            _data = data;
+            _apparelPiece = apparelPiece;
             _lootDrop = lootDrop;
             _slot = slot;
         }
 
         public void Show()
         {
-            _data
+            _apparelPiece
                 .Get<IApparelPieceData>()
                 .Do(data =>
                 {
@@ -43,7 +44,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
         public void Drop()
         {
             Object.Destroy(_apparelGameObject);
-            _lootDrop.Drop(_data);
+            _lootDrop.Drop(_apparelPiece);
         }
     }
 }

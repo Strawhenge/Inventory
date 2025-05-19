@@ -6,12 +6,12 @@ namespace Strawhenge.Inventory.Loader
 {
     public class LoadInventoryItem
     {
-        public LoadInventoryItem(ItemData itemData)
+        public LoadInventoryItem(Item item)
         {
-            ItemData = itemData ?? throw new ArgumentNullException(nameof(itemData));
+            Item = item ?? throw new ArgumentNullException(nameof(item));
         }
 
-        public ItemData ItemData { get; }
+        public Item Item { get; }
 
         public Maybe<string> HolsterName { get; private set; } = Maybe.None<string>();
 

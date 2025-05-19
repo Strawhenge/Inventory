@@ -6,11 +6,11 @@ namespace Strawhenge.Inventory.Tests
 {
     public class ItemRepositoryFake : IItemRepository
     {
-        readonly List<ItemData> _items = new List<ItemData>();
+        readonly List<Item> _items = new List<Item>();
 
-        public Maybe<ItemData> FindByName(string name) =>
+        public Maybe<Item> FindByName(string name) =>
             _items.FirstOrNone(x => x.Name == name);
 
-        public void Add(ItemData item) => _items.Add(item);
+        public void Add(Item item) => _items.Add(item);
     }
 }

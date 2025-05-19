@@ -1,4 +1,4 @@
-using Strawhenge.Inventory.Containers;
+using Strawhenge.Inventory.Items;
 using UnityEngine;
 using UnityEngine.UI;
 

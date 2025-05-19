@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Drop
 {
-    public class Drop_from_hammerspace : BaseItemTest
+    public class Drop_from_hammerspace : BaseInventoryItemTest
     {
         public Drop_from_hammerspace(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {

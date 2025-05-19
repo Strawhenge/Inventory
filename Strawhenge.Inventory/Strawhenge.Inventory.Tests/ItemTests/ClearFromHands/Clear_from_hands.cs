@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
 {
-    public class Clear_from_hands : BaseItemTest
+    public class Clear_from_hands : BaseInventoryItemTest
     {
         public Clear_from_hands(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {

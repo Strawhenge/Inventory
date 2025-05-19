@@ -10,12 +10,11 @@ using Strawhenge.Inventory.Loader;
 using Strawhenge.Inventory.Loot;
 using Strawhenge.Inventory.Unity;
 using Strawhenge.Inventory.Unity.Animation;
-using Strawhenge.Inventory.Unity.Apparel;
-using Strawhenge.Inventory.Unity.Components;
-using Strawhenge.Inventory.Unity.Items.Data;
 using Strawhenge.Inventory.Unity.Loot;
 using Strawhenge.Inventory.Unity.Menu;
-using Strawhenge.Inventory.Unity.Procedures;
+using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Items.Procedures;
+using Strawhenge.Inventory.Unity.Apparel;
 using UnityEngine;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 
@@ -51,8 +50,8 @@ public static class DependencyInjection
             .SingleInstance();
 
         builder
-            .RegisterType<ResourcesApparelRepository>()
-            .As<IApparelRepository>()
+            .RegisterType<ResourcesApparelPieceRepository>()
+            .As<IApparelPieceRepository>()
             .SingleInstance();
 
         builder

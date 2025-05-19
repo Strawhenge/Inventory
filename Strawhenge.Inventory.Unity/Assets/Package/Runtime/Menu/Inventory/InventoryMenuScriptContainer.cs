@@ -6,7 +6,7 @@ namespace Strawhenge.Inventory.Unity.Menu
     public class InventoryMenuScriptContainer : IInventoryMenu
     {
         readonly ILogger _logger;
-        Menu.InventoryMenuScript _menu;
+        InventoryMenuScript _menu;
 
         public InventoryMenuScriptContainer(ILogger logger)
         {
@@ -23,7 +23,7 @@ namespace Strawhenge.Inventory.Unity.Menu
         {
             if (ReferenceEquals(_menu, null))
             {
-                _logger.LogError($"Missing '{nameof(Menu.InventoryMenuScript)}'.");
+                _logger.LogError($"Missing '{nameof(InventoryMenuScript)}'.");
                 return;
             }
 
@@ -36,7 +36,7 @@ namespace Strawhenge.Inventory.Unity.Menu
         {
             if (ReferenceEquals(_menu, null))
             {
-                _logger.LogError($"Missing '{nameof(Menu.InventoryMenuScript)}'.");
+                _logger.LogError($"Missing '{nameof(InventoryMenuScript)}'.");
                 return;
             }
 
@@ -45,7 +45,7 @@ namespace Strawhenge.Inventory.Unity.Menu
             Closed?.Invoke();
         }
 
-        internal void Set(Menu.InventoryMenuScript menu)
+        internal void Set(InventoryMenuScript menu)
         {
             _menu = menu;
         }

@@ -9,12 +9,12 @@ namespace Strawhenge.Inventory.Loot
 {
     public class LootCollectionSource : ILootSource, ILootCollectionInfo
     {
-        readonly List<ItemData> _items;
-        readonly List<ApparelPieceData> _apparelPieces;
+        readonly List<Item> _items;
+        readonly List<ApparelPiece> _apparelPieces;
 
         public LootCollectionSource(
-            IEnumerable<ItemData> items = null,
-            IEnumerable<ApparelPieceData> apparelPieces = null)
+            IEnumerable<Item> items = null,
+            IEnumerable<ApparelPiece> apparelPieces = null)
         {
             _items = items
                 .ExcludeNull()
@@ -29,22 +29,22 @@ namespace Strawhenge.Inventory.Loot
 
         public int Count => _items.Count + _apparelPieces.Count;
 
-        public void Add(ItemData item)
+        public void Add(Item item)
         {
             _items.Add(item);
             StateChanged?.Invoke();
         }
 
-        public void Add(ApparelPieceData apparelPiece)
+        public void Add(ApparelPiece apparelPiece)
         {
             _apparelPieces.Add(apparelPiece);
             StateChanged?.Invoke();
         }
 
-        public IReadOnlyList<Loot<ItemData>> GetItems() =>
+        public IReadOnlyList<Loot<Item>> GetItems() =>
             _items
                 .Select(item =>
-                    new Loot<ItemData>(
+                    new Loot<Item>(
                         item,
                         onTake: () =>
                         {
@@ -53,10 +53,10 @@ namespace Strawhenge.Inventory.Loot
                         }))
                 .ToArray();
 
-        public IReadOnlyList<Loot<ApparelPieceData>> GetApparelPieces() =>
+        public IReadOnlyList<Loot<ApparelPiece>> GetApparelPieces() =>
             _apparelPieces
                 .Select(apparelPiece =>
-                    new Loot<ApparelPieceData>(
+                    new Loot<ApparelPiece>(
                         apparelPiece,
                         onTake: () =>
                         {

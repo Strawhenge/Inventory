@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Drop
 {
-    public class Drop_from_holster : BaseItemTest
+    public class Drop_from_holster : BaseInventoryItemTest
     {
         public Drop_from_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {

@@ -4,7 +4,7 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Discard
 {
-    public class Discard_when_item_in_storage : BaseItemTest
+    public class Discard_when_item_in_storage : BaseInventoryItemTest
     {
         public Discard_when_item_in_storage(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {

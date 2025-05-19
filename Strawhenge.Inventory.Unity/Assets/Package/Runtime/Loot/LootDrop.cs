@@ -9,7 +9,7 @@ namespace Strawhenge.Inventory.Unity.Loot
 {
     public class LootDrop :  ISetLootDropPrefab
     {
-        readonly Queue<ApparelPieceData> _queue = new();
+        readonly Queue<ApparelPiece> _queue = new();
         readonly IInventoryMenu _inventoryMenu;
         readonly ILootMenu _itemContainerMenu;
         readonly DropPoint _dropPoint;
@@ -32,7 +32,7 @@ namespace Strawhenge.Inventory.Unity.Loot
             _itemContainerMenu.Closed += StateChanged;
         }
 
-        public void Drop(ApparelPieceData data)
+        public void Drop(ApparelPiece apparelPiece)
         {
             if (ReferenceEquals(_containerPrefab, null))
             {
@@ -42,12 +42,12 @@ namespace Strawhenge.Inventory.Unity.Loot
 
             if (ShouldWait())
             {
-                _queue.Enqueue(data);
+                _queue.Enqueue(apparelPiece);
                 return;
             }
 
             var container = CreateContainer();
-            container.Add(data);
+            container.Add(apparelPiece);
         }
 
         public void Set(LootCollectionScript prefab) => _containerPrefab = prefab;

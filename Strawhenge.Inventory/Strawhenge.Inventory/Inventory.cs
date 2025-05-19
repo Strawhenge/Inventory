@@ -1,7 +1,6 @@
 using FunctionalUtilities;
 using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
-using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
@@ -10,9 +9,9 @@ namespace Strawhenge.Inventory
 {
     public class Inventory
     {
-        readonly ItemFactory _itemFactory;
-        readonly ApparelPieceFactory _apparelPieceFactory;
-        readonly ItemLocator _itemLocator;
+        readonly InventoryItemFactory _itemFactory;
+        readonly InventoryApparelPieceFactory _apparelPieceFactory;
+        readonly InventoryItemLocator _itemLocator;
         readonly IItemRepository _itemRepository;
         readonly ProcedureQueue _procedureQueue;
 
@@ -31,7 +30,7 @@ namespace Strawhenge.Inventory
             _procedureQueue = new ProcedureQueue();
             var effectFactory = new EffectFactory(effectFactoryLocator, logger);
 
-            _itemFactory = new ItemFactory(
+            _itemFactory = new InventoryItemFactory(
                 Hands,
                 Holsters,
                 StoredItems,
@@ -39,13 +38,13 @@ namespace Strawhenge.Inventory
                 effectFactory,
                 itemProceduresFactory);
 
-            _apparelPieceFactory = new ApparelPieceFactory(
+            _apparelPieceFactory = new InventoryApparelPieceFactory(
                 ApparelSlots,
                 effectFactory,
                 apparelViewFactory,
                 logger);
 
-            _itemLocator = new ItemLocator(Hands, Holsters, StoredItems);
+            _itemLocator = new InventoryItemLocator(Hands, Holsters, StoredItems);
             _itemRepository = itemRepository;
         }
 
@@ -57,24 +56,27 @@ namespace Strawhenge.Inventory
 
         public ApparelSlots ApparelSlots { get; }
 
-        public Item CreateItem(ItemData data) => CreateItem(data, new Context());
-
-        public Item CreateItem(ItemData data, Context context)
+        public InventoryItem CreateItem(Item item)
         {
-            return _itemFactory.Create(data, context);
+            return CreateItem(item, new Context());
         }
 
-        public Item CreateTemporaryItem(ItemData data)
+        public InventoryItem CreateItem(Item item, Context context)
         {
-            return _itemFactory.CreateTemporary(data);
+            return _itemFactory.Create(item, context);
         }
 
-        public ApparelPiece CreateApparelPiece(ApparelPieceData data)
+        public InventoryItem CreateTemporaryItem(Item item)
         {
-            return _apparelPieceFactory.Create(data);
+            return _itemFactory.CreateTemporary(item);
         }
 
-        public Maybe<Item> GetItemOrCreateTemporary(string itemName)
+        public InventoryApparelPiece CreateApparelPiece(ApparelPiece apparelPiece)
+        {
+            return _apparelPieceFactory.Create(apparelPiece);
+        }
+
+        public Maybe<InventoryItem> GetItemOrCreateTemporary(string itemName)
         {
             return _itemLocator
                 .Locate(itemName)
@@ -83,6 +85,9 @@ namespace Strawhenge.Inventory
                     .Map(CreateTemporaryItem));
         }
 
-        public void Interrupt() => _procedureQueue.SkipAllScheduledProcedures();
+        public void Interrupt()
+        {
+            _procedureQueue.SkipAllScheduledProcedures();
+        }
     }
 }

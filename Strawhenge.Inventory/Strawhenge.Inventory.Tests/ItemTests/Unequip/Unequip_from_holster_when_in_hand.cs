@@ -5,9 +5,9 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Unequip
 {
-    public class Unequip_from_holster_when_in_hand : BaseItemTest
+    public class Unequip_from_holster_when_in_hand : BaseInventoryItemTest
     {
-        readonly Item _hammer;
+        readonly InventoryItem _hammer;
 
         public Unequip_from_holster_when_in_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Unequip
             _hammer.Holsters[RightHipHolster].Do(x => x.Unequip());
         }
 
-        protected override Maybe<Item> ExpectedItemInRightHand => _hammer;
+        protected override Maybe<InventoryItem> ExpectedItemInRightHand => _hammer;
 
         protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {

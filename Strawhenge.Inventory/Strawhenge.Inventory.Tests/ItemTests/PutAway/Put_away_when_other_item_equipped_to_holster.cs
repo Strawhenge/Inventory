@@ -4,9 +4,9 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.PutAway
 {
-    public class Put_away_when_other_item_equipped_to_holster : BaseItemTest
+    public class Put_away_when_other_item_equipped_to_holster : BaseInventoryItemTest
     {
-        readonly Item _knife;
+        readonly InventoryItem _knife;
 
         public Put_away_when_other_item_equipped_to_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -22,7 +22,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.PutAway
             hammer.PutAway();
         }
 
-        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, InventoryItem expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (RightHipHolster, _knife);
         }

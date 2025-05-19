@@ -5,10 +5,10 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Swap
 {
-    public class Swap_when_item_in_each_hand : BaseItemTest
+    public class Swap_when_item_in_each_hand : BaseInventoryItemTest
     {
-        readonly Item _hammer;
-        readonly Item _knife;
+        readonly InventoryItem _hammer;
+        readonly InventoryItem _knife;
 
         public Swap_when_item_in_each_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -21,9 +21,9 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Swap
             Inventory.SwapHands();
         }
 
-        protected override Maybe<Item> ExpectedItemInLeftHand => _hammer;
+        protected override Maybe<InventoryItem> ExpectedItemInLeftHand => _hammer;
 
-        protected override Maybe<Item> ExpectedItemInRightHand => _knife;
+        protected override Maybe<InventoryItem> ExpectedItemInRightHand => _knife;
 
         protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {

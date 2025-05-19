@@ -11,9 +11,9 @@ namespace Strawhenge.Inventory.Tests
             _tracker = tracker;
         }
 
-        public IApparelView Create(ApparelPieceData data)
+        public IApparelView Create(ApparelPiece apparelPiece)
         {
-            var view = new ApparelViewFake(data.Name);
+            var view = new ApparelViewFake(apparelPiece.Name);
             _tracker.Track(view);
             return view;
         }

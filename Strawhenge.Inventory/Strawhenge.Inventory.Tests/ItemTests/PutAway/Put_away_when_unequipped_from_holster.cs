@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.PutAway
 {
-    public class Put_away_when_unequipped_from_holster : BaseItemTest
+    public class Put_away_when_unequipped_from_holster : BaseInventoryItemTest
     {
         public Put_away_when_unequipped_from_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {

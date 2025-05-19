@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Drop
 {
-    public class Drop_transient_item_when_in_hand : BaseItemTest
+    public class Drop_transient_item_when_in_hand : BaseInventoryItemTest
     {
         public Drop_transient_item_when_in_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {

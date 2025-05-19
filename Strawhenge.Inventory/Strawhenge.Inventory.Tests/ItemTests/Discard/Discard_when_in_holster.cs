@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Discard
 {
-    public class Discard_when_in_holster : BaseItemTest
+    public class Discard_when_in_holster : BaseInventoryItemTest
     {
         public Discard_when_in_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {

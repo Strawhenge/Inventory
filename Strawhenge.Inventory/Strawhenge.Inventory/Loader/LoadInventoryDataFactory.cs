@@ -9,12 +9,12 @@ namespace Strawhenge.Inventory.Loader
     public class LoadInventoryDataFactory
     {
         readonly IItemRepository _itemRepository;
-        readonly IApparelRepository _apparelRepository;
+        readonly IApparelPieceRepository _apparelRepository;
         readonly ILogger _logger;
 
         public LoadInventoryDataFactory(
             IItemRepository itemRepository,
-            IApparelRepository apparelRepository,
+            IApparelPieceRepository apparelRepository,
             ILogger logger)
         {
             _itemRepository = itemRepository;

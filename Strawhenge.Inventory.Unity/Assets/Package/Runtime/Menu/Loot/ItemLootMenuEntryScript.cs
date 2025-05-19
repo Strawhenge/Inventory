@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory.Unity.Menu
         [SerializeField] Button _takeButton;
 
         Inventory _inventory;
-        Loot<ItemData> _containedItem;
+        Loot<Item> _containedItem;
         TakeItemLootMenuScript _takeItemLootMenu;
 
         void Awake()
@@ -21,7 +21,7 @@ namespace Strawhenge.Inventory.Unity.Menu
 
         public void Set(
             Inventory inventory,
-            Loot<ItemData> containedItem,
+            Loot<Item> containedItem,
             TakeItemLootMenuScript takeItemLootMenu)
         {
             _inventory = inventory;

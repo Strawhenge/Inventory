@@ -1,0 +1,44 @@
+﻿using Strawhenge.Inventory.Apparel;
+using Strawhenge.Inventory.Effects;
+using Strawhenge.Inventory.Unity.Apparel;
+using Strawhenge.Inventory.Unity.Effects;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+namespace Strawhenge.Inventory.Unity.Apparel.ApparelPieceData
+{
+    [CreateAssetMenu(menuName = "Strawhenge/Inventory/Apparel/Apparel Piece")]
+    public class ApparelPieceScriptableObject : ScriptableObject, IApparelPieceData
+    {
+        public ApparelPiece ToApparelPiece()
+        {
+            return ApparelPieceBuilder
+                .Create(Name, Slot, Effects, x => x.Set<IApparelPieceData>(this))
+                .Build();
+        }
+
+        [SerializeField] GameObject _prefab;
+        [SerializeField] ApparelSlotScriptableObject _slot;
+        [SerializeField] Vector3 _position;
+        [SerializeField] Vector3 _rotation;
+        [SerializeField] Vector3 _scale = new Vector3(1, 1, 1);
+        [SerializeField] EffectScriptableObject[] _effects;
+
+        public string Name => name;
+
+        public GameObject Prefab => _prefab;
+
+        public string Slot => _slot.name;
+
+        public Vector3 Position => _position;
+
+        public Quaternion Rotation => Quaternion.Euler(_rotation);
+
+        public Vector3 Scale => _scale;
+
+        public IReadOnlyList<EffectData> Effects => _effects
+            .Select(x => x.Data)
+            .ToArray();
+    }
+}

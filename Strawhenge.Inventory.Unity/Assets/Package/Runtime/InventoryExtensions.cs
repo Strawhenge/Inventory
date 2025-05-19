@@ -1,35 +1,35 @@
 ﻿using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
+using Strawhenge.Inventory.Unity.Items.ItemData;
+using Strawhenge.Inventory.Unity.Apparel.ApparelPieceData;
 
 namespace Strawhenge.Inventory.Unity
 {
     public static class InventoryExtensions
     {
-        public static Item CreateItem(
+        public static InventoryItem CreateItem(
             this Inventory inventory,
             ItemPickupScript pickup)
         {
-            var (data, context) = pickup.PickupItem();
-            return inventory.CreateItem(data, context);
+            var (item, context) = pickup.PickupItem();
+            return inventory.CreateItem(item, context);
         }
 
-        public static Item CreateItem(
+        public static InventoryItem CreateItem(
             this Inventory inventory,
             ItemScriptableObject scriptableObject)
         {
-            var data = scriptableObject.ToItemData();
-            return inventory.CreateItem(data);
+            var item = scriptableObject.ToItem();
+            return inventory.CreateItem(item);
         }
 
-        public static ApparelPiece CreateApparelPiece(
+        public static InventoryApparelPiece CreateApparelPiece(
             this Inventory inventory,
             ApparelPieceScriptableObject scriptableObject)
         {
-            var data = scriptableObject.ToApparelPieceData();
-            return inventory.CreateApparelPiece(data);
+            var apparelPiece = scriptableObject.ToApparelPiece();
+            return inventory.CreateApparelPiece(apparelPiece);
         }
     }
 }

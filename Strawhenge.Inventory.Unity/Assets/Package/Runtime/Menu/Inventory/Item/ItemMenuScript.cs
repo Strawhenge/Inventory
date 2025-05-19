@@ -24,7 +24,7 @@ namespace Strawhenge.Inventory.Unity.Menu
         [SerializeField] Button _consumeLeftHandButton;
         [SerializeField] Button _consumeRightHandButton;
 
-        Item _item;
+        InventoryItem _item;
 
         void Awake()
         {
@@ -46,7 +46,7 @@ namespace Strawhenge.Inventory.Unity.Menu
             UnsetItem();
         }
 
-        internal void SetItem(Item item)
+        internal void SetItem(InventoryItem item)
         {
             _item = item;
             _itemNameText.text = item.Name;
