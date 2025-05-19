@@ -31,7 +31,7 @@ namespace Strawhenge.Inventory.Loader
 
         void LoadItem(LoadInventoryItem loadItem)
         {
-            var item = _inventory.CreateItem(loadItem.ItemData);
+            var item = _inventory.CreateItem(loadItem.Item);
 
             loadItem.HolsterName.Do(holsterName =>
                 item.Holsters.FirstOrNone(x => x.HolsterName == holsterName).Do(y => y.Equip()));

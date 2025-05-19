@@ -24,28 +24,28 @@ namespace Strawhenge.Inventory.Apparel
             _logger = logger;
         }
 
-        public InventoryApparelPiece Create(ApparelPiece data)
+        public InventoryApparelPiece Create(ApparelPiece apparelPiece)
         {
-            var slot = _slots[data.Slot]
+            var slot = _slots[apparelPiece.Slot]
                 .Reduce(() =>
                 {
-                    _logger.LogError($"Missing apparel slot '{data.Slot}'.");
+                    _logger.LogError($"Missing apparel slot '{apparelPiece.Slot}'.");
                     return _missingApparelSlot;
                 });
 
-            var view = _apparelViewFactory.Create(data);
+            var view = _apparelViewFactory.Create(apparelPiece);
 
-            var effects = data.Effects
+            var effects = apparelPiece.Effects
                 .Select(_effectFactory.Create);
 
-            var apparelPiece = new InventoryApparelPiece(
-                data,
+            var inventoryApparelPiece = new InventoryApparelPiece(
+                apparelPiece,
                 slot,
                 view,
                 effects
             );
 
-            return apparelPiece;
+            return inventoryApparelPiece;
         }
     }
 }

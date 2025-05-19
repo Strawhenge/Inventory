@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Loot
         {
             return _inventory
                 .AllItems()
-                .Select(item => new Loot<Item>(item.Data, onTake: item.Discard))
+                .Select(item => new Loot<Item>(item.Item, onTake: item.Discard))
                 .ToArray();
         }
 
@@ -29,7 +29,7 @@ namespace Strawhenge.Inventory.Loot
                 .Select(x => x.CurrentPiece)
                 .WhereSome()
                 .Select(apparelPiece =>
-                    new Loot<ApparelPiece>(apparelPiece.Data, onTake: apparelPiece.Discard))
+                    new Loot<ApparelPiece>(apparelPiece.Piece, onTake: apparelPiece.Discard))
                 .ToArray();
         }
     }

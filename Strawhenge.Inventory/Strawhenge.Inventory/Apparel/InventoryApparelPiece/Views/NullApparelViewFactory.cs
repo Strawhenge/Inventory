@@ -8,6 +8,6 @@ namespace Strawhenge.Inventory.Apparel
         {
         }
 
-        public IApparelView Create(ApparelPiece data) => NullApparelView.Instance;
+        public IApparelView Create(ApparelPiece apparelPiece) => NullApparelView.Instance;
     }
 }

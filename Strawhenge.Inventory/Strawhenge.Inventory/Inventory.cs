@@ -56,21 +56,24 @@ namespace Strawhenge.Inventory
 
         public ApparelSlots ApparelSlots { get; }
 
-        public InventoryItem CreateItem(Item data) => CreateItem(data, new Context());
-
-        public InventoryItem CreateItem(Item data, Context context)
+        public InventoryItem CreateItem(Item item)
         {
-            return _itemFactory.Create(data, context);
+            return CreateItem(item, new Context());
         }
 
-        public InventoryItem CreateTemporaryItem(Item data)
+        public InventoryItem CreateItem(Item item, Context context)
         {
-            return _itemFactory.CreateTemporary(data);
+            return _itemFactory.Create(item, context);
         }
 
-        public InventoryApparelPiece CreateApparelPiece(ApparelPiece data)
+        public InventoryItem CreateTemporaryItem(Item item)
         {
-            return _apparelPieceFactory.Create(data);
+            return _itemFactory.CreateTemporary(item);
+        }
+
+        public InventoryApparelPiece CreateApparelPiece(ApparelPiece apparelPiece)
+        {
+            return _apparelPieceFactory.Create(apparelPiece);
         }
 
         public Maybe<InventoryItem> GetItemOrCreateTemporary(string itemName)
@@ -82,6 +85,9 @@ namespace Strawhenge.Inventory
                     .Map(CreateTemporaryItem));
         }
 
-        public void Interrupt() => _procedureQueue.SkipAllScheduledProcedures();
+        public void Interrupt()
+        {
+            _procedureQueue.SkipAllScheduledProcedures();
+        }
     }
 }

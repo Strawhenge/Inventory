@@ -13,15 +13,15 @@ namespace Strawhenge.Inventory.Apparel
         readonly IEnumerable<Effect> _effects;
 
         public InventoryApparelPiece(
-            ApparelPiece data,
+            ApparelPiece piece,
             ApparelSlot slot,
             IApparelView view)
-            : this(data, slot, view, Array.Empty<Effect>())
+            : this(piece, slot, view, Array.Empty<Effect>())
         {
         }
 
         public InventoryApparelPiece(
-            ApparelPiece data,
+            ApparelPiece piece,
             ApparelSlot slot,
             IApparelView view,
             IEnumerable<Effect> effects)
@@ -30,13 +30,13 @@ namespace Strawhenge.Inventory.Apparel
             _view = view;
             _effects = effects.ToArray();
 
-            Name = data.Name;
-            Data = data;
+            Name = piece.Name;
+            Piece = piece;
         }
 
         public string Name { get; }
 
-        public ApparelPiece Data { get; }
+        public ApparelPiece Piece { get; }
 
         public string SlotName => _slot.Name;
 

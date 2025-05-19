@@ -30,20 +30,20 @@ namespace Strawhenge.Inventory.Items
             _proceduresFactory = proceduresFactory;
         }
 
-        public InventoryItem Create(Item data, Context context)
+        public InventoryItem Create(Item item, Context context)
         {
-            var procedures = _proceduresFactory.Create(data, context);
+            var procedures = _proceduresFactory.Create(item, context);
 
-            var item = new InventoryItem(
-                data,
+            var inventoryItem = new InventoryItem(
+                item,
                 context,
                 _hands,
                 procedures.ItemProcedures,
                 _procedureQueue
             );
 
-            item.SetupHolsters(
-                new InventoryItemHolsters(data.Holsters
+            inventoryItem.SetupHolsters(
+                new InventoryItemHolsters(item.Holsters
                     .Select(holster =>
                     {
                         if (!_holsters[holster.HolsterName].HasSome(out var container))
@@ -52,32 +52,32 @@ namespace Strawhenge.Inventory.Items
                         if (!procedures.HolsterProcedures(holster.HolsterName).HasSome(out var holsterProcedures))
                             return null;
 
-                        return new InventoryItemHolster(item, container, holsterProcedures, _procedureQueue);
+                        return new InventoryItemHolster(inventoryItem, container, holsterProcedures, _procedureQueue);
                     })
                     .ExcludeNull()));
 
-            if (data.IsStorable)
-                item.SetupStorable(_storedItems, data.Weight);
+            if (item.IsStorable)
+                inventoryItem.SetupStorable(_storedItems, item.Weight);
 
-            if (data.Consumable.HasSome(out var consumableItemData) &&
+            if (item.Consumable.HasSome(out var consumableItemData) &&
                 procedures.ConsumableProcedures.HasSome(out var consumableProcedures))
             {
                 var effects = consumableItemData.Effects
                     .Select(x => _effectFactory.Create(x));
 
-                item.SetupConsumable(consumableProcedures, effects);
+                inventoryItem.SetupConsumable(consumableProcedures, effects);
             }
 
-            return item;
+            return inventoryItem;
         }
 
-        public InventoryItem CreateTemporary(Item data)
+        public InventoryItem CreateTemporary(Item item)
         {
             var context = new Context();
-            var procedures = _proceduresFactory.Create(data, context);
+            var procedures = _proceduresFactory.Create(item, context);
 
-            var item = new InventoryItem(
-                data,
+            var inventoryItem = new InventoryItem(
+                item,
                 context,
                 _hands,
                 procedures.ItemProcedures,
@@ -85,7 +85,7 @@ namespace Strawhenge.Inventory.Items
                 isTemporary: true
             );
 
-            return item;
+            return inventoryItem;
         }
     }
 }

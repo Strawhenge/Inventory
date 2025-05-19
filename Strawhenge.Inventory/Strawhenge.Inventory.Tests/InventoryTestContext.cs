@@ -54,44 +54,44 @@ namespace Strawhenge.Inventory.Tests
             size ??= ItemSize.OneHanded;
             holsterNames ??= Array.Empty<string>();
 
-            var dataBuilder = ItemBuilder.Create(name, size.Value, storable, 1, _ =>
+            var itemBuilder = ItemBuilder.Create(name, size.Value, storable, 1, _ =>
             {
             });
 
             foreach (var holsterName in holsterNames)
             {
-                dataBuilder.AddHolster(holsterName, _ =>
+                itemBuilder.AddHolster(holsterName, _ =>
                 {
                 });
             }
 
-            var data = dataBuilder.Build();
+            var item = itemBuilder.Build();
 
-            return Inventory.CreateItem(data);
+            return Inventory.CreateItem(item);
         }
 
         public InventoryItem CreateTransientItem(string name, ItemSize? size = null)
         {
             size ??= ItemSize.OneHanded;
 
-            var data = ItemBuilder
+            var item = ItemBuilder
                 .Create(name, size.Value, false, 1, _ =>
                 {
                 })
                 .Build();
 
-            return Inventory.CreateTemporaryItem(data);
+            return Inventory.CreateTemporaryItem(item);
         }
 
         public InventoryApparelPiece CreateApparel(string name, string slotName)
         {
-            var data = ApparelPieceBuilder
+            var apparelPiece = ApparelPieceBuilder
                 .Create(name, slotName, Array.Empty<EffectData>(), _ =>
                 {
                 })
                 .Build();
 
-            return Inventory.CreateApparelPiece(data);
+            return Inventory.CreateApparelPiece(apparelPiece);
         }
 
         public void VerifyProcedures(params ProcedureInfo[] expectedProcedures) =>

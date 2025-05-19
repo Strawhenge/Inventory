@@ -2,6 +2,6 @@ namespace Strawhenge.Inventory.Apparel
 {
     public interface IApparelViewFactory
     {
-        IApparelView Create(ApparelPiece data);
+        IApparelView Create(ApparelPiece apparelPiece);
     }
 }

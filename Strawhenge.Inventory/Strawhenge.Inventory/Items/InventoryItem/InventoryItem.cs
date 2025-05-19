@@ -14,27 +14,27 @@ namespace Strawhenge.Inventory.Items
         readonly ItemProcedureScheduler _procedureScheduler;
 
         public InventoryItem(
-            Item data,
+            Item item,
             Context context,
             Hands hands,
             IItemProcedures procedures,
             ProcedureQueue procedureQueue,
             bool isTemporary = false)
         {
-            Name = data.Name;
-            Data = data;
+            Name = item.Name;
+            Item = item;
             Context = context;
             IsTemporary = isTemporary;
 
             _hands = hands;
             _procedureScheduler = new ItemProcedureScheduler(procedures, procedureQueue);
-            _size = data.Size;
+            _size = item.Size;
             Holsters = InventoryItemHolsters.None;
         }
 
         public string Name { get; }
 
-        public Item Data { get; }
+        public Item Item { get; }
 
         public Context Context { get; }
 

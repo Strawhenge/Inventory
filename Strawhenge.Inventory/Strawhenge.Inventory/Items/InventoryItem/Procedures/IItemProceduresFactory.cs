@@ -2,6 +2,6 @@
 {
     public interface IItemProceduresFactory
     {
-        ItemProcedureDto Create(Item itemData, Context context);
+        ItemProcedureDto Create(Item item, Context context);
     }
 }
