@@ -1,7 +1,7 @@
 ﻿using System;
 using Strawhenge.Inventory.Procedures;
 
-namespace Strawhenge.Inventory.Items.Holsters
+namespace Strawhenge.Inventory.Items
 {
     class ItemHolsterProcedureScheduler
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Apparel;
 
 namespace Strawhenge.Inventory.Apparel
 {

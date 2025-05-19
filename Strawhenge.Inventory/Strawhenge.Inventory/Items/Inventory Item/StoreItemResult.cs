@@ -1,4 +1,4 @@
-﻿namespace Strawhenge.Inventory.Items.Storables
+﻿namespace Strawhenge.Inventory.Items
 {
     public class StoreItemResult
     {

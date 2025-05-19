@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Strawhenge.Common;
 using Strawhenge.Inventory.Effects;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
 
-namespace Strawhenge.Inventory.Items.Consumables
+namespace Strawhenge.Inventory.Items
 {
     public class Consumable
     {

@@ -1,6 +1,6 @@
 ﻿using Strawhenge.Inventory.Procedures;
 
-namespace Strawhenge.Inventory.Items.Holsters
+namespace Strawhenge.Inventory.Items
 {
     public interface IItemHolsterProcedures
     {

@@ -1,7 +1,6 @@
 using FunctionalUtilities;
 using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
-using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;

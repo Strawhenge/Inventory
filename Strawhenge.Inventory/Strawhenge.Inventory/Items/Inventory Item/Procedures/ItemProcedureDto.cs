@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using FunctionalUtilities;
-using Strawhenge.Inventory.Items.Consumables;
-using Strawhenge.Inventory.Items.Holsters;
 
 namespace Strawhenge.Inventory.Items
 {

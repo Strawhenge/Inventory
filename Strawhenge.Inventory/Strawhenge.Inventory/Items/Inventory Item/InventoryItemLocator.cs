@@ -1,9 +1,8 @@
 ﻿using System;
 using FunctionalUtilities;
-using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Items;
 
-namespace Strawhenge.Inventory
+namespace Strawhenge.Inventory.Items
 {
     class InventoryItemLocator
     {

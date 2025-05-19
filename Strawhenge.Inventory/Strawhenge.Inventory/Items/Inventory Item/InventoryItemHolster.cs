@@ -1,8 +1,8 @@
-﻿using Strawhenge.Inventory.Containers;
-using System;
+﻿using System;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
 
-namespace Strawhenge.Inventory.Items.Holsters
+namespace Strawhenge.Inventory.Items
 {
     public class InventoryItemHolster
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using FunctionalUtilities;
 using Strawhenge.Common.Logging;
 
-namespace Strawhenge.Inventory.Containers
+namespace Strawhenge.Inventory.Items
 {
     public class Holsters : IEnumerable<ItemContainer>
     {

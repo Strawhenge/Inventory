@@ -1,6 +1,7 @@
 ﻿using System;
+using Strawhenge.Inventory.Items;
 
-namespace Strawhenge.Inventory.Items.Storables
+namespace Strawhenge.Inventory.Items
 {
     public class Storable
     {

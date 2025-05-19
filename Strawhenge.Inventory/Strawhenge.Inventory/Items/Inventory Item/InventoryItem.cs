@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using FunctionalUtilities;
-using Strawhenge.Inventory.Containers;
 using Strawhenge.Inventory.Effects;
-using Strawhenge.Inventory.Items.Consumables;
-using Strawhenge.Inventory.Items.Holsters;
-using Strawhenge.Inventory.Items.Storables;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory.Items

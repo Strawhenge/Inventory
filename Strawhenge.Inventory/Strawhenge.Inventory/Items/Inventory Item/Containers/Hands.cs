@@ -1,7 +1,7 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Inventory.Items;
 
-namespace Strawhenge.Inventory.Containers
+namespace Strawhenge.Inventory.Items
 {
     public class Hands
     {

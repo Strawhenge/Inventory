@@ -1,4 +1,4 @@
-﻿using Strawhenge.Inventory.Items.Holsters;
+﻿using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory.Tests

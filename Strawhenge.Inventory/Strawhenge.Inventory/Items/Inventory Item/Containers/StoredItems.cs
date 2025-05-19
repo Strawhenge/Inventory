@@ -1,9 +1,9 @@
 ﻿using System;
-using Strawhenge.Inventory.Items;
 using System.Collections.Generic;
 using Strawhenge.Common.Logging;
+using Strawhenge.Inventory.Items;
 
-namespace Strawhenge.Inventory
+namespace Strawhenge.Inventory.Items
 {
     public class StoredItems
     {

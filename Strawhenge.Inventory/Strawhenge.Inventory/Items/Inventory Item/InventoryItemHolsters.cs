@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Inventory.Items;
 
-namespace Strawhenge.Inventory.Items.Holsters
+namespace Strawhenge.Inventory.Items
 {
     public class InventoryItemHolsters : IEnumerable<InventoryItemHolster>
     {
