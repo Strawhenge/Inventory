@@ -83,9 +83,9 @@ namespace Strawhenge.Inventory.Tests
             return Inventory.CreateTemporaryItem(data);
         }
 
-        public ApparelPiece CreateApparel(string name, string slotName)
+        public InventoryApparelPiece CreateApparel(string name, string slotName)
         {
-            var data = ApparelPieceDataBuilder
+            var data = ApparelPieceBuilder
                 .Create(name, slotName, Array.Empty<EffectData>(), _ =>
                 {
                 })

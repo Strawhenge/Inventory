@@ -4,21 +4,21 @@ using Strawhenge.Inventory.Effects;
 
 namespace Strawhenge.Inventory.Apparel
 {
-    public class ApparelPieceDataBuilder
+    public class ApparelPieceBuilder
     {
         readonly string _name;
         readonly string _slot;
         readonly IEnumerable<EffectData> _effects;
         readonly Action<IDataSetter> _setData;
 
-        public static ApparelPieceDataBuilder Create(
+        public static ApparelPieceBuilder Create(
             string name,
             string slot,
             IEnumerable<EffectData> effects,
             Action<IDataSetter> setData) =>
-            new ApparelPieceDataBuilder(name, slot, effects, setData);
+            new ApparelPieceBuilder(name, slot, effects, setData);
 
-        ApparelPieceDataBuilder(string name, string slot, IEnumerable<EffectData> effects, Action<IDataSetter> setData)
+        ApparelPieceBuilder(string name, string slot, IEnumerable<EffectData> effects, Action<IDataSetter> setData)
         {
             _name = name;
             _slot = slot;
@@ -27,12 +27,12 @@ namespace Strawhenge.Inventory.Apparel
         }
 
 
-        public ApparelPieceData Build()
+        public ApparelPiece Build()
         {
             var genericData = new GenericData();
             _setData(genericData);
 
-            return new ApparelPieceData(_name, _slot, _effects, genericData);
+            return new ApparelPiece(_name, _slot, _effects, genericData);
         }
     }
 }

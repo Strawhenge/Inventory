@@ -14,9 +14,9 @@ namespace Strawhenge.Inventory.Apparel
 
         public string Name { get; }
 
-        public Maybe<ApparelPiece> CurrentPiece { get; private set; } = Maybe.None<ApparelPiece>();
+        public Maybe<InventoryApparelPiece> CurrentPiece { get; private set; } = Maybe.None<InventoryApparelPiece>();
 
-        internal void Set(ApparelPiece piece)
+        internal void Set(InventoryApparelPiece piece)
         {
             CurrentPiece.Do(x => x.Unequip());
             CurrentPiece = Maybe.Some(piece);
@@ -26,7 +26,7 @@ namespace Strawhenge.Inventory.Apparel
 
         internal void Unset()
         {
-            CurrentPiece = Maybe.None<ApparelPiece>();
+            CurrentPiece = Maybe.None<InventoryApparelPiece>();
             Changed?.Invoke();
         }
     }

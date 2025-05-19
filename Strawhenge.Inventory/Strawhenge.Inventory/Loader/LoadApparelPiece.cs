@@ -5,11 +5,11 @@ namespace Strawhenge.Inventory.Loader
 {
     public class LoadApparelPiece
     {
-        public LoadApparelPiece(ApparelPieceData apparelPiece)
+        public LoadApparelPiece(ApparelPiece apparelPiece)
         {
             ApparelPiece = apparelPiece ?? throw new ArgumentNullException(nameof(apparelPiece));
         }
 
-        public ApparelPieceData ApparelPiece { get; }
+        public ApparelPiece ApparelPiece { get; }
     }
 }

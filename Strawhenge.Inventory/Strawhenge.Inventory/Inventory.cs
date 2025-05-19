@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory
     public class Inventory
     {
         readonly InventoryItemFactory _itemFactory;
-        readonly ApparelPieceFactory _apparelPieceFactory;
+        readonly InventoryApparelPieceFactory _apparelPieceFactory;
         readonly ItemLocator _itemLocator;
         readonly IItemRepository _itemRepository;
         readonly ProcedureQueue _procedureQueue;
@@ -39,7 +39,7 @@ namespace Strawhenge.Inventory
                 effectFactory,
                 itemProceduresFactory);
 
-            _apparelPieceFactory = new ApparelPieceFactory(
+            _apparelPieceFactory = new InventoryApparelPieceFactory(
                 ApparelSlots,
                 effectFactory,
                 apparelViewFactory,
@@ -69,7 +69,7 @@ namespace Strawhenge.Inventory
             return _itemFactory.CreateTemporary(data);
         }
 
-        public ApparelPiece CreateApparelPiece(ApparelPieceData data)
+        public InventoryApparelPiece CreateApparelPiece(ApparelPiece data)
         {
             return _apparelPieceFactory.Create(data);
         }

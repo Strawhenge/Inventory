@@ -19,8 +19,8 @@ namespace Strawhenge.Inventory.Tests.ApparelPieceTests
 
         readonly ApparelSlot _headSlot;
 
-        readonly ApparelPiece _hat;
-        readonly ApparelPiece _helmet;
+        readonly InventoryApparelPiece _hat;
+        readonly InventoryApparelPiece _helmet;
 
         public ApparelPieceTests(ITestOutputHelper testOutputHelper)
         {

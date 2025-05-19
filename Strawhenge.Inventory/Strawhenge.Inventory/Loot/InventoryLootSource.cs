@@ -23,13 +23,13 @@ namespace Strawhenge.Inventory.Loot
                 .ToArray();
         }
 
-        public IReadOnlyList<Loot<ApparelPieceData>> GetApparelPieces()
+        public IReadOnlyList<Loot<ApparelPiece>> GetApparelPieces()
         {
             return _inventory.ApparelSlots
                 .Select(x => x.CurrentPiece)
                 .WhereSome()
                 .Select(apparelPiece =>
-                    new Loot<ApparelPieceData>(apparelPiece.Data, onTake: apparelPiece.Discard))
+                    new Loot<ApparelPiece>(apparelPiece.Data, onTake: apparelPiece.Discard))
                 .ToArray();
         }
     }

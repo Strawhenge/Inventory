@@ -4,7 +4,7 @@ using Strawhenge.Inventory.Effects;
 
 namespace Strawhenge.Inventory.Apparel
 {
-    public class ApparelPieceFactory
+    public class InventoryApparelPieceFactory
     {
         readonly ApparelSlot _missingApparelSlot = new ApparelSlot("Missing.");
         readonly ApparelSlots _slots;
@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory.Apparel
         readonly IApparelViewFactory _apparelViewFactory;
         readonly ILogger _logger;
 
-        internal ApparelPieceFactory(
+        internal InventoryApparelPieceFactory(
             ApparelSlots slots,
             EffectFactory effectFactory,
             IApparelViewFactory apparelViewFactory,
@@ -24,7 +24,7 @@ namespace Strawhenge.Inventory.Apparel
             _logger = logger;
         }
 
-        public ApparelPiece Create(ApparelPieceData data)
+        public InventoryApparelPiece Create(ApparelPiece data)
         {
             var slot = _slots[data.Slot]
                 .Reduce(() =>
@@ -38,7 +38,7 @@ namespace Strawhenge.Inventory.Apparel
             var effects = data.Effects
                 .Select(_effectFactory.Create);
 
-            var apparelPiece = new ApparelPiece(
+            var apparelPiece = new InventoryApparelPiece(
                 data,
                 slot,
                 view,

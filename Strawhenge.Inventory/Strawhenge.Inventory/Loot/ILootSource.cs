@@ -8,6 +8,6 @@ namespace Strawhenge.Inventory.Loot
     {
         IReadOnlyList<Loot<Item>> GetItems();
 
-        IReadOnlyList<Loot<ApparelPieceData>> GetApparelPieces();
+        IReadOnlyList<Loot<ApparelPiece>> GetApparelPieces();
     }
 }

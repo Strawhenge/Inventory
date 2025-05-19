@@ -10,11 +10,11 @@ namespace Strawhenge.Inventory.Loot
     public class LootCollectionSource : ILootSource, ILootCollectionInfo
     {
         readonly List<Item> _items;
-        readonly List<ApparelPieceData> _apparelPieces;
+        readonly List<ApparelPiece> _apparelPieces;
 
         public LootCollectionSource(
             IEnumerable<Item> items = null,
-            IEnumerable<ApparelPieceData> apparelPieces = null)
+            IEnumerable<ApparelPiece> apparelPieces = null)
         {
             _items = items
                 .ExcludeNull()
@@ -35,7 +35,7 @@ namespace Strawhenge.Inventory.Loot
             StateChanged?.Invoke();
         }
 
-        public void Add(ApparelPieceData apparelPiece)
+        public void Add(ApparelPiece apparelPiece)
         {
             _apparelPieces.Add(apparelPiece);
             StateChanged?.Invoke();
@@ -53,10 +53,10 @@ namespace Strawhenge.Inventory.Loot
                         }))
                 .ToArray();
 
-        public IReadOnlyList<Loot<ApparelPieceData>> GetApparelPieces() =>
+        public IReadOnlyList<Loot<ApparelPiece>> GetApparelPieces() =>
             _apparelPieces
                 .Select(apparelPiece =>
-                    new Loot<ApparelPieceData>(
+                    new Loot<ApparelPiece>(
                         apparelPiece,
                         onTake: () =>
                         {
