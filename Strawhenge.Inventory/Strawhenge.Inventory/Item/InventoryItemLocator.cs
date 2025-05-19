@@ -5,13 +5,13 @@ using Strawhenge.Inventory.Items;
 
 namespace Strawhenge.Inventory
 {
-    class ItemLocator
+    class InventoryItemLocator
     {
         readonly Hands _hands;
         readonly Holsters _holsters;
         readonly StoredItems _storedItems;
 
-        public ItemLocator(Hands hands, Holsters holsters, StoredItems storedItems)
+        public InventoryItemLocator(Hands hands, Holsters holsters, StoredItems storedItems)
         {
             _hands = hands;
             _holsters = holsters;

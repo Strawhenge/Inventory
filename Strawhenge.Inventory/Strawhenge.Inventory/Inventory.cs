@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory
     {
         readonly InventoryItemFactory _itemFactory;
         readonly InventoryApparelPieceFactory _apparelPieceFactory;
-        readonly ItemLocator _itemLocator;
+        readonly InventoryItemLocator _itemLocator;
         readonly IItemRepository _itemRepository;
         readonly ProcedureQueue _procedureQueue;
 
@@ -45,7 +45,7 @@ namespace Strawhenge.Inventory
                 apparelViewFactory,
                 logger);
 
-            _itemLocator = new ItemLocator(Hands, Holsters, StoredItems);
+            _itemLocator = new InventoryItemLocator(Hands, Holsters, StoredItems);
             _itemRepository = itemRepository;
         }
 
