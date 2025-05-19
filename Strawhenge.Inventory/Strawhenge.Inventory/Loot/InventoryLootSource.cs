@@ -15,11 +15,11 @@ namespace Strawhenge.Inventory.Loot
             _inventory = inventory;
         }
 
-        public IReadOnlyList<Loot<ItemData>> GetItems()
+        public IReadOnlyList<Loot<Item>> GetItems()
         {
             return _inventory
                 .AllItems()
-                .Select(item => new Loot<ItemData>(item.Data, onTake: item.Discard))
+                .Select(item => new Loot<Item>(item.Data, onTake: item.Discard))
                 .ToArray();
         }
 

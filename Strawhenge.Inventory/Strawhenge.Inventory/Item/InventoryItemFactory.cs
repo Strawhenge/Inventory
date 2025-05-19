@@ -7,7 +7,7 @@ using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory.Items
 {
-    class ItemFactory
+    class InventoryItemFactory
     {
         readonly Hands _hands;
         readonly Containers.Holsters _holsters;
@@ -16,7 +16,7 @@ namespace Strawhenge.Inventory.Items
         readonly EffectFactory _effectFactory;
         readonly IItemProceduresFactory _proceduresFactory;
 
-        public ItemFactory(
+        public InventoryItemFactory(
             Hands hands,
             Containers.Holsters holsters,
             StoredItems storedItems,
@@ -32,11 +32,11 @@ namespace Strawhenge.Inventory.Items
             _proceduresFactory = proceduresFactory;
         }
 
-        public Item Create(ItemData data, Context context)
+        public InventoryItem Create(Item data, Context context)
         {
             var procedures = _proceduresFactory.Create(data, context);
 
-            var item = new Item(
+            var item = new InventoryItem(
                 data,
                 context,
                 _hands,
@@ -45,7 +45,7 @@ namespace Strawhenge.Inventory.Items
             );
 
             item.SetupHolsters(
-                new HolstersForItem(data.Holsters
+                new InventoryItemHolsters(data.Holsters
                     .Select(holster =>
                     {
                         if (!_holsters[holster.HolsterName].HasSome(out var container))
@@ -54,7 +54,7 @@ namespace Strawhenge.Inventory.Items
                         if (!procedures.HolsterProcedures(holster.HolsterName).HasSome(out var holsterProcedures))
                             return null;
 
-                        return new HolsterForItem(item, container, holsterProcedures, _procedureQueue);
+                        return new InventoryItemHolster(item, container, holsterProcedures, _procedureQueue);
                     })
                     .ExcludeNull()));
 
@@ -73,12 +73,12 @@ namespace Strawhenge.Inventory.Items
             return item;
         }
 
-        public Item CreateTemporary(ItemData data)
+        public InventoryItem CreateTemporary(Item data)
         {
             var context = new Context();
             var procedures = _proceduresFactory.Create(data, context);
 
-            var item = new Item(
+            var item = new InventoryItem(
                 data,
                 context,
                 _hands,

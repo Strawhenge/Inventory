@@ -7,8 +7,8 @@ namespace Strawhenge.Inventory.Items
 {
     public class ItemProcedureDto
     {
-        readonly IDictionary<string, IHolsterForItemProcedures> _holsterProcedures =
-            new Dictionary<string, IHolsterForItemProcedures>();
+        readonly IDictionary<string, IItemHolsterProcedures> _holsterProcedures =
+            new Dictionary<string, IItemHolsterProcedures>();
 
         public ItemProcedureDto(IItemProcedures itemProcedures)
         {
@@ -19,10 +19,10 @@ namespace Strawhenge.Inventory.Items
 
         public Maybe<IConsumableProcedures> ConsumableProcedures { get; private set; }
 
-        public Maybe<IHolsterForItemProcedures> HolsterProcedures(string holsterName) =>
+        public Maybe<IItemHolsterProcedures> HolsterProcedures(string holsterName) =>
             _holsterProcedures.MaybeGetValue(holsterName);
 
-        public void SetHolster(string holsterName, IHolsterForItemProcedures procedures) =>
+        public void SetHolster(string holsterName, IItemHolsterProcedures procedures) =>
             _holsterProcedures[holsterName] = procedures;
 
         public void SetConsumable(IConsumableProcedures consumableProcedures) =>

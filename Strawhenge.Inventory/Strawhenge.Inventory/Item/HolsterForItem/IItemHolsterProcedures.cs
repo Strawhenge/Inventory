@@ -2,7 +2,7 @@
 
 namespace Strawhenge.Inventory.Items.Holsters
 {
-    public interface IHolsterForItemProcedures
+    public interface IItemHolsterProcedures
     {
         Procedure DrawLeftHand();
 

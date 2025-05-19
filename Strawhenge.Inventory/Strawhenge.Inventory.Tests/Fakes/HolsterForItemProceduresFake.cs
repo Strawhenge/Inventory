@@ -3,7 +3,7 @@ using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory.Tests
 {
-    class HolsterForItemProceduresFake : IHolsterForItemProcedures
+    class HolsterForItemProceduresFake : IItemHolsterProcedures
     {
         readonly ProcedureTracker _procedureTracker;
         readonly string _itemName;

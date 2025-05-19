@@ -6,15 +6,15 @@ using Strawhenge.Inventory.Effects;
 
 namespace Strawhenge.Inventory.Items
 {
-    public class ItemDataBuilder
+    public class ItemBuilder
     {
-        public static ItemDataBuilder Create(
+        public static ItemBuilder Create(
             string name,
             ItemSize size,
             bool isStorable,
             int weight,
             Action<IDataSetter> setData = null) =>
-            new ItemDataBuilder(name, size, isStorable, weight, setData ?? (_ =>
+            new ItemBuilder(name, size, isStorable, weight, setData ?? (_ =>
             {
             }));
 
@@ -29,7 +29,7 @@ namespace Strawhenge.Inventory.Items
 
         (EffectData[] effects, Action<IDataSetter> setData)? _consumable;
 
-        ItemDataBuilder(string name, ItemSize size, bool isStorable, int weight, Action<IDataSetter> setData)
+        ItemBuilder(string name, ItemSize size, bool isStorable, int weight, Action<IDataSetter> setData)
         {
             _name = name;
             _size = size;
@@ -38,7 +38,7 @@ namespace Strawhenge.Inventory.Items
             _setData = setData;
         }
 
-        public ItemDataBuilder AddHolster(string name, Action<IDataSetter> setData = null)
+        public ItemBuilder AddHolster(string name, Action<IDataSetter> setData = null)
         {
             setData = setData ?? (_ =>
             {
@@ -48,7 +48,7 @@ namespace Strawhenge.Inventory.Items
             return this;
         }
 
-        public ItemDataBuilder SetConsumable(IEnumerable<EffectData> effects, Action<IDataSetter> setData = null)
+        public ItemBuilder SetConsumable(IEnumerable<EffectData> effects, Action<IDataSetter> setData = null)
         {
             setData = setData ?? (_ =>
             {
@@ -58,7 +58,7 @@ namespace Strawhenge.Inventory.Items
             return this;
         }
 
-        public ItemData Build()
+        public Item Build()
         {
             var genericData = new GenericData();
             _setData(genericData);
@@ -67,18 +67,18 @@ namespace Strawhenge.Inventory.Items
             {
                 var genericHolsterData = new GenericData();
                 x.setData(genericHolsterData);
-                return new HolsterItemData(x.name, genericHolsterData);
+                return new ItemHolster(x.name, genericHolsterData);
             });
 
-            var consumable = Maybe.None<ConsumableItemData>();
+            var consumable = Maybe.None<ItemConsumable>();
             if (_consumable.HasValue)
             {
                 var genericConsumableData = new GenericData();
                 _consumable.Value.setData(genericConsumableData);
-                consumable = new ConsumableItemData(_consumable.Value.effects, genericConsumableData);
+                consumable = new ItemConsumable(_consumable.Value.effects, genericConsumableData);
             }
 
-            return new ItemData(_name, _size, _isStorable, _weight, consumable, holsters, genericData);
+            return new Item(_name, _size, _isStorable, _weight, consumable, holsters, genericData);
         }
     }
 }

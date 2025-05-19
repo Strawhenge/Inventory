@@ -3,12 +3,12 @@ using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory.Items.Holsters
 {
-    class HolsterForItemProcedureScheduler
+    class ItemHolsterProcedureScheduler
     {
-        readonly IHolsterForItemProcedures _procedures;
+        readonly IItemHolsterProcedures _procedures;
         readonly ProcedureQueue _queue;
 
-        public HolsterForItemProcedureScheduler(IHolsterForItemProcedures procedures, ProcedureQueue queue)
+        public ItemHolsterProcedureScheduler(IItemHolsterProcedures procedures, ProcedureQueue queue)
         {
             _procedures = procedures;
             _queue = queue;

@@ -47,14 +47,14 @@ namespace Strawhenge.Inventory.Tests
 
         public void SetStorageCapacity(int capacity) => Inventory.StoredItems.SetWeightCapacity(capacity);
 
-        public void AddToRepository(ItemData item) => _itemRepository.Add(item);
+        public void AddToRepository(Item item) => _itemRepository.Add(item);
 
-        public Item CreateItem(string name, ItemSize? size = null, string[] holsterNames = null, bool storable = false)
+        public InventoryItem CreateItem(string name, ItemSize? size = null, string[] holsterNames = null, bool storable = false)
         {
             size ??= ItemSize.OneHanded;
             holsterNames ??= Array.Empty<string>();
 
-            var dataBuilder = ItemDataBuilder.Create(name, size.Value, storable, 1, _ =>
+            var dataBuilder = ItemBuilder.Create(name, size.Value, storable, 1, _ =>
             {
             });
 
@@ -70,11 +70,11 @@ namespace Strawhenge.Inventory.Tests
             return Inventory.CreateItem(data);
         }
 
-        public Item CreateTransientItem(string name, ItemSize? size = null)
+        public InventoryItem CreateTransientItem(string name, ItemSize? size = null)
         {
             size ??= ItemSize.OneHanded;
 
-            var data = ItemDataBuilder
+            var data = ItemBuilder
                 .Create(name, size.Value, false, 1, _ =>
                 {
                 })

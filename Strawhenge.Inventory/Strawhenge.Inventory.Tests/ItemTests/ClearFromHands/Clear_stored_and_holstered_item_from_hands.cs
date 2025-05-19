@@ -6,7 +6,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
 {
     public class Clear_stored_and_holstered_item_from_hands : BaseItemTest
     {
-        readonly Item _hammer;
+        readonly InventoryItem _hammer;
 
         public Clear_stored_and_holstered_item_from_hands(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -20,12 +20,12 @@ namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
             _hammer.ClearFromHands();
         }
 
-        protected override IEnumerable<Item> ExpectedItemsInStorage()
+        protected override IEnumerable<InventoryItem> ExpectedItemsInStorage()
         {
             yield return _hammer;
         }
 
-        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, InventoryItem expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (RightHipHolster, _hammer);
         }

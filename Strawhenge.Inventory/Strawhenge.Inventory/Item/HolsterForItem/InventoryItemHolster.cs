@@ -4,21 +4,21 @@ using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory.Items.Holsters
 {
-    public class HolsterForItem
+    public class InventoryItemHolster
     {
-        readonly Item _item;
+        readonly InventoryItem _item;
         readonly ItemContainer _itemContainer;
-        readonly HolsterForItemProcedureScheduler _procedures;
+        readonly ItemHolsterProcedureScheduler _procedures;
 
-        public HolsterForItem(
-            Item item,
+        public InventoryItemHolster(
+            InventoryItem item,
             ItemContainer itemContainer,
-            IHolsterForItemProcedures procedures,
+            IItemHolsterProcedures procedures,
             ProcedureQueue procedureQueue)
         {
             _item = item;
             _itemContainer = itemContainer;
-            _procedures = new HolsterForItemProcedureScheduler(procedures, procedureQueue);
+            _procedures = new ItemHolsterProcedureScheduler(procedures, procedureQueue);
         }
 
         public string HolsterName => _itemContainer.Name;
@@ -114,7 +114,7 @@ namespace Strawhenge.Inventory.Items.Holsters
                 _procedures.Hide();
         }
 
-        internal HolsterForItemProcedureScheduler GetProcedureScheduler() => _procedures;
+        internal ItemHolsterProcedureScheduler GetProcedureScheduler() => _procedures;
 
         void ClearHolster()
         {

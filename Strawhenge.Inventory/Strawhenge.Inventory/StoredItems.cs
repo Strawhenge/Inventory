@@ -14,17 +14,17 @@ namespace Strawhenge.Inventory
             _logger = logger;
         }
 
-        readonly List<Item> _items = new List<Item>();
+        readonly List<InventoryItem> _items = new List<InventoryItem>();
 
-        public event Action<Item> ItemAdded;
+        public event Action<InventoryItem> ItemAdded;
 
-        public event Action<Item> ItemRemoved;
+        public event Action<InventoryItem> ItemRemoved;
 
         public int TotalItemsWeight { get; private set; }
 
         public int MaxItemsWeight { get; private set; }
 
-        public IEnumerable<Item> Items => _items.ToArray();
+        public IEnumerable<InventoryItem> Items => _items.ToArray();
 
         public void SetWeightCapacity(int maxWeight)
         {
@@ -37,7 +37,7 @@ namespace Strawhenge.Inventory
             MaxItemsWeight = maxWeight;
         }
 
-        internal void Add(Item item, int weight)
+        internal void Add(InventoryItem item, int weight)
         {
             if (_items.Contains(item))
                 return;
@@ -47,7 +47,7 @@ namespace Strawhenge.Inventory
             ItemAdded?.Invoke(item);
         }
 
-        internal void Remove(Item item, int weight)
+        internal void Remove(InventoryItem item, int weight)
         {
             if (!_items.Contains(item))
                 return;

@@ -7,7 +7,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.RemoveFromStorage
 {
     public class Remove_when_holding : BaseItemTest
     {
-        readonly Item _hammer;
+        readonly InventoryItem _hammer;
 
         public Remove_when_holding(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.RemoveFromStorage
             _hammer.Storable.Do(x => x.RemoveFromStorage());
         }
 
-        protected override Maybe<Item> ExpectedItemInRightHand => _hammer;
+        protected override Maybe<InventoryItem> ExpectedItemInRightHand => _hammer;
 
         protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {

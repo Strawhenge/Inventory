@@ -9,11 +9,11 @@ namespace Strawhenge.Inventory.Containers
 
         public ItemContainer RightHand { get; } = new ItemContainer("Right Hand");
 
-        public Maybe<Item> ItemInLeftHand => LeftHand.CurrentItem;
+        public Maybe<InventoryItem> ItemInLeftHand => LeftHand.CurrentItem;
 
-        public Maybe<Item> ItemInRightHand => RightHand.CurrentItem;
+        public Maybe<InventoryItem> ItemInRightHand => RightHand.CurrentItem;
 
-        public bool HasTwoHandedItem(out Item item)
+        public bool HasTwoHandedItem(out InventoryItem item)
         {
             if (LeftHand.CurrentItem.HasSome(out var leftItem) && leftItem.IsTwoHanded)
             {
@@ -31,16 +31,16 @@ namespace Strawhenge.Inventory.Containers
             return false;
         }
 
-        public bool IsInLeftHand(Item item) => LeftHand.IsCurrentItem(item);
+        public bool IsInLeftHand(InventoryItem item) => LeftHand.IsCurrentItem(item);
 
-        public bool IsInRightHand(Item item) => RightHand.IsCurrentItem(item);
+        public bool IsInRightHand(InventoryItem item) => RightHand.IsCurrentItem(item);
 
-        internal void SetItemLeftHand(Item item)
+        internal void SetItemLeftHand(InventoryItem item)
         {
             LeftHand.SetItem(item);
         }
 
-        internal void SetItemRightHand(Item item)
+        internal void SetItemRightHand(InventoryItem item)
         {
             RightHand.SetItem(item);
         }

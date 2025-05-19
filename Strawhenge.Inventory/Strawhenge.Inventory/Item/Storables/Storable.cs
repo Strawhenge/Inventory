@@ -4,10 +4,10 @@ namespace Strawhenge.Inventory.Items.Storables
 {
     public class Storable
     {
-        readonly Item _item;
+        readonly InventoryItem _item;
         readonly StoredItems _storedItems;
 
-        public Storable(Item item, StoredItems storedItems, int weight)
+        public Storable(InventoryItem item, StoredItems storedItems, int weight)
         {
             _item = item;
             _storedItems = storedItems;

@@ -9,19 +9,19 @@ namespace Strawhenge.Inventory.Containers
         public ItemContainer(string name)
         {
             Name = name;
-            CurrentItem = Maybe.None<Item>();
+            CurrentItem = Maybe.None<InventoryItem>();
         }
 
         public event Action Changed;
 
         public string Name { get; }
 
-        public Maybe<Item> CurrentItem { get; private set; }
+        public Maybe<InventoryItem> CurrentItem { get; private set; }
 
-        public bool IsCurrentItem(Item item) =>
+        public bool IsCurrentItem(InventoryItem item) =>
             CurrentItem.HasSome(out var currentItem) && item == currentItem;
 
-        internal void SetItem(Item item)
+        internal void SetItem(InventoryItem item)
         {
             CurrentItem = Maybe.Some(item);
             Changed?.Invoke();
@@ -29,7 +29,7 @@ namespace Strawhenge.Inventory.Containers
 
         internal void UnsetItem()
         {
-            CurrentItem = Maybe.None<Item>();
+            CurrentItem = Maybe.None<InventoryItem>();
             Changed?.Invoke();
         }
     }

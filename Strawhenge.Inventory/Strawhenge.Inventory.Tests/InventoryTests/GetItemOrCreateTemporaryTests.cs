@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
 
         readonly InventoryTestContext _inventoryContext;
         readonly Inventory _inventory;
-        readonly ItemData _hammer;
+        readonly Item _hammer;
 
         public GetItemOrCreateTemporaryTests(ITestOutputHelper testOutputHelper)
         {
@@ -21,7 +21,7 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
             _inventoryContext.AddHolster(RightHip);
             _inventory = _inventoryContext.Inventory;
 
-            _hammer = ItemDataBuilder
+            _hammer = ItemBuilder
                 .Create(Hammer, ItemSize.OneHanded, isStorable: true, 0)
                 .AddHolster(LeftHip)
                 .AddHolster(RightHip)
@@ -125,7 +125,7 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
             Assert.Same(expectedItem, item);
         }
 
-        Item ArrangeItemInStorage()
+        InventoryItem ArrangeItemInStorage()
         {
             var item = _inventory.CreateItem(_hammer);
 
@@ -139,7 +139,7 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
             return item;
         }
 
-        Item ArrangeItemInHolster(string holsterName)
+        InventoryItem ArrangeItemInHolster(string holsterName)
         {
             var item = _inventory.CreateItem(_hammer);
 
@@ -151,7 +151,7 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
             return item;
         }
 
-        Item ArrangeItemInHand(bool left = false)
+        InventoryItem ArrangeItemInHand(bool left = false)
         {
             var item = _inventory.CreateItem(_hammer);
 

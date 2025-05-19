@@ -6,7 +6,7 @@ namespace Strawhenge.Inventory
 {
     public static class InventoryExtensions
     {
-        public static IEnumerable<Item> AllItems(this Inventory inventory)
+        public static IEnumerable<InventoryItem> AllItems(this Inventory inventory)
         {
             return inventory.Hands.LeftHand.CurrentItem.AsEnumerable()
                 .Concat(inventory.Hands.RightHand.CurrentItem.AsEnumerable())

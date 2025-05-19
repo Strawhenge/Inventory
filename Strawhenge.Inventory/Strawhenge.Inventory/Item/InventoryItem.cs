@@ -11,14 +11,14 @@ using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory.Items
 {
-    public class Item
+    public class InventoryItem
     {
         readonly Hands _hands;
         readonly ItemSize _size;
         readonly ItemProcedureScheduler _procedureScheduler;
 
-        public Item(
-            ItemData data,
+        public InventoryItem(
+            Item data,
             Context context,
             Hands hands,
             IItemProcedures procedures,
@@ -33,16 +33,16 @@ namespace Strawhenge.Inventory.Items
             _hands = hands;
             _procedureScheduler = new ItemProcedureScheduler(procedures, procedureQueue);
             _size = data.Size;
-            Holsters = HolstersForItem.None;
+            Holsters = InventoryItemHolsters.None;
         }
 
         public string Name { get; }
 
-        public ItemData Data { get; }
+        public Item Data { get; }
 
         public Context Context { get; }
 
-        public HolstersForItem Holsters { get; private set; }
+        public InventoryItemHolsters Holsters { get; private set; }
 
         public Maybe<Consumable> Consumable { get; private set; } = Maybe.None<Consumable>();
 
@@ -58,7 +58,7 @@ namespace Strawhenge.Inventory.Items
             .Map(x => x.IsStored)
             .Reduce(() => false);
 
-        public void SetupHolsters(HolstersForItem holsters) => Holsters = holsters;
+        public void SetupHolsters(InventoryItemHolsters holsters) => Holsters = holsters;
 
         public void SetupConsumable(IConsumableProcedures procedures, IEnumerable<Effect> effects) =>
             Consumable = new Consumable(this, effects, procedures, _procedureScheduler.Queue);
@@ -88,7 +88,7 @@ namespace Strawhenge.Inventory.Items
                 else
                     _procedureScheduler.DropRightHand(callback);
             }
-            else if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
+            else if (Holsters.IsEquippedToHolster(out InventoryItemHolster holster))
             {
                 holster.Drop(callback);
             }
@@ -207,7 +207,7 @@ namespace Strawhenge.Inventory.Items
 
         public void UnequipFromHolster(Action callback = null)
         {
-            if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
+            if (Holsters.IsEquippedToHolster(out InventoryItemHolster holster))
             {
                 holster.Unequip(callback);
                 return;
@@ -255,7 +255,7 @@ namespace Strawhenge.Inventory.Items
 
         public void Discard()
         {
-            if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
+            if (Holsters.IsEquippedToHolster(out InventoryItemHolster holster))
                 holster.Discard();
 
             if (IsInLeftHand())
@@ -308,7 +308,7 @@ namespace Strawhenge.Inventory.Items
 
         internal void DisappearFromHolster(Action callback = null)
         {
-            if (Holsters.IsEquippedToHolster(out HolsterForItem holster))
+            if (Holsters.IsEquippedToHolster(out InventoryItemHolster holster))
             {
                 holster.Disappear(callback);
                 return;
@@ -349,7 +349,7 @@ namespace Strawhenge.Inventory.Items
 
         bool IsInRightHand() => _hands.IsInRightHand(this);
 
-        bool IsEquippedToHolster(out HolsterForItemProcedureScheduler procedureScheduler) =>
+        bool IsEquippedToHolster(out ItemHolsterProcedureScheduler procedureScheduler) =>
             Holsters.IsEquippedToHolster(out procedureScheduler);
 
         public override string ToString()

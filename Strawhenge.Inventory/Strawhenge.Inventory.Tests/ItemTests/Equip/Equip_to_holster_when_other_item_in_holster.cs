@@ -6,7 +6,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Equip
 {
     public class Equip_to_holster_when_other_item_in_holster : BaseItemTest
     {
-        readonly Item _knife;
+        readonly InventoryItem _knife;
 
         public Equip_to_holster_when_other_item_in_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Equip
             _knife.Holsters[RightHipHolster].Do(x => x.Equip());
         }
 
-        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, InventoryItem expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (RightHipHolster, _knife);
         }

@@ -6,7 +6,7 @@ namespace Strawhenge.Inventory.Loot
 {
     public interface ILootSource
     {
-        IReadOnlyList<Loot<ItemData>> GetItems();
+        IReadOnlyList<Loot<Item>> GetItems();
 
         IReadOnlyList<Loot<ApparelPieceData>> GetApparelPieces();
     }

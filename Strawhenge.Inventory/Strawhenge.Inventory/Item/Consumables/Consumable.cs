@@ -9,12 +9,12 @@ namespace Strawhenge.Inventory.Items.Consumables
 {
     public class Consumable
     {
-        readonly Item _item;
+        readonly InventoryItem _item;
         readonly Effect[] _effects;
         readonly ConsumableProcedureScheduler _procedures;
 
         public Consumable(
-            Item item,
+            InventoryItem item,
             IEnumerable<Effect> effects,
             IConsumableProcedures procedures,
             ProcedureQueue procedureQueue)

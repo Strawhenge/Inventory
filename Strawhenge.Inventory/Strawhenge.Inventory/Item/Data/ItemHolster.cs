@@ -2,11 +2,11 @@
 
 namespace Strawhenge.Inventory.Items
 {
-    public class HolsterItemData
+    public class ItemHolster
     {
         readonly GenericData _genericData;
 
-        internal HolsterItemData(string holsterName, GenericData genericData)
+        internal ItemHolster(string holsterName, GenericData genericData)
         {
             _genericData = genericData;
             HolsterName = holsterName;

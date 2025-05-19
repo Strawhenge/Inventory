@@ -4,6 +4,6 @@ namespace Strawhenge.Inventory.Items
 {
     public interface IItemRepository
     {
-        Maybe<ItemData> FindByName(string name);
+        Maybe<Item> FindByName(string name);
     }
 }

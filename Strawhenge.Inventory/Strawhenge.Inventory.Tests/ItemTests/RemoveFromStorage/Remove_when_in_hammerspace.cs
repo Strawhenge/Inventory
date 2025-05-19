@@ -7,7 +7,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.RemoveFromStorage
 {
     public class Remove_when_in_hammerspace : BaseItemTest
     {
-        readonly Item _hammer;
+        readonly InventoryItem _hammer;
 
         public Remove_when_in_hammerspace(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {

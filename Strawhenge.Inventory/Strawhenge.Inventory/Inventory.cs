@@ -10,7 +10,7 @@ namespace Strawhenge.Inventory
 {
     public class Inventory
     {
-        readonly ItemFactory _itemFactory;
+        readonly InventoryItemFactory _itemFactory;
         readonly ApparelPieceFactory _apparelPieceFactory;
         readonly ItemLocator _itemLocator;
         readonly IItemRepository _itemRepository;
@@ -31,7 +31,7 @@ namespace Strawhenge.Inventory
             _procedureQueue = new ProcedureQueue();
             var effectFactory = new EffectFactory(effectFactoryLocator, logger);
 
-            _itemFactory = new ItemFactory(
+            _itemFactory = new InventoryItemFactory(
                 Hands,
                 Holsters,
                 StoredItems,
@@ -57,14 +57,14 @@ namespace Strawhenge.Inventory
 
         public ApparelSlots ApparelSlots { get; }
 
-        public Item CreateItem(ItemData data) => CreateItem(data, new Context());
+        public InventoryItem CreateItem(Item data) => CreateItem(data, new Context());
 
-        public Item CreateItem(ItemData data, Context context)
+        public InventoryItem CreateItem(Item data, Context context)
         {
             return _itemFactory.Create(data, context);
         }
 
-        public Item CreateTemporaryItem(ItemData data)
+        public InventoryItem CreateTemporaryItem(Item data)
         {
             return _itemFactory.CreateTemporary(data);
         }
@@ -74,7 +74,7 @@ namespace Strawhenge.Inventory
             return _apparelPieceFactory.Create(data);
         }
 
-        public Maybe<Item> GetItemOrCreateTemporary(string itemName)
+        public Maybe<InventoryItem> GetItemOrCreateTemporary(string itemName)
         {
             return _itemLocator
                 .Locate(itemName)

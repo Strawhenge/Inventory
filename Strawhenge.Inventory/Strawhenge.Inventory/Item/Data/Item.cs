@@ -4,17 +4,17 @@ using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.Items
 {
-    public class ItemData
+    public class Item
     {
         readonly GenericData _genericData;
 
-        internal ItemData(
+        internal Item(
             string name,
             ItemSize size,
             bool isStorable,
             int weight,
-            Maybe<ConsumableItemData> consumable,
-            IEnumerable<HolsterItemData> holsters,
+            Maybe<ItemConsumable> consumable,
+            IEnumerable<ItemHolster> holsters,
             GenericData genericData)
         {
             Name = name;
@@ -35,9 +35,9 @@ namespace Strawhenge.Inventory.Items
 
         public int Weight { get; }
 
-        public Maybe<ConsumableItemData> Consumable { get; }
+        public Maybe<ItemConsumable> Consumable { get; }
 
-        public IReadOnlyList<HolsterItemData> Holsters { get; }
+        public IReadOnlyList<ItemHolster> Holsters { get; }
 
         public Maybe<T> Get<T>() where T : class => _genericData.Get<T>();
     }

@@ -103,29 +103,29 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         protected void SetStorageCapacity(int capacity) =>
             _inventoryContext.SetStorageCapacity(capacity);
 
-        protected Item CreateItem(string name, bool storable = false) =>
+        protected InventoryItem CreateItem(string name, bool storable = false) =>
             CreateItem(name, Array.Empty<string>(), storable);
 
-        protected Item CreateItem(string name, string[] holsterNames, bool storable = false) =>
+        protected InventoryItem CreateItem(string name, string[] holsterNames, bool storable = false) =>
             _inventoryContext.CreateItem(name, ItemSize.OneHanded, holsterNames, storable);
 
-        protected Item CreateTwoHandedItem(string name, bool storable = false) =>
+        protected InventoryItem CreateTwoHandedItem(string name, bool storable = false) =>
             CreateTwoHandedItem(name, Array.Empty<string>(), storable);
 
-        protected Item CreateTwoHandedItem(string name, string[] holsterNames, bool storable = false) =>
+        protected InventoryItem CreateTwoHandedItem(string name, string[] holsterNames, bool storable = false) =>
             _inventoryContext.CreateItem(name, ItemSize.TwoHanded, holsterNames, storable);
 
-        protected Item CreateTransientItem(string name) =>
+        protected InventoryItem CreateTransientItem(string name) =>
             _inventoryContext.CreateTransientItem(name);
 
-        protected virtual Maybe<Item> ExpectedItemInLeftHand => Maybe.None<Item>();
+        protected virtual Maybe<InventoryItem> ExpectedItemInLeftHand => Maybe.None<InventoryItem>();
 
-        protected virtual Maybe<Item> ExpectedItemInRightHand => Maybe.None<Item>();
+        protected virtual Maybe<InventoryItem> ExpectedItemInRightHand => Maybe.None<InventoryItem>();
 
-        protected virtual IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters() =>
-            Enumerable.Empty<(string holsterName, Item expectedItem)>();
+        protected virtual IEnumerable<(string holsterName, InventoryItem expectedItem)> ExpectedItemsInHolsters() =>
+            Enumerable.Empty<(string holsterName, InventoryItem expectedItem)>();
 
-        protected virtual IEnumerable<Item> ExpectedItemsInStorage() => Enumerable.Empty<Item>();
+        protected virtual IEnumerable<InventoryItem> ExpectedItemsInStorage() => Enumerable.Empty<InventoryItem>();
 
         protected abstract IEnumerable<ProcedureInfo> ExpectedProceduresCompleted();
     }
