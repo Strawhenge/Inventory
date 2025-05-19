@@ -1,5 +1,5 @@
 ﻿using Strawhenge.Inventory.Apparel;
-using Strawhenge.Inventory.Unity.Apparel;
+using Strawhenge.Inventory.Unity.Apparel.ApparelPieceData;
 using System;
 using UnityEditor;
 using UnityEngine;

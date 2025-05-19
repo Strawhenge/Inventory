@@ -1,23 +1,15 @@
-﻿using Strawhenge.Inventory.Effects;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Apparel
+namespace Strawhenge.Inventory.Unity.Apparel.ApparelPieceData
 {
     public interface IApparelPieceData
     {
-        string Name { get; }
-
         GameObject Prefab { get; }
-
-        string Slot { get; }
 
         Vector3 Position { get; }
 
         Quaternion Rotation { get; }
 
         Vector3 Scale { get; }
-
-        IReadOnlyList<EffectData> Effects { get; }
     }
 }

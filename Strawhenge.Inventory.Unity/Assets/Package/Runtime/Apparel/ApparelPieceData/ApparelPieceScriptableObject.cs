@@ -1,11 +1,12 @@
 ﻿using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Effects;
+using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Effects;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Apparel
+namespace Strawhenge.Inventory.Unity.Apparel.ApparelPieceData
 {
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Apparel/Apparel Piece")]
     public class ApparelPieceScriptableObject : ScriptableObject, IApparelPieceData

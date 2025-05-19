@@ -1,16 +1,17 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Inventory.Apparel;
+using Strawhenge.Inventory.Unity.Apparel.ApparelPieceData;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
-    public class ResourcesApparelRepository : IApparelPieceRepository
+    public class ResourcesApparelPieceRepository : IApparelPieceRepository
     {
         readonly Dictionary<string, ApparelPieceScriptableObject> _scriptableObjects;
 
-        public ResourcesApparelRepository()
+        public ResourcesApparelPieceRepository()
         {
             _scriptableObjects = Resources
                 .LoadAll<ApparelPieceScriptableObject>(string.Empty)

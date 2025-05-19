@@ -1,8 +1,8 @@
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Loot;
-using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items.ItemData;
+using Strawhenge.Inventory.Unity.Apparel.ApparelPieceData;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;

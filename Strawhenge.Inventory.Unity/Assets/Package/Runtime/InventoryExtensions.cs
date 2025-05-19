@@ -1,8 +1,8 @@
 ﻿using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Items.ItemData;
+using Strawhenge.Inventory.Unity.Apparel.ApparelPieceData;
 
 namespace Strawhenge.Inventory.Unity
 {
