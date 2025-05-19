@@ -1,3 +1,4 @@
+using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Loader;
 using Strawhenge.Inventory.Unity.Loot;
