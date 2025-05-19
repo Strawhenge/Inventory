@@ -18,10 +18,10 @@ namespace Strawhenge.Inventory.Unity.Loot
         void Awake()
         {
             var items = _items
-                .Select(x => x.ToItemData());
+                .Select(x => x.ToItem());
 
             var apparelPieces = _apparelPieces
-                .Select(x => x.ToApparelPieceData());
+                .Select(x => x.ToApparelPiece());
 
             Source = new LootCollectionSource(items, apparelPieces);
         }
@@ -34,9 +34,9 @@ namespace Strawhenge.Inventory.Unity.Loot
 
         public LootCollectionSource Source { get; private set; }
 
-        public void Add(ItemData item) => Source.Add(item);
+        public void Add(Item item) => Source.Add(item);
 
-        public void Add(ApparelPieceData apparelPiece) => Source.Add(apparelPiece);
+        public void Add(ApparelPiece apparelPiece) => Source.Add(apparelPiece);
 
         public void Merge(LootCollectionSource source) => Source.Merge(source);
 

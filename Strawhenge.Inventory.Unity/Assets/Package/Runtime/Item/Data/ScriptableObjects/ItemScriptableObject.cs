@@ -10,9 +10,9 @@ namespace Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Item")]
     public class ItemScriptableObject : ScriptableObject, IItemData
     {
-        public ItemData ToItemData()
+        public Item ToItem()
         {
-            var builder = ItemDataBuilder
+            var builder = ItemBuilder
                 .Create(name, _size, _isStorable, _weight, x => x.Set<IItemData>(this));
 
             foreach (var holsterItemData in _holsterItemData)

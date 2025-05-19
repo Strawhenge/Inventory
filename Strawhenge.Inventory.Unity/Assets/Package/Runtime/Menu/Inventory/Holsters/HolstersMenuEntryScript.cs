@@ -1,5 +1,4 @@
-﻿using Strawhenge.Inventory.Containers;
-using Strawhenge.Inventory.Items;
+﻿using Strawhenge.Inventory.Items;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +11,7 @@ namespace Strawhenge.Inventory.Unity.Menu
         [SerializeField] Text _itemNameText;
         [SerializeField] Button _itemSelectButton;
 
-        internal event Action<Item> Selected;
+        internal event Action<InventoryItem> Selected;
 
         internal void SetHolster(ItemContainer holster)
         {

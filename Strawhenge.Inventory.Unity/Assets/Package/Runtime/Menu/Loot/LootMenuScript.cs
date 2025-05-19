@@ -6,7 +6,6 @@ using Strawhenge.Inventory.Items;
 using System.Collections.Generic;
 using UnityEngine;
 using Strawhenge.Inventory.Loot;
-using System;
 using UnityEngine.Events;
 
 namespace Strawhenge.Inventory.Unity.Menu
@@ -81,7 +80,7 @@ namespace Strawhenge.Inventory.Unity.Menu
             Closed?.Invoke();
         }
 
-        void AddItem(Loot<ItemData> item)
+        void AddItem(Loot<Item> item)
         {
             var menuEntry = Instantiate(_itemLootMenuEntryPrefab, parent: _entriesContainer);
             menuEntry.Set(_inventoryScript.Inventory, item, _takeItemLootMenu);
@@ -95,7 +94,7 @@ namespace Strawhenge.Inventory.Unity.Menu
             };
         }
 
-        void AddApparelPiece(Loot<ApparelPieceData> apparelPiece)
+        void AddApparelPiece(Loot<ApparelPiece> apparelPiece)
         {
             var menuEntry = Instantiate(_apparelPieceLootMenuEntryPrefab, parent: _entriesContainer);
             menuEntry.Set(_inventoryScript.Inventory, apparelPiece);

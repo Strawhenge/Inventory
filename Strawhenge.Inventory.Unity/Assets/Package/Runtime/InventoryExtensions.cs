@@ -8,28 +8,28 @@ namespace Strawhenge.Inventory.Unity
 {
     public static class InventoryExtensions
     {
-        public static Item CreateItem(
+        public static InventoryItem CreateItem(
             this Inventory inventory,
             ItemPickupScript pickup)
         {
-            var (data, context) = pickup.PickupItem();
-            return inventory.CreateItem(data, context);
+            var (item, context) = pickup.PickupItem();
+            return inventory.CreateItem(item, context);
         }
 
-        public static Item CreateItem(
+        public static InventoryItem CreateItem(
             this Inventory inventory,
             ItemScriptableObject scriptableObject)
         {
-            var data = scriptableObject.ToItemData();
-            return inventory.CreateItem(data);
+            var item = scriptableObject.ToItem();
+            return inventory.CreateItem(item);
         }
 
-        public static ApparelPiece CreateApparelPiece(
+        public static InventoryApparelPiece CreateApparelPiece(
             this Inventory inventory,
             ApparelPieceScriptableObject scriptableObject)
         {
-            var data = scriptableObject.ToApparelPieceData();
-            return inventory.CreateApparelPiece(data);
+            var apparelPiece = scriptableObject.ToApparelPiece();
+            return inventory.CreateApparelPiece(apparelPiece);
         }
     }
 }

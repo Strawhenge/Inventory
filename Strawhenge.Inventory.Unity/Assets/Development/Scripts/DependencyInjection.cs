@@ -52,7 +52,7 @@ public static class DependencyInjection
 
         builder
             .RegisterType<ResourcesApparelRepository>()
-            .As<IApparelRepository>()
+            .As<IApparelPieceRepository>()
             .SingleInstance();
 
         builder

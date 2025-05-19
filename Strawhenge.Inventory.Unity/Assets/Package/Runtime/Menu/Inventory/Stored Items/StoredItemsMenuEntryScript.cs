@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory.Unity.Menu
 
         internal event Action Selected;
 
-        internal void SetItem(Item item)
+        internal void SetItem(InventoryItem item)
         {
             _itemNameText.text = item.Name;
             _itemSelectButton.onClick.AddListener(() => Selected?.Invoke());

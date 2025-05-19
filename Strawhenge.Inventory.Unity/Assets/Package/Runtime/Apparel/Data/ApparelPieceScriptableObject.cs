@@ -10,9 +10,9 @@ namespace Strawhenge.Inventory.Unity.Apparel
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Apparel/Apparel Piece")]
     public class ApparelPieceScriptableObject : ScriptableObject, IApparelPieceData
     {
-        public ApparelPieceData ToApparelPieceData()
+        public ApparelPiece ToApparelPiece()
         {
-            return ApparelPieceDataBuilder
+            return ApparelPieceBuilder
                 .Create(Name, Slot, Effects, x => x.Set<IApparelPieceData>(this))
                 .Build();
         }

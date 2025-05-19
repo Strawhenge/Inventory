@@ -9,7 +9,7 @@ namespace Strawhenge.Inventory.Unity.Editor
     public class ApparelManagerEditorHelper
     {
         readonly EditorTarget<Inventory> _target;
-        ApparelPiece _piece;
+        InventoryApparelPiece _piece;
         bool _displaySlots;
 
         public ApparelManagerEditorHelper(Func<Inventory> getTarget)
@@ -58,7 +58,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
         }
 
-        void InspectPiece(ApparelPiece piece)
+        void InspectPiece(InventoryApparelPiece piece)
         {
             var info = $"{piece.Name}{Environment.NewLine}Slot: {piece.SlotName}";
 
@@ -66,10 +66,10 @@ namespace Strawhenge.Inventory.Unity.Editor
 
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button(nameof(ApparelPiece.Equip)))
+            if (GUILayout.Button(nameof(InventoryApparelPiece.Equip)))
                 piece.Equip();
 
-            if (GUILayout.Button(nameof(ApparelPiece.Unequip)))
+            if (GUILayout.Button(nameof(InventoryApparelPiece.Unequip)))
                 piece.Unequip();
 
             EditorGUILayout.EndHorizontal();

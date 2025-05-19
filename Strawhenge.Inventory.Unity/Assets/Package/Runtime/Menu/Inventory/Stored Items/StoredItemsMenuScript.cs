@@ -12,10 +12,10 @@ namespace Strawhenge.Inventory.Unity.Menu
         [SerializeField] RectTransform _menuEntriesParent;
         [SerializeField] Text _capacityText;
 
-        readonly Dictionary<Item, StoredItemsMenuEntryScript> _menuEntriesByItem = new();
+        readonly Dictionary<InventoryItem, StoredItemsMenuEntryScript> _menuEntriesByItem = new();
 
         StoredItems _storedItems;
-        Item _selectedItem;
+        InventoryItem _selectedItem;
 
         internal void SetInventory(Inventory inventory)
         {

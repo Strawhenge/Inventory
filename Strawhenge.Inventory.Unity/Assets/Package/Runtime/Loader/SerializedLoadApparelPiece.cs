@@ -10,6 +10,6 @@ namespace Strawhenge.Inventory.Unity.Loader
     {
         [SerializeField] ApparelPieceScriptableObject _apparel;
 
-        public LoadApparelPiece Map() => new(_apparel.ToApparelPieceData());
+        public LoadApparelPiece Map() => new(_apparel.ToApparelPiece());
     }
 }

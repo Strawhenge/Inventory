@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] Button _consumeLeftHandButton;
         [SerializeField] Button _consumeRightHandButton;
 
-        Item _item;
+        InventoryItem _item;
 
         void Awake()
         {
@@ -32,7 +32,7 @@ namespace Strawhenge.Inventory.Unity
             Hide();
         }
 
-        internal void Show(Item item)
+        internal void Show(InventoryItem item)
         {
             if (_item != null)
                 _item.Drop();
@@ -103,7 +103,7 @@ namespace Strawhenge.Inventory.Unity
 
         void ConsumeRightHand() => Perform(i => i.Consumable.Do(x => x.ConsumeRightHand()));
 
-        void Perform(Action<Item> action)
+        void Perform(Action<InventoryItem> action)
         {
             if (_item == null) return;
 

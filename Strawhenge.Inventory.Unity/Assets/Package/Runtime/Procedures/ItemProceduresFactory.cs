@@ -29,7 +29,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
             _dropPoint = dropPoint;
         }
 
-        public ItemProcedureDto Create(ItemData itemData, Context context)
+        public ItemProcedureDto Create(Item itemData, Context context)
         {
             var unityItemData = itemData
                 .Get<IItemData>()
@@ -56,7 +56,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
                 _holsterScripts[holsterData.HolsterName]
                     .Do(holsterScript =>
                     {
-                        var holsterProcedures = new HolsterForItemProcedures(
+                        var holsterProcedures = new ItemHolsterProcedures(
                             itemHelper,
                             unityItemData,
                             context,

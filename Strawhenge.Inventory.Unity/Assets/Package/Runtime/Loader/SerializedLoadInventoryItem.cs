@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Unity.Loader
 
         public LoadInventoryItem Map()
         {
-            var load = new LoadInventoryItem(_item.ToItemData())
+            var load = new LoadInventoryItem(_item.ToItem())
             {
                 InHand = _inHand,
                 IsInStorage = _isInStorage

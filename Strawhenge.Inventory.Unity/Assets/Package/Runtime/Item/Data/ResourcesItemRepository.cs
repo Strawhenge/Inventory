@@ -18,11 +18,11 @@ namespace Strawhenge.Inventory.Unity.Items.Data
                 .ToDictionary(item => item.name.ToLower(), item => item);
         }
 
-        public Maybe<ItemData> FindByName(string name)
+        public Maybe<Item> FindByName(string name)
         {
             return _scriptableObjects
                 .MaybeGetValue(name.ToLower())
-                .Map(x => x.ToItemData());
+                .Map(x => x.ToItem());
         }
     }
 }

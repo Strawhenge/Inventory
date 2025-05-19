@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
-    public class ResourcesApparelRepository : IApparelRepository
+    public class ResourcesApparelRepository : IApparelPieceRepository
     {
         readonly Dictionary<string, ApparelPieceScriptableObject> _scriptableObjects;
 
@@ -17,11 +17,11 @@ namespace Strawhenge.Inventory.Unity.Apparel
                 .ToDictionary(apparel => apparel.name.ToLower(), apparel => apparel);
         }
 
-        public Maybe<ApparelPieceData> FindByName(string name)
+        public Maybe<ApparelPiece> FindByName(string name)
         {
             return _scriptableObjects
                 .MaybeGetValue(name.ToLower())
-                .Map(x => x.ToApparelPieceData());
+                .Map(x => x.ToApparelPiece());
         }
     }
 }

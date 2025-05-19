@@ -27,7 +27,7 @@ namespace Strawhenge.Inventory.Unity.Items
             _contextHandlers.ForEach(x => x.Handle(_context));
         }
 
-        internal (ItemData, Context) PickupItem()
+        internal (Item, Context) PickupItem()
         {
             if (_context == null)
             {
@@ -41,7 +41,7 @@ namespace Strawhenge.Inventory.Unity.Items
                 Destroy(gameObject);
 
             // TODO Error handling for missing scriptable object field.
-            return (_data.ToItemData(), _context);
+            return (_data.ToItem(), _context);
         }
     }
 }

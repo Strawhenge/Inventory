@@ -1,5 +1,5 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Inventory.Items.Holsters;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Components;
@@ -10,7 +10,7 @@ using Strawhenge.Inventory.Unity.Procedures.Holster;
 
 namespace Strawhenge.Inventory.Unity.Procedures
 {
-    class HolsterForItemProcedures : IHolsterForItemProcedures
+    class ItemHolsterProcedures : IItemHolsterProcedures
     {
         readonly ItemScriptInstance _item;
         readonly IItemData _itemData;
@@ -20,7 +20,7 @@ namespace Strawhenge.Inventory.Unity.Procedures
         readonly HolsterScript _holster;
         readonly ProduceItemAnimationHandler _produceItemAnimationHandler;
 
-        public HolsterForItemProcedures(
+        public ItemHolsterProcedures(
             ItemScriptInstance item,
             IItemData itemData,
             Context itemContext,

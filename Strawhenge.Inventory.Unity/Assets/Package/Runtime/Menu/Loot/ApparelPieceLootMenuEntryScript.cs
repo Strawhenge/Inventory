@@ -11,14 +11,14 @@ namespace Strawhenge.Inventory.Unity.Menu
         [SerializeField] Button _takeButton;
 
         Inventory _inventory;
-        Loot<ApparelPieceData> _containedItem;
+        Loot<ApparelPiece> _containedItem;
 
         void Awake()
         {
             _takeButton.onClick.AddListener(Take);
         }
 
-        public void Set(Inventory inventory, Loot<ApparelPieceData> containedItem)
+        public void Set(Inventory inventory, Loot<ApparelPiece> containedItem)
         {
             _inventory = inventory;
             _containedItem = containedItem;

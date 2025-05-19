@@ -1,5 +1,5 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Inventory.Items.Consumables;
+using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Consumables;
