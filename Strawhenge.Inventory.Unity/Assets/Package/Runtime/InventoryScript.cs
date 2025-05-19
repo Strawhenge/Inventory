@@ -1,9 +1,8 @@
 using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Loader;
 using Strawhenge.Inventory.Unity.Apparel;
-using Strawhenge.Inventory.Unity.Components;
-using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Loot;
+using Strawhenge.Inventory.Unity.Items;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity

@@ -1,7 +1,7 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
+using Strawhenge.Inventory.Unity.Items.ItemData;
 using System;
 using System.Linq;
 using UnityEditor;

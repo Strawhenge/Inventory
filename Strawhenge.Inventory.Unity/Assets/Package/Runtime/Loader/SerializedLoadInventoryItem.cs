@@ -1,5 +1,6 @@
 ﻿using Strawhenge.Inventory.Loader;
-using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
+using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Items.ItemData;
 using System;
 using UnityEngine;
 

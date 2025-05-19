@@ -2,7 +2,7 @@
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Items.Data.ScriptableObjects;
+using Strawhenge.Inventory.Unity.Items.ItemData;
 
 namespace Strawhenge.Inventory.Unity
 {
