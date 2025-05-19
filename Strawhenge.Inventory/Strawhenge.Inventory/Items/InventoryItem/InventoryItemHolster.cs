@@ -1,5 +1,4 @@
 ﻿using System;
-using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory.Items

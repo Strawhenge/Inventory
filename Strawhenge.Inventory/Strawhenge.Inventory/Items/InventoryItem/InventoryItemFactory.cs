@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Strawhenge.Common;
 using Strawhenge.Inventory.Effects;
-using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory.Items
@@ -9,7 +8,7 @@ namespace Strawhenge.Inventory.Items
     class InventoryItemFactory
     {
         readonly Hands _hands;
-        readonly Items.Holsters _holsters;
+        readonly Holsters _holsters;
         readonly StoredItems _storedItems;
         readonly ProcedureQueue _procedureQueue;
         readonly EffectFactory _effectFactory;
@@ -17,7 +16,7 @@ namespace Strawhenge.Inventory.Items
 
         public InventoryItemFactory(
             Hands hands,
-            Items.Holsters holsters,
+            Holsters holsters,
             StoredItems storedItems,
             ProcedureQueue procedureQueue,
             EffectFactory effectFactory,

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using FunctionalUtilities;
 using Strawhenge.Inventory.Effects;
-using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory.Items
@@ -54,14 +53,6 @@ namespace Strawhenge.Inventory.Items
         public bool IsInStorage => Storable
             .Map(x => x.IsStored)
             .Reduce(() => false);
-
-        public void SetupHolsters(InventoryItemHolsters holsters) => Holsters = holsters;
-
-        public void SetupConsumable(IConsumableProcedures procedures, IEnumerable<Effect> effects) =>
-            Consumable = new Consumable(this, effects, procedures, _procedureScheduler.Queue);
-
-        public void SetupStorable(StoredItems storage, int weight) =>
-            Storable = new Storable(this, storage, weight);
 
         public void Drop(Action callback = null)
         {
@@ -302,6 +293,14 @@ namespace Strawhenge.Inventory.Items
                 otherItem._procedureScheduler.AppearRightHand();
             }
         }
+
+        internal void SetupHolsters(InventoryItemHolsters holsters) => Holsters = holsters;
+
+        internal void SetupConsumable(IConsumableProcedures procedures, IEnumerable<Effect> effects) =>
+            Consumable = new Consumable(this, effects, procedures, _procedureScheduler.Queue);
+
+        internal void SetupStorable(StoredItems storage, int weight) =>
+            Storable = new Storable(this, storage, weight);
 
         internal void DisappearFromHolster(Action callback = null)
         {
