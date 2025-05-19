@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="functionalutilities" Version="1.2.7" />
-    <PackageReference Include="strawhenge.common" Version="1.1.32" />
+    <PackageReference Include="functionalutilities" Version="1.2.8" />
+    <PackageReference Include="strawhenge.common" Version="1.1.39" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
