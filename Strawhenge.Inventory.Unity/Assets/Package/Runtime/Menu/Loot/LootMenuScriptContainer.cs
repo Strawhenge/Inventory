@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.Unity.Menu
         public event Action Opened;
         public event Action Closed;
 
-        public bool IsOpen => _menu.IsOpen;
+        public bool IsOpen => !ReferenceEquals(_menu, null) && _menu.IsOpen;
 
         public void Open(ILootSource source)
         {
