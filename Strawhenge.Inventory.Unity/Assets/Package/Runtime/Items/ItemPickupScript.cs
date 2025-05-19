@@ -29,19 +29,40 @@ namespace Strawhenge.Inventory.Unity.Items
 
         internal (Item, Context) PickupItem()
         {
-            if (_context == null)
-            {
-                _context = new Context();
-                _contextHandlers.ForEach(x => x.Handle(_context));
-            }
+            var item = GetItem();
+            var context = GetContext();
 
             _onPickup.Invoke();
 
             if (_destroyOnPickup)
                 Destroy(gameObject);
 
-            // TODO Error handling for missing scriptable object field.
-            return (_data.ToItem(), _context);
+            return (item, context);
+        }
+
+        Item GetItem()
+        {
+            if (_data == null)
+            {
+                Debug.LogError($"Missing {nameof(_data)}.", this);
+
+                return ItemBuilder
+                    .Create(string.Empty, ItemSize.OneHanded, false, 0)
+                    .Build();
+            }
+
+            return _data.ToItem();
+        }
+
+        Context GetContext()
+        {
+            if (_context == null)
+            {
+                _context = new Context();
+                _contextHandlers.ForEach(x => x.Handle(_context));
+            }
+
+            return _context;
         }
     }
 }
