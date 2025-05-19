@@ -3,7 +3,6 @@ using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Items.ConsumableData;
 using Strawhenge.Inventory.Unity.Items.HolsterItemData;
 using Strawhenge.Inventory.Unity.Items.ItemData;
-using Strawhenge.Inventory.Unity.Items;
 
 namespace Strawhenge.Inventory.Unity.Items.Procedures
 {

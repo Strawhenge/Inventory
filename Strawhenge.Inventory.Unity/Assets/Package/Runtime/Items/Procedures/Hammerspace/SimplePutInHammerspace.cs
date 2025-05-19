@@ -1,5 +1,4 @@
 ﻿using Strawhenge.Inventory.Procedures;
-using Strawhenge.Inventory.Unity.Items;
 using System;
 
 namespace Strawhenge.Inventory.Unity.Items.Procedures

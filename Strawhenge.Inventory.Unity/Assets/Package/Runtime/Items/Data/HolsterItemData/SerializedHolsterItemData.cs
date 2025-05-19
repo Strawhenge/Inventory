@@ -1,5 +1,4 @@
 ﻿using Strawhenge.Common.Unity.Serialization;
-using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Items.DrawAnimationSettings;
 using System;
 using UnityEngine;

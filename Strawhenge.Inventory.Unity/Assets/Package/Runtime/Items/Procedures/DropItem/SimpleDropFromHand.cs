@@ -1,6 +1,5 @@
 ﻿using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Items.ItemData;
-using Strawhenge.Inventory.Unity.Items;
 using System;
 using Object = UnityEngine.Object;
 

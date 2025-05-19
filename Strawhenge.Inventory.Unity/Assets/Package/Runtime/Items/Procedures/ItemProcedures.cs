@@ -4,8 +4,6 @@ using Strawhenge.Inventory.Procedures;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Items.HoldItemData;
 using Strawhenge.Inventory.Unity.Items.ItemData;
-using Strawhenge.Inventory.Unity.Items;
-using Strawhenge.Inventory.Unity.Items.Procedures;
 
 namespace Strawhenge.Inventory.Unity.Items.Procedures
 {
