@@ -33,11 +33,16 @@ namespace Strawhenge.Inventory.Unity.Items
             var context = GetContext();
 
             _onPickup.Invoke();
+            OnPickup();
 
             if (_destroyOnPickup)
                 Destroy(gameObject);
 
             return (item, context);
+        }
+
+        protected virtual void OnPickup()
+        {
         }
 
         Item GetItem()
