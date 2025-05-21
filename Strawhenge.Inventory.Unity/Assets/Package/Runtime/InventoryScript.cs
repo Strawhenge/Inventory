@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Unity
 
         public Inventory Inventory { get; set; }
 
-        public ApparelSlotScripts ApparelSlots { private get; set; }
+        public ApparelSlotScriptsContainer ApparelSlotScriptsContainer { private get; set; }
 
         public HandScriptsContainer HandScriptsContainer { private get; set; }
 
@@ -58,7 +58,7 @@ namespace Strawhenge.Inventory.Unity
 
             foreach (var apparelSlot in GetComponentsInChildren<ApparelSlotScript>())
             {
-                ApparelSlots.Add(apparelSlot);
+                ApparelSlotScriptsContainer.Add(apparelSlot);
                 Inventory.ApparelSlots.Add(apparelSlot.SlotName);
             }
 

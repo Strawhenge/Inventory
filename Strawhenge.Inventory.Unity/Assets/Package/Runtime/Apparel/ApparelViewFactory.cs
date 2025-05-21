@@ -7,12 +7,12 @@ namespace Strawhenge.Inventory.Unity.Apparel
 {
     public class ApparelViewFactory : IApparelViewFactory
     {
-        readonly ApparelSlotScripts _slotScripts;
+        readonly ApparelSlotScriptsContainer _slotScripts;
         readonly LootDrop _apparelDrop;
         readonly ILogger _logger;
 
         public ApparelViewFactory(
-            ApparelSlotScripts slotScripts,
+            ApparelSlotScriptsContainer slotScripts,
             LootDrop apparelDrop,
             ILogger logger)
         {

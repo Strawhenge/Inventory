@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
-    public class ApparelSlotScripts
+    public class ApparelSlotScriptsContainer
     {
         readonly Dictionary<string, ApparelSlotScript> _slotsByName = new Dictionary<string, ApparelSlotScript>();
         readonly ILogger _logger;
 
-        public ApparelSlotScripts(ILogger logger)
+        public ApparelSlotScriptsContainer(ILogger logger)
         {
             _logger = logger;
         }

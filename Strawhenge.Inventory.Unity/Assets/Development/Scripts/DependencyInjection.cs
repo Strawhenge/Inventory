@@ -103,7 +103,7 @@ public static class DependencyInjection
             .InstancePerLifetimeScope();
 
         builder
-            .RegisterType<ApparelSlotScripts>()
+            .RegisterType<ApparelSlotScriptsContainer>()
             .AsSelf()
             .InstancePerLifetimeScope();
 
