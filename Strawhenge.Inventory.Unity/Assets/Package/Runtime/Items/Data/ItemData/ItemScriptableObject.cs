@@ -13,24 +13,6 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Item")]
     public class ItemScriptableObject : ScriptableObject, IItemData
     {
-        public Item ToItem()
-        {
-            var builder = ItemBuilder
-                .Create(name, _size, _isStorable, _weight, x => x.Set<IItemData>(this));
-
-            foreach (var holsterItemData in _holsterItemData)
-            {
-                builder.AddHolster(holsterItemData.HolsterName, x => x.Set<IHolsterItemData>(holsterItemData));
-            }
-
-            if (_consumable.TryGetValue(out var consumableData))
-            {
-                builder.SetConsumable(consumableData.Effects, x => x.Set(consumableData));
-            }
-
-            return builder.Build();
-        }
-
         [FormerlySerializedAs("prefab"), SerializeField]
         ItemScript _prefab;
 
@@ -72,5 +54,35 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
         IDrawAnimationSettings IItemData.DrawAnimationSettings =>
             _drawAnimationSettings.GetValueOrDefault(
                 () => NullDrawAnimationSettings.Instance);
+
+        public Item ToItem()
+        {
+            var builder = ItemBuilder
+                .Create(name, _size, _isStorable, _weight, x =>
+                {
+                    x.Set<IItemData>(this);
+                    Set(x);
+                });
+
+            foreach (var holsterItemData in _holsterItemData)
+            {
+                builder.AddHolster(
+                    holsterItemData.HolsterName,
+                    x => x.Set<IHolsterItemData>(holsterItemData));
+            }
+
+            if (_consumable.TryGetValue(out var consumableData))
+            {
+                builder.SetConsumable(
+                    consumableData.Effects,
+                    x => x.Set(consumableData));
+            }
+
+            return builder.Build();
+        }
+
+        protected virtual void Set(IDataSetter dataSetter)
+        {
+        }
     }
 }
