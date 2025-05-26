@@ -55,7 +55,17 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
             _drawAnimationSettings.GetValueOrDefault(
                 () => NullDrawAnimationSettings.Instance);
 
+        Item _item;
+
         public Item ToItem()
+        {
+            if (_item == null)
+                _item = BuildItem();
+
+            return _item;
+        }
+
+        Item BuildItem()
         {
             var builder = ItemBuilder
                 .Create(name, _size, _isStorable, _weight, x =>
