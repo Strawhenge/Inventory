@@ -43,7 +43,8 @@ namespace Strawhenge.Inventory.Unity.Menu
             _consumeLeftHandButton.onClick.AddListener(ConsumeLeftHand);
             _consumeRightHandButton.onClick.AddListener(ConsumeRightHand);
 
-            UnsetItem();
+            if (_item == null)
+                UnsetItem();
         }
 
         internal void SetItem(InventoryItem item)
