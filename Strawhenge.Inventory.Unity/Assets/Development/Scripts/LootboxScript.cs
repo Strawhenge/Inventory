@@ -28,7 +28,7 @@ public class LootboxScript : MonoBehaviour
 
     bool ClickedOnLootbox()
     {
-        return Input.GetMouseButton(0) &&
+        return Input.GetMouseButton(1) &&
                Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit) &&
                hit.transform.root == transform;
     }
