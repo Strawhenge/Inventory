@@ -1,6 +1,5 @@
 ﻿using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Effects;
-using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Effects;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +10,6 @@ namespace Strawhenge.Inventory.Unity.Apparel.ApparelPieceData
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Apparel/Apparel Piece")]
     public class ApparelPieceScriptableObject : ScriptableObject, IApparelPieceData
     {
-        public ApparelPiece ToApparelPiece()
-        {
-            return ApparelPieceBuilder
-                .Create(Name, Slot, Effects, x => x.Set<IApparelPieceData>(this))
-                .Build();
-        }
-
         [SerializeField] GameObject _prefab;
         [SerializeField] ApparelSlotScriptableObject _slot;
         [SerializeField] Vector3 _position;
@@ -40,5 +32,22 @@ namespace Strawhenge.Inventory.Unity.Apparel.ApparelPieceData
         public IReadOnlyList<EffectData> Effects => _effects
             .Select(x => x.Data)
             .ToArray();
+
+        ApparelPiece _apparelPiece;
+
+        public ApparelPiece ToApparelPiece()
+        {
+            if (_apparelPiece == null)
+                _apparelPiece = BuildApparelPiece();
+
+            return _apparelPiece;
+        }
+
+        ApparelPiece BuildApparelPiece()
+        {
+            return ApparelPieceBuilder
+                .Create(Name, Slot, Effects, x => x.Set<IApparelPieceData>(this))
+                .Build();
+        }
     }
 }

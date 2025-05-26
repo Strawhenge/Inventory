@@ -1,6 +1,5 @@
 ﻿using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
-using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Loot;
 
 namespace Strawhenge.Inventory.Unity.Apparel

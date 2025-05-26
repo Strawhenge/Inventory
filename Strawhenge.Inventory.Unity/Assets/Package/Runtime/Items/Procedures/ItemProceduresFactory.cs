@@ -34,10 +34,10 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
                 .Get<IItemData>()
                 .Reduce(() => NullItemData.Instance);
 
-            var itemHelper = new ItemScriptInstance(unityItemData.Prefab, context);
+            var itemScriptInstance = new ItemScriptInstance(unityItemData.Prefab, context);
 
             var itemProcedures = new ItemProcedures(
-                itemHelper,
+                itemScriptInstance,
                 unityItemData,
                 context,
                 _handScripts,
@@ -56,7 +56,7 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
                     .Do(holsterScript =>
                     {
                         var holsterProcedures = new ItemHolsterProcedures(
-                            itemHelper,
+                            itemScriptInstance,
                             unityItemData,
                             context,
                             unityHolsterData,
