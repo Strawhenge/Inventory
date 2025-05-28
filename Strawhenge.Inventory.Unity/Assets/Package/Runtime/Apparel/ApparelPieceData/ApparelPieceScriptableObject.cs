@@ -8,7 +8,7 @@ namespace Strawhenge.Inventory.Unity.Apparel.ApparelPieceData
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Apparel/Apparel Piece")]
     public class ApparelPieceScriptableObject : ScriptableObject, IApparelPieceData
     {
-        [SerializeField] GameObject _prefab;
+        [SerializeField] ApparelPieceScript _prefab;
         [SerializeField] ApparelSlotScriptableObject _slot;
         [SerializeField] Vector3 _position;
         [SerializeField] Vector3 _rotation;
@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.Unity.Apparel.ApparelPieceData
 
         ApparelPiece _apparelPiece;
 
-        GameObject IApparelPieceData.Prefab => _prefab;
+        ApparelPieceScript IApparelPieceData.Prefab => _prefab;
 
         Vector3 IApparelPieceData.Position => _position;
 

@@ -31,7 +31,7 @@ namespace Strawhenge.Inventory.Unity.Apparel
             var view = new ApparelView(
                 data,
                 _apparelDrop,
-                slotScript.transform);
+                slotScript);
 
             return view;
         }

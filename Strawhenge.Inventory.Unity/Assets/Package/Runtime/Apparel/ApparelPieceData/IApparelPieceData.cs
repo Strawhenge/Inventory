@@ -4,7 +4,7 @@ namespace Strawhenge.Inventory.Unity.Apparel.ApparelPieceData
 {
     public interface IApparelPieceData
     {
-        GameObject Prefab { get; }
+        ApparelPieceScript Prefab { get; }
 
         Vector3 Position { get; }
 

@@ -9,14 +9,14 @@ namespace Strawhenge.Inventory.Unity.Apparel
     {
         readonly ApparelPiece _apparelPiece;
         readonly LootDrop _lootDrop;
-        readonly Transform _slot;
+        readonly ApparelSlotScript _slot;
 
-        GameObject _apparelGameObject;
+        ApparelPieceScript _apparelPieceScript;
 
         public ApparelView(
             ApparelPiece apparelPiece,
             LootDrop lootDrop,
-            Transform slot)
+            ApparelSlotScript slot)
         {
             _apparelPiece = apparelPiece;
             _lootDrop = lootDrop;
@@ -29,21 +29,21 @@ namespace Strawhenge.Inventory.Unity.Apparel
                 .Get<IApparelPieceData>()
                 .Do(data =>
                 {
-                    _apparelGameObject = Object.Instantiate(data.Prefab, _slot);
-                    _apparelGameObject.transform.localPosition = data.Position;
-                    _apparelGameObject.transform.localRotation = data.Rotation;
-                    _apparelGameObject.transform.localScale = data.Scale;
+                    _apparelPieceScript = Object.Instantiate(data.Prefab, _slot.transform);
+                    _apparelPieceScript.transform.localPosition = data.Position;
+                    _apparelPieceScript.transform.localRotation = data.Rotation;
+                    _apparelPieceScript.transform.localScale = data.Scale;
                 });
         }
 
         public void Hide()
         {
-            Object.Destroy(_apparelGameObject);
+            Object.Destroy(_apparelPieceScript);
         }
 
         public void Drop()
         {
-            Object.Destroy(_apparelGameObject);
+            Object.Destroy(_apparelPieceScript);
             _lootDrop.Drop(_apparelPiece);
         }
     }

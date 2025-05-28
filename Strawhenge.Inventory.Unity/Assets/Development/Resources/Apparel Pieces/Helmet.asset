@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573c505f06fbfd54496aa9e48576c075, type: 3}
   m_Name: Helmet
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 335885629923214202, guid: 1932ab3181a05b842b7239b1af04138a, type: 3}
+  _prefab: {fileID: -6813402197349780079, guid: 1932ab3181a05b842b7239b1af04138a, type: 3}
   _slot: {fileID: 11400000, guid: eca682c3beef1b545bddf93d52542f96, type: 2}
   _position: {x: 0, y: 0, z: 0}
   _rotation: {x: 0, y: 0, z: 0}

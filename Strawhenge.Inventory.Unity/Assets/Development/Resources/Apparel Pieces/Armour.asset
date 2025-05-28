@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573c505f06fbfd54496aa9e48576c075, type: 3}
   m_Name: Armour
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 6945689570636895581, guid: 428184c93bcedf54b8df12dc457c05c7, type: 3}
+  _prefab: {fileID: 6499784139554324722, guid: 428184c93bcedf54b8df12dc457c05c7, type: 3}
   _slot: {fileID: 11400000, guid: 47feaa99a50a87a47bf962b2c7341532, type: 2}
   _position: {x: 0, y: 0, z: 0}
   _rotation: {x: 0, y: 0, z: 0}
