@@ -46,25 +46,25 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
 
             var dto = new ItemProcedureDto(itemProcedures);
 
-            foreach (var holsterData in item.Holsters)
+            foreach (var itemHolster in item.Holsters)
             {
-                var unityHolsterData = holsterData
+                var holsterData = itemHolster
                     .Get<IHolsterItemData>()
                     .Reduce(() => NullHolsterItemData.Instance);
 
-                _holsterScripts[holsterData.HolsterName]
+                _holsterScripts[itemHolster.HolsterName]
                     .Do(holsterScript =>
                     {
                         var holsterProcedures = new ItemHolsterProcedures(
                             itemScriptInstance,
                             itemData,
                             context,
-                            unityHolsterData,
+                            holsterData,
                             _handScripts,
                             holsterScript,
                             _produceItemAnimationHandler);
 
-                        dto.SetHolster(holsterData.HolsterName, holsterProcedures);
+                        dto.SetHolster(itemHolster.HolsterName, holsterProcedures);
                     });
             }
 
