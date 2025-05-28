@@ -28,17 +28,17 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
             _dropPoint = dropPoint;
         }
 
-        public ItemProcedureDto Create(Item itemData, Context context)
+        public ItemProcedureDto Create(Item item, Context context)
         {
-            var unityItemData = itemData
+            var itemData = item
                 .Get<IItemData>()
                 .Reduce(() => NullItemData.Instance);
 
-            var itemScriptInstance = new ItemScriptInstance(unityItemData.Prefab, context);
+            var itemScriptInstance = new ItemScriptInstance(itemData.Prefab, context);
 
             var itemProcedures = new ItemProcedures(
                 itemScriptInstance,
-                unityItemData,
+                itemData,
                 context,
                 _handScripts,
                 _dropPoint,
@@ -46,7 +46,7 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
 
             var dto = new ItemProcedureDto(itemProcedures);
 
-            foreach (var holsterData in itemData.Holsters)
+            foreach (var holsterData in item.Holsters)
             {
                 var unityHolsterData = holsterData
                     .Get<IHolsterItemData>()
@@ -57,7 +57,7 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
                     {
                         var holsterProcedures = new ItemHolsterProcedures(
                             itemScriptInstance,
-                            unityItemData,
+                            itemData,
                             context,
                             unityHolsterData,
                             _handScripts,
@@ -68,7 +68,7 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
                     });
             }
 
-            itemData.Consumable
+            item.Consumable
                 .Do(consumableData =>
                 {
                     dto.SetConsumable(new ConsumableProcedures(
