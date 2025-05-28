@@ -1,7 +1,5 @@
 ﻿using Strawhenge.Inventory.Apparel;
-using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Unity.Effects;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -17,23 +15,15 @@ namespace Strawhenge.Inventory.Unity.Apparel.ApparelPieceData
         [SerializeField] Vector3 _scale = new Vector3(1, 1, 1);
         [SerializeField] EffectScriptableObject[] _effects;
 
-        public string Name => name;
-
-        public GameObject Prefab => _prefab;
-
-        public string Slot => _slot.name;
-
-        public Vector3 Position => _position;
-
-        public Quaternion Rotation => Quaternion.Euler(_rotation);
-
-        public Vector3 Scale => _scale;
-
-        public IReadOnlyList<EffectData> Effects => _effects
-            .Select(x => x.Data)
-            .ToArray();
-
         ApparelPiece _apparelPiece;
+
+        GameObject IApparelPieceData.Prefab => _prefab;
+
+        Vector3 IApparelPieceData.Position => _position;
+
+        Quaternion IApparelPieceData.Rotation => Quaternion.Euler(_rotation);
+
+        Vector3 IApparelPieceData.Scale => _scale;
 
         public ApparelPiece ToApparelPiece()
         {
@@ -45,8 +35,23 @@ namespace Strawhenge.Inventory.Unity.Apparel.ApparelPieceData
 
         ApparelPiece BuildApparelPiece()
         {
+            var effects = _effects
+                .Select(x => x.Data)
+                .ToArray();
+
+            string slotName;
+            if (_slot != null)
+            {
+                slotName = _slot.name;
+            }
+            else
+            {
+                Debug.LogError($"{nameof(_slot)} missing.", this);
+                slotName = "Missing.";
+            }
+
             return ApparelPieceBuilder
-                .Create(Name, Slot, Effects, x => x.Set<IApparelPieceData>(this))
+                .Create(name, slotName, effects, x => x.Set<IApparelPieceData>(this))
                 .Build();
         }
     }
