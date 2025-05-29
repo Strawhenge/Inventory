@@ -13,19 +13,22 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
         readonly ProduceItemAnimationHandler _produceItemAnimationHandler;
         readonly ConsumeItemAnimationHandler _consumeItemAnimationHandler;
         readonly DropPoint _dropPoint;
+        readonly PrefabInstantiatedEvents _prefabInstantiatedEvents;
 
         public ItemProceduresFactory(
             HandScriptsContainer handScripts,
             HolsterScriptsContainer holsterScripts,
             ProduceItemAnimationHandler produceItemAnimationHandler,
             ConsumeItemAnimationHandler consumeItemAnimationHandler,
-            DropPoint dropPoint)
+            DropPoint dropPoint,
+            PrefabInstantiatedEvents prefabInstantiatedEvents)
         {
             _handScripts = handScripts;
             _holsterScripts = holsterScripts;
             _produceItemAnimationHandler = produceItemAnimationHandler;
             _consumeItemAnimationHandler = consumeItemAnimationHandler;
             _dropPoint = dropPoint;
+            _prefabInstantiatedEvents = prefabInstantiatedEvents;
         }
 
         public ItemProcedureDto Create(Item item, Context context)
@@ -34,7 +37,7 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
                 .Get<IItemData>()
                 .Reduce(() => NullItemData.Instance);
 
-            var itemScriptInstance = new ItemScriptInstance(itemData.Prefab, context);
+            var itemScriptInstance = new ItemScriptInstance(itemData.Prefab, context, _prefabInstantiatedEvents);
 
             var itemProcedures = new ItemProcedures(
                 itemScriptInstance,

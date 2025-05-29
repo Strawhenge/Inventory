@@ -5,6 +5,7 @@ using Strawhenge.Inventory.Unity.Loot;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Apparel;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Strawhenge.Inventory.Unity
 {
@@ -14,6 +15,8 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] RightHandScript _rightHand;
         [SerializeField] int _maxStoredItemsWeight;
         [SerializeField] LootCollectionScript _lootDropPrefab;
+        [SerializeField] UnityEvent<ItemScript> _itemInstantiated;
+        [SerializeField] UnityEvent<ApparelPieceScript> _apparelPieceInstantiated;
 
         public bool IsConfigurationComplete { get; private set; }
 
@@ -30,6 +33,8 @@ namespace Strawhenge.Inventory.Unity
         public InventoryLoader Loader { private get; set; }
 
         public InventoryInfoGenerator InfoGenerator { private get; set; }
+
+        public PrefabInstantiatedEvents PrefabInstantiatedEvents { private get; set; }
 
         [ContextMenu(nameof(Interrupt))]
         public void Interrupt() => Inventory.Interrupt();
@@ -66,6 +71,9 @@ namespace Strawhenge.Inventory.Unity
                 LootDrop.Set(_lootDropPrefab);
 
             Inventory.StoredItems.SetWeightCapacity(_maxStoredItemsWeight);
+
+            PrefabInstantiatedEvents.ItemInstantiated += item => _itemInstantiated.Invoke(item);
+            PrefabInstantiatedEvents.ApparelPieceInstantiated += apparel => _apparelPieceInstantiated.Invoke(apparel);
 
             IsConfigurationComplete = true;
         }

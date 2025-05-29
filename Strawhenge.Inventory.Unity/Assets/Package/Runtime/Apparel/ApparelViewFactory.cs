@@ -8,15 +8,18 @@ namespace Strawhenge.Inventory.Unity.Apparel
     {
         readonly ApparelSlotScriptsContainer _slotScripts;
         readonly LootDrop _apparelDrop;
+        readonly PrefabInstantiatedEvents _prefabInstantiatedEvents;
         readonly ILogger _logger;
 
         public ApparelViewFactory(
             ApparelSlotScriptsContainer slotScripts,
             LootDrop apparelDrop,
+            PrefabInstantiatedEvents prefabInstantiatedEvents,
             ILogger logger)
         {
             _slotScripts = slotScripts;
             _apparelDrop = apparelDrop;
+            _prefabInstantiatedEvents = prefabInstantiatedEvents;
             _logger = logger;
         }
 
@@ -30,8 +33,9 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
             var view = new ApparelView(
                 data,
+                slotScript,
                 _apparelDrop,
-                slotScript);
+                _prefabInstantiatedEvents);
 
             return view;
         }

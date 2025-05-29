@@ -167,5 +167,10 @@ public static class DependencyInjection
             .RegisterType<ItemProceduresFactory>()
             .As<IItemProceduresFactory>()
             .InstancePerLifetimeScope();
+
+        builder
+            .RegisterType<PrefabInstantiatedEvents>()
+            .AsSelf()
+            .InstancePerLifetimeScope();
     }
 }

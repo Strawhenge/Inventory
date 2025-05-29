@@ -9,17 +9,20 @@ namespace Strawhenge.Inventory.Unity.Apparel
     {
         readonly ApparelPiece _apparelPiece;
         readonly LootDrop _lootDrop;
+        readonly PrefabInstantiatedEvents _prefabInstantiatedEvents;
         readonly ApparelSlotScript _slot;
 
         ApparelPieceScript _apparelPieceScript;
 
         public ApparelView(
             ApparelPiece apparelPiece,
+            ApparelSlotScript slot,
             LootDrop lootDrop,
-            ApparelSlotScript slot)
+            PrefabInstantiatedEvents prefabInstantiatedEvents)
         {
             _apparelPiece = apparelPiece;
             _lootDrop = lootDrop;
+            _prefabInstantiatedEvents = prefabInstantiatedEvents;
             _slot = slot;
         }
 
@@ -30,6 +33,8 @@ namespace Strawhenge.Inventory.Unity.Apparel
                 .Do(data =>
                 {
                     _apparelPieceScript = Object.Instantiate(data.Prefab, _slot.transform);
+                    _prefabInstantiatedEvents.Invoke(_apparelPieceScript);
+
                     _apparelPieceScript.transform.localPosition = data.Position;
                     _apparelPieceScript.transform.localRotation = data.Rotation;
                     _apparelPieceScript.transform.localScale = data.Scale;

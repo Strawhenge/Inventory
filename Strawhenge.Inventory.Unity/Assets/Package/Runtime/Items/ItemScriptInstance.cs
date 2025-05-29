@@ -6,13 +6,15 @@ namespace Strawhenge.Inventory.Unity.Items
     {
         readonly ItemScript _prefab;
         readonly Context _context;
+        readonly PrefabInstantiatedEvents _prefabInstantiatedEvents;
 
         ItemScript _script;
 
-        public ItemScriptInstance(ItemScript prefab, Context context)
+        public ItemScriptInstance(ItemScript prefab, Context context, PrefabInstantiatedEvents prefabInstantiatedEvents)
         {
             _prefab = prefab;
             _context = context;
+            _prefabInstantiatedEvents = prefabInstantiatedEvents;
         }
 
         public ItemScript Spawn()
@@ -20,6 +22,8 @@ namespace Strawhenge.Inventory.Unity.Items
             if (_script == null)
             {
                 _script = Object.Instantiate(_prefab);
+                _prefabInstantiatedEvents.Invoke(_script);
+
                 _script.SetContext(_context);
             }
 
