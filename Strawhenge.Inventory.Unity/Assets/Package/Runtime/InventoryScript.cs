@@ -19,6 +19,10 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] RightHandScript _rightHand;
         [SerializeField] HolsterScript[] _holsters;
         [SerializeField] ApparelSlotScript[] _apparelSlots;
+
+        [SerializeField, Tooltip("Optional. Will use 'this' transform if not set.")]
+        Transform _dropPoint;
+
         [SerializeField] int _maxStoredItemsWeight;
         [SerializeField] LootCollectionScript _lootDropPrefab;
         [SerializeField] UnityEvent<ItemScript> _itemInstantiated;
@@ -51,14 +55,24 @@ namespace Strawhenge.Inventory.Unity
             var handScripts = new HandScriptsContainer(_leftHand, _rightHand);
 
             var holsterScripts = new HolsterScriptsContainer(_holsters);
-            
+
+            var dropPoint = new DropPoint(
+                _dropPoint == null
+                    ? transform
+                    : _dropPoint);
+
+            // TODO Publicly expose events, so they can be accessed by code if needed.
+            var prefabInstantiatedEvents = new PrefabInstantiatedEvents();
+            prefabInstantiatedEvents.ItemInstantiated += item => _itemInstantiated.Invoke(item);
+            prefabInstantiatedEvents.ApparelPieceInstantiated += apparel => _apparelPieceInstantiated.Invoke(apparel);
+
             var itemProceduresFactory = new ItemProceduresFactory(
                 handScripts,
                 holsterScripts,
                 produceItemAnimationHandler,
                 consumeItemAnimationHandler,
-                dropPoint: null,
-                prefabInstantiatedEvents: null);
+                dropPoint,
+                prefabInstantiatedEvents);
 
             return new Inventory(
                 itemProceduresFactory,
