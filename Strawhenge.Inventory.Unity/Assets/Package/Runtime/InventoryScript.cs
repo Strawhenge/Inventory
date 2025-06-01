@@ -1,9 +1,11 @@
 using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Loader;
+using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Loot;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Apparel;
+using Strawhenge.Inventory.Unity.Items.Procedures;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -33,7 +35,35 @@ namespace Strawhenge.Inventory.Unity
 
         Inventory CreateInventory()
         {
-            throw new NotImplementedException();
+            // TODO Optionally get from LoggerScript (requires changes to Common).
+            var logger = new UnityLogger(gameObject);
+
+            // TODO Add serialized field and get only if missing (Common library), and handle missing scenario.
+            var animator = GetComponent<Animator>();
+
+            var holdItemAnimationHandler = new HoldItemAnimationHandler(animator);
+            var produceItemAnimationHandler = new ProduceItemAnimationHandler(animator);
+            var consumeItemAnimationHandler = new ConsumeItemAnimationHandler(animator);
+
+            // TODO Handle missing hand fields scenario.
+            _leftHand.AnimationHandler = holdItemAnimationHandler;
+            _rightHand.AnimationHandler = holdItemAnimationHandler;
+            var handScripts = new HandScriptsContainer(_leftHand, _rightHand);
+            
+            var itemProceduresFactory = new ItemProceduresFactory(
+                handScripts,
+                holsterScripts: null,
+                produceItemAnimationHandler,
+                consumeItemAnimationHandler,
+                dropPoint: null,
+                prefabInstantiatedEvents: null);
+
+            return new Inventory(
+                itemProceduresFactory,
+                apparelViewFactory: null,
+                effectFactoryLocator: null,
+                itemRepository: null,
+                logger);
         }
 
 
@@ -68,32 +98,32 @@ namespace Strawhenge.Inventory.Unity
 
         void Start()
         {
-            if (_leftHand != null && _rightHand != null)
-                HandScriptsContainer.Initialize(_leftHand, _rightHand);
-            else
-                Debug.LogError("Hand components not set.", this);
-
-            foreach (var holster in _holsters)
-            {
-                HolsterScriptsContainer.Add(holster);
-                Inventory.Holsters.Add(holster.HolsterName);
-            }
-
-            foreach (var apparelSlot in _apparelSlots)
-            {
-                ApparelSlotScriptsContainer.Add(apparelSlot);
-                Inventory.ApparelSlots.Add(apparelSlot.SlotName);
-            }
-
-            if (_lootDropPrefab != null)
-                LootDrop.Set(_lootDropPrefab);
-
-            Inventory.StoredItems.SetWeightCapacity(_maxStoredItemsWeight);
-
-            PrefabInstantiatedEvents.ItemInstantiated += item => _itemInstantiated.Invoke(item);
-            PrefabInstantiatedEvents.ApparelPieceInstantiated += apparel => _apparelPieceInstantiated.Invoke(apparel);
-
-            IsConfigurationComplete = true;
+            // if (_leftHand != null && _rightHand != null)
+            //     HandScriptsContainer.Initialize(_leftHand, _rightHand);
+            // else
+            //     Debug.LogError("Hand components not set.", this);
+            //
+            // foreach (var holster in _holsters)
+            // {
+            //     HolsterScriptsContainer.Add(holster);
+            //     Inventory.Holsters.Add(holster.HolsterName);
+            // }
+            //
+            // foreach (var apparelSlot in _apparelSlots)
+            // {
+            //     ApparelSlotScriptsContainer.Add(apparelSlot);
+            //     Inventory.ApparelSlots.Add(apparelSlot.SlotName);
+            // }
+            //
+            // if (_lootDropPrefab != null)
+            //     LootDrop.Set(_lootDropPrefab);
+            //
+            // Inventory.StoredItems.SetWeightCapacity(_maxStoredItemsWeight);
+            //
+            // PrefabInstantiatedEvents.ItemInstantiated += item => _itemInstantiated.Invoke(item);
+            // PrefabInstantiatedEvents.ApparelPieceInstantiated += apparel => _apparelPieceInstantiated.Invoke(apparel);
+            //
+            // IsConfigurationComplete = true;
         }
     }
 }
