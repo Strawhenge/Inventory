@@ -79,7 +79,7 @@ namespace Strawhenge.Inventory.Unity
             var lootDrop = new LootDrop(
                 prefab: _lootDropPrefab,
                 inventoryMenu: null,
-                itemContainerMenu: null,
+                lootMenu: null,
                 dropPoint: dropPoint);
 
             var apparelViewFactory = new ApparelViewFactory(

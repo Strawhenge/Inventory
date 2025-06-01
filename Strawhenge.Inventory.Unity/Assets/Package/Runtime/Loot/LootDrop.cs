@@ -11,22 +11,22 @@ namespace Strawhenge.Inventory.Unity.Loot
         readonly Queue<ApparelPiece> _queue = new();
         readonly LootCollectionScript _prefab;
         readonly IInventoryMenu _inventoryMenu;
-        readonly ILootMenu _itemContainerMenu;
+        readonly ILootMenu _lootMenu;
         readonly DropPoint _dropPoint;
 
         public LootDrop(
             LootCollectionScript prefab,
             IInventoryMenu inventoryMenu,
-            ILootMenu itemContainerMenu,
+            ILootMenu lootMenu,
             DropPoint dropPoint)
         {
             _prefab = prefab;
             _inventoryMenu = inventoryMenu;
-            _itemContainerMenu = itemContainerMenu;
+            _lootMenu = lootMenu;
             _dropPoint = dropPoint;
 
             _inventoryMenu.Closed += StateChanged;
-            _itemContainerMenu.Closed += StateChanged;
+            _lootMenu.Closed += StateChanged;
         }
 
         public void Drop(ApparelPiece apparelPiece)
@@ -52,7 +52,7 @@ namespace Strawhenge.Inventory.Unity.Loot
                 container.Add(_queue.Dequeue());
         }
 
-        bool ShouldWait() => _inventoryMenu.IsOpen || _itemContainerMenu.IsOpen;
+        bool ShouldWait() => _inventoryMenu.IsOpen || _lootMenu.IsOpen;
 
         LootCollectionScript CreateContainer()
         {
