@@ -13,6 +13,8 @@ namespace Strawhenge.Inventory.Unity
     {
         [SerializeField] LeftHandScript _leftHand;
         [SerializeField] RightHandScript _rightHand;
+        [SerializeField] HolsterScript[] _holsters;
+        [SerializeField] ApparelSlotScript[] _apparelSlots;
         [SerializeField] int _maxStoredItemsWeight;
         [SerializeField] LootCollectionScript _lootDropPrefab;
         [SerializeField] UnityEvent<ItemScript> _itemInstantiated;
@@ -55,13 +57,13 @@ namespace Strawhenge.Inventory.Unity
             else
                 Debug.LogError("Hand components not set.", this);
 
-            foreach (var holster in GetComponentsInChildren<HolsterScript>())
+            foreach (var holster in _holsters)
             {
                 HolsterScriptsContainer.Add(holster);
                 Inventory.Holsters.Add(holster.HolsterName);
             }
 
-            foreach (var apparelSlot in GetComponentsInChildren<ApparelSlotScript>())
+            foreach (var apparelSlot in _apparelSlots)
             {
                 ApparelSlotScriptsContainer.Add(apparelSlot);
                 Inventory.ApparelSlots.Add(apparelSlot.SlotName);
