@@ -1,19 +1,20 @@
 ﻿using FunctionalUtilities;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
     public class HolsterScriptsContainer
     {
-        readonly Dictionary<string, HolsterScript> _holstersByName = new();
+        readonly Dictionary<string, HolsterScript> _holstersByName;
 
-        public Maybe<HolsterScript> this[string holsterName] => _holstersByName.MaybeGetValue(holsterName);
-
-        public void Add(HolsterScript holster)
+        public HolsterScriptsContainer(IEnumerable<HolsterScript> holsters)
         {
-            if (!_holstersByName.TryAdd(holster.HolsterName, holster))
-                Debug.LogWarning($"Duplicate holster '{holster.HolsterName}'.");
+            // TODO Handle duplicate names.
+            _holstersByName = holsters.ToDictionary(x => x.HolsterName);
         }
+        
+        public Maybe<HolsterScript> this[string holsterName] => _holstersByName.MaybeGetValue(holsterName);
     }
 }

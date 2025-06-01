@@ -49,10 +49,12 @@ namespace Strawhenge.Inventory.Unity
             _leftHand.AnimationHandler = holdItemAnimationHandler;
             _rightHand.AnimationHandler = holdItemAnimationHandler;
             var handScripts = new HandScriptsContainer(_leftHand, _rightHand);
+
+            var holsterScripts = new HolsterScriptsContainer(_holsters);
             
             var itemProceduresFactory = new ItemProceduresFactory(
                 handScripts,
-                holsterScripts: null,
+                holsterScripts,
                 produceItemAnimationHandler,
                 consumeItemAnimationHandler,
                 dropPoint: null,
