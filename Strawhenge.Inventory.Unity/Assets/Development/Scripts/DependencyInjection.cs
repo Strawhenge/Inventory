@@ -140,7 +140,6 @@ public static class DependencyInjection
         builder
             .RegisterType<LootDrop>()
             .AsSelf()
-            .As<ISetLootDropPrefab>()
             .InstancePerLifetimeScope();
 
         builder
