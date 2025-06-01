@@ -74,9 +74,17 @@ namespace Strawhenge.Inventory.Unity
                 dropPoint,
                 prefabInstantiatedEvents);
 
+            var slotScripts = new ApparelSlotScriptsContainer(_apparelSlots);
+            
+            var apparelViewFactory = new ApparelViewFactory(
+                slotScripts,
+                lootDrop: null,
+                prefabInstantiatedEvents,
+                logger);
+
             return new Inventory(
                 itemProceduresFactory,
-                apparelViewFactory: null,
+                apparelViewFactory,
                 effectFactoryLocator: null,
                 itemRepository: null,
                 logger);

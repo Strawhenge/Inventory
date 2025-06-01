@@ -1,28 +1,18 @@
 ﻿using FunctionalUtilities;
 using Strawhenge.Common.Logging;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
     public class ApparelSlotScriptsContainer
     {
-        readonly Dictionary<string, ApparelSlotScript> _slotsByName = new Dictionary<string, ApparelSlotScript>();
-        readonly ILogger _logger;
+        readonly Dictionary<string, ApparelSlotScript> _slotsByName;
 
-        public ApparelSlotScriptsContainer(ILogger logger)
+        public ApparelSlotScriptsContainer(IEnumerable<ApparelSlotScript> apparelSlotScripts)
         {
-            _logger = logger;
-        }
-
-        internal void Add(ApparelSlotScript apparelSlotScript)
-        {
-            if (_slotsByName.ContainsKey(apparelSlotScript.SlotName))
-            {
-                _logger.LogWarning($"Duplicate apparel slot: '{apparelSlotScript.SlotName}'.");
-                return;
-            }
-            
-            _slotsByName.Add(apparelSlotScript.SlotName, apparelSlotScript);
+            // TODO Handle duplicate names.
+            _slotsByName = apparelSlotScripts.ToDictionary(x => x.SlotName);
         }
 
         internal Maybe<ApparelSlotScript> FindByName(string name) =>
