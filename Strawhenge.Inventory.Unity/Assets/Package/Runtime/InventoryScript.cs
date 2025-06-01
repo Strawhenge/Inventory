@@ -6,6 +6,7 @@ using Strawhenge.Inventory.Unity.Loot;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items.Procedures;
+using Strawhenge.Inventory.Unity.Menu;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -76,10 +77,16 @@ namespace Strawhenge.Inventory.Unity
 
             var slotScripts = new ApparelSlotScriptsContainer(_apparelSlots);
 
+            // TODO Improve menu access.
+            var inventoryMenu = new InventoryMenuScriptContainer(logger);
+            inventoryMenu.Set(FindObjectOfType<InventoryMenuScript>());
+            var lootMenu = new LootMenuScriptContainer(logger);
+            lootMenu.Set(FindObjectOfType<LootMenuScript>());
+
             var lootDrop = new LootDrop(
-                prefab: _lootDropPrefab,
-                inventoryMenu: null,
-                lootMenu: null,
+                _lootDropPrefab,
+                inventoryMenu,
+                lootMenu,
                 dropPoint: dropPoint);
 
             var apparelViewFactory = new ApparelViewFactory(
