@@ -75,10 +75,16 @@ namespace Strawhenge.Inventory.Unity
                 prefabInstantiatedEvents);
 
             var slotScripts = new ApparelSlotScriptsContainer(_apparelSlots);
-            
+
+            var lootDrop = new LootDrop(
+                prefab: _lootDropPrefab,
+                inventoryMenu: null,
+                itemContainerMenu: null,
+                dropPoint: dropPoint);
+
             var apparelViewFactory = new ApparelViewFactory(
                 slotScripts,
-                lootDrop: null,
+                lootDrop,
                 prefabInstantiatedEvents,
                 logger);
 
@@ -100,7 +106,7 @@ namespace Strawhenge.Inventory.Unity
 
         public HolsterScriptsContainer HolsterScriptsContainer { private get; set; }
 
-        public ISetLootDropPrefab LootDrop { private get; set; }
+        // public ISetLootDropPrefab LootDrop { private get; set; }
 
         public InventoryLoader Loader { private get; set; }
 

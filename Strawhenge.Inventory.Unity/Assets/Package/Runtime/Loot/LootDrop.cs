@@ -3,30 +3,27 @@ using Strawhenge.Inventory.Unity.Menu;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.Inventory.Unity.Loot
 {
-    public class LootDrop :  ISetLootDropPrefab
+    public class LootDrop
     {
         readonly Queue<ApparelPiece> _queue = new();
+        readonly LootCollectionScript _prefab;
         readonly IInventoryMenu _inventoryMenu;
         readonly ILootMenu _itemContainerMenu;
         readonly DropPoint _dropPoint;
-        readonly ILogger _logger;
-
-        LootCollectionScript _containerPrefab;
 
         public LootDrop(
+            LootCollectionScript prefab,
             IInventoryMenu inventoryMenu,
             ILootMenu itemContainerMenu,
-            DropPoint dropPoint,
-            ILogger logger)
+            DropPoint dropPoint)
         {
+            _prefab = prefab;
             _inventoryMenu = inventoryMenu;
             _itemContainerMenu = itemContainerMenu;
             _dropPoint = dropPoint;
-            _logger = logger;
 
             _inventoryMenu.Closed += StateChanged;
             _itemContainerMenu.Closed += StateChanged;
@@ -34,12 +31,6 @@ namespace Strawhenge.Inventory.Unity.Loot
 
         public void Drop(ApparelPiece apparelPiece)
         {
-            if (ReferenceEquals(_containerPrefab, null))
-            {
-                _logger.LogError($"'{nameof(LootCollectionScript)}' is missing from apparel drop.");
-                return;
-            }
-
             if (ShouldWait())
             {
                 _queue.Enqueue(apparelPiece);
@@ -49,8 +40,6 @@ namespace Strawhenge.Inventory.Unity.Loot
             var container = CreateContainer();
             container.Add(apparelPiece);
         }
-
-        public void Set(LootCollectionScript prefab) => _containerPrefab = prefab;
 
         void StateChanged()
         {
@@ -68,7 +57,7 @@ namespace Strawhenge.Inventory.Unity.Loot
         LootCollectionScript CreateContainer()
         {
             var spawnPoint = _dropPoint.GetPoint();
-            return Object.Instantiate(_containerPrefab, spawnPoint.Position, spawnPoint.Rotation);
+            return Object.Instantiate(_prefab, spawnPoint.Position, spawnPoint.Rotation);
         }
     }
 }
