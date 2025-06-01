@@ -1,10 +1,12 @@
 using Strawhenge.Common.Unity;
+using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Loader;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Loot;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Apparel;
+using Strawhenge.Inventory.Unity.Effects;
 using Strawhenge.Inventory.Unity.Items.Procedures;
 using Strawhenge.Inventory.Unity.Menu;
 using System;
@@ -26,8 +28,9 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField, Tooltip("Optional. Will use 'this' transform if not set.")]
         Transform _dropPoint;
 
-        [SerializeField] int _maxStoredItemsWeight;
         [SerializeField] LootCollectionScript _lootDropPrefab;
+        [SerializeField, Tooltip("Optional.")] EffectFactoryLocatorScript _effectFactoryLocator;
+        [SerializeField] int _maxStoredItemsWeight;
         [SerializeField] UnityEvent<ItemScript> _itemInstantiated;
         [SerializeField] UnityEvent<ApparelPieceScript> _apparelPieceInstantiated;
 
@@ -97,10 +100,14 @@ namespace Strawhenge.Inventory.Unity
                 prefabInstantiatedEvents,
                 logger);
 
+            var effectFactoryLocator = _effectFactoryLocator == null
+                ? NullEffectFactoryLocator.Instance
+                : _effectFactoryLocator;
+
             return new Inventory(
                 itemProceduresFactory,
                 apparelViewFactory,
-                effectFactoryLocator: null,
+                effectFactoryLocator,
                 ItemRepository,
                 logger);
         }
