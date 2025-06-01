@@ -4,8 +4,10 @@ using Strawhenge.Inventory.Loader;
 using Strawhenge.Inventory.Unity.Loot;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Apparel;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityLogger = Strawhenge.Common.Unity.UnityLogger;
 
 namespace Strawhenge.Inventory.Unity
 {
@@ -20,9 +22,23 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] UnityEvent<ItemScript> _itemInstantiated;
         [SerializeField] UnityEvent<ApparelPieceScript> _apparelPieceInstantiated;
 
+        Inventory _inventory;
+
+        public Inventory Inventory => _inventory ??= CreateInventory();
+
+        void Awake()
+        {
+            _inventory ??= CreateInventory();
+        }
+
+        Inventory CreateInventory()
+        {
+            throw new NotImplementedException();
+        }
+
+
         public bool IsConfigurationComplete { get; private set; }
 
-        public Inventory Inventory { get; set; }
 
         public ApparelSlotScriptsContainer ApparelSlotScriptsContainer { private get; set; }
 
