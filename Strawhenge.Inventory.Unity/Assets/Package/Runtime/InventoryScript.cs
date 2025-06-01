@@ -16,6 +16,8 @@ namespace Strawhenge.Inventory.Unity
 {
     public class InventoryScript : MonoBehaviour
     {
+        static readonly ResourcesItemRepository ItemRepository = new();
+
         [SerializeField] LeftHandScript _leftHand;
         [SerializeField] RightHandScript _rightHand;
         [SerializeField] HolsterScript[] _holsters;
@@ -99,7 +101,7 @@ namespace Strawhenge.Inventory.Unity
                 itemProceduresFactory,
                 apparelViewFactory,
                 effectFactoryLocator: null,
-                itemRepository: null,
+                ItemRepository,
                 logger);
         }
 
