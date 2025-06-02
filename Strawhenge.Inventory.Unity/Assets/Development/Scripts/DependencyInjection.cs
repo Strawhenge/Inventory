@@ -4,17 +4,15 @@ using Strawhenge.Common.Unity;
 using Strawhenge.Inventory;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Effects;
-using Strawhenge.Inventory.Info;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Loader;
 using Strawhenge.Inventory.Loot;
 using Strawhenge.Inventory.Unity;
 using Strawhenge.Inventory.Unity.Animation;
-using Strawhenge.Inventory.Unity.Loot;
-using Strawhenge.Inventory.Unity.Menu;
+using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Items.Procedures;
-using Strawhenge.Inventory.Unity.Apparel;
+using Strawhenge.Inventory.Unity.Loot;
+using Strawhenge.Inventory.Unity.Menu;
 using UnityEngine;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 
@@ -109,21 +107,6 @@ public static class DependencyInjection
 
         builder
             .RegisterType<Inventory>()
-            .AsSelf()
-            .InstancePerLifetimeScope();
-
-        builder
-            .RegisterType<InventoryLoader>()
-            .AsSelf()
-            .InstancePerLifetimeScope();
-
-        builder
-            .RegisterType<InventoryInfoGenerator>()
-            .AsSelf()
-            .InstancePerLifetimeScope();
-
-        builder
-            .RegisterType<LoadInventoryDataFactory>()
             .AsSelf()
             .InstancePerLifetimeScope();
 

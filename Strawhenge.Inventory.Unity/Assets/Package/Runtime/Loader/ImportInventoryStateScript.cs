@@ -1,17 +1,18 @@
 ﻿using Strawhenge.Common;
 using Strawhenge.Common.Unity.Helpers;
-using Strawhenge.Inventory.Loader;
+using Strawhenge.Inventory.ImportExport;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Loader
 {
     [RequireComponent(typeof(InventoryScript))]
-    public class LoadInventoryScript : MonoBehaviour
+    public class ImportInventoryStateScript : MonoBehaviour
     {
         [SerializeField] InventoryScript _inventory;
-        [SerializeField] SerializedLoadInventoryItem[] _items;
-        [SerializeField] SerializedLoadApparelPiece[] _apparel;
+        [SerializeField] SerializedItemState[] _items;
+        [SerializeField] SerializedApparelPieceState[] _apparel;
 
         void Awake()
         {
@@ -20,20 +21,23 @@ namespace Strawhenge.Inventory.Unity.Loader
 
         void Start()
         {
-            _inventory.Load(GetLoadData());
+            _inventory.Inventory.ImportState(new InventoryState(
+                GetItems(),
+                GetApparelPieces()));
         }
 
-        LoadInventoryData GetLoadData()
+        IEnumerable<ItemState> GetItems()
         {
-            var loadItems = _items
+            return _items
                 .ExcludeNull()
                 .Select(x => x.Map());
+        }
 
-            var loadApparelPieces = _apparel
+        IEnumerable<ApparelPieceState> GetApparelPieces()
+        {
+            return _apparel
                 .ExcludeNull()
                 .Select(x => x.Map());
-
-            return new LoadInventoryData(loadItems, loadApparelPieces);
         }
     }
 }
