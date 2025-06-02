@@ -15,6 +15,8 @@ namespace Strawhenge.Inventory.Unity.Apparel
             _slotsByName = apparelSlotScripts.ToDictionary(x => x.SlotName);
         }
 
+        internal IReadOnlyList<string> SlotNames => _slotsByName.Keys.ToArray();
+
         internal Maybe<ApparelSlotScript> FindByName(string name) =>
             _slotsByName.TryGetValue(name, out var script)
                 ? Maybe.Some(script)

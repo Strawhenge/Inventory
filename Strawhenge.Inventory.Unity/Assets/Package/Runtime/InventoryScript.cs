@@ -2,11 +2,10 @@ using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Effects;
-using Strawhenge.Inventory.Unity.Items.Procedures;
 using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Items.Procedures;
 using Strawhenge.Inventory.Unity.Loot;
 using Strawhenge.Inventory.Unity.Menu;
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityLogger = Strawhenge.Common.Unity.UnityLogger;
@@ -101,12 +100,21 @@ namespace Strawhenge.Inventory.Unity
                 ? NullEffectFactoryLocator.Instance
                 : _effectFactoryLocator;
 
-            return new Inventory(
+            var inventory = new Inventory(
                 itemProceduresFactory,
                 apparelViewFactory,
                 effectFactoryLocator,
                 ItemRepository,
                 logger);
+
+            foreach (var holsterName in holsterScripts.HolsterNames)
+                inventory.Holsters.Add(holsterName);
+
+            foreach (var slotName in slotScripts.SlotNames)
+                inventory.ApparelSlots.Add(slotName);
+
+            inventory.StoredItems.SetWeightCapacity(_maxStoredItemsWeight);
+            return inventory;
         }
 
 

@@ -14,7 +14,9 @@ namespace Strawhenge.Inventory.Unity.Items
             // TODO Handle duplicate names.
             _holstersByName = holsters.ToDictionary(x => x.HolsterName);
         }
-        
+
+        public IReadOnlyList<string> HolsterNames => _holstersByName.Keys.ToArray();
+
         public Maybe<HolsterScript> this[string holsterName] => _holstersByName.MaybeGetValue(holsterName);
     }
 }
