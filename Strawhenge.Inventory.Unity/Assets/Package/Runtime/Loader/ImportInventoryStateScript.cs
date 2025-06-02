@@ -1,11 +1,12 @@
 ﻿using Strawhenge.Common;
+using Strawhenge.Common.Unity;
 using Strawhenge.Common.Unity.Helpers;
 using Strawhenge.Inventory.ImportExport;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Loader
+namespace Strawhenge.Inventory.Unity.ImportExport
 {
     [RequireComponent(typeof(InventoryScript))]
     public class ImportInventoryStateScript : MonoBehaviour
@@ -21,9 +22,11 @@ namespace Strawhenge.Inventory.Unity.Loader
 
         void Start()
         {
-            _inventory.Inventory.ImportState(new InventoryState(
-                GetItems(),
-                GetApparelPieces()));
+            this.InvokeAsSoonAs(
+                () => _inventory.IsConfigurationComplete,
+                () => _inventory.Inventory.ImportState(new InventoryState(
+                    GetItems(),
+                    GetApparelPieces())));
         }
 
         IEnumerable<ItemState> GetItems()

@@ -4,7 +4,7 @@ using Strawhenge.Inventory.Unity.Items.ItemData;
 using System;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Loader
+namespace Strawhenge.Inventory.Unity.ImportExport
 {
     [Serializable]
     class SerializedItemState

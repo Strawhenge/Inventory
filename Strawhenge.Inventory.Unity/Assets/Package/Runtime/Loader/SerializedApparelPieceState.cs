@@ -3,7 +3,7 @@ using Strawhenge.Inventory.Unity.Apparel.ApparelPieceData;
 using System;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Loader
+namespace Strawhenge.Inventory.Unity.ImportExport
 {
     [Serializable]
     class SerializedApparelPieceState
