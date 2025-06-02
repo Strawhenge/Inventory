@@ -8,14 +8,14 @@ namespace Strawhenge.Inventory.ImportExport
     {
         public ItemState(
             Item item,
-            Context context,
+            Context context = null,
             ItemInHandState inHand = ItemInHandState.NotInHands,
             string holster = null,
             bool isInStorage = false)
         {
             Item = item ?? throw new ArgumentNullException(nameof(item));
-            Context = context ?? throw new ArgumentNullException(nameof(context));
 
+            Context = context ?? new Context();
             InHand = inHand;
             Holster = holster ?? Maybe.None<string>();
             IsInStorage = isInStorage;
