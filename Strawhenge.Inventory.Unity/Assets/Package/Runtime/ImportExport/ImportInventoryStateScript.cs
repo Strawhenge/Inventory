@@ -1,5 +1,4 @@
 ﻿using Strawhenge.Common;
-using Strawhenge.Common.Unity;
 using Strawhenge.Common.Unity.Helpers;
 using Strawhenge.Inventory.ImportExport;
 using System.Collections.Generic;
@@ -22,11 +21,9 @@ namespace Strawhenge.Inventory.Unity.ImportExport
 
         void Start()
         {
-            this.InvokeAsSoonAs(
-                () => _inventory.IsConfigurationComplete,
-                () => _inventory.Inventory.ImportState(new InventoryState(
-                    GetItems(),
-                    GetApparelPieces())));
+            _inventory.Inventory.ImportState(new InventoryState(
+                GetItems(),
+                GetApparelPieces()));
         }
 
         IEnumerable<ItemState> GetItems()

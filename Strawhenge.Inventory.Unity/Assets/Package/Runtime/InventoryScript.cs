@@ -117,51 +117,7 @@ namespace Strawhenge.Inventory.Unity
             return inventory;
         }
 
-
-        public bool IsConfigurationComplete { get; private set; }
-
-
-        public ApparelSlotScriptsContainer ApparelSlotScriptsContainer { private get; set; }
-
-        public HandScriptsContainer HandScriptsContainer { private get; set; }
-
-        public HolsterScriptsContainer HolsterScriptsContainer { private get; set; }
-
-        // public ISetLootDropPrefab LootDrop { private get; set; }
-
-        public PrefabInstantiatedEvents PrefabInstantiatedEvents { private get; set; }
-
         [ContextMenu(nameof(Interrupt))]
         public void Interrupt() => Inventory.Interrupt();
-
-        void Start()
-        {
-            // if (_leftHand != null && _rightHand != null)
-            //     HandScriptsContainer.Initialize(_leftHand, _rightHand);
-            // else
-            //     Debug.LogError("Hand components not set.", this);
-            //
-            // foreach (var holster in _holsters)
-            // {
-            //     HolsterScriptsContainer.Add(holster);
-            //     Inventory.Holsters.Add(holster.HolsterName);
-            // }
-            //
-            // foreach (var apparelSlot in _apparelSlots)
-            // {
-            //     ApparelSlotScriptsContainer.Add(apparelSlot);
-            //     Inventory.ApparelSlots.Add(apparelSlot.SlotName);
-            // }
-            //
-            // if (_lootDropPrefab != null)
-            //     LootDrop.Set(_lootDropPrefab);
-            //
-            // Inventory.StoredItems.SetWeightCapacity(_maxStoredItemsWeight);
-            //
-            // PrefabInstantiatedEvents.ItemInstantiated += item => _itemInstantiated.Invoke(item);
-            // PrefabInstantiatedEvents.ApparelPieceInstantiated += apparel => _apparelPieceInstantiated.Invoke(apparel);
-            //
-            // IsConfigurationComplete = true;
-        }
     }
 }

@@ -35,22 +35,17 @@ namespace Strawhenge.Inventory.Unity.Menu
         {
             Container.Set(this);
 
-            this.InvokeAsSoonAs(
-                condition: () => _inventory.IsConfigurationComplete,
-                () =>
-                {
-                    _handsMenu.SetInventory(_inventory.Inventory);
-                    _holstersMenu.SetInventory(_inventory.Inventory);
-                    _storedItemsMenu.SetInventory(_inventory.Inventory);
-                    _apparelSlotsMenu.SetInventory(_inventory.Inventory);
+            _handsMenu.SetInventory(_inventory.Inventory);
+            _holstersMenu.SetInventory(_inventory.Inventory);
+            _storedItemsMenu.SetInventory(_inventory.Inventory);
+            _apparelSlotsMenu.SetInventory(_inventory.Inventory);
 
-                    _handsMenuButton.onClick.AddListener(SelectHandsMenu);
-                    _holstersMenuButton.onClick.AddListener(SelectHolstersMenu);
-                    _storageMenuButton.onClick.AddListener(SelectStoredItemsMenu);
-                    _apparelMenuButton.onClick.AddListener(SelectApparelMenu);
+            _handsMenuButton.onClick.AddListener(SelectHandsMenu);
+            _holstersMenuButton.onClick.AddListener(SelectHolstersMenu);
+            _storageMenuButton.onClick.AddListener(SelectStoredItemsMenu);
+            _apparelMenuButton.onClick.AddListener(SelectApparelMenu);
 
-                    SelectHandsMenu();
-                });
+            SelectHandsMenu();
         }
 
         public bool IsOpen => _containerPanel.gameObject.activeSelf;
