@@ -44,7 +44,11 @@ namespace Strawhenge.Inventory.Items
 
         public Maybe<Storable> Storable { get; private set; } = Maybe.None<Storable>();
 
-        public bool IsInHand => IsInLeftHand() || IsInRightHand();
+        public bool IsInHand => IsInLeftHand || IsInRightHand;
+
+        public bool IsInLeftHand => _hands.IsInLeftHand(this);
+
+        public bool IsInRightHand => _hands.IsInRightHand(this);
 
         public bool IsTwoHanded => _size == ItemSize.TwoHanded;
 
@@ -56,7 +60,7 @@ namespace Strawhenge.Inventory.Items
 
         public void Drop(Action callback = null)
         {
-            if (IsInLeftHand())
+            if (IsInLeftHand)
             {
                 UnequipFromHolster();
                 _hands.UnsetItemLeftHand();
@@ -66,7 +70,7 @@ namespace Strawhenge.Inventory.Items
                 else
                     _procedureScheduler.DropLeftHand(callback);
             }
-            else if (IsInRightHand())
+            else if (IsInRightHand)
             {
                 UnequipFromHolster();
                 _hands.UnsetItemRightHand();
@@ -90,7 +94,7 @@ namespace Strawhenge.Inventory.Items
 
         public void HoldLeftHand(Action callback = null)
         {
-            if (IsInLeftHand())
+            if (IsInLeftHand)
             {
                 callback?.Invoke();
                 return;
@@ -98,7 +102,7 @@ namespace Strawhenge.Inventory.Items
 
             ClearLeftHand();
 
-            if (IsInRightHand())
+            if (IsInRightHand)
             {
                 _hands.UnsetItemRightHand();
                 _hands.SetItemLeftHand(this);
@@ -128,7 +132,7 @@ namespace Strawhenge.Inventory.Items
 
         public void HoldRightHand(Action callback = null)
         {
-            if (IsInRightHand())
+            if (IsInRightHand)
             {
                 callback?.Invoke();
                 return;
@@ -136,7 +140,7 @@ namespace Strawhenge.Inventory.Items
 
             ClearRightHand();
 
-            if (IsInLeftHand())
+            if (IsInLeftHand)
             {
                 _hands.UnsetItemLeftHand();
                 _hands.SetItemRightHand(this);
@@ -166,7 +170,7 @@ namespace Strawhenge.Inventory.Items
 
         public void PutAway(Action callback = null)
         {
-            if (IsInLeftHand())
+            if (IsInLeftHand)
             {
                 _hands.UnsetItemLeftHand();
 
@@ -178,7 +182,7 @@ namespace Strawhenge.Inventory.Items
                 return;
             }
 
-            if (IsInRightHand())
+            if (IsInRightHand)
             {
                 _hands.UnsetItemRightHand();
 
@@ -206,7 +210,7 @@ namespace Strawhenge.Inventory.Items
 
         public void ClearFromHands(Action callback = null)
         {
-            if (IsInLeftHand())
+            if (IsInLeftHand)
             {
                 _hands.UnsetItemLeftHand();
 
@@ -222,7 +226,7 @@ namespace Strawhenge.Inventory.Items
                 return;
             }
 
-            if (IsInRightHand())
+            if (IsInRightHand)
             {
                 _hands.UnsetItemRightHand();
 
@@ -246,12 +250,12 @@ namespace Strawhenge.Inventory.Items
             if (Holsters.IsEquippedToHolster(out InventoryItemHolster holster))
                 holster.Discard();
 
-            if (IsInLeftHand())
+            if (IsInLeftHand)
             {
                 _hands.UnsetItemLeftHand();
                 _procedureScheduler.DisappearLeftHand();
             }
-            else if (IsInRightHand())
+            else if (IsInRightHand)
             {
                 _hands.UnsetItemRightHand();
                 _procedureScheduler.DisappearRightHand();
@@ -262,7 +266,7 @@ namespace Strawhenge.Inventory.Items
 
         public void SwapHands()
         {
-            if (IsInLeftHand())
+            if (IsInLeftHand)
             {
                 if (!_hands.RightHand.CurrentItem.HasSome(out var otherItem))
                 {
@@ -277,7 +281,7 @@ namespace Strawhenge.Inventory.Items
                 _procedureScheduler.LeftHandToRightHand();
                 otherItem._procedureScheduler.AppearLeftHand();
             }
-            else if (IsInRightHand())
+            else if (IsInRightHand)
             {
                 if (!_hands.LeftHand.CurrentItem.HasSome(out var otherItem))
                 {
@@ -340,10 +344,6 @@ namespace Strawhenge.Inventory.Items
 
             _hands.ItemInRightHand.Do(x => x.ClearFromHands());
         }
-
-        bool IsInLeftHand() => _hands.IsInLeftHand(this);
-
-        bool IsInRightHand() => _hands.IsInRightHand(this);
 
         bool IsEquippedToHolster(out ItemHolsterProcedureScheduler procedureScheduler) =>
             Holsters.IsEquippedToHolster(out procedureScheduler);

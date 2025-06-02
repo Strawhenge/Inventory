@@ -1,13 +1,10 @@
-using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Effects;
-using Strawhenge.Inventory.Info;
-using Strawhenge.Inventory.Loader;
 using Strawhenge.Inventory.Unity.Animation;
-using Strawhenge.Inventory.Unity.Loot;
-using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Effects;
 using Strawhenge.Inventory.Unity.Items.Procedures;
+using Strawhenge.Inventory.Unity.Items;
+using Strawhenge.Inventory.Unity.Loot;
 using Strawhenge.Inventory.Unity.Menu;
 using System;
 using UnityEngine;
@@ -124,23 +121,10 @@ namespace Strawhenge.Inventory.Unity
 
         // public ISetLootDropPrefab LootDrop { private get; set; }
 
-        public InventoryLoader Loader { private get; set; }
-
-        public InventoryInfoGenerator InfoGenerator { private get; set; }
-
         public PrefabInstantiatedEvents PrefabInstantiatedEvents { private get; set; }
 
         [ContextMenu(nameof(Interrupt))]
         public void Interrupt() => Inventory.Interrupt();
-
-        public void Load(LoadInventoryData data)
-        {
-            this.InvokeAsSoonAs(
-                condition: () => IsConfigurationComplete,
-                action: () => Loader.Load(data));
-        }
-
-        public InventoryInfo GenerateCurrentInfo() => InfoGenerator.GenerateCurrentInfo();
 
         void Start()
         {
