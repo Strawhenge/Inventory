@@ -1,4 +1,6 @@
-﻿using FunctionalUtilities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.Items
 {
@@ -11,6 +13,10 @@ namespace Strawhenge.Inventory.Items
         public Maybe<InventoryItem> ItemInLeftHand => LeftHand.CurrentItem;
 
         public Maybe<InventoryItem> ItemInRightHand => RightHand.CurrentItem;
+
+        public IEnumerable<InventoryItem> Items =>
+            LeftHand.CurrentItem.AsEnumerable().Concat(
+                RightHand.CurrentItem.AsEnumerable());
 
         public bool HasTwoHandedItem(out InventoryItem item)
         {

@@ -23,10 +23,9 @@ namespace Strawhenge.Inventory.ImportExport
 
         IEnumerable<ItemState> ExportItems()
         {
-            return _inventory.StoredItems.Items
-                .Concat(_inventory.Holsters.SelectMany(x => x.CurrentItem.AsEnumerable()))
-                .Concat(_inventory.Hands.LeftHand.CurrentItem.AsEnumerable())
-                .Concat(_inventory.Hands.RightHand.CurrentItem.AsEnumerable())
+            return _inventory.Hands.Items
+                .Concat(_inventory.Holsters.Items)
+                .Concat(_inventory.StoredItems.Items)
                 .Distinct()
                 .Select(item =>
                 {

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FunctionalUtilities;
 using Strawhenge.Common.Logging;
 
@@ -16,6 +17,9 @@ namespace Strawhenge.Inventory.Items
         }
 
         public Maybe<ItemContainer> this[string name] => _holsters.MaybeGetValue(name);
+
+        public IEnumerable<InventoryItem> Items => _holsters.Values
+            .SelectMany(holster => holster.CurrentItem.AsEnumerable());
 
         public void Add(string name)
         {
