@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.ImportExport
         public InventoryState Export()
         {
             return new InventoryState(
-                ExportItems(), 
+                ExportItems(),
                 ExportApparelPieces());
         }
 
@@ -30,9 +30,9 @@ namespace Strawhenge.Inventory.ImportExport
                 .Distinct()
                 .Select(item =>
                 {
-                    var inHand = _inventory.Hands.LeftHand.IsCurrentItem(item)
+                    var inHand = item.IsInLeftHand
                         ? ItemInHandState.InLeftHand
-                        : _inventory.Hands.RightHand.IsCurrentItem(item)
+                        : item.IsInRightHand
                             ? ItemInHandState.InRightHand
                             : ItemInHandState.NotInHands;
 
