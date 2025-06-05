@@ -47,13 +47,16 @@ namespace Strawhenge.Inventory.Unity.Menu
         {
             if (!ReferenceEquals(_menu, null))
             {
-                _logger.LogError($"'{nameof(LootMenuScript)}' is already set.");
-                return;
+                _menu.Opened -= OnOpened;
+                _menu.Closed -= OnClosed;
             }
 
             _menu = menu;
-            _menu.Opened += () => Opened?.Invoke();
-            _menu.Closed += () => Closed?.Invoke();
+            _menu.Opened += OnOpened;
+            _menu.Closed += OnClosed;
         }
+
+        void OnOpened() => Opened?.Invoke();
+        void OnClosed() => Closed?.Invoke();
     }
 }
