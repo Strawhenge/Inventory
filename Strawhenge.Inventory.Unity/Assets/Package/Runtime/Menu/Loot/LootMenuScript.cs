@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Strawhenge.Inventory.Loot;
 using UnityEngine.Events;
+using Action = System.Action;
 
 namespace Strawhenge.Inventory.Unity.Menu
 {
@@ -25,6 +26,10 @@ namespace Strawhenge.Inventory.Unity.Menu
         [SerializeField] ApparelPieceLootMenuEntryScript _apparelPieceLootMenuEntryPrefab;
 
         readonly List<GameObject> _menuEntries = new();
+
+        public event Action Opened;
+
+        public event Action Closed;
 
         public bool IsOpen { get; private set; }
 
@@ -50,6 +55,7 @@ namespace Strawhenge.Inventory.Unity.Menu
             _containerPanel.gameObject.SetActive(true);
             _openEvents.ForEach(x => x.Invoke(gameObject));
             _opened.Invoke();
+            Opened?.Invoke();
         }
 
         public void Close()
@@ -66,6 +72,7 @@ namespace Strawhenge.Inventory.Unity.Menu
             _containerPanel.gameObject.SetActive(false);
             _closeEvents.ForEach(x => x.Invoke(gameObject));
             _closed.Invoke();
+            Closed?.Invoke();
         }
 
         void AddItem(Loot<Item> item)

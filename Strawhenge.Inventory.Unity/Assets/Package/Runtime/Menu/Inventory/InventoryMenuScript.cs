@@ -1,5 +1,6 @@
 using Strawhenge.Common;
 using Strawhenge.Common.Unity;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -24,6 +25,10 @@ namespace Strawhenge.Inventory.Unity.Menu
         [SerializeField] Button _storageMenuButton;
         [SerializeField] Button _apparelMenuButton;
 
+        public event Action Opened;
+        
+        public event Action Closed;
+        
         void Awake()
         {
             _containerPanel.gameObject.SetActive(false);
@@ -52,6 +57,7 @@ namespace Strawhenge.Inventory.Unity.Menu
             _containerPanel.gameObject.SetActive(true);
             _openEvents.ForEach(x => x.Invoke(gameObject));
             _opened.Invoke();
+            Opened?.Invoke();
         }
 
         [ContextMenu(nameof(Close))]
@@ -60,6 +66,7 @@ namespace Strawhenge.Inventory.Unity.Menu
             _containerPanel.gameObject.SetActive(false);
             _closeEvents.ForEach(x => x.Invoke(gameObject));
             _closed.Invoke();
+            Closed?.Invoke();
         }
 
         void SelectHandsMenu()

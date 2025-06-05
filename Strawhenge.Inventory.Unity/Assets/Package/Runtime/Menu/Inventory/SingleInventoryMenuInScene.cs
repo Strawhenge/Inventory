@@ -16,14 +16,25 @@ namespace Strawhenge.Inventory.Unity.Menu
         SingleInventoryMenuInScene()
         {
             _logger = new UnityLogger(); // TODO Single instance logger (Requires change to Common).
-            SceneManager.sceneLoaded += (_, _) => _menu = Object.FindObjectOfType<InventoryMenuScript>();
+            SceneManager.sceneLoaded += (_, _) =>
+            {
+                if (!ReferenceEquals(_menu, null))
+                {
+                    _menu.Opened -= OnOpened;
+                    _menu.Closed -= OnClosed;
+                }
+
+                _menu = Object.FindObjectOfType<InventoryMenuScript>();
+                _menu.Opened += OnOpened;
+                _menu.Closed += OnClosed;
+            };
         }
 
         public event Action Opened;
 
         public event Action Closed;
 
-        public bool IsOpen { get; private set; }
+        public bool IsOpen => !ReferenceEquals(_menu, null) && _menu.IsOpen;
 
         public void Open()
         {
@@ -34,8 +45,6 @@ namespace Strawhenge.Inventory.Unity.Menu
             }
 
             _menu.Open();
-            IsOpen = true;
-            Opened?.Invoke();
         }
 
         public void Close()
@@ -47,8 +56,10 @@ namespace Strawhenge.Inventory.Unity.Menu
             }
 
             _menu.Close();
-            IsOpen = false;
-            Closed?.Invoke();
         }
+
+        void OnOpened() => Opened?.Invoke();
+
+        void OnClosed() => Closed?.Invoke();
     }
 }
