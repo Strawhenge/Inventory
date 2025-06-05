@@ -30,11 +30,6 @@ public static class DependencyInjection
                 .As<ILogger>()
                 .InstancePerLifetimeScope();
 
-            builder
-                .RegisterType<AutofacEffectFactoryLocator>()
-                .As<IEffectFactoryLocator>()
-                .InstancePerLifetimeScope();
-
             RegisterSingletons(builder);
             RegisterScoped(builder);
         });
