@@ -2,6 +2,7 @@ using FunctionalUtilities;
 using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Effects;
+using Strawhenge.Inventory.ImportExport;
 using Strawhenge.Inventory.Items;
 using Strawhenge.Inventory.Procedures;
 
@@ -14,6 +15,8 @@ namespace Strawhenge.Inventory
         readonly InventoryItemLocator _itemLocator;
         readonly IItemRepository _itemRepository;
         readonly ProcedureQueue _procedureQueue;
+        readonly InventoryStateImporter _stateImporter;
+        readonly InventoryStateExporter _stateExporter;
 
         public Inventory(
             IItemProceduresFactory itemProceduresFactory,
@@ -46,6 +49,9 @@ namespace Strawhenge.Inventory
 
             _itemLocator = new InventoryItemLocator(Hands, Holsters, StoredItems);
             _itemRepository = itemRepository;
+
+            _stateImporter = new InventoryStateImporter(this, logger);
+            _stateExporter = new InventoryStateExporter(this);
         }
 
         public Hands Hands { get; }
@@ -88,6 +94,16 @@ namespace Strawhenge.Inventory
         public void Interrupt()
         {
             _procedureQueue.SkipAllScheduledProcedures();
+        }
+
+        public void ImportState(InventoryState state)
+        {
+            _stateImporter.Import(state);
+        }
+
+        public InventoryState ExportState()
+        {
+            return _stateExporter.Export();
         }
     }
 }
