@@ -12,7 +12,6 @@ using Strawhenge.Inventory.Unity.Apparel;
 using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Items.Procedures;
 using Strawhenge.Inventory.Unity.Loot;
-using Strawhenge.Inventory.Unity.Menu;
 using UnityEngine;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 
@@ -45,20 +44,6 @@ public static class DependencyInjection
         builder
             .RegisterType<ResourcesApparelPieceRepository>()
             .As<IApparelPieceRepository>()
-            .SingleInstance();
-
-        builder
-            .RegisterType<InventoryMenuScriptContainer>()
-            .WithParameter(new TypedParameter(typeof(ILogger), new UnityLogger(null)))
-            .AsSelf()
-            .As<IInventoryMenu>()
-            .SingleInstance();
-
-        builder
-            .RegisterType<LootMenuScriptContainer>()
-            .WithParameter(new TypedParameter(typeof(ILogger), new UnityLogger(null)))
-            .AsSelf()
-            .As<ILootMenu>()
             .SingleInstance();
     }
 

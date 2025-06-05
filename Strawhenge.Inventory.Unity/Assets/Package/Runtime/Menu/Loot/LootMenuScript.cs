@@ -26,11 +26,6 @@ namespace Strawhenge.Inventory.Unity.Menu
 
         readonly List<GameObject> _menuEntries = new();
 
-        internal event System.Action Opened;
-        internal event System.Action Closed;
-
-        public LootMenuScriptContainer MenuContainer { private get; set; }
-
         public bool IsOpen { get; private set; }
 
         void Awake()
@@ -38,11 +33,6 @@ namespace Strawhenge.Inventory.Unity.Menu
             _containerPanel.gameObject.SetActive(false);
 
             ComponentRefHelper.EnsureSceneComponent(ref _takeItemLootMenu, nameof(_takeItemLootMenu), this);
-        }
-
-        void Start()
-        {
-            MenuContainer.Set(this);
         }
 
         public void Open(ILootSource source)
@@ -60,7 +50,6 @@ namespace Strawhenge.Inventory.Unity.Menu
             _containerPanel.gameObject.SetActive(true);
             _openEvents.ForEach(x => x.Invoke(gameObject));
             _opened.Invoke();
-            Opened?.Invoke();
         }
 
         public void Close()
@@ -77,7 +66,6 @@ namespace Strawhenge.Inventory.Unity.Menu
             _containerPanel.gameObject.SetActive(false);
             _closeEvents.ForEach(x => x.Invoke(gameObject));
             _closed.Invoke();
-            Closed?.Invoke();
         }
 
         void AddItem(Loot<Item> item)

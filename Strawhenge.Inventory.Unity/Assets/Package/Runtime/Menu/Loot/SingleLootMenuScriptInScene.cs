@@ -1,17 +1,23 @@
 using Strawhenge.Common.Logging;
+using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Loot;
 using System;
+using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace Strawhenge.Inventory.Unity.Menu
 {
-    public class LootMenuScriptContainer : ILootMenu
+    public class SingleLootMenuScriptInScene : ILootMenu
     {
+        public static SingleLootMenuScriptInScene Instance { get; } = new();
+
         readonly ILogger _logger;
         LootMenuScript _menu;
 
-        public LootMenuScriptContainer(ILogger logger)
+        SingleLootMenuScriptInScene()
         {
-            _logger = logger;
+            _logger = new UnityLogger();
+            SceneManager.sceneLoaded += (_, _) => _menu = Object.FindObjectOfType<LootMenuScript>();
         }
 
         public event Action Opened;
@@ -42,21 +48,5 @@ namespace Strawhenge.Inventory.Unity.Menu
             _menu.Close();
             Closed?.Invoke();
         }
-
-        internal void Set(LootMenuScript menu)
-        {
-            if (!ReferenceEquals(_menu, null))
-            {
-                _menu.Opened -= OnOpened;
-                _menu.Closed -= OnClosed;
-            }
-
-            _menu = menu;
-            _menu.Opened += OnOpened;
-            _menu.Closed += OnClosed;
-        }
-
-        void OnOpened() => Opened?.Invoke();
-        void OnClosed() => Closed?.Invoke();
     }
 }

@@ -24,8 +24,6 @@ namespace Strawhenge.Inventory.Unity.Menu
         [SerializeField] Button _storageMenuButton;
         [SerializeField] Button _apparelMenuButton;
 
-        public InventoryMenuScriptContainer Container { private get; set; }
-
         void Awake()
         {
             _containerPanel.gameObject.SetActive(false);
@@ -33,8 +31,6 @@ namespace Strawhenge.Inventory.Unity.Menu
 
         void Start()
         {
-            Container.Set(this);
-
             _handsMenu.SetInventory(_inventory.Inventory);
             _holstersMenu.SetInventory(_inventory.Inventory);
             _storedItemsMenu.SetInventory(_inventory.Inventory);

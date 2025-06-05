@@ -3,6 +3,7 @@ using Strawhenge.Inventory.Loot;
 using Strawhenge.Inventory.Unity;
 using Strawhenge.Inventory.Unity.Menu;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NpcScript : MonoBehaviour
 {

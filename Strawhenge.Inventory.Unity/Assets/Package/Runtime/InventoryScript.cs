@@ -78,11 +78,8 @@ namespace Strawhenge.Inventory.Unity
 
             var slotScripts = new ApparelSlotScriptsContainer(_apparelSlots);
 
-            // TODO Improve menu access.
-            var inventoryMenu = new InventoryMenuScriptContainer(logger);
-            inventoryMenu.Set(FindObjectOfType<InventoryMenuScript>());
-            var lootMenu = new LootMenuScriptContainer(logger);
-            lootMenu.Set(FindObjectOfType<LootMenuScript>());
+            var inventoryMenu = SingleInventoryMenuInScene.Instance;
+            var lootMenu = SingleLootMenuScriptInScene.Instance;
 
             var lootDrop = new LootDrop(
                 _lootDropPrefab,
