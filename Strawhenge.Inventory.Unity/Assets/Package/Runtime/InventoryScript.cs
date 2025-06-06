@@ -1,3 +1,4 @@
+using Strawhenge.Common.Unity.Helpers;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Apparel;
@@ -20,6 +21,7 @@ namespace Strawhenge.Inventory.Unity
         [SerializeField] RightHandScript _rightHand;
         [SerializeField] HolsterScript[] _holsters;
         [SerializeField] ApparelSlotScript[] _apparelSlots;
+        [SerializeField] Animator _animator;
 
         [SerializeField, Tooltip("Optional. Will use 'this' transform if not set.")]
         Transform _dropPoint;
@@ -41,17 +43,16 @@ namespace Strawhenge.Inventory.Unity
 
         Inventory CreateInventory()
         {
-            // TODO Optionally get from LoggerScript (requires changes to Common).
+            ComponentRefHelper.EnsureHierarchyComponent(ref _leftHand, nameof(_leftHand), this);
+            ComponentRefHelper.EnsureHierarchyComponent(ref _rightHand, nameof(_rightHand), this);
+            ComponentRefHelper.EnsureHierarchyComponent(ref _animator, nameof(_animator), this);
+
             var logger = new UnityLogger(gameObject);
 
-            // TODO Add serialized field and get only if missing (Common library), and handle missing scenario.
-            var animator = GetComponent<Animator>();
+            var holdItemAnimationHandler = new HoldItemAnimationHandler(_animator);
+            var produceItemAnimationHandler = new ProduceItemAnimationHandler(_animator);
+            var consumeItemAnimationHandler = new ConsumeItemAnimationHandler(_animator);
 
-            var holdItemAnimationHandler = new HoldItemAnimationHandler(animator);
-            var produceItemAnimationHandler = new ProduceItemAnimationHandler(animator);
-            var consumeItemAnimationHandler = new ConsumeItemAnimationHandler(animator);
-
-            // TODO Handle missing hand fields scenario.
             _leftHand.AnimationHandler = holdItemAnimationHandler;
             _rightHand.AnimationHandler = holdItemAnimationHandler;
             var handScripts = new HandScriptsContainer(_leftHand, _rightHand);
@@ -63,7 +64,6 @@ namespace Strawhenge.Inventory.Unity
                     ? transform
                     : _dropPoint);
 
-            // TODO Publicly expose events, so they can be accessed by code if needed.
             var prefabInstantiatedEvents = new PrefabInstantiatedEvents();
             prefabInstantiatedEvents.ItemInstantiated += item => _itemInstantiated.Invoke(item);
             prefabInstantiatedEvents.ApparelPieceInstantiated += apparel => _apparelPieceInstantiated.Invoke(apparel);
