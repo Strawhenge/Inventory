@@ -330,9 +330,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839cb9b5fe4e9e04aaa7fbeae01e0f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inventoryMenu: {fileID: 0}
-  _lootMenu: {fileID: 0}
-  _camera: {fileID: 0}
+  _inventoryMenu: {fileID: 554519505}
+  _lootMenu: {fileID: 448640031}
+  _camera: {fileID: 945952824}
 --- !u!1 &448640025 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1324418516036130420, guid: 4f7648a773fdc9a44a69309147432d32, type: 3}
@@ -650,6 +650,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8075562443319083833, guid: 81afcb93015c34445aa898a47a284ff2, type: 3}
   m_PrefabInstance: {fileID: 554519503}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &554519505 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8693891456641879259, guid: 81afcb93015c34445aa898a47a284ff2, type: 3}
+  m_PrefabInstance: {fileID: 554519503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727309102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1c8984c9e621f498c0cd4f6bec9138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &727309102 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6934517292189682032, guid: 81afcb93015c34445aa898a47a284ff2, type: 3}
