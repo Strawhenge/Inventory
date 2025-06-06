@@ -1374,6 +1374,7 @@ MonoBehaviour:
   _apparelSlots:
   - {fileID: 1365124930274397114}
   - {fileID: 4518379483110380665}
+  _animator: {fileID: 8612459271835915415}
   _dropPoint: {fileID: 0}
   _lootDropPrefab: {fileID: 7557200200927040949, guid: 5c3de92d1c034b94b9a70e2aadd14690, type: 3}
   _effectFactoryLocator: {fileID: 1406925596449019825}

@@ -8,19 +8,20 @@ namespace Strawhenge.Inventory.Unity.Editor
 {
     public class ApparelManagerEditorHelper
     {
-        readonly EditorTarget<Inventory> _target;
+        readonly InventoryScript _inventory;
+
         InventoryApparelPiece _piece;
         bool _displaySlots;
 
-        public ApparelManagerEditorHelper(Func<Inventory> getTarget)
+        public ApparelManagerEditorHelper(InventoryScript inventory)
         {
-            _target = new EditorTarget<Inventory>(getTarget);
+            _inventory = inventory;
         }
 
         public void Inspect()
         {
             EditorGUILayout.LabelField("Apparel Manager", EditorStyles.boldLabel);
-            EditorGUI.BeginDisabledGroup(!_target.HasInstance);
+            EditorGUI.BeginDisabledGroup(!Application.isPlaying);
 
             if (_piece != null)
             {
@@ -34,7 +35,7 @@ namespace Strawhenge.Inventory.Unity.Editor
                 var scriptableObject = (ApparelPieceScriptableObject)EditorGUILayout.ObjectField(null,
                     typeof(ApparelPieceScriptableObject), allowSceneObjects: true);
                 if (scriptableObject != null)
-                    _piece = _target.Instance.CreateApparelPiece(scriptableObject);
+                    _piece = _inventory.Inventory.CreateApparelPiece(scriptableObject);
             }
 
             InspectSlots();
@@ -49,7 +50,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             if (!_displaySlots)
                 return;
 
-            foreach (var slot in _target.Instance.ApparelSlots)
+            foreach (var slot in _inventory.Inventory.ApparelSlots)
             {
                 EditorGUILayout.LabelField($"{slot.Name}:");
 
