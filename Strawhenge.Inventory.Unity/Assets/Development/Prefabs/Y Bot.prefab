@@ -1354,12 +1354,14 @@ MonoBehaviour:
   _leftHand: {fileID: 2332462616707277587}
   _rightHand: {fileID: 2356412199393607007}
   _holsters:
-  - {fileID: 2289350596598912590}
-  - {fileID: 2620730868312462105}
-  - {fileID: 314225180028664284}
+    _values:
+    - {fileID: 2289350596598912590}
+    - {fileID: 2620730868312462105}
+    - {fileID: 314225180028664284}
   _apparelSlots:
-  - {fileID: 1365124930274397114}
-  - {fileID: 4518379483110380665}
+    _values:
+    - {fileID: 1365124930274397114}
+    - {fileID: 4518379483110380665}
   _animator: {fileID: 8612459271835915415}
   _dropPoint: {fileID: 0}
   _lootDropPrefab: {fileID: 7557200200927040949, guid: 5c3de92d1c034b94b9a70e2aadd14690, type: 3}

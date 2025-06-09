@@ -1,4 +1,5 @@
 using Strawhenge.Common.Unity.Helpers;
+using Strawhenge.Common.Unity.Serialization;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Apparel;
@@ -19,8 +20,8 @@ namespace Strawhenge.Inventory.Unity
 
         [SerializeField] LeftHandScript _leftHand;
         [SerializeField] RightHandScript _rightHand;
-        [SerializeField] HolsterScript[] _holsters;
-        [SerializeField] ApparelSlotScript[] _apparelSlots;
+        [SerializeField] SerializedList<HolsterScript> _holsters;
+        [SerializeField] SerializedList<ApparelSlotScript> _apparelSlots;
         [SerializeField] Animator _animator;
 
         [SerializeField, Tooltip("Optional. Will use 'this' transform if not set.")]
@@ -57,7 +58,7 @@ namespace Strawhenge.Inventory.Unity
             _rightHand.AnimationHandler = holdItemAnimationHandler;
             var handScripts = new HandScriptsContainer(_leftHand, _rightHand);
 
-            var holsterScripts = new HolsterScriptsContainer(_holsters);
+            var holsterScripts = new HolsterScriptsContainer(_holsters.Values);
 
             var dropPoint = new DropPoint(
                 _dropPoint == null
@@ -76,7 +77,7 @@ namespace Strawhenge.Inventory.Unity
                 dropPoint,
                 prefabInstantiatedEvents);
 
-            var slotScripts = new ApparelSlotScriptsContainer(_apparelSlots);
+            var slotScripts = new ApparelSlotScriptsContainer(_apparelSlots.Values);
 
             var inventoryMenu = SingleInventoryMenuInScene.Instance;
             var lootMenu = SingleLootMenuScriptInScene.Instance;
