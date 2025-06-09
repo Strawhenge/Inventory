@@ -11,8 +11,15 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public HolsterScriptsContainer(IEnumerable<HolsterScript> holsters)
         {
-            // TODO Handle duplicate names.
-            _holstersByName = holsters.ToDictionary(x => x.HolsterName);
+            _holstersByName = new Dictionary<string, HolsterScript>();
+
+            foreach (var holster in holsters)
+            {
+                if (_holstersByName.ContainsKey(holster.HolsterName))
+                    Debug.LogWarning($"Duplicate holster '{holster.HolsterName}'.", holster);
+
+                _holstersByName[holster.HolsterName] = holster;
+            }
         }
 
         public IReadOnlyList<string> HolsterNames => _holstersByName.Keys.ToArray();

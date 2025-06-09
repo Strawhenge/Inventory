@@ -1,7 +1,7 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Common.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
@@ -9,10 +9,17 @@ namespace Strawhenge.Inventory.Unity.Apparel
     {
         readonly Dictionary<string, ApparelSlotScript> _slotsByName;
 
-        public ApparelSlotScriptsContainer(IEnumerable<ApparelSlotScript> apparelSlotScripts)
+        public ApparelSlotScriptsContainer(IEnumerable<ApparelSlotScript> apparelSlots)
         {
-            // TODO Handle duplicate names.
-            _slotsByName = apparelSlotScripts.ToDictionary(x => x.SlotName);
+            _slotsByName = new Dictionary<string, ApparelSlotScript>();
+
+            foreach (var apparelSlot in apparelSlots)
+            {
+                if (_slotsByName.ContainsKey(apparelSlot.SlotName))
+                    Debug.LogWarning($"Duplicate apparel slot '{apparelSlot.SlotName}'.", apparelSlot);
+
+                _slotsByName[apparelSlot.SlotName] = apparelSlot;
+            }
         }
 
         internal IReadOnlyList<string> SlotNames => _slotsByName.Keys.ToArray();
