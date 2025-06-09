@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Menu
+namespace Strawhenge.Inventory.Unity.Menu.SampleInventoryMenu
 {
     public class HolstersMenuScript : MonoBehaviour
     {

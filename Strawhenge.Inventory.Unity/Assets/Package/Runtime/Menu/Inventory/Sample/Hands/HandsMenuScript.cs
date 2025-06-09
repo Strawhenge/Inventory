@@ -2,7 +2,7 @@ using Strawhenge.Inventory.Items;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.Inventory.Unity.Menu
+namespace Strawhenge.Inventory.Unity.Menu.SampleInventoryMenu
 {
     public class HandsMenuScript : MonoBehaviour
     {

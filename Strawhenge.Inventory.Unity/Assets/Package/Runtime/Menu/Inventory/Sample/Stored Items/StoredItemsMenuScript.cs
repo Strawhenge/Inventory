@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.Inventory.Unity.Menu
+namespace Strawhenge.Inventory.Unity.Menu.SampleInventoryMenu
 {
     public class StoredItemsMenuScript : MonoBehaviour
     {
