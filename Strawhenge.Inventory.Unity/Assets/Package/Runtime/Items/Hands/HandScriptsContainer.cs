@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Strawhenge.Inventory.Unity.Items
+﻿namespace Strawhenge.Inventory.Unity.Items
 {
     public class HandScriptsContainer
     {

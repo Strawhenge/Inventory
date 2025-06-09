@@ -51,8 +51,7 @@ namespace Strawhenge.Inventory.Unity.Loot
             while (_queue.Any())
                 container.Add(_queue.Dequeue());
         }
-
-        // TODO Replace with polymorphic check.
+      
         bool ShouldWait() => _inventoryMenu.IsOpen || _lootMenu.IsOpen;
 
         LootCollectionScript CreateContainer()

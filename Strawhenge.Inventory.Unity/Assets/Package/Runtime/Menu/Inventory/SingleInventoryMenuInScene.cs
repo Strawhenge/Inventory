@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Unity.Menu
 
         SingleInventoryMenuInScene()
         {
-            _logger = new UnityLogger(); // TODO Single instance logger (Requires change to Common).
+            _logger = new UnityLogger();
             SceneManager.sceneLoaded += (_, _) =>
             {
                 if (!ReferenceEquals(_menu, null))
