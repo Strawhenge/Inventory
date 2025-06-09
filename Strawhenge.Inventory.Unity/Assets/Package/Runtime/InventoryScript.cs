@@ -16,8 +16,6 @@ namespace Strawhenge.Inventory.Unity
 {
     public class InventoryScript : MonoBehaviour
     {
-        static ResourcesItemRepository _itemRepository;
-
         [SerializeField] LeftHandScript _leftHand;
         [SerializeField] RightHandScript _rightHand;
         [SerializeField] SerializedList<HolsterScript> _holsters;
@@ -102,7 +100,7 @@ namespace Strawhenge.Inventory.Unity
                 itemProceduresFactory,
                 apparelViewFactory,
                 effectFactoryLocator,
-                _itemRepository ??= new ResourcesItemRepository(),
+                ResourcesItemRepository.GetOrCreateInstance(),
                 logger);
 
             foreach (var holsterName in holsterScripts.HolsterNames)
