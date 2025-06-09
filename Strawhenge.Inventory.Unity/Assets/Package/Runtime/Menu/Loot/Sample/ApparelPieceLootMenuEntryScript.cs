@@ -3,7 +3,7 @@ using Strawhenge.Inventory.Loot;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.Inventory.Unity.Menu
+namespace Strawhenge.Inventory.Unity.Menu.SampleLootMenu
 {
     public class ApparelPieceLootMenuEntryScript : MonoBehaviour
     {

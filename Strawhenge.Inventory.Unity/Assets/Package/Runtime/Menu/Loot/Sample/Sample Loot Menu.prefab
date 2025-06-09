@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 1324418516036130417}
   - component: {fileID: 7171612925221586911}
   m_Layer: 5
-  m_Name: Loot Menu
+  m_Name: Sample Loot Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

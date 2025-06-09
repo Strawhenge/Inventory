@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.Inventory.Unity
+namespace Strawhenge.Inventory.Unity.Menu.SampleLootMenu
 {
     public class TakeItemLootMenuScript : MonoBehaviour
     {
