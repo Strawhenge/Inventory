@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.autofacunity": {
-      "version": "https://github.com/Strawhenge/AutofacUnity.git?path=/Assets/Package#release",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "c5917a56826b79021dcdb8a866a8cee0a9cd02d1"
-    },
     "com.strawhenge.common": {
       "version": "https://github.com/Strawhenge/Common.git?path=/Strawhenge.Common.Unity/Assets/Package#release",
       "depth": 0,

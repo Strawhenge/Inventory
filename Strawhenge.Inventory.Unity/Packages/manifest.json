@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.autofacunity": "https://github.com/Strawhenge/AutofacUnity.git?path=/Assets/Package#release",
     "com.strawhenge.common": "https://github.com/Strawhenge/Common.git?path=/Strawhenge.Common.Unity/Assets/Package#release",
     "com.strawhenge.functionalutilities": "https://github.com/Strawhenge/FunctionalUtilities.git?path=/Package#release",
     "com.unity.collab-proxy": "1.17.7",
