@@ -7,19 +7,19 @@ namespace Strawhenge.Inventory.Loot
     {
         readonly Action _onTake;
 
-        public Loot(T item, Context context = null, Action onTake = null)
+        public Loot(T content, Context context = null, Action onTake = null)
         {
             _onTake = onTake ?? (() =>
             {
             });
 
-            Item = item;
+            Content = content;
             Context = context ?? Maybe.None<Context>();
         }
 
         public event Action Taken;
 
-        public T Item { get; }
+        public T Content { get; }
 
         public Maybe<Context> Context { get; }
 
@@ -28,7 +28,7 @@ namespace Strawhenge.Inventory.Loot
             _onTake();
             Taken?.Invoke();
 
-            return Item;
+            return Content;
         }
     }
 }
