@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
-    public class ApparelView : IApparelView
+    class ApparelView : IApparelView
     {
         readonly ApparelPiece _apparelPiece;
         readonly LootDrop _lootDrop;

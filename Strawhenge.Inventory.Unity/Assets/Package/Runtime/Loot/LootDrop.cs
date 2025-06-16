@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Loot
 {
-    public class LootDrop
+    class LootDrop
     {
         readonly Queue<ApparelPiece> _queue = new();
         readonly LootCollectionScript _prefab;

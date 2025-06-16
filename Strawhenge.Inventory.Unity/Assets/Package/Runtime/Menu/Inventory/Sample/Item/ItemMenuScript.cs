@@ -90,7 +90,7 @@ namespace Strawhenge.Inventory.Unity.Menu.SampleInventoryMenu
             _consumeRightHandButton.interactable = isConsumable;
         }
 
-        public void UnsetItem()
+        internal void UnsetItem()
         {
             _item = null;
             _itemNameText.text = string.Empty;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
-    public class HolsterScriptsContainer
+    class HolsterScriptsContainer
     {
         readonly Dictionary<string, HolsterScript> _holstersByName;
 

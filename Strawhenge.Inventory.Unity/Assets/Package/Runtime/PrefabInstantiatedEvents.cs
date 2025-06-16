@@ -4,7 +4,7 @@ using System;
 
 namespace Strawhenge.Inventory.Unity
 {
-    public class PrefabInstantiatedEvents
+    class PrefabInstantiatedEvents
     {
         public event Action<ItemScript> ItemInstantiated;
         public event Action<ApparelPieceScript> ApparelPieceInstantiated;

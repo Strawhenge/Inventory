@@ -2,7 +2,7 @@
 
 namespace Strawhenge.Inventory.Unity.Items
 {
-    public class ItemScriptInstance
+    class ItemScriptInstance
     {
         readonly ItemScript _prefab;
         readonly Context _context;

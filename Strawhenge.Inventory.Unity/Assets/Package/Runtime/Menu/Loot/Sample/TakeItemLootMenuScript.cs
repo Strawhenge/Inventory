@@ -71,7 +71,7 @@ namespace Strawhenge.Inventory.Unity.Menu.SampleLootMenu
             _containerPanel.gameObject.SetActive(true);
         }
 
-        public void Hide()
+        internal void Hide()
         {
             if (_item != null)
                 _item.Drop();

@@ -4,7 +4,7 @@ using Strawhenge.Inventory.Unity.Loot;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
-    public class ApparelViewFactory : IApparelViewFactory
+    class ApparelViewFactory : IApparelViewFactory
     {
         readonly ApparelSlotScriptsContainer _slotScripts;
         readonly LootDrop _lootDrop;

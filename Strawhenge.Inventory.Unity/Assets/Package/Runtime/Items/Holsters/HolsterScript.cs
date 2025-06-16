@@ -16,9 +16,9 @@ namespace Strawhenge.Inventory.Unity.Items
 
         public string HolsterName => _holster.Name;
 
-        public PositionAndRotation GetItemDropPoint() => transform.GetPositionAndRotation();
+        internal PositionAndRotation GetItemDropPoint() => transform.GetPositionAndRotation();
 
-        public void SetItem(ItemScriptInstance item, IHolsterItemData data)
+        internal void SetItem(ItemScriptInstance item, IHolsterItemData data)
         {
             var itemScript = item.Spawn();
             var itemTransform = itemScript.transform;
@@ -29,7 +29,7 @@ namespace Strawhenge.Inventory.Unity.Items
             _itemSet.Invoke(itemScript);
         }
 
-        public void UnsetItem()
+        internal void UnsetItem()
         {
             _itemUnset.Invoke();
         }
