@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Animation
 {
-    public class HoldItemAnimationHandler
+    class HoldItemAnimationHandler
     {
         readonly Animator _animator;
 

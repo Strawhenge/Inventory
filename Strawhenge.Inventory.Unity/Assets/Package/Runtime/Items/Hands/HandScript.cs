@@ -13,15 +13,15 @@ namespace Strawhenge.Inventory.Unity.Items
 
         IHoldItemData _holdItemData;
 
-        public HoldItemAnimationHandler AnimationHandler { private get; set; }
+        internal HoldItemAnimationHandler AnimationHandler { private get; set; }
 
-        public PositionAndRotation GetItemDropPoint() => transform.GetPositionAndRotation();
+        internal PositionAndRotation GetItemDropPoint() => transform.GetPositionAndRotation();
 
-        public void SetItem(ItemScriptInstance item, IHoldItemData data)
+        internal void SetItem(ItemScriptInstance item, IHoldItemData data)
         {
             if (_holdItemData != null)
                 AnimationHandler.Unhold(_holdItemData.AnimationSettings.AnimationFlags);
-            
+
             _holdItemData = data;
 
             var itemScript = item.Spawn();
@@ -34,11 +34,11 @@ namespace Strawhenge.Inventory.Unity.Items
             _itemSet.Invoke(itemScript);
         }
 
-        public void UnsetItem()
+        internal void UnsetItem()
         {
             if (_holdItemData != null)
                 AnimationHandler.Unhold(_holdItemData.AnimationSettings.AnimationFlags);
-            
+
             _itemUnset.Invoke();
         }
     }

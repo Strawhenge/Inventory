@@ -5,7 +5,7 @@ using System;
 
 namespace Strawhenge.Inventory.Unity.Items.Procedures
 {
-    public class AnimatedDrawFromHolster : Procedure
+    class AnimatedDrawFromHolster : Procedure
     {
         readonly ProduceItemAnimationHandler _animationHandler;
         readonly ItemScriptInstance _itemScriptInstance;
@@ -57,7 +57,7 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
             _animationHandler.GrabItem -= PutItemInHand;
             _animationHandler.DrawEnded -= End;
 
-           PutItemInHand();
+            PutItemInHand();
             _endProcedure();
         }
 

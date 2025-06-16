@@ -3,7 +3,7 @@ using System;
 
 namespace Strawhenge.Inventory.Unity.Items.Procedures
 {
-    public class SimplePutInHammerspace : Procedure
+    class SimplePutInHammerspace : Procedure
     {
         readonly ItemScriptInstance _itemScriptInstance;
         readonly HandScript _hand;

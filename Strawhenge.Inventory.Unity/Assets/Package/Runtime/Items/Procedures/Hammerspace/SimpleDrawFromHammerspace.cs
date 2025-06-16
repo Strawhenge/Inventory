@@ -4,7 +4,7 @@ using System;
 
 namespace Strawhenge.Inventory.Unity.Items.Procedures
 {
-    public class SimpleDrawFromHammerspace : Procedure
+    class SimpleDrawFromHammerspace : Procedure
     {
         readonly ItemScriptInstance _item;
         readonly IHoldItemData _holdItemData;

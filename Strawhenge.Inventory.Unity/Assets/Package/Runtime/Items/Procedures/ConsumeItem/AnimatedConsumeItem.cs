@@ -4,7 +4,7 @@ using System;
 
 namespace Strawhenge.Inventory.Unity.Items.Procedures
 {
-    public class AnimatedConsumeItem : Procedure
+    class AnimatedConsumeItem : Procedure
     {
         readonly ConsumeItemAnimationHandler _consumeItemAnimationHandler;
         readonly string _animationTrigger;

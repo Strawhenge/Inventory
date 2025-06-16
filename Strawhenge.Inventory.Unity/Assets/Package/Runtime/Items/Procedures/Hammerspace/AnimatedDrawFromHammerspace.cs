@@ -5,7 +5,7 @@ using System;
 
 namespace Strawhenge.Inventory.Unity.Items.Procedures
 {
-    public class AnimatedDrawFromHammerspace : Procedure
+    class AnimatedDrawFromHammerspace : Procedure
     {
         readonly ProduceItemAnimationHandler _animationHandler;
         readonly ItemScriptInstance _item;

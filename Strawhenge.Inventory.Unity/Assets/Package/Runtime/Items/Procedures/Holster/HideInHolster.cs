@@ -3,7 +3,7 @@ using System;
 
 namespace Strawhenge.Inventory.Unity.Items.Procedures
 {
-    public class HideInHolster : Procedure
+    class HideInHolster : Procedure
     {
         readonly ItemScriptInstance _itemScriptInstance;
         readonly HolsterScript _holster;

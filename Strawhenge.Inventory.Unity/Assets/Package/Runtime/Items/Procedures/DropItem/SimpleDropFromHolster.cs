@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 namespace Strawhenge.Inventory.Unity.Items.Procedures
 {
-    public class SimpleDropFromHolster : Procedure
+    class SimpleDropFromHolster : Procedure
     {
         readonly ItemScriptInstance _itemScriptInstance;
         readonly IItemData _itemData;

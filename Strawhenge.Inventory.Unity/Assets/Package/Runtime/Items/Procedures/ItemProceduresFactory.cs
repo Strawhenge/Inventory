@@ -6,7 +6,7 @@ using Strawhenge.Inventory.Unity.Items.ItemData;
 
 namespace Strawhenge.Inventory.Unity.Items.Procedures
 {
-    public class ItemProceduresFactory : IItemProceduresFactory
+    class ItemProceduresFactory : IItemProceduresFactory
     {
         readonly HandScriptsContainer _handScripts;
         readonly HolsterScriptsContainer _holsterScripts;
