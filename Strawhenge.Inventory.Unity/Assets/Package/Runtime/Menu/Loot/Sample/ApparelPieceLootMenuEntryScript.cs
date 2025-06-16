@@ -18,12 +18,12 @@ namespace Strawhenge.Inventory.Unity.Menu.SampleLootMenu
             _takeButton.onClick.AddListener(Take);
         }
 
-        public void Set(Inventory inventory, Loot<ApparelPiece> containedItem)
+        internal void Set(Inventory inventory, Loot<ApparelPiece> loot)
         {
             _inventory = inventory;
-            _containedItem = containedItem;
-           
-            _itemNameText.text = containedItem.Item.Name;
+            _containedItem = loot;
+
+            _itemNameText.text = loot.Content.Name;
         }
 
         void Take()

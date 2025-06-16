@@ -19,23 +19,23 @@ namespace Strawhenge.Inventory.Unity.Menu.SampleLootMenu
             _takeButton.onClick.AddListener(Take);
         }
 
-        public void Set(
+        internal void Set(
             Inventory inventory,
-            Loot<Item> containedItem,
+            Loot<Item> loot,
             TakeItemLootMenuScript takeItemLootMenu)
         {
             _inventory = inventory;
-            _containedItem = containedItem;
+            _containedItem = loot;
             _takeItemLootMenu = takeItemLootMenu;
 
-            _itemNameText.text = containedItem.Item.Name;
+            _itemNameText.text = loot.Content.Name;
         }
 
         void Take()
         {
             if (_inventory == null || _containedItem == null || _takeItemLootMenu == null)
                 return;
-            
+
             var item = _inventory.CreateItem(_containedItem.Take());
             _takeItemLootMenu.Show(item);
         }
