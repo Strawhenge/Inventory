@@ -4,6 +4,7 @@ using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.ImportExport;
 using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Loot;
 using Strawhenge.Inventory.Procedures;
 
 namespace Strawhenge.Inventory
@@ -104,6 +105,11 @@ namespace Strawhenge.Inventory
         public InventoryState ExportState()
         {
             return _stateExporter.Export();
+        }
+
+        public InventoryLootSource Loot()
+        {
+            return new InventoryLootSource(this);
         }
     }
 }

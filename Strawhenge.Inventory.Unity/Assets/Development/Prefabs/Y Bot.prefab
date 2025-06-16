@@ -1261,9 +1261,9 @@ GameObject:
   - component: {fileID: 8612459271835915415}
   - component: {fileID: 3106735831512843242}
   - component: {fileID: 3121177965087357781}
-  - component: {fileID: 1851548141285159293}
   - component: {fileID: 5987641407133312662}
   - component: {fileID: 1019188618605515532}
+  - component: {fileID: 1406925596449019825}
   m_Layer: 0
   m_Name: Y Bot
   m_TagString: Untagged
@@ -1339,19 +1339,6 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &1851548141285159293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3039479411146560599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe073ff11a39db04f8bf447c1a6c5fe8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scopeConfiguration: {fileID: 0}
 --- !u!114 &5987641407133312662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1367,14 +1354,19 @@ MonoBehaviour:
   _leftHand: {fileID: 2332462616707277587}
   _rightHand: {fileID: 2356412199393607007}
   _holsters:
-  - {fileID: 2289350596598912590}
-  - {fileID: 2620730868312462105}
-  - {fileID: 314225180028664284}
+    _values:
+    - {fileID: 2289350596598912590}
+    - {fileID: 2620730868312462105}
+    - {fileID: 314225180028664284}
   _apparelSlots:
-  - {fileID: 1365124930274397114}
-  - {fileID: 4518379483110380665}
-  _maxStoredItemsWeight: 100
+    _values:
+    - {fileID: 1365124930274397114}
+    - {fileID: 4518379483110380665}
+  _animator: {fileID: 8612459271835915415}
+  _dropPoint: {fileID: 0}
   _lootDropPrefab: {fileID: 7557200200927040949, guid: 5c3de92d1c034b94b9a70e2aadd14690, type: 3}
+  _effectFactoryLocator: {fileID: 1406925596449019825}
+  _maxStoredItemsWeight: 100
   _itemInstantiated:
     m_PersistentCalls:
       m_Calls: []
@@ -1391,6 +1383,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e41766b5a91b854e95a7a7c47b7d4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1406925596449019825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3039479411146560599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61e95663a49777a4092e27b74a8bf63b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3095055645346285321

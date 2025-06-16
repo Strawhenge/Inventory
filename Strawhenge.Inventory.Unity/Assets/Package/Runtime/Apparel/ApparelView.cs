@@ -43,12 +43,12 @@ namespace Strawhenge.Inventory.Unity.Apparel
 
         public void Hide()
         {
-            Object.Destroy(_apparelPieceScript);
+            Object.Destroy(_apparelPieceScript.gameObject);
         }
 
         public void Drop()
         {
-            Object.Destroy(_apparelPieceScript);
+            Object.Destroy(_apparelPieceScript.gameObject);
             _lootDrop.Drop(_apparelPiece);
         }
     }

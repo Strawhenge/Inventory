@@ -1,29 +1,28 @@
 ﻿using FunctionalUtilities;
-using Strawhenge.Common.Logging;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
     public class ApparelSlotScriptsContainer
     {
-        readonly Dictionary<string, ApparelSlotScript> _slotsByName = new Dictionary<string, ApparelSlotScript>();
-        readonly ILogger _logger;
+        readonly Dictionary<string, ApparelSlotScript> _slotsByName;
 
-        public ApparelSlotScriptsContainer(ILogger logger)
+        public ApparelSlotScriptsContainer(IEnumerable<ApparelSlotScript> apparelSlots)
         {
-            _logger = logger;
-        }
+            _slotsByName = new Dictionary<string, ApparelSlotScript>();
 
-        internal void Add(ApparelSlotScript apparelSlotScript)
-        {
-            if (_slotsByName.ContainsKey(apparelSlotScript.SlotName))
+            foreach (var apparelSlot in apparelSlots)
             {
-                _logger.LogWarning($"Duplicate apparel slot: '{apparelSlotScript.SlotName}'.");
-                return;
+                if (_slotsByName.ContainsKey(apparelSlot.SlotName))
+                    Debug.LogWarning($"Duplicate apparel slot '{apparelSlot.SlotName}'.", apparelSlot);
+
+                _slotsByName[apparelSlot.SlotName] = apparelSlot;
             }
-            
-            _slotsByName.Add(apparelSlotScript.SlotName, apparelSlotScript);
         }
+
+        internal IReadOnlyList<string> SlotNames => _slotsByName.Keys.ToArray();
 
         internal Maybe<ApparelSlotScript> FindByName(string name) =>
             _slotsByName.TryGetValue(name, out var script)
