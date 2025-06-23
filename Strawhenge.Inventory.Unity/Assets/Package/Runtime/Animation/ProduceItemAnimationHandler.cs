@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Animation
 {
-    public class ProduceItemAnimationHandler : IProduceItemAnimationHandler
+    class ProduceItemAnimationHandler
     {
         readonly Animator _animator;
         readonly StateMachineEvents<DrawItemStateMachine> _drawItemEvents;
@@ -33,26 +33,16 @@ namespace Strawhenge.Inventory.Unity.Animation
                 unsubscribe: _ => { });
         }
 
-        public void DrawItem(int animationId)
+        public void DrawItem(string trigger)
         {
             _drawItemEvents.PrepareIfRequired();
-
-            _animator.SetInteger(AnimatorParameters.DrawItemAnimationId, animationId);
-            _animator.SetTrigger(AnimatorParameters.DrawItem);
+            _animator.SetTrigger(trigger);
         }
 
-        public void PutAwayItem(int animationId)
+        public void PutAwayItem(string trigger)
         {
             _putAwayItemEvents.PrepareIfRequired();
-
-            _animator.SetInteger(AnimatorParameters.PutAwayItemAnimationId, animationId);
-            _animator.SetTrigger(AnimatorParameters.PutAwayItem);
-        }
-
-        public void Interupt()
-        {
-            _animator.ResetTrigger(AnimatorParameters.Interrupt);
-            _animator.SetTrigger(AnimatorParameters.Interrupt);
+            _animator.SetTrigger(trigger);
         }
 
         void OnGrabItem() => GrabItem?.Invoke();

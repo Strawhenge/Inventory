@@ -5,10 +5,10 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
 {
-    public class Hold_when_holstered_item_in_hand : BaseItemTest
+    public class Hold_when_holstered_item_in_hand : BaseInventoryItemTest
     {
-        readonly Item _hammer;
-        readonly Item _spear;
+        readonly InventoryItem _hammer;
+        readonly InventoryItem _spear;
 
         public Hold_when_holstered_item_in_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -22,20 +22,20 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
             _spear.HoldRightHand();
         }
 
-        protected override Maybe<Item> ExpectedItemInRightHand => _spear;
+        protected override Maybe<InventoryItem> ExpectedItemInRightHand => _spear;
 
-        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, InventoryItem expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (RightHipHolster, _hammer);
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, RightHipHolster, x => x.Show);
-            yield return (Hammer, RightHipHolster, x => x.DrawRightHand);
-            yield return (Hammer, RightHipHolster, x => x.PutAwayRightHand);
+            yield return (Hammer, RightHipHolster, Show);
+            yield return (Hammer, RightHipHolster, DrawRightHand);
+            yield return (Hammer, RightHipHolster, PutAwayRightHand);
 
-            yield return (Spear, x => x.AppearRightHand);
+            yield return (Spear, AppearRightHand);
         }
     }
 }

@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Discard
 {
-    public class Discard_when_stored_item_in_hand : BaseItemTest
+    public class Discard_when_stored_item_in_hand : BaseInventoryItemTest
     {
         public Discard_when_stored_item_in_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -15,10 +15,10 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Discard
             hammer.Discard();
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, x => x.DrawRightHand);
-            yield return (Hammer, x => x.DisappearRightHand);
+            yield return (Hammer, DrawRightHand);
+            yield return (Hammer, DisappearRightHand);
         }
     }
 }

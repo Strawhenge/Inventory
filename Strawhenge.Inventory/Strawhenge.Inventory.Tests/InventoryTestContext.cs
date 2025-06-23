@@ -1,52 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using FunctionalUtilities;
 using Strawhenge.Inventory.Apparel;
-using Strawhenge.Inventory.Containers;
+using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
-using Strawhenge.Inventory.Items.Holsters;
-using Strawhenge.Inventory.TransientItems;
 using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests
 {
     class InventoryTestContext
     {
-        readonly ViewCallsTracker _viewCallsTracker;
-        readonly Hands _hands;
-        readonly Holsters _holsters;
-        readonly StoredItems _storedItems;
-        readonly ApparelSlotsFake _apparelSlots;
-        readonly ItemGeneratorFake _itemGenerator;
+        readonly ProcedureTracker _procedureTracker;
+        readonly ApparelViewCallTracker _apparelViewTracker;
+        readonly ItemRepositoryFake _itemRepository;
 
         public InventoryTestContext(ITestOutputHelper testOutputHelper)
         {
             var logger = new TestOutputLogger(testOutputHelper);
-            _viewCallsTracker = new ViewCallsTracker(logger);
+            _procedureTracker = new ProcedureTracker(logger);
 
-            _storedItems = new StoredItems(logger);
-            _hands = new Hands();
-            _holsters = new Holsters(logger);
-            _apparelSlots = new ApparelSlotsFake();
-            _itemGenerator = new ItemGeneratorFake();
+            _itemRepository = new ItemRepositoryFake();
+
+            var itemProceduresFactory = new ItemProceduresFactoryFake(_procedureTracker);
+
+            _apparelViewTracker = new ApparelViewCallTracker(logger);
+            var apparelViewFactory = new ApparelViewFactoryFake(_apparelViewTracker);
 
             Inventory = new Inventory(
-                _storedItems,
-                _hands,
-                _holsters,
-                _apparelSlots);
-
-            var equipped = new EquippedItems(_hands, _holsters);
-            TransientItemLocator = new TransientItemLocator(
-                equipped,
-                _storedItems,
-                _itemGenerator);
+                itemProceduresFactory,
+                apparelViewFactory,
+                NullEffectFactoryLocator.Instance,
+                _itemRepository,
+                logger);
         }
 
         public Inventory Inventory { get; }
-
-        public TransientItemLocator TransientItemLocator { get; }
 
         public void AddHolsters(IEnumerable<string> holsters)
         {
@@ -54,64 +41,63 @@ namespace Strawhenge.Inventory.Tests
                 AddHolster(holster);
         }
 
-        public void AddHolster(string name) => _holsters.Add(name);
+        public void AddHolster(string name) => Inventory.Holsters.Add(name);
 
-        public void AddApparelSlot(string name) => _apparelSlots.Add(name);
+        public void AddApparelSlot(string name) => Inventory.ApparelSlots.Add(name);
 
-        public void SetStorageCapacity(int capacity) => _storedItems.SetWeightCapacity(capacity);
+        public void SetStorageCapacity(int capacity) => Inventory.StoredItems.SetWeightCapacity(capacity);
 
-        public void SetGeneratedItem(string name, Item item) => _itemGenerator.Set(name, item);
+        public void AddToRepository(Item item) => _itemRepository.Add(item);
 
-        public Item CreateItem(string name, ItemSize? size = null, string[] holsterNames = null, bool storable = false)
+        public InventoryItem CreateItem(string name, ItemSize? size = null, string[] holsterNames = null, bool storable = false)
         {
             size ??= ItemSize.OneHanded;
             holsterNames ??= Array.Empty<string>();
 
-            var itemView = new ItemViewFake(name);
-            _viewCallsTracker.Track(itemView);
-
-            var item = new Item(name, _hands, itemView, size.Value);
-
-            var holsters = holsterNames.Select(holsterName =>
+            var itemBuilder = ItemBuilder.Create(name, size.Value, storable, 1, _ =>
             {
-                var holsterForItemView = new HolsterForItemViewFake(name, holsterName);
-                _viewCallsTracker.Track(holsterForItemView);
-
-                var holster = _holsters
-                    .FindByName(holsterName)
-                    .Reduce(() => throw new TestSetupException($"Holster '{holsterName}' not added."));
-
-                return new HolsterForItem(item, holster, holsterForItemView);
             });
 
-            item.SetupHolsters(new HolstersForItem(holsters));
+            foreach (var holsterName in holsterNames)
+            {
+                itemBuilder.AddHolster(holsterName, _ =>
+                {
+                });
+            }
 
-            if (storable)
-                item.SetupStorable(_storedItems, 1);
+            var item = itemBuilder.Build();
 
-            return item;
+            return Inventory.CreateItem(item);
         }
 
-        public Item CreateTransientItem(string name, ItemSize? size = null)
+        public InventoryItem CreateTransientItem(string name, ItemSize? size = null)
         {
             size ??= ItemSize.OneHanded;
 
-            var itemView = new ItemViewFake(name);
-            _viewCallsTracker.Track(itemView);
+            var item = ItemBuilder
+                .Create(name, size.Value, false, 1, _ =>
+                {
+                })
+                .Build();
 
-            return new Item(name, _hands, itemView, size.Value, isTransient: true);
+            return Inventory.CreateTemporaryItem(item);
         }
 
-        public ApparelPiece CreateApparel(string name, string slotName)
+        public InventoryApparelPiece CreateApparel(string name, string slotName)
         {
-            var slot = (ApparelSlot)_apparelSlots.All
-                .FirstOrNone(x => x.Name == slotName)
-                .Reduce(() => throw new TestSetupException($"Slot '{slotName}' not added."));
+            var apparelPiece = ApparelPieceBuilder
+                .Create(name, slotName, Array.Empty<EffectData>(), _ =>
+                {
+                })
+                .Build();
 
-            return new ApparelPiece(name, slot, new ApparelViewFake());
+            return Inventory.CreateApparelPiece(apparelPiece);
         }
 
-        public void VerifyViewCalls(params ViewCallInfo[] expectedViewCalls) =>
-            _viewCallsTracker.VerifyViewCalls(expectedViewCalls);
+        public void VerifyProcedures(params ProcedureInfo[] expectedProcedures) =>
+            _procedureTracker.VerifyProcedures(expectedProcedures);
+
+        public void VerifyApparelViewCalls(params ApparelViewCallInfo[] expectedCalls) =>
+            _apparelViewTracker.VerifyCalls(expectedCalls);
     }
 }

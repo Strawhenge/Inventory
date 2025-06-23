@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Drop
 {
-    public class Drop_from_storage : BaseItemTest
+    public class Drop_from_storage : BaseInventoryItemTest
     {
         public Drop_from_storage(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -14,9 +14,9 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Drop
             hammer.Drop();
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, x => x.SpawnAndDrop);
+            yield return (Hammer, SpawnAndDrop);
         }
     }
 }

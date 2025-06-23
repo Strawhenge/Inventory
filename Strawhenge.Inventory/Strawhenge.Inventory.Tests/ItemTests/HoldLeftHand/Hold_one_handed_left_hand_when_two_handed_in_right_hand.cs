@@ -5,9 +5,9 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.HoldLeftHand
 {
-    public class Hold_one_handed_left_hand_when_two_handed_in_right_hand : BaseItemTest
+    public class Hold_one_handed_left_hand_when_two_handed_in_right_hand : BaseInventoryItemTest
     {
-        readonly Item _hammer;
+        readonly InventoryItem _hammer;
 
         public Hold_one_handed_left_hand_when_two_handed_in_right_hand(ITestOutputHelper testOutputHelper) : base(
             testOutputHelper)
@@ -19,14 +19,14 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldLeftHand
             _hammer.HoldLeftHand();
         }
 
-        protected override Maybe<Item> ExpectedItemInLeftHand => _hammer;
+        protected override Maybe<InventoryItem> ExpectedItemInLeftHand => _hammer;
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Spear, x => x.AppearRightHand);
-            yield return (Spear, x => x.DropRightHand);
+            yield return (Spear, AppearRightHand);
+            yield return (Spear, DropRightHand);
 
-            yield return (Hammer, x => x.AppearLeftHand);
+            yield return (Hammer, AppearLeftHand);
         }
     }
 }

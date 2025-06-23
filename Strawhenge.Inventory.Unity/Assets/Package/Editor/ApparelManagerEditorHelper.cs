@@ -1,5 +1,5 @@
 ﻿using Strawhenge.Inventory.Apparel;
-using Strawhenge.Inventory.Unity.Apparel;
+using Strawhenge.Inventory.Unity.Apparel.ApparelPieceData;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -8,19 +8,20 @@ namespace Strawhenge.Inventory.Unity.Editor
 {
     public class ApparelManagerEditorHelper
     {
-        readonly EditorTarget<IInventory> _target;
-        ApparelPiece _piece;
+        readonly InventoryScript _inventory;
+
+        InventoryApparelPiece _piece;
         bool _displaySlots;
 
-        public ApparelManagerEditorHelper(Func<IInventory> getTarget)
+        public ApparelManagerEditorHelper(InventoryScript inventory)
         {
-            _target = new EditorTarget<IInventory>(getTarget);
+            _inventory = inventory;
         }
 
         public void Inspect()
         {
             EditorGUILayout.LabelField("Apparel Manager", EditorStyles.boldLabel);
-            EditorGUI.BeginDisabledGroup(!_target.HasInstance);
+            EditorGUI.BeginDisabledGroup(!Application.isPlaying);
 
             if (_piece != null)
             {
@@ -34,7 +35,7 @@ namespace Strawhenge.Inventory.Unity.Editor
                 var scriptableObject = (ApparelPieceScriptableObject)EditorGUILayout.ObjectField(null,
                     typeof(ApparelPieceScriptableObject), allowSceneObjects: true);
                 if (scriptableObject != null)
-                    _piece = _target.Instance.CreateApparelPiece(scriptableObject);
+                    _piece = _inventory.Inventory.CreateApparelPiece(scriptableObject);
             }
 
             InspectSlots();
@@ -49,7 +50,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             if (!_displaySlots)
                 return;
 
-            foreach (var slot in _target.Instance.ApparelSlots)
+            foreach (var slot in _inventory.Inventory.ApparelSlots)
             {
                 EditorGUILayout.LabelField($"{slot.Name}:");
 
@@ -58,7 +59,7 @@ namespace Strawhenge.Inventory.Unity.Editor
             }
         }
 
-        void InspectPiece(ApparelPiece piece)
+        void InspectPiece(InventoryApparelPiece piece)
         {
             var info = $"{piece.Name}{Environment.NewLine}Slot: {piece.SlotName}";
 
@@ -66,10 +67,10 @@ namespace Strawhenge.Inventory.Unity.Editor
 
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button(nameof(ApparelPiece.Equip)))
+            if (GUILayout.Button(nameof(InventoryApparelPiece.Equip)))
                 piece.Equip();
 
-            if (GUILayout.Button(nameof(ApparelPiece.Unequip)))
+            if (GUILayout.Button(nameof(InventoryApparelPiece.Unequip)))
                 piece.Unequip();
 
             EditorGUILayout.EndHorizontal();

@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Drop
 {
-    public class Drop_when_stored_and_in_hand : BaseItemTest
+    public class Drop_when_stored_and_in_hand : BaseInventoryItemTest
     {
         public Drop_when_stored_and_in_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -15,10 +15,10 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Drop
             hammer.Drop();
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, x => x.DrawRightHand);
-            yield return (Hammer, x => x.DropRightHand);
+            yield return (Hammer, DrawRightHand);
+            yield return (Hammer, DropRightHand);
         }
     }
 }

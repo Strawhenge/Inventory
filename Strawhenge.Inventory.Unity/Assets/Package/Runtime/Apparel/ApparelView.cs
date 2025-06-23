@@ -1,57 +1,55 @@
-﻿using Strawhenge.Common.Unity;
-using Strawhenge.Inventory.Apparel;
+﻿using Strawhenge.Inventory.Apparel;
+using Strawhenge.Inventory.Unity.Apparel.ApparelPieceData;
+using Strawhenge.Inventory.Unity.Loot;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
-    public class ApparelView : IApparelView
+    class ApparelView : IApparelView
     {
-        readonly IApparelPieceData _data;
-        readonly IApparelGameObjectInitializer _gameObjectInitializer;
-        readonly IApparelLayerAccessor _layerAccessor;
-        readonly IApparelDrop _apparelDrop;
-        readonly Transform _slot;
+        readonly ApparelPiece _apparelPiece;
+        readonly LootDrop _lootDrop;
+        readonly PrefabInstantiatedEvents _prefabInstantiatedEvents;
+        readonly ApparelSlotScript _slot;
 
-        GameObject _apparelGameObject;
+        ApparelPieceScript _apparelPieceScript;
 
         public ApparelView(
-            IApparelPieceData data,
-            IApparelGameObjectInitializer gameObjectInitializer,
-            IApparelLayerAccessor layerAccessor,
-            IApparelDrop apparelDrop,
-            Transform slot)
+            ApparelPiece apparelPiece,
+            ApparelSlotScript slot,
+            LootDrop lootDrop,
+            PrefabInstantiatedEvents prefabInstantiatedEvents)
         {
-            _data = data;
-            _gameObjectInitializer = gameObjectInitializer;
-            _layerAccessor = layerAccessor;
-            _apparelDrop = apparelDrop;
+            _apparelPiece = apparelPiece;
+            _lootDrop = lootDrop;
+            _prefabInstantiatedEvents = prefabInstantiatedEvents;
             _slot = slot;
         }
 
         public void Show()
         {
-            _apparelGameObject = Object.Instantiate(_data.Prefab, _slot);
-            _apparelGameObject.transform.localPosition = _data.Position;
-            _apparelGameObject.transform.localRotation = _data.Rotation;
-            _apparelGameObject.transform.localScale = _data.Scale;
-            _apparelGameObject.SetLayerIncludingChildren(_layerAccessor.Layer);
+            _apparelPiece
+                .Get<IApparelPieceData>()
+                .Do(data =>
+                {
+                    _apparelPieceScript = Object.Instantiate(data.Prefab, _slot.transform);
+                    _prefabInstantiatedEvents.Invoke(_apparelPieceScript);
 
-            foreach (var collider in _apparelGameObject.GetComponentsInChildren<Collider>())
-            foreach (var slotCollider in _slot.root.gameObject.GetComponentsInChildren<Collider>())
-                Physics.IgnoreCollision(collider, slotCollider);
-
-            _gameObjectInitializer.Initialize(_apparelGameObject);
+                    _apparelPieceScript.transform.localPosition = data.Position;
+                    _apparelPieceScript.transform.localRotation = data.Rotation;
+                    _apparelPieceScript.transform.localScale = data.Scale;
+                });
         }
 
         public void Hide()
         {
-            Object.Destroy(_apparelGameObject);
+            Object.Destroy(_apparelPieceScript.gameObject);
         }
 
         public void Drop()
         {
-            Object.Destroy(_apparelGameObject);
-            _apparelDrop.Drop(_data);
+            Object.Destroy(_apparelPieceScript.gameObject);
+            _lootDrop.Drop(_apparelPiece);
         }
     }
 }

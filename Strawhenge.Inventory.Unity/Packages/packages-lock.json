@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.autofacunity": {
-      "version": "https://github.com/Strawhenge/AutofacUnity.git?path=/Assets/Package#release",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "c5917a56826b79021dcdb8a866a8cee0a9cd02d1"
-    },
     "com.strawhenge.common": {
       "version": "https://github.com/Strawhenge/Common.git?path=/Strawhenge.Common.Unity/Assets/Package#release",
       "depth": 0,
@@ -14,14 +7,14 @@
       "dependencies": {
         "com.strawhenge.functionalutilities": "https://github.com/Strawhenge/FunctionalUtilities.git?path=/Package#release"
       },
-      "hash": "235f9684c23963328993108f5b4a3e1be3a0b60d"
+      "hash": "0410c2372b672f4941e6897690f81a870efa4f29"
     },
     "com.strawhenge.functionalutilities": {
       "version": "https://github.com/Strawhenge/FunctionalUtilities.git?path=/Package#release",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "7b2013d0d61ff70edc698a08ba2646a616d71870"
+      "hash": "d11f369c0f81e1b4d88eb24a40bb6e7175223f5e"
     },
     "com.unity.collab-proxy": {
       "version": "1.17.7",
@@ -40,7 +33,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.34",
+      "version": "3.0.36",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -83,7 +76,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.1.31",
+      "version": "1.1.33",
       "depth": 0,
       "source": "registry",
       "dependencies": {

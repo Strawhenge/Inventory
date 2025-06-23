@@ -13,11 +13,8 @@ namespace Strawhenge.Inventory.Unity.Editor
         {
             _target ??= target as InventoryScript;
 
-            _itemManager ??= new ItemManagerEditorHelper(
-                () => _target.Inventory);
-
-            _apparelManager ??= new ApparelManagerEditorHelper(
-                () => _target.Inventory);
+            _itemManager ??= new ItemManagerEditorHelper(_target);
+            _apparelManager ??= new ApparelManagerEditorHelper(_target);
         }
 
         public override void OnInspectorGUI()

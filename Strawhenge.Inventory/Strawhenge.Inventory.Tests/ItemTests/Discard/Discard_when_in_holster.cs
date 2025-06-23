@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Discard
 {
-    public class Discard_when_in_holster : BaseItemTest
+    public class Discard_when_in_holster : BaseInventoryItemTest
     {
         public Discard_when_in_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -14,10 +14,10 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Discard
             hammer.Discard();
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, RightHipHolster, x => x.Show);
-            yield return (Hammer, RightHipHolster, x => x.Hide);
+            yield return (Hammer, RightHipHolster, Show);
+            yield return (Hammer, RightHipHolster, Hide);
         }
     }
 }

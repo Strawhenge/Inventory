@@ -6,10 +6,10 @@ using Xunit.Abstractions;
 namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
 {
     public class Hold_holstered_two_handed_item_right_hand_when_holstered_one_handed_item_in_left_hand
-        : BaseItemTest
+        : BaseInventoryItemTest
     {
-        readonly Item _hammer;
-        readonly Item _spear;
+        readonly InventoryItem _hammer;
+        readonly InventoryItem _spear;
 
         public Hold_holstered_two_handed_item_right_hand_when_holstered_one_handed_item_in_left_hand(
             ITestOutputHelper testOutputHelper) : base(testOutputHelper)
@@ -27,23 +27,23 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
             _spear.HoldRightHand();
         }
 
-        protected override Maybe<Item> ExpectedItemInRightHand => _spear;
+        protected override Maybe<InventoryItem> ExpectedItemInRightHand => _spear;
 
-        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, InventoryItem expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (RightHipHolster, _hammer);
             yield return (BackHolster, _spear);
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, RightHipHolster, x => x.Show);
-            yield return (Spear, BackHolster, x => x.Show);
+            yield return (Hammer, RightHipHolster, Show);
+            yield return (Spear, BackHolster, Show);
 
-            yield return (Hammer, RightHipHolster, x => x.DrawLeftHand);
-            yield return (Hammer, RightHipHolster, x => x.PutAwayLeftHand);
+            yield return (Hammer, RightHipHolster, DrawLeftHand);
+            yield return (Hammer, RightHipHolster, PutAwayLeftHand);
 
-            yield return (Spear, BackHolster, x => x.DrawRightHand);
+            yield return (Spear, BackHolster, DrawRightHand);
         }
     }
 }

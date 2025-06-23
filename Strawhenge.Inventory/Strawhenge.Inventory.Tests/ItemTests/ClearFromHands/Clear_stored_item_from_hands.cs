@@ -4,9 +4,9 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
 {
-    public class Clear_stored_item_from_hands : BaseItemTest
+    public class Clear_stored_item_from_hands : BaseInventoryItemTest
     {
-        readonly Item _hammer;
+        readonly InventoryItem _hammer;
 
         public Clear_stored_item_from_hands(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -18,15 +18,15 @@ namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
             _hammer.ClearFromHands();
         }
 
-        protected override IEnumerable<Item> ExpectedItemsInStorage()
+        protected override IEnumerable<InventoryItem> ExpectedItemsInStorage()
         {
             yield return _hammer;
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, x => x.AppearRightHand);
-            yield return (Hammer, x => x.PutAwayRightHand);
+            yield return (Hammer, AppearRightHand);
+            yield return (Hammer, PutAwayRightHand);
         }
     }
 }

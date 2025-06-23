@@ -4,9 +4,9 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Equip
 {
-    public class Equip_to_holster : BaseItemTest
+    public class Equip_to_holster : BaseInventoryItemTest
     {
-        readonly Item _hammer;
+        readonly InventoryItem _hammer;
 
         public Equip_to_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -16,14 +16,14 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Equip
             _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
         }
 
-        protected override IEnumerable<(string holsterName, Item expectedItem)> ExpectedItemsInHolsters()
+        protected override IEnumerable<(string holsterName, InventoryItem expectedItem)> ExpectedItemsInHolsters()
         {
             yield return (RightHipHolster, _hammer);
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, RightHipHolster, x => x.Show);
+            yield return (Hammer, RightHipHolster, Show);
         }
     }
 }

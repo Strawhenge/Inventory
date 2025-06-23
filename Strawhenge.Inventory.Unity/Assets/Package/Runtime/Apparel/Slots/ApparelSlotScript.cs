@@ -1,5 +1,4 @@
-﻿using Strawhenge.Inventory.Apparel;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Apparel
 {
@@ -7,11 +6,6 @@ namespace Strawhenge.Inventory.Unity.Apparel
     {
         [SerializeField] ApparelSlotScriptableObject _slot;
 
-        public ApparelSlot ApparelSlot { get; private set; }
-
-        void Awake()
-        {
-            ApparelSlot = new ApparelSlot(_slot.name);
-        }
+        public string SlotName => _slot.name;
     }
 }

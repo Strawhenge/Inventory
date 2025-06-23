@@ -1,61 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Strawhenge.Common;
+using FunctionalUtilities;
 using Strawhenge.Inventory.Effects;
 
 namespace Strawhenge.Inventory.Apparel
 {
     public class ApparelPiece
     {
-        readonly ApparelSlot _slot;
-        readonly IApparelView _view;
-        readonly IEnumerable<Effect> _effects;
+        readonly GenericData _genericData;
 
-        public ApparelPiece(string name, ApparelSlot slot, IApparelView view)
-            : this(name, slot, view, Array.Empty<Effect>())
+        internal ApparelPiece(string name, string slot, IEnumerable<EffectData> effects, GenericData genericData)
         {
-        }
-
-        public ApparelPiece(string name, ApparelSlot slot, IApparelView view, IEnumerable<Effect> effects)
-        {
-            _slot = slot;
-            _view = view;
-            _effects = effects.ToArray();
-
+            _genericData = genericData;
             Name = name;
+            Slot = slot;
+            Effects = effects.ToArray();
         }
 
         public string Name { get; }
 
-        public string SlotName => _slot.Name;
+        public string Slot { get; }
 
-        public bool IsEquipped { get; private set; }
+        public IReadOnlyList<EffectData> Effects { get; }
 
-        public void Equip()
-        {
-            if (IsEquipped)
-                return;
-
-            IsEquipped = true;
-            _slot.Set(this);
-            _view.Show();
-            _effects.ForEach(x => x.Apply());
-        }
-
-        public void Unequip() => PerformUnequip(x => x.Drop());
-
-        public void Discard() => PerformUnequip(x => x.Hide());
-
-        void PerformUnequip(Action<IApparelView> viewStrategy)
-        {
-            if (!IsEquipped)
-                return;
-
-            IsEquipped = false;
-            _slot.Unset();
-            viewStrategy(_view);
-            _effects.ForEach(x => x.Revert());
-        }
+        public Maybe<T> Get<T>() where T : class => _genericData.Get<T>();
     }
 }

@@ -21,7 +21,7 @@ namespace Strawhenge.Inventory.Tests.EffectTests
             _health = new Health() { Amount = InitialHealth };
 
             _factory = new EffectFactory(
-                new AbstractFactoryFake(
+                new EffectFactoryLocatorFake(
                     new HealthFactory(_health)),
                 logger);
         }

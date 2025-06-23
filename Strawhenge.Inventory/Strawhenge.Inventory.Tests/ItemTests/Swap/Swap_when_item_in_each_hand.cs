@@ -5,10 +5,10 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Swap
 {
-    public class Swap_when_item_in_each_hand : BaseItemTest
+    public class Swap_when_item_in_each_hand : BaseInventoryItemTest
     {
-        readonly Item _hammer;
-        readonly Item _knife;
+        readonly InventoryItem _hammer;
+        readonly InventoryItem _knife;
 
         public Swap_when_item_in_each_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -21,18 +21,18 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Swap
             Inventory.SwapHands();
         }
 
-        protected override Maybe<Item> ExpectedItemInLeftHand => _hammer;
+        protected override Maybe<InventoryItem> ExpectedItemInLeftHand => _hammer;
 
-        protected override Maybe<Item> ExpectedItemInRightHand => _knife;
+        protected override Maybe<InventoryItem> ExpectedItemInRightHand => _knife;
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, x => x.AppearRightHand);
-            yield return (Knife, x => x.AppearLeftHand);
+            yield return (Hammer, AppearRightHand);
+            yield return (Knife, AppearLeftHand);
 
-            yield return (Knife, x => x.DisappearLeftHand);
-            yield return (Hammer, x => x.RightHandToLeftHand);
-            yield return (Knife, x => x.AppearRightHand);
+            yield return (Knife, DisappearLeftHand);
+            yield return (Hammer, RightHandToLeftHand);
+            yield return (Knife, AppearRightHand);
         }
     }
 }

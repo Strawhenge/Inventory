@@ -5,9 +5,9 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
 {
-    public class Hold_when_another_item_in_hand : BaseItemTest
+    public class Hold_when_another_item_in_hand : BaseInventoryItemTest
     {
-        readonly Item _spear;
+        readonly InventoryItem _spear;
 
         public Hold_when_another_item_in_hand(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -18,14 +18,14 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
             _spear.HoldRightHand();
         }
 
-        protected override Maybe<Item> ExpectedItemInRightHand => _spear;
+        protected override Maybe<InventoryItem> ExpectedItemInRightHand => _spear;
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, x => x.AppearRightHand);
-            yield return (Hammer, x => x.DropRightHand);
+            yield return (Hammer, AppearRightHand);
+            yield return (Hammer, DropRightHand);
 
-            yield return (Spear, x => x.AppearRightHand);
+            yield return (Spear, AppearRightHand);
         }
     }
 }

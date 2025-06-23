@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Strawhenge.Inventory.Tests.ItemTests.Unequip
 {
-    public class Unequip_from_holster : BaseItemTest
+    public class Unequip_from_holster : BaseInventoryItemTest
     {
         public Unequip_from_holster(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -14,10 +14,10 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Unequip
             hammer.Holsters[RightHipHolster].Do(x => x.Unequip());
         }
 
-        protected override IEnumerable<ViewCallInfo> ExpectedViewCalls()
+        protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
         {
-            yield return (Hammer, RightHipHolster, x => x.Show);
-            yield return (Hammer, RightHipHolster, x => x.Drop);
+            yield return (Hammer, RightHipHolster, Show);
+            yield return (Hammer, RightHipHolster, Drop);
         }
     }
 }

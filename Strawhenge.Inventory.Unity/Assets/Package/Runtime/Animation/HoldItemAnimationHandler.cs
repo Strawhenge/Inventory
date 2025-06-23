@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Animation
 {
-    public class HoldItemAnimationHandler : IHoldItemAnimationHandler
+    class HoldItemAnimationHandler
     {
         readonly Animator _animator;
 
@@ -11,8 +12,16 @@ namespace Strawhenge.Inventory.Unity.Animation
             _animator = animator;
         }
 
-        public void Hold(int animationId) => _animator.SetInteger(AnimatorParameters.HoldItemAnimationId, animationId);
+        public void Hold(IEnumerable<string> flags)
+        {
+            foreach (var flag in flags)
+                _animator.SetBool(flag, true);
+        }
 
-        public void Unhold() => _animator.SetInteger(AnimatorParameters.HoldItemAnimationId, 0);
+        public void Unhold(IEnumerable<string> flags)
+        {
+            foreach (var flag in flags)
+                _animator.SetBool(flag, false);
+        }
     }
 }
