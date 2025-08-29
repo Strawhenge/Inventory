@@ -25,6 +25,12 @@ namespace Strawhenge.Inventory.Unity.Menu
                 }
 
                 _menu = Object.FindObjectOfType<InventoryMenuScript>();
+                if (ReferenceEquals(_menu, null))
+                {
+                    _logger.LogInformation($"'{nameof(InventoryMenuScript)}' not found in scene.");
+                    return;
+                }
+                
                 _menu.Opened += OnOpened;
                 _menu.Closed += OnClosed;
             };
