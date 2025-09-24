@@ -1,4 +1,3 @@
-using FunctionalUtilities;
 using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Apparel;
 using Strawhenge.Inventory.Effects;
@@ -14,7 +13,6 @@ namespace Strawhenge.Inventory
         readonly InventoryItemFactory _itemFactory;
         readonly InventoryApparelPieceFactory _apparelPieceFactory;
         readonly InventoryItemLocator _itemLocator;
-        readonly IItemRepository _itemRepository;
         readonly ProcedureQueue _procedureQueue;
         readonly InventoryStateImporter _stateImporter;
         readonly InventoryStateExporter _stateExporter;
@@ -23,7 +21,6 @@ namespace Strawhenge.Inventory
             IItemProceduresFactory itemProceduresFactory,
             IApparelViewFactory apparelViewFactory,
             IEffectFactoryLocator effectFactoryLocator,
-            IItemRepository itemRepository,
             ILogger logger)
         {
             Hands = new Hands();
@@ -49,7 +46,6 @@ namespace Strawhenge.Inventory
                 logger);
 
             _itemLocator = new InventoryItemLocator(Hands, Holsters, StoredItems);
-            _itemRepository = itemRepository;
 
             _stateImporter = new InventoryStateImporter(this, logger);
             _stateExporter = new InventoryStateExporter(this);
@@ -78,18 +74,16 @@ namespace Strawhenge.Inventory
             return _itemFactory.CreateTemporary(item);
         }
 
+        public InventoryItem GetItemOrCreateTemporary(Item item)
+        {
+            return _itemLocator
+                .Locate(item)
+                .Reduce(() => CreateTemporaryItem(item));
+        }
+
         public InventoryApparelPiece CreateApparelPiece(ApparelPiece apparelPiece)
         {
             return _apparelPieceFactory.Create(apparelPiece);
-        }
-
-        public Maybe<InventoryItem> GetItemOrCreateTemporary(string itemName)
-        {
-            return _itemLocator
-                .Locate(itemName)
-                .Combine(() => _itemRepository
-                    .FindByName(itemName)
-                    .Map(CreateTemporaryItem));
         }
 
         public void Interrupt()

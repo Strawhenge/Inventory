@@ -1,5 +1,4 @@
-﻿using System;
-using FunctionalUtilities;
+﻿using FunctionalUtilities;
 
 namespace Strawhenge.Inventory.Items
 {
@@ -16,53 +15,52 @@ namespace Strawhenge.Inventory.Items
             _storedItems = storedItems;
         }
 
-        public Maybe<InventoryItem> Locate(string itemName)
+        public Maybe<InventoryItem> Locate(Item item)
         {
-            if (IsItemInHand(itemName, out var item))
-                return item;
+            if (IsItemInHand(item, out var inventoryItem))
+                return inventoryItem;
 
-            if (IsItemInHolster(itemName, out item))
-                return item;
+            if (IsItemInHolster(item, out inventoryItem))
+                return inventoryItem;
 
-            if (IsItemInStorage(itemName, out item))
-                return item;
+            if (IsItemInStorage(item, out inventoryItem))
+                return inventoryItem;
 
             return Maybe.None<InventoryItem>();
         }
 
-        bool IsItemInHand(string itemName, out InventoryItem item) =>
-            IsItemContained(_hands.RightHand, itemName, out item) ||
-            IsItemContained(_hands.LeftHand, itemName, out item);
+        bool IsItemInHand(Item item, out InventoryItem inventoryItem) =>
+            IsItemContained(_hands.RightHand, item, out inventoryItem) ||
+            IsItemContained(_hands.LeftHand, item, out inventoryItem);
 
-        bool IsItemInHolster(string itemName, out InventoryItem item)
+        bool IsItemInHolster(Item item, out InventoryItem inventoryItem)
         {
             foreach (var holster in _holsters)
-                if (IsItemContained(holster, itemName, out item))
+                if (IsItemContained(holster, item, out inventoryItem))
                     return true;
 
-            item = null;
+            inventoryItem = null;
             return false;
         }
 
-        bool IsItemInStorage(string itemName, out InventoryItem item)
+        bool IsItemInStorage(Item item, out InventoryItem inventoryItem)
         {
             foreach (var storedItem in _storedItems.Items)
-                if (Matches(storedItem, itemName))
+                if (Matches(storedItem, item))
                 {
-                    item = storedItem;
+                    inventoryItem = storedItem;
                     return true;
                 }
 
-            item = null;
+            inventoryItem = null;
             return false;
         }
 
-        bool IsItemContained(ItemContainer itemContainer, string itemName, out InventoryItem item) =>
+        static bool IsItemContained(ItemContainer itemContainer, Item item, out InventoryItem inventoryItem) =>
             itemContainer.CurrentItem
-                .Where(x => Matches(x, itemName))
-                .HasSome(out item);
+                .Where(x => Matches(x, item))
+                .HasSome(out inventoryItem);
 
-        static bool Matches(InventoryItem item, string itemName) =>
-            item.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase);
+        static bool Matches(InventoryItem inventoryItem, Item item) => inventoryItem.Item == item;
     }
 }

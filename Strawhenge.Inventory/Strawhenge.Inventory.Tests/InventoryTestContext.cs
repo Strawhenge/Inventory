@@ -11,14 +11,11 @@ namespace Strawhenge.Inventory.Tests
     {
         readonly ProcedureTracker _procedureTracker;
         readonly ApparelViewCallTracker _apparelViewTracker;
-        readonly ItemRepositoryFake _itemRepository;
 
         public InventoryTestContext(ITestOutputHelper testOutputHelper)
         {
             var logger = new TestOutputLogger(testOutputHelper);
             _procedureTracker = new ProcedureTracker(logger);
-
-            _itemRepository = new ItemRepositoryFake();
 
             var itemProceduresFactory = new ItemProceduresFactoryFake(_procedureTracker);
 
@@ -29,7 +26,6 @@ namespace Strawhenge.Inventory.Tests
                 itemProceduresFactory,
                 apparelViewFactory,
                 NullEffectFactoryLocator.Instance,
-                _itemRepository,
                 logger);
         }
 
@@ -46,8 +42,6 @@ namespace Strawhenge.Inventory.Tests
         public void AddApparelSlot(string name) => Inventory.ApparelSlots.Add(name);
 
         public void SetStorageCapacity(int capacity) => Inventory.StoredItems.SetWeightCapacity(capacity);
-
-        public void AddToRepository(Item item) => _itemRepository.Add(item);
 
         public InventoryItem CreateItem(string name, ItemSize? size = null, string[] holsterNames = null, bool storable = false)
         {

@@ -10,16 +10,15 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
         const string RightHip = "RightHip";
         const string LeftHip = "LeftHip";
 
-        readonly InventoryTestContext _inventoryContext;
         readonly Inventory _inventory;
         readonly Item _hammer;
 
         public GetItemOrCreateTemporaryTests(ITestOutputHelper testOutputHelper)
         {
-            _inventoryContext = new InventoryTestContext(testOutputHelper);
-            _inventoryContext.AddHolster(LeftHip);
-            _inventoryContext.AddHolster(RightHip);
-            _inventory = _inventoryContext.Inventory;
+            var inventoryContext = new InventoryTestContext(testOutputHelper);
+            inventoryContext.AddHolster(LeftHip);
+            inventoryContext.AddHolster(RightHip);
+            _inventory = inventoryContext.Inventory;
 
             _hammer = ItemBuilder
                 .Create(Hammer, ItemSize.OneHanded, isStorable: true, 0)
@@ -29,21 +28,9 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
         }
 
         [Fact]
-        public void Should_return_none_when_item_not_in_inventory_and_cannot_be_created()
+        public void Should_return_temporary_item_when_item_not_in_inventory()
         {
-            var item = _inventory.GetItemOrCreateTemporary(Hammer);
-
-            item.VerifyIsNone();
-        }
-
-        [Fact]
-        public void Should_return_temporary_item_when_item_not_in_inventory_and_can_be_created()
-        {
-            ArrangeItemCanBeCreated();
-
-            var item = _inventory
-                .GetItemOrCreateTemporary(Hammer)
-                .VerifyIsSome();
+            var item = _inventory.GetItemOrCreateTemporary(_hammer);
 
             Assert.True(item.IsTemporary);
         }
@@ -55,9 +42,7 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
         {
             var expectedItem = ArrangeItemInHand(left);
 
-            var item = _inventory
-                .GetItemOrCreateTemporary(Hammer)
-                .VerifyIsSome();
+            var item = _inventory.GetItemOrCreateTemporary(_hammer);
 
             Assert.Same(expectedItem, item);
         }
@@ -68,8 +53,7 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
             var expectedItem = ArrangeItemInHolster(LeftHip);
 
             var item = _inventory
-                .GetItemOrCreateTemporary(Hammer)
-                .VerifyIsSome();
+                .GetItemOrCreateTemporary(_hammer);
 
             Assert.Same(expectedItem, item);
         }
@@ -80,9 +64,7 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
             var expectedItem = ArrangeItemInHand();
             ArrangeItemInHolster(LeftHip);
 
-            var item = _inventory
-                .GetItemOrCreateTemporary(Hammer)
-                .VerifyIsSome();
+            var item = _inventory.GetItemOrCreateTemporary(_hammer);
 
             Assert.Same(expectedItem, item);
         }
@@ -92,9 +74,7 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
         {
             var expectedItem = ArrangeItemInStorage();
 
-            var item = _inventory
-                .GetItemOrCreateTemporary(Hammer)
-                .VerifyIsSome();
+            var item = _inventory.GetItemOrCreateTemporary(_hammer);
 
             Assert.Same(expectedItem, item);
         }
@@ -105,9 +85,7 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
             var expectedItem = ArrangeItemInHand();
             ArrangeItemInStorage();
 
-            var item = _inventory
-                .GetItemOrCreateTemporary(Hammer)
-                .VerifyIsSome();
+            var item = _inventory.GetItemOrCreateTemporary(_hammer);
 
             Assert.Same(expectedItem, item);
         }
@@ -119,8 +97,7 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
             ArrangeItemInStorage();
 
             var item = _inventory
-                .GetItemOrCreateTemporary(Hammer)
-                .VerifyIsSome();
+                .GetItemOrCreateTemporary(_hammer);
 
             Assert.Same(expectedItem, item);
         }
@@ -161,11 +138,6 @@ namespace Strawhenge.Inventory.Tests.InventoryTests
                 item.HoldRightHand();
 
             return item;
-        }
-
-        void ArrangeItemCanBeCreated()
-        {
-            _inventoryContext.AddToRepository(_hammer);
         }
     }
 }
