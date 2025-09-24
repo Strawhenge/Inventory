@@ -12,8 +12,10 @@ namespace Strawhenge.Inventory.Unity.Editor
     public class ItemManagerEditorHelper
     {
         readonly InventoryScript _inventory;
-        
+
         InventoryItem _item;
+        ItemScriptableObject _scriptableObject;
+        ItemPickupScript _pickup;
         string _locateItemText;
         bool _displayLeftHand;
         bool _displayRightHand;
@@ -41,34 +43,42 @@ namespace Strawhenge.Inventory.Unity.Editor
             else
             {
                 EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.BeginVertical();
 
-                var pickup = (ItemPickupScript)EditorGUILayout.ObjectField(
-                    null,
-                    typeof(ItemPickupScript),
-                    allowSceneObjects: true);
-
-                if (pickup != null)
-                    _item = _inventory.Inventory.CreateItem(pickup);
-
-                var scriptableObject = (ItemScriptableObject)EditorGUILayout.ObjectField(
-                    null,
+                _scriptableObject = (ItemScriptableObject)EditorGUILayout.ObjectField(
+                    _scriptableObject,
                     typeof(ItemScriptableObject),
                     allowSceneObjects: true);
 
-                if (scriptableObject != null)
-                    _item = _inventory.Inventory.CreateItem(scriptableObject);
+                EditorGUILayout.EndVertical();
+                EditorGUILayout.BeginVertical();
+                EditorGUI.BeginDisabledGroup(_scriptableObject == null);
 
+                if (GUILayout.Button(nameof(Inventory.CreateItem)) && _scriptableObject != null)
+                    _item = _inventory.Inventory.CreateItem(_scriptableObject.ToItem());
+
+                if (GUILayout.Button(nameof(Inventory.CreateTemporaryItem)) && _scriptableObject != null)
+                    _item = _inventory.Inventory.CreateTemporaryItem(_scriptableObject.ToItem());
+
+                if (GUILayout.Button(nameof(Inventory.GetItemOrCreateTemporary)) && _scriptableObject != null)
+                    _item = _inventory.Inventory.GetItemOrCreateTemporary(_scriptableObject.ToItem());
+
+                EditorGUI.EndDisabledGroup();
+                EditorGUILayout.EndVertical();
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.BeginHorizontal();
 
-                _locateItemText = EditorGUILayout.TextField(string.Empty, _locateItemText ?? string.Empty);
-                if (GUILayout.Button(nameof(Inventory.GetItemOrCreateTemporary)))
-                {
-                    // _inventory.Inventory
-                    //     .GetItemOrCreateTemporary(_locateItemText)
-                    //     .Do(item => _item = item);
-                }
+                _pickup = (ItemPickupScript)EditorGUILayout.ObjectField(
+                    _pickup,
+                    typeof(ItemPickupScript),
+                    allowSceneObjects: true);
 
+                EditorGUI.BeginDisabledGroup(_pickup == null);
+
+                if (GUILayout.Button(nameof(Inventory.CreateItem)) && _pickup != null)
+                    _item = _inventory.Inventory.CreateItem(_pickup);
+
+                EditorGUI.EndDisabledGroup();
                 EditorGUILayout.EndHorizontal();
             }
 
