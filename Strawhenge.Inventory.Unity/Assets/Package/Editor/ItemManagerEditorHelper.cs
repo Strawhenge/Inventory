@@ -64,9 +64,9 @@ namespace Strawhenge.Inventory.Unity.Editor
                 _locateItemText = EditorGUILayout.TextField(string.Empty, _locateItemText ?? string.Empty);
                 if (GUILayout.Button(nameof(Inventory.GetItemOrCreateTemporary)))
                 {
-                    _inventory.Inventory
-                        .GetItemOrCreateTemporary(_locateItemText)
-                        .Do(item => _item = item);
+                    // _inventory.Inventory
+                    //     .GetItemOrCreateTemporary(_locateItemText)
+                    //     .Do(item => _item = item);
                 }
 
                 EditorGUILayout.EndHorizontal();

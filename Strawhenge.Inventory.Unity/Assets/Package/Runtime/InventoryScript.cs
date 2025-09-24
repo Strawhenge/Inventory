@@ -100,7 +100,6 @@ namespace Strawhenge.Inventory.Unity
                 itemProceduresFactory,
                 apparelViewFactory,
                 effectFactoryLocator,
-                ResourcesItemRepository.GetOrCreateInstance(),
                 logger);
 
             foreach (var holsterName in holsterScripts.HolsterNames)
