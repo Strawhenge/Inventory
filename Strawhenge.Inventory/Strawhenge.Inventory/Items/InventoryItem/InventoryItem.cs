@@ -66,7 +66,7 @@ namespace Strawhenge.Inventory.Items
                 _hands.UnsetItemLeftHand();
 
                 if (IsTemporary)
-                    _procedureScheduler.DisappearLeftHand();
+                    _procedureScheduler.DisappearLeftHand(callback);
                 else
                     _procedureScheduler.DropLeftHand(callback);
             }
@@ -76,7 +76,7 @@ namespace Strawhenge.Inventory.Items
                 _hands.UnsetItemRightHand();
 
                 if (IsTemporary)
-                    _procedureScheduler.DisappearRightHand();
+                    _procedureScheduler.DisappearRightHand(callback);
                 else
                     _procedureScheduler.DropRightHand(callback);
             }
@@ -127,7 +127,7 @@ namespace Strawhenge.Inventory.Items
             if (IsInStorage)
                 _procedureScheduler.DrawLeftHand(callback);
             else
-                _procedureScheduler.AppearLeftHand();
+                _procedureScheduler.AppearLeftHand(callback);
         }
 
         public void HoldRightHand(Action callback = null)
@@ -165,7 +165,7 @@ namespace Strawhenge.Inventory.Items
             if (IsInStorage)
                 _procedureScheduler.DrawRightHand(callback);
             else
-                _procedureScheduler.AppearRightHand();
+                _procedureScheduler.AppearRightHand(callback);
         }
 
         public void PutAway(Action callback = null)
@@ -219,9 +219,9 @@ namespace Strawhenge.Inventory.Items
                 else if (IsInStorage)
                     _procedureScheduler.PutAwayLeftHand(callback);
                 else if (IsTemporary)
-                    _procedureScheduler.DisappearLeftHand();
+                    _procedureScheduler.DisappearLeftHand(callback);
                 else
-                    _procedureScheduler.DropLeftHand();
+                    _procedureScheduler.DropLeftHand(callback);
 
                 return;
             }
@@ -235,9 +235,9 @@ namespace Strawhenge.Inventory.Items
                 else if (IsInStorage)
                     _procedureScheduler.PutAwayRightHand(callback);
                 else if (IsTemporary)
-                    _procedureScheduler.DisappearRightHand();
+                    _procedureScheduler.DisappearRightHand(callback);
                 else
-                    _procedureScheduler.DropRightHand();
+                    _procedureScheduler.DropRightHand(callback);
 
                 return;
             }

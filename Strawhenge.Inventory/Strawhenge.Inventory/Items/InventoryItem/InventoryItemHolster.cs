@@ -94,7 +94,7 @@ namespace Strawhenge.Inventory.Items
             if (_item.IsInHand)
                 callback?.Invoke();
             else
-                _procedures.Drop();
+                _procedures.Drop(callback);
         }
 
         internal void Discard(Action callback = null)
