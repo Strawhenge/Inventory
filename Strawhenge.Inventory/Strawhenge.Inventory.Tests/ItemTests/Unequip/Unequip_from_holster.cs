@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Unequip
 
             var hammer = CreateItem(Hammer, new[] { RightHipHolster });
             hammer.Holsters[RightHipHolster].Do(x => x.Equip());
-            hammer.Holsters[RightHipHolster].Do(x => x.Unequip());
+            hammer.Holsters[RightHipHolster].Do(x => x.Unequip(Callback));
         }
 
         protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()

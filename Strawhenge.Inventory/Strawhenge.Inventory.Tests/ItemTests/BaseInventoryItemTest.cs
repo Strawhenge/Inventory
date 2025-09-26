@@ -35,6 +35,9 @@ namespace Strawhenge.Inventory.Tests.ItemTests
 
         readonly InventoryTestContext _inventoryContext;
 
+        bool _callbackUsed;
+        bool _callbackInvoked;
+
         protected BaseInventoryItemTest(ITestOutputHelper testOutputHelper)
         {
             _inventoryContext = new InventoryTestContext(testOutputHelper);
@@ -96,6 +99,13 @@ namespace Strawhenge.Inventory.Tests.ItemTests
                 .VerifyProcedures(ExpectedProceduresCompleted().ToArray());
         }
 
+        [Fact]
+        public void Verify_callback_invoked()
+        {
+            if (_callbackUsed)
+                Assert.True(_callbackInvoked);
+        }
+
         protected Inventory Inventory { get; }
 
         protected void AddHolster(string name) => _inventoryContext.AddHolster(name);
@@ -128,5 +138,17 @@ namespace Strawhenge.Inventory.Tests.ItemTests
         protected virtual IEnumerable<InventoryItem> ExpectedItemsInStorage() => Enumerable.Empty<InventoryItem>();
 
         protected abstract IEnumerable<ProcedureInfo> ExpectedProceduresCompleted();
+
+        protected Action Callback
+        {
+            get
+            {
+                if (_callbackUsed)
+                    throw new TestSetupException("Only single callback supported.");
+
+                _callbackUsed = true;
+                return () => _callbackInvoked = true;
+            }
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Drop
             
             var hammer = CreateItem(Hammer, storable: true);
             hammer.Storable.Do(x => x.AddToStorage());
-            hammer.Drop();
+            hammer.Drop(Callback);
         }
 
         protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()

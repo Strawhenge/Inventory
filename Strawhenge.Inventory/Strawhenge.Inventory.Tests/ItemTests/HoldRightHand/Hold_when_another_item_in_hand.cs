@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
             hammer.HoldRightHand();
 
             _spear = CreateTwoHandedItem(Spear);
-            _spear.HoldRightHand();
+            _spear.HoldRightHand(Callback);
         }
 
         protected override Maybe<InventoryItem> ExpectedItemInRightHand => _spear;

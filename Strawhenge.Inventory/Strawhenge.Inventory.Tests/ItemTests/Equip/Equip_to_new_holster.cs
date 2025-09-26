@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Equip
 
             _hammer = CreateItem(Hammer, new[] { LeftHipHolster, RightHipHolster });
             _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
-            _hammer.Holsters[LeftHipHolster].Do(x => x.Equip());
+            _hammer.Holsters[LeftHipHolster].Do(x => x.Equip(Callback));
         }
 
         protected override IEnumerable<(string holsterName, InventoryItem expectedItem)> ExpectedItemsInHolsters()

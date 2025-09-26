@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
             _hammer = CreateItem(Hammer, storable: true);
             _hammer.HoldRightHand();
             _hammer.Storable.Do(x => x.AddToStorage());
-            _hammer.ClearFromHands();
+            _hammer.ClearFromHands(Callback);
         }
 
         protected override IEnumerable<InventoryItem> ExpectedItemsInStorage()

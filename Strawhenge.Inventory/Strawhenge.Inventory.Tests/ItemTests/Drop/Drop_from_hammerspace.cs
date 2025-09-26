@@ -8,7 +8,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Drop
         public Drop_from_hammerspace(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             var hammer = CreateItem(Hammer);
-            hammer.Drop();
+            hammer.Drop(Callback);
         }
 
         protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()

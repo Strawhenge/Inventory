@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
 
             _hammer = CreateItem(Hammer, storable: true);
             _hammer.Storable.Do(x => x.AddToStorage());
-            _hammer.HoldRightHand();
+            _hammer.HoldRightHand(Callback);
         }
 
         protected override Maybe<InventoryItem> ExpectedItemInRightHand => _hammer;

@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.PutAway
             _knife = CreateItem(Knife, new[] { RightHipHolster });
             _knife.Holsters[RightHipHolster].Do(x => x.Equip());
 
-            hammer.PutAway();
+            hammer.PutAway(Callback);
         }
 
         protected override IEnumerable<(string holsterName, InventoryItem expectedItem)> ExpectedItemsInHolsters()

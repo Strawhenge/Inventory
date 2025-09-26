@@ -13,7 +13,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.PutAway
             hammer.Holsters[RightHipHolster].Do(x => x.Equip());
             hammer.HoldRightHand();
             hammer.UnequipFromHolster();
-            hammer.PutAway();
+            hammer.PutAway(Callback);
         }
 
         protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()

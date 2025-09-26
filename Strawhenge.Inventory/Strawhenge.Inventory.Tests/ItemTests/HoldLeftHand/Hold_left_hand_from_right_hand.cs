@@ -13,7 +13,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldLeftHand
         {
             _hammer = CreateItem(Hammer);
             _hammer.HoldRightHand();
-            _hammer.HoldLeftHand();
+            _hammer.HoldLeftHand(Callback);
         }
 
         protected override Maybe<InventoryItem> ExpectedItemInLeftHand => _hammer;

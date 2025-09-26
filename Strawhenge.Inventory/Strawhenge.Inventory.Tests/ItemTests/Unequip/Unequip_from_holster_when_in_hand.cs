@@ -16,7 +16,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Unequip
             _hammer = CreateItem(Hammer, new[] { RightHipHolster });
             _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
             _hammer.HoldRightHand();
-            _hammer.Holsters[RightHipHolster].Do(x => x.Unequip());
+            _hammer.Holsters[RightHipHolster].Do(x => x.Unequip(Callback));
         }
 
         protected override Maybe<InventoryItem> ExpectedItemInRightHand => _hammer;

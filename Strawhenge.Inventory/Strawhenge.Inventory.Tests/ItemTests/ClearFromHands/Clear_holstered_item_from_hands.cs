@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.ClearFromHands
             _hammer = CreateItem(Hammer, new[] { RightHipHolster });
             _hammer.HoldRightHand();
             _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
-            _hammer.ClearFromHands();
+            _hammer.ClearFromHands(Callback);
         }
 
         protected override IEnumerable<(string holsterName, InventoryItem expectedItem)> ExpectedItemsInHolsters()

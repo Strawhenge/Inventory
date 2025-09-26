@@ -17,7 +17,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.PutAway
             _hammer.Holsters[RightHipHolster].Do(x => x.Equip());
             _hammer.HoldRightHand();
             _hammer.Holsters[LeftHipHolster].Do(x => x.Equip());
-            _hammer.PutAway();
+            _hammer.PutAway(Callback);
         }
 
         protected override IEnumerable<(string holsterName, InventoryItem expectedItem)> ExpectedItemsInHolsters()

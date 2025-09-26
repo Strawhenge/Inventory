@@ -24,7 +24,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.HoldRightHand
             _knife.Holsters[LeftHipHolster].Do(x => x.Equip());
 
             _hammer.HoldLeftHand();
-            _knife.HoldRightHand();
+            _knife.HoldRightHand(Callback);
         }
 
         protected override Maybe<InventoryItem> ExpectedItemInLeftHand => _hammer;

@@ -12,7 +12,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Drop
             var hammer = CreateItem(Hammer, new[] { RightHipHolster });
             hammer.Holsters[RightHipHolster].Do(x => x.Equip());
             hammer.HoldRightHand();
-            hammer.Drop();
+            hammer.Drop(Callback);
         }
 
         protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()

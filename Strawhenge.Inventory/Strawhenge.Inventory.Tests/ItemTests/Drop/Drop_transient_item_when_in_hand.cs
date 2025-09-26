@@ -9,7 +9,7 @@ namespace Strawhenge.Inventory.Tests.ItemTests.Drop
         {
             var hammer = CreateTransientItem(Hammer);
             hammer.HoldRightHand();
-            hammer.Drop();
+            hammer.Drop(Callback);
         }
 
         protected override IEnumerable<ProcedureInfo> ExpectedProceduresCompleted()
