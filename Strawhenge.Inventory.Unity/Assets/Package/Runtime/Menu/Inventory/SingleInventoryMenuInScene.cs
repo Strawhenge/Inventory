@@ -15,7 +15,7 @@ namespace Strawhenge.Inventory.Unity.Menu
 
         SingleInventoryMenuInScene()
         {
-            _logger = new UnityLogger();
+            _logger = GlobalUnityLogger.Instance;
             SceneManager.sceneLoaded += (_, _) =>
             {
                 if (!ReferenceEquals(_menu, null))
@@ -30,7 +30,7 @@ namespace Strawhenge.Inventory.Unity.Menu
                     _logger.LogInformation($"'{nameof(InventoryMenuScript)}' not found in scene.");
                     return;
                 }
-                
+
                 _menu.Opened += OnOpened;
                 _menu.Closed += OnClosed;
             };
