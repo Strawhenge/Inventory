@@ -1,3 +1,4 @@
+using FunctionalUtilities;
 using UnityEditor.Animations;
 using UnityEngine;
 
@@ -9,10 +10,10 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
             AnimatorController animatorController,
             string layerName,
             string name,
-            AnimationClip drawLeftHandAnimation,
-            AnimationClip putAwayLeftHandAnimation,
-            AnimationClip drawRightHandAnimation,
-            AnimationClip putAwayRightHandAnimation)
+            Maybe<AnimationClip> drawLeftHandAnimation,
+            Maybe<AnimationClip> putAwayLeftHandAnimation,
+            Maybe<AnimationClip> drawRightHandAnimation,
+            Maybe<AnimationClip> putAwayRightHandAnimation)
         {
             AnimatorController = animatorController;
             LayerName = layerName;
@@ -29,12 +30,12 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
 
         public string Name { get; }
 
-        public AnimationClip DrawLeftHandAnimation { get; }
+        public Maybe<AnimationClip> DrawLeftHandAnimation { get; }
 
-        public AnimationClip PutAwayLeftHandAnimation { get; }
+        public Maybe<AnimationClip> PutAwayLeftHandAnimation { get; }
 
-        public AnimationClip DrawRightHandAnimation { get; }
+        public Maybe<AnimationClip> DrawRightHandAnimation { get; }
 
-        public AnimationClip PutAwayRightHandAnimation { get; }
+        public Maybe<AnimationClip> PutAwayRightHandAnimation { get; }
     }
 }

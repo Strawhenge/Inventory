@@ -1,5 +1,7 @@
 using Strawhenge.Inventory.Unity.Animation;
 using System.Linq;
+using UnityEditor;
+using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Editor.Tools
@@ -43,8 +45,50 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
                     args.AnimatorController);
                 return;
             }
-            
-            // TODO
+
+            args.DrawLeftHandAnimation.Do(clip =>
+                CreateAnimation(clip, drawLeftId, args.Name, drawStateMachine, rootStateMachine));
+            args.PutAwayLeftHandAnimation.Do(clip =>
+                CreateAnimation(clip, putAwayLeftId, args.Name, putAwayStateMachine, rootStateMachine));
+            args.DrawRightHandAnimation.Do(clip =>
+                CreateAnimation(clip, drawRightId, args.Name, drawStateMachine, rootStateMachine));
+            args.PutAwayRightHandAnimation.Do(clip =>
+                CreateAnimation(clip, putAwayRightId, args.Name, putAwayStateMachine, rootStateMachine));
+
+            EditorUtility.SetDirty(args.AnimatorController);
+            AssetDatabase.SaveAssets();
+
+            CreateScriptableObject(args.Name, drawLeftId, drawRightId, putAwayLeftId, putAwayRightId);
+        }
+
+        static void CreateAnimation(
+            AnimationClip clip,
+            int id,
+            string name,
+            AnimatorStateMachine stateMachine,
+            AnimatorStateMachine rootStateMachine)
+        {
+            var state = stateMachine.AddState(name);
+            state.motion = clip;
+
+            var beginTransition = rootStateMachine.defaultState.AddTransition(state);
+            beginTransition
+                .AddCondition(AnimatorConditionMode.If, 0, AnimatorParameters.DrawItem.Name);
+            beginTransition
+                .AddCondition(AnimatorConditionMode.Equals, id, AnimatorParameters.DrawItemId.Name);
+            beginTransition.hasExitTime = false;
+
+            var endedTransition = state.AddExitTransition();
+            endedTransition.hasExitTime = true;
+        }
+
+        static void CreateScriptableObject(
+            string argsName,
+            int drawLeftId,
+            int drawRightId,
+            int putAwayLeftId,
+            int putAwayRightId)
+        {
         }
     }
 }

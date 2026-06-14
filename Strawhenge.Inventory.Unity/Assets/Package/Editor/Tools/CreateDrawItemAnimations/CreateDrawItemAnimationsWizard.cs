@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Unity.Animation;
+﻿using FunctionalUtilities;
+using Strawhenge.Inventory.Unity.Animation;
 using System;
 using System.Linq;
 using UnityEditor;
@@ -86,8 +87,11 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
                 _animatorController != null &&
                 _layerNames.Length > 0 &&
                 !string.IsNullOrWhiteSpace(_name) &&
-                _drawLeftHandAnimation != null &&
-                _putAwayLeftHandAnimation != null;
+                (
+                    _drawLeftHandAnimation != null ||
+                    _putAwayLeftHandAnimation != null ||
+                    _drawRightHandAnimation != null ||
+                    _putAwayRightHandAnimation != null);
 
             return result;
         }
@@ -98,10 +102,10 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
                 _animatorController,
                 _layerNames[_selectedLayerIndex],
                 _name,
-                _drawLeftHandAnimation,
-                _putAwayLeftHandAnimation,
-                _drawRightHandAnimation,
-                _putAwayRightHandAnimation));
+                Maybe.NotNull(_drawLeftHandAnimation),
+                Maybe.NotNull(_putAwayLeftHandAnimation),
+                Maybe.NotNull(_drawRightHandAnimation),
+                Maybe.NotNull(_putAwayRightHandAnimation)));
         }
 
         static string[] GetLayers(AnimatorController animatorController)
