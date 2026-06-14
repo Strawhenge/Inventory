@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de599d69a1b34632a0ea5c77e2d0483c, type: 3}
-  m_Name: Consume Can
+  m_Script: {fileID: 11500000, guid: 13c33182488448d48cbbccd400cc6ed1, type: 3}
+  m_Name: Disarm Over Shoulder
   m_EditorClassIdentifier: 
-  _consumeLeftHandId: 2
-  _consumeRightHandId: 1
+  _id: 3

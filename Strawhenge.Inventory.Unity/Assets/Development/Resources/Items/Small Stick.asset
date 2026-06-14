@@ -35,52 +35,52 @@ MonoBehaviour:
       _type: 0
   _drawAnimationSettings:
     _serialized:
-      _drawLeftHandId: 0
-      _drawRightHandId: 0
-      _putAwayLeftHandId: 0
-      _putAwayRightHandId: 0
+      _drawLeftHand: {fileID: 11400000, guid: f0fc44ca5fa9b3b43986422c416a6083, type: 2}
+      _drawRightHand: {fileID: 11400000, guid: b3ff38a2bb9495f49b3cde0c5473853d, type: 2}
+      _putAwayLeftHand: {fileID: 11400000, guid: 88cd49df3bfc07c40a97da854ab65e46, type: 2}
+      _putAwayRightHand: {fileID: 11400000, guid: 60b98ab15c80f6440a2553141c8ff22b, type: 2}
     _scriptableObject: {fileID: 11400000, guid: d7ff9e1c2afc7db4eb07518aef6f7122, type: 2}
-    _type: 2
+    _type: 1
   _holsterItemData:
   - _holster: {fileID: 11400000, guid: eecd875d513ed9e48904312b03aa25cd, type: 2}
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 0}
     _drawAnimationSettings:
       _serialized:
-        _drawLeftHandId: 0
-        _drawRightHandId: 0
-        _putAwayLeftHandId: 0
-        _putAwayRightHandId: 0
+        _drawLeftHand: {fileID: 0}
+        _drawRightHand: {fileID: 11400000, guid: b3ff38a2bb9495f49b3cde0c5473853d, type: 2}
+        _putAwayLeftHand: {fileID: 0}
+        _putAwayRightHand: {fileID: 11400000, guid: 60b98ab15c80f6440a2553141c8ff22b, type: 2}
       _scriptableObject: {fileID: 11400000, guid: 34b4149f960a81a439901f0c3f115f38, type: 2}
-      _type: 2
+      _type: 1
   - _holster: {fileID: 11400000, guid: 276c760cf1f22c44f980a4447ca6721d, type: 2}
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 0}
     _drawAnimationSettings:
       _serialized:
-        _drawLeftHandId: 0
-        _drawRightHandId: 0
-        _putAwayLeftHandId: 0
-        _putAwayRightHandId: 0
+        _drawLeftHand: {fileID: 11400000, guid: f0fc44ca5fa9b3b43986422c416a6083, type: 2}
+        _drawRightHand: {fileID: 0}
+        _putAwayLeftHand: {fileID: 11400000, guid: 88cd49df3bfc07c40a97da854ab65e46, type: 2}
+        _putAwayRightHand: {fileID: 0}
       _scriptableObject: {fileID: 11400000, guid: dbc119e38bd6c3a429e33a490fff9ec8, type: 2}
-      _type: 2
+      _type: 1
   - _holster: {fileID: 11400000, guid: f83b37b3d4e32c34cbf879593eca9c54, type: 2}
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 0}
     _drawAnimationSettings:
       _serialized:
-        _drawLeftHandId: 0
-        _drawRightHandId: 0
-        _putAwayLeftHandId: 0
-        _putAwayRightHandId: 0
+        _drawLeftHand: {fileID: 0}
+        _drawRightHand: {fileID: 0}
+        _putAwayLeftHand: {fileID: 0}
+        _putAwayRightHand: {fileID: 0}
       _scriptableObject: {fileID: 0}
       _type: 1
   _consumable:
     _serialized:
       _animationSettings:
         _serialized:
-          _consumeLeftHandTrigger: 
-          _consumeRightHandTrigger: 
+          _consumeLeftHandId: 0
+          _consumeRightHandId: 0
         _scriptableObject: {fileID: 0}
         _type: 0
       _effects: []
