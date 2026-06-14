@@ -1,19 +1,20 @@
-﻿using UnityEngine;
+﻿using Strawhenge.Common.Unity;
+using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Animation
 {
     static class AnimatorParameters
     {
-        public static int DrawItem => Animator.StringToHash("Draw Item");
+        public static AnimatorParameter DrawItem { get; } = new("Draw Item");
 
-        public static int DrawItemId => Animator.StringToHash("Draw Item ID");
+        public static AnimatorParameter DrawItemId { get; } = new("Draw Item ID");
 
-        public static int PutAwayItem => Animator.StringToHash("Put Away Item");
+        public static AnimatorParameter PutAwayItem { get; } = new("Put Away Item");
 
-        public static int PutAwayItemId => Animator.StringToHash("Put Away Item ID");
+        public static AnimatorParameter PutAwayItemId { get; } = new("Put Away Item ID");
 
-        public static int ConsumeItem => Animator.StringToHash("Consume Item");
+        public static AnimatorParameter ConsumeItem { get; } = new("Consume Item");
 
-        public static int ConsumeItemId => Animator.StringToHash("Consume Item ID");
+        public static AnimatorParameter ConsumeItemId { get; } = new("Consume Item ID");
     }
 }

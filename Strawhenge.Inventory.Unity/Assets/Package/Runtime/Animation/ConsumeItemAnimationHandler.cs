@@ -1,4 +1,5 @@
-﻿using Strawhenge.Common.Unity.AnimatorBehaviours;
+﻿using Strawhenge.Common.Unity;
+using Strawhenge.Common.Unity.AnimatorBehaviours;
 using System;
 using UnityEngine;
 
