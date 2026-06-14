@@ -2,7 +2,8 @@
     "name": "Strawhenge.Inventory.Unity.Editor",
     "rootNamespace": "Strawhenge.Inventory.Unity.Editor",
     "references": [
-        "GUID:1b5fc161151267d41b5d731ec0c68f25"
+        "GUID:1b5fc161151267d41b5d731ec0c68f25",
+        "GUID:ab0e643ec0e5c9a4e976743cf4c3ad5e"
     ],
     "includePlatforms": [
         "Editor"
