@@ -6,10 +6,10 @@ namespace Strawhenge.Inventory.Unity.Items.DrawAnimationSettings
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Draw Animation Settings")]
     public class DrawAnimationSettingsScriptableObject : ScriptableObject, IDrawAnimationSettings
     {
-        [SerializeField] int _drawLeftHandId;
-        [SerializeField] int _drawRightHandId;
-        [SerializeField] int _putAwayLeftHandId;
-        [SerializeField] int _putAwayRightHandId;
+        [SerializeField, Min(0)] int _drawLeftHandId;
+        [SerializeField, Min(0)] int _drawRightHandId;
+        [SerializeField, Min(0)] int _putAwayLeftHandId;
+        [SerializeField, Min(0)] int _putAwayRightHandId;
 
         public Maybe<int> DrawLeftHandId => _drawLeftHandId > 0
             ? Maybe.Some(_drawLeftHandId)
