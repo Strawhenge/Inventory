@@ -8,24 +8,21 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Editor.Tools
 {
-    public class CreateDrawItemAnimationsWizard : ScriptableWizard
+    public class CreateDrawItemAnimationWizard : ScriptableWizard
     {
-        const string Name = "Draw Item Animations...";
+        const string Name = "Draw Item Animation...";
 
         [MenuItem("Assets/Create/Strawhenge/Inventory/" + Name)]
         public static void ShowEditorWindow()
         {
-            DisplayWizard<CreateDrawItemAnimationsWizard>(Name, "Create");
+            DisplayWizard<CreateDrawItemAnimationWizard>(Name, "Create");
         }
 
         AnimatorController _animatorController;
         string[] _layerNames = Array.Empty<string>();
         int _selectedLayerIndex;
         string _name;
-        AnimationClip _drawLeftHandAnimation;
-        AnimationClip _putAwayLeftHandAnimation;
-        AnimationClip _drawRightHandAnimation;
-        AnimationClip _putAwayRightHandAnimation;
+        AnimationClip _animation;
 
         void OnEnable()
         {
@@ -59,27 +56,9 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
                 label: "Name",
                 text: _name);
 
-            _drawLeftHandAnimation = EditorGUILayout.ObjectField(
-                label: "Draw Left Hand",
-                obj: _drawLeftHandAnimation,
-                objType: typeof(AnimationClip),
-                allowSceneObjects: false) as AnimationClip;
-
-            _putAwayLeftHandAnimation = EditorGUILayout.ObjectField(
-                label: "Put Away Left Hand",
-                obj: _putAwayLeftHandAnimation,
-                objType: typeof(AnimationClip),
-                allowSceneObjects: false) as AnimationClip;
-
-            _drawRightHandAnimation = EditorGUILayout.ObjectField(
-                label: "Draw Right Hand",
-                obj: _drawRightHandAnimation,
-                objType: typeof(AnimationClip),
-                allowSceneObjects: false) as AnimationClip;
-
-            _putAwayRightHandAnimation = EditorGUILayout.ObjectField(
-                label: "Put Away Right Hand",
-                obj: _putAwayRightHandAnimation,
+            _animation = EditorGUILayout.ObjectField(
+                label: "Animation",
+                obj: _animation,
                 objType: typeof(AnimationClip),
                 allowSceneObjects: false) as AnimationClip;
 
@@ -87,32 +66,25 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
                 _animatorController != null &&
                 _layerNames.Length > 0 &&
                 !string.IsNullOrWhiteSpace(_name) &&
-                (
-                    _drawLeftHandAnimation != null ||
-                    _putAwayLeftHandAnimation != null ||
-                    _drawRightHandAnimation != null ||
-                    _putAwayRightHandAnimation != null);
+                _animation != null;
 
             return result;
         }
 
         void OnWizardCreate()
         {
-            CreateDrawItemAnimations.Create(new CreateDrawItemAnimationsArgs(
+            CreateDrawItemAnimation.Create(new CreateDrawItemAnimationArgs(
                 _animatorController,
                 _layerNames[_selectedLayerIndex],
                 _name,
-                Maybe.NotNull(_drawLeftHandAnimation),
-                Maybe.NotNull(_putAwayLeftHandAnimation),
-                Maybe.NotNull(_drawRightHandAnimation),
-                Maybe.NotNull(_putAwayRightHandAnimation)));
+                _animation));
         }
 
         static string[] GetLayers(AnimatorController animatorController)
         {
             return animatorController != null
                 ? animatorController
-                    .GetLayersContaining<DrawItemStateMachine, PutAwayItemStateMachine>()
+                    .GetLayersContaining<DrawItemStateMachine>()
                     .Select(x => x.name)
                     .ToArray()
                 : Array.Empty<string>();

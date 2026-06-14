@@ -52,23 +52,5 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
                 animatorControllerLayer.stateMachine.stateMachines
                     .Any(stateMachine => stateMachine.stateMachine.behaviours.OfType<TBehaviour>().Any());
         }
-
-        public static IReadOnlyList<AnimatorControllerLayer> GetLayersContaining<TBehaviour1, TBehaviour2>(
-            this AnimatorController animatorController)
-            where TBehaviour1 : StateMachineBehaviour
-            where TBehaviour2 : StateMachineBehaviour
-        {
-            return animatorController.layers
-                .Where(HasStateMachine)
-                .ToArray();
-
-            static bool HasStateMachine(AnimatorControllerLayer animatorControllerLayer) =>
-                animatorControllerLayer.stateMachine.stateMachines
-                    .Any(stateMachine =>
-                        stateMachine.stateMachine.behaviours.OfType<TBehaviour1>().Any()) &&
-                animatorControllerLayer.stateMachine.stateMachines
-                    .Any(stateMachine =>
-                        stateMachine.stateMachine.behaviours.OfType<TBehaviour2>().Any());
-        }
     }
 }
