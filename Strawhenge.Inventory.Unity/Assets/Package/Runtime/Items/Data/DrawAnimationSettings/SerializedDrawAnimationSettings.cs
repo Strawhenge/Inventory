@@ -7,25 +7,25 @@ namespace Strawhenge.Inventory.Unity.Items.DrawAnimationSettings
     [Serializable]
     public class SerializedDrawAnimationSettings : IDrawAnimationSettings
     {
-        [SerializeField, Min(0)] int _drawLeftHandId;
-        [SerializeField, Min(0)] int _drawRightHandId;
-        [SerializeField, Min(0)] int _putAwayLeftHandId;
-        [SerializeField, Min(0)] int _putAwayRightHandId;
+        [SerializeField] DrawItemAnimationScriptableObject _drawLeftHand;
+        [SerializeField] DrawItemAnimationScriptableObject _drawRightHand;
+        [SerializeField] PutAwayItemAnimationScriptableObject _putAwayLeftHand;
+        [SerializeField] PutAwayItemAnimationScriptableObject _putAwayRightHand;
 
-        public Maybe<int> DrawLeftHandId => _drawLeftHandId > 0
-            ? Maybe.Some(_drawLeftHandId)
+        public Maybe<int> DrawLeftHandId => _drawLeftHand != null
+            ? Maybe.Some(_drawLeftHand.Id)
             : Maybe.None<int>();
 
-        public Maybe<int> DrawRightHandId => _drawRightHandId > 0
-            ? Maybe.Some(_drawRightHandId)
+        public Maybe<int> DrawRightHandId => _drawRightHand != null
+            ? Maybe.Some(_drawRightHand.Id)
             : Maybe.None<int>();
 
-        public Maybe<int> PutAwayLeftHandId => _putAwayLeftHandId > 0
-            ? Maybe.Some(_putAwayLeftHandId)
+        public Maybe<int> PutAwayLeftHandId => _putAwayLeftHand != null
+            ? Maybe.Some(_putAwayLeftHand.Id)
             : Maybe.None<int>();
 
-        public Maybe<int> PutAwayRightHandId => _putAwayRightHandId > 0
-            ? Maybe.Some(_putAwayRightHandId)
+        public Maybe<int> PutAwayRightHandId => _putAwayRightHand != null
+            ? Maybe.Some(_putAwayRightHand.Id)
             : Maybe.None<int>();
     }
 }
