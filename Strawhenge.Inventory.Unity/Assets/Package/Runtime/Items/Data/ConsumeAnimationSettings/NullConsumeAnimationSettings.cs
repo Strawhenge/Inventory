@@ -10,8 +10,9 @@ namespace Strawhenge.Inventory.Unity.Items.ConsumeAnimationSettings
         {
         }
 
-        public Maybe<string> ConsumeLeftHandTrigger => Maybe.None<string>();
 
-        public Maybe<string> ConsumeRightHandTrigger => Maybe.None<string>();
+        public Maybe<int> ConsumeLeftHandId => Maybe.None<int>();
+        
+        public Maybe<int> ConsumeRightHandId => Maybe.None<int>();
     }
 }

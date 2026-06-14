@@ -20,10 +20,12 @@ namespace Strawhenge.Inventory.Unity.Animation
 
         public event Action Consumed;
 
-        public void Consume(string trigger)
+        public void Consume(int consumeItemId)
         {
             _events.PrepareIfRequired();
-            _animator.SetTrigger(trigger);
+
+            _animator.SetInteger(AnimatorParameters.ConsumeItemId, consumeItemId);
+            _animator.SetTrigger(AnimatorParameters.ConsumeItem);
         }
 
         void OnConsumeEnded() => Consumed?.Invoke();

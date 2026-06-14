@@ -37,10 +37,10 @@ MonoBehaviour:
       _type: 1
   _drawAnimationSettings:
     _serialized:
-      _drawLeftHandTrigger: Draw Item Left Hand
-      _drawRightHandTrigger: Draw Item Right Hand
-      _putAwayLeftHandTrigger: Put Away Item Left Hand
-      _putAwayRightHandTrigger: Put Away Item Right Hand
+      _drawLeftHandId: 0
+      _drawRightHandId: 0
+      _putAwayLeftHandId: 0
+      _putAwayRightHandId: 0
     _scriptableObject: {fileID: 0}
     _type: 1
   _holsterItemData: []
@@ -48,10 +48,10 @@ MonoBehaviour:
     _serialized:
       _animationSettings:
         _serialized:
-          _consumeLeftHandTrigger: Drink Left Hand
-          _consumeRightHandTrigger: Drink Right Hand
-        _scriptableObject: {fileID: 0}
-        _type: 1
+          _consumeLeftHandId: 0
+          _consumeRightHandId: 0
+        _scriptableObject: {fileID: 11400000, guid: 952e873e5826eed438514d40c271d407, type: 2}
+        _type: 2
       _effects:
       - {fileID: 11400000, guid: c804ce871976c964f98bb96c7406e43a, type: 2}
     _scriptableObject: {fileID: 0}

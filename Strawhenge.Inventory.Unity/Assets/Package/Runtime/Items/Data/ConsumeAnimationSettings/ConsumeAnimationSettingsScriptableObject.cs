@@ -6,15 +6,15 @@ namespace Strawhenge.Inventory.Unity.Items.ConsumeAnimationSettings
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Consume Animation Settings")]
     public class ConsumeAnimationSettingsScriptableObject : ScriptableObject, IConsumeAnimationSettings
     {
-        [SerializeField] string _consumeLeftHandTrigger;
-        [SerializeField] string _consumeRightHandTrigger;
+        [SerializeField, Min(0)] int _consumeLeftHandId;
+        [SerializeField, Min(0)] int _consumeRightHandId;
 
-        public Maybe<string> ConsumeLeftHandTrigger => string.IsNullOrWhiteSpace(_consumeLeftHandTrigger)
-            ? Maybe.None<string>()
-            : Maybe.Some(_consumeLeftHandTrigger);
+        public Maybe<int> ConsumeLeftHandId => _consumeLeftHandId > 0
+            ? Maybe.Some(_consumeLeftHandId)
+            : Maybe.None<int>();
 
-        public Maybe<string> ConsumeRightHandTrigger => string.IsNullOrWhiteSpace(_consumeRightHandTrigger)
-            ? Maybe.None<string>()
-            : Maybe.Some(_consumeRightHandTrigger);
+        public Maybe<int> ConsumeRightHandId => _consumeRightHandId > 0
+            ? Maybe.Some(_consumeRightHandId)
+            : Maybe.None<int>();
     }
 }
