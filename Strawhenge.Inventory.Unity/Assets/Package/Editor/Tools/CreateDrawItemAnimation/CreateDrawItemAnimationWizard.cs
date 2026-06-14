@@ -28,6 +28,8 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
         void OnEnable()
         {
             _animatorController = LastUsed.AnimatorController;
+            if (_animatorController != null)
+                _layerNames = GetLayers(_animatorController);
         }
 
         protected override bool DrawWizardGUI()
