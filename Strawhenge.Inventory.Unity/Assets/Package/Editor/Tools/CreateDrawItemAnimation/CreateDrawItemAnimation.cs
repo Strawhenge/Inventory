@@ -37,6 +37,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
 
             var state = drawStateMachine.AddState(args.Name);
             state.motion = args.Animation;
+            state.mirror = args.MirrorAnimation;
 
             var beginTransition = rootStateMachine.defaultState.AddTransition(state);
             beginTransition

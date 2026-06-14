@@ -23,6 +23,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
         int _selectedLayerIndex;
         string _name;
         AnimationClip _animation;
+        bool _mirrorAnimation;
 
         void OnEnable()
         {
@@ -65,6 +66,10 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
             if (_animation != null && string.IsNullOrWhiteSpace(_name))
                 _name = _animation.name;
 
+            _mirrorAnimation = EditorGUILayout.Toggle(
+                label: "Mirror Animation",
+                value: _mirrorAnimation);
+
             isValid =
                 _animatorController != null &&
                 _layerNames.Length > 0 &&
@@ -80,7 +85,8 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
                 _animatorController,
                 _layerNames[_selectedLayerIndex],
                 _name,
-                _animation));
+                _animation,
+                _mirrorAnimation));
         }
 
         static string[] GetLayers(AnimatorController animatorController)

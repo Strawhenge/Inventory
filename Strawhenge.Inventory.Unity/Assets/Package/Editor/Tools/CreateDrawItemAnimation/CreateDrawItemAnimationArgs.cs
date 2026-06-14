@@ -5,16 +5,17 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
 {
     class CreateDrawItemAnimationArgs
     {
-        public CreateDrawItemAnimationArgs(
-            AnimatorController animatorController,
+        public CreateDrawItemAnimationArgs(AnimatorController animatorController,
             string layerName,
             string name,
-            AnimationClip animation)
+            AnimationClip animation, 
+            bool mirrorAnimation)
         {
             AnimatorController = animatorController;
             LayerName = layerName;
             Name = name;
             Animation = animation;
+            MirrorAnimation = mirrorAnimation;
         }
 
         public AnimatorController AnimatorController { get; }
@@ -24,5 +25,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
         public string Name { get; }
 
         public AnimationClip Animation { get; }
+        
+        public bool MirrorAnimation { get; }
     }
 }
