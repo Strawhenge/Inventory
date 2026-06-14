@@ -4,12 +4,12 @@ namespace Strawhenge.Inventory.Unity.Items.DrawAnimationSettings
 {
     public interface IDrawAnimationSettings
     {
-        Maybe<string> DrawLeftHandTrigger { get; }
+        Maybe<int> DrawLeftHandId { get; }
 
-        Maybe<string> DrawRightHandTrigger { get; }
+        Maybe<int> DrawRightHandId { get; }
 
-        Maybe<string> PutAwayLeftHandTrigger { get; }
+        Maybe<int> PutAwayLeftHandId { get; }
 
-        Maybe<string> PutAwayRightHandTrigger { get; }
+        Maybe<int> PutAwayRightHandId { get; }
     }
 }

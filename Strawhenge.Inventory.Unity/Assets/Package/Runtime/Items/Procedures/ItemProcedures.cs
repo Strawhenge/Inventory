@@ -41,16 +41,16 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
         public Procedure DrawLeftHand() => Draw(
             _handScripts.Left,
             _itemData.LeftHandHoldData,
-            _itemData.DrawAnimationSettings.DrawLeftHandTrigger);
+            _itemData.DrawAnimationSettings.DrawLeftHandId);
 
         public Procedure DrawRightHand() => Draw(
             _handScripts.Right,
             _itemData.RightHandHoldData,
-            _itemData.DrawAnimationSettings.DrawRightHandTrigger);
+            _itemData.DrawAnimationSettings.DrawRightHandId);
 
-        Procedure Draw(HandScript hand, IHoldItemData holdData, Maybe<string> animationTrigger)
+        Procedure Draw(HandScript hand, IHoldItemData holdData, Maybe<int> animationId)
         {
-            return animationTrigger
+            return animationId
                 .Map<Procedure>(trigger => new AnimatedDrawFromHammerspace(
                     _produceItemAnimationHandler,
                     _item,
@@ -62,14 +62,14 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
         }
 
         public Procedure PutAwayLeftHand() =>
-            PutAway(_handScripts.Left, _itemData.DrawAnimationSettings.PutAwayLeftHandTrigger);
+            PutAway(_handScripts.Left, _itemData.DrawAnimationSettings.PutAwayLeftHandId);
 
         public Procedure PutAwayRightHand() =>
-            PutAway(_handScripts.Right, _itemData.DrawAnimationSettings.PutAwayRightHandTrigger);
+            PutAway(_handScripts.Right, _itemData.DrawAnimationSettings.PutAwayRightHandId);
 
-        Procedure PutAway(HandScript hand, Maybe<string> animationTrigger)
+        Procedure PutAway(HandScript hand, Maybe<int> animationId)
         {
-            return animationTrigger
+            return animationId
                 .Map<Procedure>(trigger => new AnimatedPutInHammerspace(
                     _produceItemAnimationHandler,
                     _item,
