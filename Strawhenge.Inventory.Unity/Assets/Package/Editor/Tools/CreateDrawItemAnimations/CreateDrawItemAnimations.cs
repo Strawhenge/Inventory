@@ -1,4 +1,5 @@
 using Strawhenge.Inventory.Unity.Animation;
+using Strawhenge.Inventory.Unity.Items.DrawAnimationSettings;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Animations;
@@ -12,6 +13,11 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
         {
             var (drawLeftId, drawRightId) = IdHelper.GenerateDrawItemIds(args.AnimatorController);
             var (putAwayLeftId, putAwayRightId) = IdHelper.GeneratePutAwayItemIds(args.AnimatorController);
+
+            if (!args.DrawLeftHandAnimation.HasSome()) drawLeftId = 0;
+            if (!args.DrawRightHandAnimation.HasSome()) drawRightId = 0;
+            if (!args.PutAwayLeftHandAnimation.HasSome()) putAwayLeftId = 0;
+            if (!args.PutAwayRightHandAnimation.HasSome()) putAwayRightId = 0;
 
             var layer = args.AnimatorController.layers
                 .FirstOrDefault(x => x.name == args.LayerName);
@@ -83,12 +89,33 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
         }
 
         static void CreateScriptableObject(
-            string argsName,
+            string name,
             int drawLeftId,
             int drawRightId,
             int putAwayLeftId,
             int putAwayRightId)
         {
+            var scriptableObject = ScriptableObject.CreateInstance<DrawAnimationSettingsScriptableObject>();
+            var serializedObject = new SerializedObject(scriptableObject);
+
+            serializedObject
+                .FindProperty(DrawAnimationSettingsScriptableObject.DrawLeftHandIdFieldName)
+                .intValue = drawLeftId;
+            serializedObject
+                .FindProperty(DrawAnimationSettingsScriptableObject.DrawRightHandIdFieldName)
+                .intValue = drawRightId;
+            serializedObject
+                .FindProperty(DrawAnimationSettingsScriptableObject.PutAwayLeftHandIdFieldName)
+                .intValue = putAwayLeftId;
+            serializedObject
+                .FindProperty(DrawAnimationSettingsScriptableObject.PutAwayRightHandIdFieldName)
+                .intValue = putAwayRightId;
+
+            serializedObject.ApplyModifiedProperties();
+
+            var directoryPath = SelectionHelper.GetAssetDirectoryPath();
+            var scriptableObjectPath = $"{directoryPath}/{name}.asset";
+            AssetDatabase.CreateAsset(scriptableObject, scriptableObjectPath);
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Strawhenge.Inventory.Unity.Items.DrawAnimationSettings
 {
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Draw Animation Settings")]
-    public class DrawAnimationSettingsScriptableObject : ScriptableObject, IDrawAnimationSettings
+    public partial class DrawAnimationSettingsScriptableObject : ScriptableObject, IDrawAnimationSettings
     {
         [SerializeField, Min(0)] int _drawLeftHandId;
         [SerializeField, Min(0)] int _drawRightHandId;
