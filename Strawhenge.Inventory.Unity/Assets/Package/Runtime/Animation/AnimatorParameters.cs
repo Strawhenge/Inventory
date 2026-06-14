@@ -11,5 +11,9 @@ namespace Strawhenge.Inventory.Unity.Animation
         public static int PutAwayItem => Animator.StringToHash("Put Away Item");
 
         public static int PutAwayItemId => Animator.StringToHash("Put Away Item ID");
+
+        public static int ConsumeItem => Animator.StringToHash("Consume Item");
+
+        public static int ConsumeItemId => Animator.StringToHash("Consume Item ID");
     }
 }
