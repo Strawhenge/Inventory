@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
     {
         public static void Create(CreatePutAwayItemAnimationArgs args)
         {
-            var id = PutAwayIdHelper.GeneratePutAwayItemId(args.AnimatorController);
+            var id = PutAwayIdHelper.Generate(args.AnimatorController);
 
             var layer = args.AnimatorController.layers
                 .FirstOrDefault(x => x.name == args.LayerName);

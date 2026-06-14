@@ -6,7 +6,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
 {
     static class PutAwayIdHelper
     {
-        public static int GeneratePutAwayItemId(AnimatorController animatorController)
+        public static int Generate(AnimatorController animatorController)
         {
             var layers = animatorController.GetLayersContaining<PutAwayItemStateMachine>();
 

@@ -61,6 +61,9 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
                 obj: _animation,
                 objType: typeof(AnimationClip),
                 allowSceneObjects: false) as AnimationClip;
+            
+            if (_animation != null && string.IsNullOrWhiteSpace(_name))
+                _name = _animation.name;
 
             isValid =
                 _animatorController != null &&

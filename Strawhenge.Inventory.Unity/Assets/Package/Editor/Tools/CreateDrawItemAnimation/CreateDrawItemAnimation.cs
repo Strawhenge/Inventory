@@ -11,7 +11,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools
     {
         public static void Create(CreateDrawItemAnimationArgs args)
         {
-            var id = IdHelper.GenerateDrawItemId(args.AnimatorController);
+            var id = DrawItemIdHelper.Generate(args.AnimatorController);
 
             var layer = args.AnimatorController.layers
                 .FirstOrDefault(x => x.name == args.LayerName);

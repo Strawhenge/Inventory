@@ -4,9 +4,9 @@ using UnityEditor.Animations;
 
 namespace Strawhenge.Inventory.Unity.Editor.Tools
 {
-    static class IdHelper
+    static class DrawItemIdHelper
     {
-        public static int GenerateDrawItemId(AnimatorController animatorController)
+        public static int Generate(AnimatorController animatorController)
         {
             var emoteLayers = animatorController.GetLayersContaining<DrawItemStateMachine>();
 
