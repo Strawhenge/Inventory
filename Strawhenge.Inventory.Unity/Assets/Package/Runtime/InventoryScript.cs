@@ -48,12 +48,13 @@ namespace Strawhenge.Inventory.Unity
 
             var logger = new UnityLogger(gameObject);
 
-            var holdItemAnimationHandler = new HoldItemAnimationHandler(_animator);
+            var holdItemLeftAnimationHandler = new HoldItemLeftAnimationHandler(_animator);
+            var holdItemRightAnimationHandler = new HoldItemRightAnimationHandler(_animator);
             var produceItemAnimationHandler = new ProduceItemAnimationHandler(_animator);
             var consumeItemAnimationHandler = new ConsumeItemAnimationHandler(_animator);
 
-            _leftHand.AnimationHandler = holdItemAnimationHandler;
-            _rightHand.AnimationHandler = holdItemAnimationHandler;
+            _leftHand.AnimationHandler = holdItemLeftAnimationHandler;
+            _rightHand.AnimationHandler = holdItemRightAnimationHandler;
             var handScripts = new HandScriptsContainer(_leftHand, _rightHand);
 
             var holsterScripts = new HolsterScriptsContainer(_holsters.Values);

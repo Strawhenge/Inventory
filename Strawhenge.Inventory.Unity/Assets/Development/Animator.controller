@@ -208,9 +208,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Holding Can Left Hand
-    m_EventTreshold: 0
+  - m_ConditionMode: 7
+    m_ConditionEvent: Hold Item Left ID
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5111883865563376469}
   m_Solo: 0
@@ -348,9 +348,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Holding Can Right Hand
-    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: Hold Item Right ID
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6769421358189809850}
   m_Solo: 0
@@ -509,9 +509,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Holding Can Left Hand
-    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: Hold Item Left ID
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -695318998228030992}
   m_Solo: 0
@@ -584,9 +584,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Holding Can Right Hand
-    m_EventTreshold: 0
+  - m_ConditionMode: 7
+    m_ConditionEvent: Hold Item Right ID
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2059400613623342576}
   m_Solo: 0
@@ -1324,6 +1324,18 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Consume Item ID
+    m_Type: 3
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Hold Item Left ID
+    m_Type: 3
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Hold Item Right ID
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0

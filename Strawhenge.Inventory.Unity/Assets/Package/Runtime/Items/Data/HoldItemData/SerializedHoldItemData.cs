@@ -1,5 +1,4 @@
-﻿using Strawhenge.Common.Unity.Serialization;
-using Strawhenge.Inventory.Unity.Items.HoldAnimationSettings;
+﻿using FunctionalUtilities;
 using System;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -15,17 +14,14 @@ namespace Strawhenge.Inventory.Unity.Items.HoldItemData
         [FormerlySerializedAs("rotationOffset"), SerializeField]
         Vector3 _rotationOffset;
 
-        [SerializeField] SerializedSource<
-            IHoldAnimationSettings,
-            SerializedHoldAnimationSettings,
-            HoldAnimationSettingsScriptableObject> _animationSettings;
+        [SerializeField] HoldItemAnimationScriptableObject _holdItemAnimation;
 
         public Vector3 PositionOffset => _positionOffset;
 
         public Quaternion RotationOffset => Quaternion.Euler(_rotationOffset);
 
-        public IHoldAnimationSettings AnimationSettings =>
-            _animationSettings
-                .GetValueOrDefault(() => NullHoldAnimationSettings.Instance);
+        public Maybe<int> HoldItemAnimation => _holdItemAnimation != null
+            ? Maybe.Some(_holdItemAnimation.Id)
+            : Maybe.None<int>();
     }
 }

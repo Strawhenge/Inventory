@@ -1,4 +1,4 @@
-﻿using Strawhenge.Inventory.Unity.Items.HoldAnimationSettings;
+﻿using FunctionalUtilities;
 using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Items.HoldItemData
@@ -9,6 +9,6 @@ namespace Strawhenge.Inventory.Unity.Items.HoldItemData
 
         Quaternion RotationOffset { get; }
 
-        IHoldAnimationSettings AnimationSettings { get; }
+        Maybe<int> HoldItemAnimation { get; }
     }
 }

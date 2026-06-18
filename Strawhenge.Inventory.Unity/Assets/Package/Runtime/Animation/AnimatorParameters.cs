@@ -16,5 +16,9 @@ namespace Strawhenge.Inventory.Unity.Animation
         public static AnimatorParameter ConsumeItem { get; } = new("Consume Item");
 
         public static AnimatorParameter ConsumeItemId { get; } = new("Consume Item ID");
+
+        public static AnimatorParameter HoldItemLeftId { get; } = new("Hold Item Left ID");
+        
+        public static AnimatorParameter HoldItemRightId { get; } = new("Hold Item Right ID");
     }
 }
