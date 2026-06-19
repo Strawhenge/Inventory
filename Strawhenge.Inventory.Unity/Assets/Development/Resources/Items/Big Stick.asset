@@ -20,21 +20,11 @@ MonoBehaviour:
   _leftHandHoldItemData:
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationSettings:
-      _serialized:
-        _animationFlags:
-        - Holding Big Stick Left Hand
-      _scriptableObject: {fileID: 0}
-      _type: 1
+    _holdItemAnimation: {fileID: 11400000, guid: 0ac8ff8b4a7032c4d81ea7a27580cb64, type: 2}
   _rightHandHoldItemData:
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationSettings:
-      _serialized:
-        _animationFlags:
-        - Holding Big Stick Right Hand
-      _scriptableObject: {fileID: 0}
-      _type: 1
+    _holdItemAnimation: {fileID: 11400000, guid: f4bef85d66a5a8a4eaac4b26fefed5bc, type: 2}
   _drawAnimationSettings:
     _serialized:
       _drawLeftHand: {fileID: 11400000, guid: 447da80e1870f794a8482d9525aa4357, type: 2}
@@ -59,8 +49,8 @@ MonoBehaviour:
     _serialized:
       _animationSettings:
         _serialized:
-          _consumeLeftHandId: 0
-          _consumeRightHandId: 0
+          _consumeLeftHand: {fileID: 0}
+          _consumeRightHand: {fileID: 0}
         _scriptableObject: {fileID: 0}
         _type: 0
       _effects: []
