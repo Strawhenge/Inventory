@@ -1,3 +1,4 @@
+using Strawhenge.Common.Unity.Editor.Helpers;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Items.ConsumeAnimationSettings;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateConsumeItemAnimation
     {
         public static void Create(CreateConsumeItemAnimationArgs args)
         {
-            var id = ConsumeItemIdHelper.Generate(args.AnimatorController);
+            var id = ParameterIdHelper.Generate(args.AnimatorController, AnimatorParameters.ConsumeItemId);
 
             var layer = args.AnimatorController.layers
                 .FirstOrDefault(x => x.name == args.LayerName);

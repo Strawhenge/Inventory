@@ -1,4 +1,5 @@
-﻿using Strawhenge.Inventory.Unity.Animation;
+﻿using Strawhenge.Common.Unity.Editor.Helpers;
+using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Items.HoldItemData;
 using System.Linq;
 using UnityEditor;
@@ -17,7 +18,10 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateHoldItemAnimation
             bool mirrorAnimation,
             Hand hand)
         {
-            var id = HoldItemIdHelper.Generate(animatorController);
+            var id = ParameterIdHelper.Generate(
+                animatorController,
+                AnimatorParameters.HoldItemLeftId,
+                AnimatorParameters.HoldItemRightId);
 
             var layer = animatorController.layers
                 .FirstOrDefault(x => x.name == layerName);

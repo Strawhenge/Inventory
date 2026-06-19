@@ -1,3 +1,4 @@
+using Strawhenge.Common.Unity.Editor.Helpers;
 using Strawhenge.Inventory.Unity.Animation;
 using Strawhenge.Inventory.Unity.Items.DrawAnimationSettings;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateDrawItemAnimation
     {
         public static void Create(CreateDrawItemAnimationArgs args)
         {
-            var id = DrawItemIdHelper.Generate(args.AnimatorController);
+            var id = ParameterIdHelper.Generate(args.AnimatorController, AnimatorParameters.DrawItemId);
 
             var layer = args.AnimatorController.layers
                 .FirstOrDefault(x => x.name == args.LayerName);
