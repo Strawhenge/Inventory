@@ -1,4 +1,3 @@
-using FunctionalUtilities;
 using Strawhenge.Inventory.Unity.Animation;
 using System;
 using System.Linq;
@@ -6,7 +5,7 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Editor.Tools
+namespace Strawhenge.Inventory.Unity.Editor.Tools.CreatePutAwayItemAnimation
 {
     public class CreatePutAwayItemAnimationWizard : ScriptableWizard
     {

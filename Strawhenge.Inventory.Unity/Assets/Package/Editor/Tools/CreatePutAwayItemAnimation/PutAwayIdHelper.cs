@@ -2,7 +2,7 @@ using Strawhenge.Inventory.Unity.Animation;
 using System.Linq;
 using UnityEditor.Animations;
 
-namespace Strawhenge.Inventory.Unity.Editor.Tools
+namespace Strawhenge.Inventory.Unity.Editor.Tools.CreatePutAwayItemAnimation
 {
     static class PutAwayIdHelper
     {

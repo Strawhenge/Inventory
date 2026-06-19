@@ -7,7 +7,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Editor
+namespace Strawhenge.Inventory.Unity.Editor.Editors
 {
     public class ItemManagerEditorHelper
     {

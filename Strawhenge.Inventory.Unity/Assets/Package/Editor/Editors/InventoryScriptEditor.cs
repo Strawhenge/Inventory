@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 
-namespace Strawhenge.Inventory.Unity.Editor
+namespace Strawhenge.Inventory.Unity.Editor.Editors
 {
     [CustomEditor(typeof(InventoryScript))]
     public class InventoryScriptEditor : UnityEditor.Editor

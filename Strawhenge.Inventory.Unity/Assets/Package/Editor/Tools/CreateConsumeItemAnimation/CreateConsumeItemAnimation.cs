@@ -5,13 +5,13 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Editor.Tools
+namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateConsumeItemAnimation
 {
     static class CreateConsumeItemAnimation
     {
-        public static void Create(Strawhenge.Inventory.Unity.Editor.Tools.CreateConsumeItemAnimationArgs args)
+        public static void Create(CreateConsumeItemAnimationArgs args)
         {
-            var id = Strawhenge.Inventory.Unity.Editor.Tools.ConsumeItemIdHelper.Generate(args.AnimatorController);
+            var id = ConsumeItemIdHelper.Generate(args.AnimatorController);
 
             var layer = args.AnimatorController.layers
                 .FirstOrDefault(x => x.name == args.LayerName);

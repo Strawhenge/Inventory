@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Editor.Tools
+namespace Strawhenge.Inventory.Unity.Editor.Tools.CreatePutAwayItemAnimation
 {
     static class CreatePutAwayItemAnimation
     {

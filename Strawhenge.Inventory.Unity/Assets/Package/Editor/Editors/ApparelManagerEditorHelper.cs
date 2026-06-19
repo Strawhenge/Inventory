@@ -4,7 +4,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace Strawhenge.Inventory.Unity.Editor
+namespace Strawhenge.Inventory.Unity.Editor.Editors
 {
     public class ApparelManagerEditorHelper
     {
