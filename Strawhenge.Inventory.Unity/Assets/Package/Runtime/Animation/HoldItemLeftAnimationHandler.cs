@@ -19,7 +19,7 @@ namespace Strawhenge.Inventory.Unity.Animation
 
         public void Unhold()
         {
-            _animator.SetInteger(AnimatorParameters.HoldItemRightId, 0);
+            _animator.SetInteger(AnimatorParameters.HoldItemLeftId, 0);
         }
     }
 }
