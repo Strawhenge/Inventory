@@ -38,11 +38,6 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateHoldItemAnimation
                 beginTransition.hasExitTime = false;
                 beginTransition
                     .AddCondition(AnimatorConditionMode.Equals, id, AnimatorParameters.HoldItemLeftId.Name);
-
-                var endTransition = state.AddTransition(layer.stateMachine.defaultState);
-                endTransition.hasExitTime = false;
-                endTransition
-                    .AddCondition(AnimatorConditionMode.NotEqual, id, AnimatorParameters.HoldItemLeftId.Name);
             }
 
             if (hand.HasFlag(Hand.Right))
@@ -51,12 +46,16 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateHoldItemAnimation
                 beginTransition.hasExitTime = false;
                 beginTransition
                     .AddCondition(AnimatorConditionMode.Equals, id, AnimatorParameters.HoldItemRightId.Name);
+            }
 
-                var endTransition = state.AddTransition(layer.stateMachine.defaultState);
-                endTransition.hasExitTime = false;
+            var endTransition = state.AddTransition(layer.stateMachine.defaultState);
+            endTransition.hasExitTime = false;
+            if (hand.HasFlag(Hand.Left))
+                endTransition
+                    .AddCondition(AnimatorConditionMode.NotEqual, id, AnimatorParameters.HoldItemLeftId.Name);
+            if (hand.HasFlag(Hand.Right))
                 endTransition
                     .AddCondition(AnimatorConditionMode.NotEqual, id, AnimatorParameters.HoldItemRightId.Name);
-            }
 
             EditorUtility.SetDirty(animatorController);
             AssetDatabase.SaveAssets();
