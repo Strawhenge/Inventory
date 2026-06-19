@@ -6,25 +6,25 @@ namespace Strawhenge.Inventory.Unity.Items.DrawAnimationSettings
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Draw Animation Settings")]
     public class DrawAnimationSettingsScriptableObject : ScriptableObject, IDrawAnimationSettings
     {
-        [SerializeField] string _drawLeftHandTrigger = "Draw Item Left Hand";
-        [SerializeField] string _drawRightHandTrigger = "Draw Item Right Hand";
-        [SerializeField] string _putAwayLeftHandTrigger = "Put Away Item Left Hand";
-        [SerializeField] string _putAwayRightHandTrigger = "Put Away Item Right Hand";
+        [SerializeField] DrawItemAnimationScriptableObject _drawLeftHand;
+        [SerializeField] DrawItemAnimationScriptableObject _drawRightHand;
+        [SerializeField] PutAwayItemAnimationScriptableObject _putAwayLeftHand;
+        [SerializeField] PutAwayItemAnimationScriptableObject _putAwayRightHand;
 
-        public Maybe<string> DrawLeftHandTrigger => string.IsNullOrWhiteSpace(_drawLeftHandTrigger)
-            ? Maybe.None<string>()
-            : Maybe.Some(_drawLeftHandTrigger);
+        public Maybe<int> DrawLeftHandId => _drawLeftHand != null
+            ? Maybe.Some(_drawLeftHand.Id)
+            : Maybe.None<int>();
 
-        public Maybe<string> DrawRightHandTrigger => string.IsNullOrWhiteSpace(_drawRightHandTrigger)
-            ? Maybe.None<string>()
-            : Maybe.Some(_drawRightHandTrigger);
+        public Maybe<int> DrawRightHandId => _drawRightHand != null
+            ? Maybe.Some(_drawRightHand.Id)
+            : Maybe.None<int>();
 
-        public Maybe<string> PutAwayLeftHandTrigger => string.IsNullOrWhiteSpace(_putAwayLeftHandTrigger)
-            ? Maybe.None<string>()
-            : Maybe.Some(_putAwayLeftHandTrigger);
+        public Maybe<int> PutAwayLeftHandId => _putAwayLeftHand != null
+            ? Maybe.Some(_putAwayLeftHand.Id)
+            : Maybe.None<int>();
 
-        public Maybe<string> PutAwayRightHandTrigger => string.IsNullOrWhiteSpace(_putAwayRightHandTrigger)
-            ? Maybe.None<string>()
-            : Maybe.Some(_putAwayRightHandTrigger);
+        public Maybe<int> PutAwayRightHandId => _putAwayRightHand != null
+            ? Maybe.Some(_putAwayRightHand.Id)
+            : Maybe.None<int>();
     }
 }

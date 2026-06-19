@@ -20,28 +20,18 @@ MonoBehaviour:
   _leftHandHoldItemData:
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationSettings:
-      _serialized:
-        _animationFlags:
-        - Holding Big Stick Left Hand
-      _scriptableObject: {fileID: 0}
-      _type: 1
+    _holdItemAnimation: {fileID: 11400000, guid: 0ac8ff8b4a7032c4d81ea7a27580cb64, type: 2}
   _rightHandHoldItemData:
     _positionOffset: {x: 0, y: 0, z: 0}
     _rotationOffset: {x: 0, y: 0, z: 90}
-    _animationSettings:
-      _serialized:
-        _animationFlags:
-        - Holding Big Stick Right Hand
-      _scriptableObject: {fileID: 0}
-      _type: 1
+    _holdItemAnimation: {fileID: 11400000, guid: f4bef85d66a5a8a4eaac4b26fefed5bc, type: 2}
   _drawAnimationSettings:
     _serialized:
-      _drawLeftHandTrigger: Draw Item Left Hand Over Shoulder
-      _drawRightHandTrigger: Draw Item Right Hand Over Shoulder
-      _putAwayLeftHandTrigger: Put Away Item Left Hand Over Shoulder
-      _putAwayRightHandTrigger: Put Away Item Right Hand Over Shoulder
-    _scriptableObject: {fileID: 0}
+      _drawLeftHand: {fileID: 11400000, guid: 447da80e1870f794a8482d9525aa4357, type: 2}
+      _drawRightHand: {fileID: 11400000, guid: c994b175de0a6c84391021ed4774a380, type: 2}
+      _putAwayLeftHand: {fileID: 11400000, guid: 07807fa50bb9f5e41addfcc20fa77f26, type: 2}
+      _putAwayRightHand: {fileID: 11400000, guid: 45845e2f0c36ead4e88d7e276911855d, type: 2}
+    _scriptableObject: {fileID: 11400000, guid: 4fa8591b913619a479043e3cbfe05196, type: 2}
     _type: 1
   _holsterItemData:
   - _holster: {fileID: 11400000, guid: f83b37b3d4e32c34cbf879593eca9c54, type: 2}
@@ -49,18 +39,18 @@ MonoBehaviour:
     _rotationOffset: {x: 0, y: 0, z: 0}
     _drawAnimationSettings:
       _serialized:
-        _drawLeftHandTrigger: 
-        _drawRightHandTrigger: Draw Item Right Hand Over Shoulder
-        _putAwayLeftHandTrigger: 
-        _putAwayRightHandTrigger: Put Away Item Right Hand Over Shoulder
+        _drawLeftHand: {fileID: 11400000, guid: 447da80e1870f794a8482d9525aa4357, type: 2}
+        _drawRightHand: {fileID: 11400000, guid: c994b175de0a6c84391021ed4774a380, type: 2}
+        _putAwayLeftHand: {fileID: 11400000, guid: 07807fa50bb9f5e41addfcc20fa77f26, type: 2}
+        _putAwayRightHand: {fileID: 11400000, guid: 45845e2f0c36ead4e88d7e276911855d, type: 2}
       _scriptableObject: {fileID: 0}
       _type: 1
   _consumable:
     _serialized:
       _animationSettings:
         _serialized:
-          _consumeLeftHandTrigger: 
-          _consumeRightHandTrigger: 
+          _consumeLeftHand: {fileID: 0}
+          _consumeRightHand: {fileID: 0}
         _scriptableObject: {fileID: 0}
         _type: 0
       _effects: []

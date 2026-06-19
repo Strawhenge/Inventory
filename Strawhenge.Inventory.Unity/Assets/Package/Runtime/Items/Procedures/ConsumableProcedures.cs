@@ -19,13 +19,13 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
             _consumeItemAnimationHandler = consumeItemAnimationHandler;
         }
 
-        public Procedure ConsumeLeftHand() => Consume(_data.AnimationSettings.ConsumeLeftHandTrigger);
+        public Procedure ConsumeLeftHand() => Consume(_data.AnimationSettings.ConsumeLeftHandId);
 
-        public Procedure ConsumeRightHand() => Consume(_data.AnimationSettings.ConsumeRightHandTrigger);
+        public Procedure ConsumeRightHand() => Consume(_data.AnimationSettings.ConsumeRightHandId);
 
-        Procedure Consume(Maybe<string> animationTrigger)
+        Procedure Consume(Maybe<int> animationId)
         {
-            return animationTrigger
+            return animationId
                 .Map<Procedure>(trigger => new AnimatedConsumeItem(_consumeItemAnimationHandler, trigger))
                 .Reduce(() => Procedure.Completed);
         }

@@ -4,8 +4,8 @@ namespace Strawhenge.Inventory.Unity.Items.ConsumeAnimationSettings
 {
     public interface IConsumeAnimationSettings
     {
-        Maybe<string> ConsumeLeftHandTrigger { get; }
+        Maybe<int> ConsumeLeftHandId { get; }
 
-        Maybe<string> ConsumeRightHandTrigger { get; }
+        Maybe<int> ConsumeRightHandId { get; }
     }
 }

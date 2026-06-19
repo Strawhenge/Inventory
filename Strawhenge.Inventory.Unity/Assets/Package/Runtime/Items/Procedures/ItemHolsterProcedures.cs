@@ -39,16 +39,16 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
         public Procedure DrawLeftHand() => Draw(
             _handScripts.Left,
             _itemData.LeftHandHoldData,
-            _holsterItemData.DrawAnimationSettings.DrawLeftHandTrigger);
+            _holsterItemData.DrawAnimationSettings.DrawLeftHandId);
 
         public Procedure DrawRightHand() => Draw(
             _handScripts.Right,
             _itemData.RightHandHoldData,
-            _holsterItemData.DrawAnimationSettings.DrawRightHandTrigger);
+            _holsterItemData.DrawAnimationSettings.DrawRightHandId);
 
-        Procedure Draw(HandScript hand, IHoldItemData data, Maybe<string> animationTrigger)
+        Procedure Draw(HandScript hand, IHoldItemData data, Maybe<int> animationId)
         {
-            return animationTrigger
+            return animationId
                 .Map<Procedure>(trigger => new AnimatedDrawFromHolster(
                     _produceItemAnimationHandler,
                     _item,
@@ -61,14 +61,14 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
         }
 
         public Procedure PutAwayLeftHand() =>
-            PutAway(_handScripts.Left, _holsterItemData.DrawAnimationSettings.PutAwayLeftHandTrigger);
+            PutAway(_handScripts.Left, _holsterItemData.DrawAnimationSettings.PutAwayLeftHandId);
 
         public Procedure PutAwayRightHand() =>
-            PutAway(_handScripts.Right, _holsterItemData.DrawAnimationSettings.PutAwayRightHandTrigger);
+            PutAway(_handScripts.Right, _holsterItemData.DrawAnimationSettings.PutAwayRightHandId);
 
-        Procedure PutAway(HandScript hand, Maybe<string> animationTrigger)
+        Procedure PutAway(HandScript hand, Maybe<int> animationId)
         {
-            return animationTrigger
+            return animationId
                 .Map<Procedure>(trigger => new AnimatedPutInHolster(
                     _produceItemAnimationHandler,
                     _item,

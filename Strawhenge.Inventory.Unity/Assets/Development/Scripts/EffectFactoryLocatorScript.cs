@@ -1,8 +1,9 @@
 using FunctionalUtilities;
 using Strawhenge.Common.Unity;
 using Strawhenge.Inventory.Effects;
+using Strawhenge.Inventory.Unity.Effects;
 
-public class EffectFactoryLocatorScript : Strawhenge.Inventory.Unity.Effects.EffectFactoryLocatorScript
+public class EffectFactoryLocatorScript : BaseEffectFactoryLocatorScript
 {
     IncreaseArmourEffectFactory _increaseArmourEffectFactory;
     IncreaseHealthEffectFactory _increaseHealthEffectFactory;

@@ -4,18 +4,18 @@ namespace Strawhenge.Inventory.Unity.Items.DrawAnimationSettings
 {
     public class NullDrawAnimationSettings : IDrawAnimationSettings
     {
-        public static NullDrawAnimationSettings Instance { get; } = new();
+        public static IDrawAnimationSettings Instance { get; } = new NullDrawAnimationSettings();
 
         NullDrawAnimationSettings()
         {
         }
 
-        public Maybe<string> DrawLeftHandTrigger => Maybe.None<string>();
+        public Maybe<int> DrawLeftHandId => Maybe.None<int>();
 
-        public Maybe<string> DrawRightHandTrigger => Maybe.None<string>();
+        public Maybe<int> DrawRightHandId => Maybe.None<int>();
 
-        public Maybe<string> PutAwayLeftHandTrigger => Maybe.None<string>();
+        public Maybe<int> PutAwayLeftHandId => Maybe.None<int>();
 
-        public Maybe<string> PutAwayRightHandTrigger => Maybe.None<string>();
+        public Maybe<int> PutAwayRightHandId => Maybe.None<int>();
     }
 }
