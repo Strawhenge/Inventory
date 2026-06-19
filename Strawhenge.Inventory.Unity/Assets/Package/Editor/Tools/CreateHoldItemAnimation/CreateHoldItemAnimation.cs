@@ -18,6 +18,10 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateHoldItemAnimation
             bool mirrorAnimation,
             Hand hand)
         {
+            animatorController.EnsureParametersExist(
+                (AnimatorParameters.HoldItemLeftId, AnimatorControllerParameterType.Int),
+                (AnimatorParameters.HoldItemRightId, AnimatorControllerParameterType.Int));
+
             var id = Mathf.Max(
                 ParameterIdHelper.Generate(animatorController, AnimatorParameters.HoldItemLeftId),
                 ParameterIdHelper.Generate(animatorController, AnimatorParameters.HoldItemRightId));
