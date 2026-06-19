@@ -1,8 +1,12 @@
-﻿namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateHoldItemAnimation
+﻿using System;
+
+namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateHoldItemAnimation
 {
+    [Flags]
     enum Hand
     {
-        Left,
-        Right
+        Left = 1,
+        Right = 2,
+        Both = 3
     }
 }

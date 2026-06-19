@@ -28,26 +28,35 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateHoldItemAnimation
                 return;
             }
 
-            var parameter = hand switch
-            {
-                Hand.Left => AnimatorParameters.HoldItemLeftId,
-                Hand.Right => AnimatorParameters.HoldItemRightId,
-                _ => throw new System.ArgumentOutOfRangeException(nameof(hand), hand, null)
-            };
-
             var state = layer.stateMachine.AddState(name);
             state.motion = animation;
             state.mirror = mirrorAnimation;
 
-            var beginTransition = layer.stateMachine.defaultState.AddTransition(state);
-            beginTransition
-                .AddCondition(AnimatorConditionMode.Equals, id, parameter.Name);
-            beginTransition.hasExitTime = false;
+            if (hand.HasFlag(Hand.Left))
+            {
+                var beginTransition = layer.stateMachine.defaultState.AddTransition(state);
+                beginTransition.hasExitTime = false;
+                beginTransition
+                    .AddCondition(AnimatorConditionMode.Equals, id, AnimatorParameters.HoldItemLeftId.Name);
 
-            var endTransition = state.AddTransition(layer.stateMachine.defaultState);
-            endTransition
-                .AddCondition(AnimatorConditionMode.NotEqual, id, parameter.Name);
-            endTransition.hasExitTime = false;
+                var endTransition = state.AddTransition(layer.stateMachine.defaultState);
+                endTransition.hasExitTime = false;
+                endTransition
+                    .AddCondition(AnimatorConditionMode.NotEqual, id, AnimatorParameters.HoldItemLeftId.Name);
+            }
+
+            if (hand.HasFlag(Hand.Right))
+            {
+                var beginTransition = layer.stateMachine.defaultState.AddTransition(state);
+                beginTransition.hasExitTime = false;
+                beginTransition
+                    .AddCondition(AnimatorConditionMode.Equals, id, AnimatorParameters.HoldItemRightId.Name);
+
+                var endTransition = state.AddTransition(layer.stateMachine.defaultState);
+                endTransition.hasExitTime = false;
+                endTransition
+                    .AddCondition(AnimatorConditionMode.NotEqual, id, AnimatorParameters.HoldItemRightId.Name);
+            }
 
             EditorUtility.SetDirty(animatorController);
             AssetDatabase.SaveAssets();

@@ -22,7 +22,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateHoldItemAnimation
         string _name;
         AnimationClip _animation;
         bool _mirrorAnimation;
-        Hand _hand;
+        Hand _hand = Hand.Both;
 
         void OnEnable()
         {
@@ -80,7 +80,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateHoldItemAnimation
                 _layerNames.Length > 0 &&
                 !string.IsNullOrWhiteSpace(_name) &&
                 _animation != null &&
-                (_hand == Hand.Left || _hand == Hand.Right);
+                (_hand.HasFlag(Hand.Left) || _hand.HasFlag(Hand.Right));
 
             return result;
         }

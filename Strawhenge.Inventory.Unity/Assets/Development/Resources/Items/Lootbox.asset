@@ -20,27 +20,17 @@ MonoBehaviour:
   _leftHandHoldItemData:
     _positionOffset: {x: -0.124, y: 0.181, z: 0.214}
     _rotationOffset: {x: 0, y: -60, z: 0}
-    _animationSettings:
-      _serialized:
-        _animationFlags:
-        - Holding Box
-      _scriptableObject: {fileID: 0}
-      _type: 1
+    _holdItemAnimation: {fileID: 11400000, guid: 1d1d937318bceba418a2fddbb2762d98, type: 2}
   _rightHandHoldItemData:
     _positionOffset: {x: 0.124, y: 0.181, z: 0.214}
     _rotationOffset: {x: 0, y: -60, z: 0}
-    _animationSettings:
-      _serialized:
-        _animationFlags:
-        - Holding Box
-      _scriptableObject: {fileID: 0}
-      _type: 1
+    _holdItemAnimation: {fileID: 11400000, guid: 1d1d937318bceba418a2fddbb2762d98, type: 2}
   _drawAnimationSettings:
     _serialized:
-      _drawLeftHandTrigger: Draw Item Left Hand
-      _drawRightHandTrigger: Draw Item Right Hand
-      _putAwayLeftHandTrigger: Put Away Item Left Hand
-      _putAwayRightHandTrigger: Put Away Item Right Hand
+      _drawLeftHand: {fileID: 0}
+      _drawRightHand: {fileID: 0}
+      _putAwayLeftHand: {fileID: 0}
+      _putAwayRightHand: {fileID: 0}
     _scriptableObject: {fileID: 0}
     _type: 0
   _holsterItemData: []
@@ -48,8 +38,8 @@ MonoBehaviour:
     _serialized:
       _animationSettings:
         _serialized:
-          _consumeLeftHandTrigger: 
-          _consumeRightHandTrigger: 
+          _consumeLeftHand: {fileID: 0}
+          _consumeRightHand: {fileID: 0}
         _scriptableObject: {fileID: 0}
         _type: 0
       _effects: []
