@@ -26,7 +26,7 @@ namespace Strawhenge.Inventory.Unity
         Transform _dropPoint;
 
         [SerializeField] LootCollectionScript _lootDropPrefab;
-        [SerializeField, Tooltip("Optional.")] EffectFactoryLocatorScript _effectFactoryLocator;
+        [SerializeField, Tooltip("Optional.")] BaseEffectFactoryLocatorScript _effectFactoryLocator;
         [SerializeField] int _maxStoredItemsWeight;
         [SerializeField] UnityEvent<ItemScript> _itemInstantiated;
         [SerializeField] UnityEvent<ApparelPieceScript> _apparelPieceInstantiated;
