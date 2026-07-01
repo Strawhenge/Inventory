@@ -49,6 +49,11 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.CreatePutAwayItemAnimation
 
             var endedTransition = state.AddExitTransition();
             endedTransition.hasExitTime = true;
+            
+            var interruptedTransition = state.AddExitTransition();
+            interruptedTransition.hasExitTime = false;
+            interruptedTransition
+                .AddCondition(AnimatorConditionMode.If, 0, AnimatorParameters.Interrupt.Name);
 
             EditorUtility.SetDirty(args.AnimatorController);
             AssetDatabase.SaveAssets();
