@@ -112,8 +112,5 @@ namespace Strawhenge.Inventory.Unity
             inventory.StoredItems.SetWeightCapacity(_maxStoredItemsWeight);
             return inventory;
         }
-
-        [ContextMenu(nameof(Interrupt))]
-        public void Interrupt() => Inventory.Interrupt();
     }
 }

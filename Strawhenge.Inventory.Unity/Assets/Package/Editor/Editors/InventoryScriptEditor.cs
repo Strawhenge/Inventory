@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Editor.Editors
 {
@@ -21,6 +22,11 @@ namespace Strawhenge.Inventory.Unity.Editor.Editors
         {
             base.OnInspectorGUI();
 
+            EditorGUI.BeginDisabledGroup(!Application.isPlaying);
+            if (GUILayout.Button(nameof(Inventory.Interrupt)))
+                _target.Inventory.Interrupt();
+            EditorGUI.EndDisabledGroup();
+            
             _itemManager.Inspect();
             _apparelManager.Inspect();
         }
