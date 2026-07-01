@@ -28,7 +28,8 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.CreateInventoryLayer
                 (AnimatorParameters.PutAwayItem, AnimatorControllerParameterType.Trigger),
                 (AnimatorParameters.PutAwayItemId, AnimatorControllerParameterType.Int),
                 (AnimatorParameters.ConsumeItem, AnimatorControllerParameterType.Trigger),
-                (AnimatorParameters.ConsumeItemId, AnimatorControllerParameterType.Int));
+                (AnimatorParameters.ConsumeItemId, AnimatorControllerParameterType.Int),
+                (AnimatorParameters.Interrupt, AnimatorControllerParameterType.Trigger));
         }
 
         static void AddLayer(AnimatorController animatorController, string layerName, AvatarMask avatarMask)
