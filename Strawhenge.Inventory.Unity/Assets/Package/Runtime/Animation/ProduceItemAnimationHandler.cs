@@ -49,6 +49,11 @@ namespace Strawhenge.Inventory.Unity.Animation
             _animator.SetTrigger(AnimatorParameters.PutAwayItem);
         }
 
+        public void Interrupt()
+        {
+            _animator.SetTrigger(AnimatorParameters.Interrupt);
+        }
+
         void OnGrabItem() => GrabItem?.Invoke();
 
         void OnReleaseItem() => ReleaseItem?.Invoke();

@@ -44,6 +44,7 @@ namespace Strawhenge.Inventory.Unity.Items.Procedures
         protected override void OnSkip()
         {
             End();
+            _animationHandler.Interrupt();
         }
 
         void End()
