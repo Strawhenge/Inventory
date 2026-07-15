@@ -1,5 +1,4 @@
 ﻿using Strawhenge.Common.Unity;
-using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Animation
 {
