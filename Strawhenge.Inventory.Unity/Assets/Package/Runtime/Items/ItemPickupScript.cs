@@ -21,7 +21,7 @@ namespace Strawhenge.Inventory.Unity.Items
                 Debug.LogError($"Missing {nameof(_data)}.", this);
         }
 
-        internal void SetContext(Context context)
+        public void SetContext(Context context)
         {
             _context = context;
             _contextHandlers.ForEach(x => x.Handle(_context));
