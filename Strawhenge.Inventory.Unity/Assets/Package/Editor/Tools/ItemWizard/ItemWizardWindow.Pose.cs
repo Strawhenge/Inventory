@@ -119,6 +119,9 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
 
                 if (_poseCharacter == null)
                     ShowNotification(new GUIContent("No InventoryScript in the open scene."));
+
+                // The slot controls below appear or disappear, so redraw from the new state.
+                GUIUtility.ExitGUI();
             }
 
             EditorGUILayout.EndHorizontal();
@@ -335,29 +338,36 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
         }
 
         /// <summary>
-        /// Runs the action, first asking whether to apply or discard unapplied changes.
+        /// For use inside OnGUI. Runs the action, first asking whether to apply or discard unapplied changes,
+        /// then ends the current GUI pass.
         /// </summary>
+        /// <remarks>
+        /// The action can change state the rest of the pass relies on (e.g. stopping posing clears the
+        /// active slot), and a modal dialog breaks the layout pass, so the pass always ends here and the
+        /// window redraws from the new state.
+        /// </remarks>
         void IfConfirmed(System.Action action)
         {
-            if (!HasUnappliedChanges())
+            if (HasUnappliedChanges())
+            {
+                var choice = EditorUtility.DisplayDialogComplex(
+                    "Unapplied offset",
+                    $"The {_activeSlot.DisplayName} offset for '{_poseItem.name}' has changes that haven't been applied.",
+                    "Apply", "Cancel", "Discard");
+
+                if (choice == 0)
+                    ApplyOffset();
+
+                if (choice != 1)
+                    action();
+            }
+            else
             {
                 action();
-                return;
             }
 
-            var choice = EditorUtility.DisplayDialogComplex(
-                "Unapplied offset",
-                $"The {_activeSlot.DisplayName} offset for '{_poseItem.name}' has changes that haven't been applied.",
-                "Apply", "Cancel", "Discard");
-
-            if (choice == 0)
-                ApplyOffset();
-
-            if (choice != 1)
-                action();
-
-            // A modal dialog in the middle of OnGUI breaks the current layout pass, so end it here.
-            GUIUtility.ExitGUI();
+            if (Event.current != null)
+                GUIUtility.ExitGUI();
         }
 
         void RefreshSlots()

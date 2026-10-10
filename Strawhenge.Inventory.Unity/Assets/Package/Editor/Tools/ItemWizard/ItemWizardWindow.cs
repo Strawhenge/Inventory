@@ -65,7 +65,12 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             EditorGUILayout.Space(4);
             var tab = (Tab)GUILayout.Toolbar((int)_tab, TabNames, GUILayout.Height(24));
             if (tab != _tab)
+            {
                 SwitchTab(tab);
+
+                // The rest of this pass was laid out for the old tab.
+                GUIUtility.ExitGUI();
+            }
 
             EditorGUILayout.Space(4);
             _scroll = EditorGUILayout.BeginScrollView(_scroll);
