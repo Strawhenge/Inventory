@@ -16,6 +16,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
         [SerializeField] int _slotIndex;
         [SerializeField] AnimationClip _poseClip;
         [SerializeField, Range(0, 1)] float _poseClipTime;
+        HolsterScriptableObject _holsterToAdd;
 
         readonly OffsetPreview _preview = new();
         IReadOnlyList<PoseSlot> _slots = new List<PoseSlot>();
@@ -92,7 +93,113 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
                 DrawActivePose();
             else
                 DrawStartPosing();
+
+            if (_poseItem != null)
+            {
+                EditorGUILayout.Space(12);
+                DrawItemHolsters();
+            }
         }
+
+        void DrawItemHolsters()
+        {
+            EditorGUILayout.LabelField("Item Holsters", EditorStyles.boldLabel);
+
+            var holsters = ItemOffsets.GetHolsters(_poseItem);
+            if (holsters.Count == 0)
+            {
+                EditorGUILayout.HelpBox(
+                    "This item doesn't fit any holsters yet. Add one below, or pose a holster slot and Apply.",
+                    MessageType.None);
+            }
+
+            for (var i = 0; i < holsters.Count; i++)
+            {
+                var holster = holsters[i];
+                var index = i;
+
+                EditorGUILayout.BeginHorizontal();
+
+                using (new EditorGUI.DisabledScope(true))
+                    EditorGUILayout.ObjectField(holster, typeof(HolsterScriptableObject), allowSceneObjects: false);
+
+                var slotIndex = FindSlotIndex(holster);
+                using (new EditorGUI.DisabledScope(slotIndex < 0 || IsPosingHolster(holster)))
+                {
+                    var tooltip = slotIndex < 0
+                        ? "The character doesn't have this holster."
+                        : "Pose this holster's offset.";
+
+                    if (GUILayout.Button(new GUIContent("Pose", tooltip), GUILayout.Width(50)))
+                    {
+                        IfConfirmed(() =>
+                        {
+                            _slotIndex = slotIndex;
+                            StartPosing();
+                        });
+                    }
+                }
+
+                if (GUILayout.Button(new GUIContent("Remove", "Remove this holster from the item. Undo with Ctrl+Z."),
+                        GUILayout.Width(64)))
+                {
+                    if (IsPosingHolster(holster))
+                    {
+                        IfConfirmed(() =>
+                        {
+                            StopPosing();
+                            ItemOffsets.RemoveHolster(_poseItem, index);
+                        });
+                    }
+                    else
+                    {
+                        ItemOffsets.RemoveHolster(_poseItem, index);
+                        AssetDatabase.SaveAssets();
+
+                        // The list just changed under this pass, so redraw from the new state.
+                        GUIUtility.ExitGUI();
+                    }
+                }
+
+                EditorGUILayout.EndHorizontal();
+            }
+
+            EditorGUILayout.BeginHorizontal();
+
+            _holsterToAdd = (HolsterScriptableObject)EditorGUILayout.ObjectField(
+                _holsterToAdd, typeof(HolsterScriptableObject), allowSceneObjects: false);
+
+            using (new EditorGUI.DisabledScope(_holsterToAdd == null || holsters.Contains(_holsterToAdd)))
+            {
+                if (GUILayout.Button(new GUIContent("Add", "Make the item fit this holster, with zero offsets."),
+                        GUILayout.Width(118)))
+                {
+                    ItemOffsets.AddHolster(_poseItem, _holsterToAdd);
+                    AssetDatabase.SaveAssets();
+                    _holsterToAdd = null;
+                    GUIUtility.ExitGUI();
+                }
+            }
+
+            EditorGUILayout.EndHorizontal();
+        }
+
+        int FindSlotIndex(HolsterScriptableObject holster)
+        {
+            if (holster == null)
+                return -1;
+
+            for (var i = 0; i < _slots.Count; i++)
+            {
+                if (_slots[i].Holster == holster)
+                    return i;
+            }
+
+            return -1;
+        }
+
+        bool IsPosingHolster(HolsterScriptableObject holster) =>
+            IsPosing && !_activeSlot.IsHand && _activeSlot.Holster == holster;
 
         void DrawCharacterField()
         {
