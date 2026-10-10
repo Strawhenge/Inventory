@@ -1,23 +1,27 @@
 name: Release
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: read
         
 jobs: 
   Release:    
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Version
       run: |
         echo "VERSION=3.0.$(${{ github.run_number }} - 34)" >> $env:GITHUB_ENV
         
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
       with:
-          dotnet-version: 3.1.200
+          dotnet-version: 8.0.x
           
     - name: Restore
       run: |        
@@ -28,7 +32,7 @@ jobs:
       run: dotnet build Strawhenge.Inventory -p:Version=${{ env.VERSION }} --configuration Release
       
     - name: Test
-      run: dotnet test Strawhenge.Inventory
+      run: dotnet test Strawhenge.Inventory --configuration Release --no-build
         
     - name: Release Unity Package
       run: |
