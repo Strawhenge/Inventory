@@ -65,7 +65,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
         static HolsterScriptableObject GetHolsterAsset(HolsterScript holsterScript)
         {
             // The holster asset is private on HolsterScript, and HolsterName throws when it's unset.
-            var property = new SerializedObject(holsterScript).FindProperty("_holster");
+            var property = new SerializedObject(holsterScript).FindProperty(HolsterScript.HolsterFieldName);
             return property?.objectReferenceValue as HolsterScriptableObject;
         }
     }

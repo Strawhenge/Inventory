@@ -1,3 +1,5 @@
+using Strawhenge.Inventory.Unity.Items.HoldItemData;
+using Strawhenge.Inventory.Unity.Items.HolsterItemData;
 using Strawhenge.Inventory.Unity.Items.ItemData;
 using UnityEditor;
 using UnityEngine;
@@ -9,13 +11,6 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
     /// </summary>
     static class ItemOffsets
     {
-        const string LeftHand = "_leftHandHoldItemData";
-        const string RightHand = "_rightHandHoldItemData";
-        const string Holsters = "_holsterItemData";
-        const string Holster = "_holster";
-        const string Position = "_positionOffset";
-        const string Rotation = "_rotationOffset";
-
         public static bool TryRead(ItemScriptableObject item, PoseSlot slot, out Vector3 position, out Vector3 rotation)
         {
             position = Vector3.zero;
@@ -25,8 +20,8 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             if (data == null)
                 return false;
 
-            position = data.FindPropertyRelative(Position).vector3Value;
-            rotation = data.FindPropertyRelative(Rotation).vector3Value;
+            position = data.FindPropertyRelative(PositionName(slot)).vector3Value;
+            rotation = data.FindPropertyRelative(RotationName(slot)).vector3Value;
             return true;
         }
 
@@ -42,8 +37,8 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             var serializedItem = new SerializedObject(item);
             var data = FindData(serializedItem, slot) ?? AddHolster(serializedItem, slot);
 
-            data.FindPropertyRelative(Position).vector3Value = position;
-            data.FindPropertyRelative(Rotation).vector3Value = rotation;
+            data.FindPropertyRelative(PositionName(slot)).vector3Value = position;
+            data.FindPropertyRelative(RotationName(slot)).vector3Value = rotation;
             serializedItem.ApplyModifiedProperties();
         }
 
@@ -53,8 +48,11 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             var source = serializedItem.FindProperty(HandPath(from));
             var target = serializedItem.FindProperty(HandPath(to));
 
-            target.FindPropertyRelative(Position).vector3Value = source.FindPropertyRelative(Position).vector3Value;
-            target.FindPropertyRelative(Rotation).vector3Value = source.FindPropertyRelative(Rotation).vector3Value;
+            var position = SerializedHoldItemData.PositionOffsetFieldName;
+            var rotation = SerializedHoldItemData.RotationOffsetFieldName;
+
+            target.FindPropertyRelative(position).vector3Value = source.FindPropertyRelative(position).vector3Value;
+            target.FindPropertyRelative(rotation).vector3Value = source.FindPropertyRelative(rotation).vector3Value;
             serializedItem.ApplyModifiedProperties();
         }
 
@@ -63,11 +61,11 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             if (slot.IsHand)
                 return serializedItem.FindProperty(HandPath(slot.Kind));
 
-            var holsters = serializedItem.FindProperty(Holsters);
+            var holsters = serializedItem.FindProperty(ItemScriptableObject.HolsterItemDataFieldName);
             for (var i = 0; i < holsters.arraySize; i++)
             {
                 var entry = holsters.GetArrayElementAtIndex(i);
-                if (entry.FindPropertyRelative(Holster).objectReferenceValue == slot.Holster)
+                if (entry.FindPropertyRelative(SerializedHolsterItemData.HolsterFieldName).objectReferenceValue == slot.Holster)
                     return entry;
             }
 
@@ -76,13 +74,13 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
 
         static SerializedProperty AddHolster(SerializedObject serializedItem, PoseSlot slot)
         {
-            var holsters = serializedItem.FindProperty(Holsters);
+            var holsters = serializedItem.FindProperty(ItemScriptableObject.HolsterItemDataFieldName);
             holsters.arraySize++;
 
             // A new array element copies the previous one, so reset everything except the holster.
             var entry = holsters.GetArrayElementAtIndex(holsters.arraySize - 1);
             ResetChildren(entry);
-            entry.FindPropertyRelative(Holster).objectReferenceValue = slot.Holster;
+            entry.FindPropertyRelative(SerializedHolsterItemData.HolsterFieldName).objectReferenceValue = slot.Holster;
             return entry;
         }
 
@@ -115,6 +113,20 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             }
         }
 
-        static string HandPath(PoseSlotKind kind) => kind == PoseSlotKind.LeftHand ? LeftHand : RightHand;
+        static string HandPath(PoseSlotKind kind) =>
+            kind == PoseSlotKind.LeftHand
+                ? ItemScriptableObject.LeftHandHoldItemDataFieldName
+                : ItemScriptableObject.RightHandHoldItemDataFieldName;
+
+        // Hand offsets live on SerializedHoldItemData and holster offsets on SerializedHolsterItemData.
+        static string PositionName(PoseSlot slot) =>
+            slot.IsHand
+                ? SerializedHoldItemData.PositionOffsetFieldName
+                : SerializedHolsterItemData.PositionOffsetFieldName;
+
+        static string RotationName(PoseSlot slot) =>
+            slot.IsHand
+                ? SerializedHoldItemData.RotationOffsetFieldName
+                : SerializedHolsterItemData.RotationOffsetFieldName;
     }
 }

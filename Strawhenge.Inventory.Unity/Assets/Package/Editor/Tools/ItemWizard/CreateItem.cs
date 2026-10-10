@@ -93,11 +93,11 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
                 pickup = CreatePickupPrefab(name, args.Model, item, pickupPath, result);
 
             var serializedItem = new SerializedObject(item);
-            serializedItem.FindProperty("_prefab").objectReferenceValue = prefab;
-            serializedItem.FindProperty("_pickupPrefab").objectReferenceValue = pickup;
-            serializedItem.FindProperty("_size").intValue = (int)args.Size;
-            serializedItem.FindProperty("_isStorable").boolValue = args.IsStorable;
-            serializedItem.FindProperty("_weight").intValue = Mathf.Max(0, args.Weight);
+            serializedItem.FindProperty(ItemScriptableObject.PrefabFieldName).objectReferenceValue = prefab;
+            serializedItem.FindProperty(ItemScriptableObject.PickupPrefabFieldName).objectReferenceValue = pickup;
+            serializedItem.FindProperty(ItemScriptableObject.SizeFieldName).intValue = (int)args.Size;
+            serializedItem.FindProperty(ItemScriptableObject.IsStorableFieldName).boolValue = args.IsStorable;
+            serializedItem.FindProperty(ItemScriptableObject.WeightFieldName).intValue = Mathf.Max(0, args.Weight);
             serializedItem.ApplyModifiedPropertiesWithoutUndo();
 
             EditorUtility.SetDirty(item);
@@ -170,7 +170,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
 
                 var pickup = root.AddComponent<ItemPickupScript>();
                 var serializedPickup = new SerializedObject(pickup);
-                serializedPickup.FindProperty("_data").objectReferenceValue = item;
+                serializedPickup.FindProperty(ItemPickupScript.DataFieldName).objectReferenceValue = item;
                 serializedPickup.ApplyModifiedPropertiesWithoutUndo();
 
                 var saved = PrefabUtility.SaveAsPrefabAsset(root, path);

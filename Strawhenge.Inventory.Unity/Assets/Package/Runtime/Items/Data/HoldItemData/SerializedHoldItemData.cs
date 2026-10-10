@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 namespace Strawhenge.Inventory.Unity.Items.HoldItemData
 {
     [Serializable]
-    public class SerializedHoldItemData : IHoldItemData
+    public partial class SerializedHoldItemData : IHoldItemData
     {
         [FormerlySerializedAs("positionOffset"), SerializeField]
         Vector3 _positionOffset;

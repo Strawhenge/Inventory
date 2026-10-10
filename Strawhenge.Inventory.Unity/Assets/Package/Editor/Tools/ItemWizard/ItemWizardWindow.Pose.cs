@@ -425,7 +425,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
 
         static ItemScript GetPrefab(ItemScriptableObject item)
         {
-            var property = new SerializedObject(item).FindProperty("_prefab");
+            var property = new SerializedObject(item).FindProperty(ItemScriptableObject.PrefabFieldName);
             return property?.objectReferenceValue as ItemScript;
         }
     }
