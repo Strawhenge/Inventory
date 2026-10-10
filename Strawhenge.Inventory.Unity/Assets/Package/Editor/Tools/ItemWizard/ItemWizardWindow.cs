@@ -1,4 +1,5 @@
 using Strawhenge.Inventory.Items;
+using Strawhenge.Inventory.Unity.Items.ItemData;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -9,21 +10,50 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
     {
         const string Title = "Item Wizard";
 
-        [MenuItem("Strawhenge/Inventory/Create Item...", priority = 1)]
-        public static void Open() => ShowWindow();
+        enum Tab
+        {
+            Create,
+            Pose
+        }
+
+        static readonly string[] TabNames = { "Create", "Pose" };
+
+        /// <summary>
+        /// Opens the wizard. With an Item asset selected it opens on the Pose tab with that item,
+        /// otherwise on the last tab used.
+        /// </summary>
+        [MenuItem("Strawhenge/Inventory/Item Wizard...", priority = 1)]
+        public static void Open()
+        {
+            if (Selection.activeObject is ItemScriptableObject item)
+                OpenPose(item);
+            else
+                ShowWindow();
+        }
+
+        [MenuItem("Assets/Create/Strawhenge/Inventory/Item (Wizard)...", priority = 0)]
+        static void OpenFromAssetsMenu() => ShowWindow().SwitchTab(Tab.Create);
+
+        /// <summary>
+        /// Opens the wizard on the Pose tab with the given item loaded.
+        /// </summary>
+        public static void OpenPose(ItemScriptableObject item)
+        {
+            var window = ShowWindow();
+            window.SwitchTab(Tab.Pose);
+            window.LoadPoseItem(item);
+        }
 
         static ItemWizardWindow ShowWindow()
         {
             var window = GetWindow<ItemWizardWindow>(utility: false, title: Title, focus: true);
-            window.minSize = new Vector2(360, 420);
+            window.minSize = new Vector2(360, 360);
             window._args.Folder = GetSelectedFolder();
             return window;
         }
 
-        [MenuItem("Assets/Create/Strawhenge/Inventory/Item (Wizard)...", priority = 0)]
-        static void OpenFromAssetsMenu() => Open();
-
         [SerializeField] CreateItemArgs _args = new();
+        [SerializeField] Tab _tab;
         Vector2 _scroll;
 
         void OnEnable() => EnablePosing();
@@ -32,16 +62,55 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
 
         void OnGUI()
         {
+            EditorGUILayout.Space(4);
+            var tab = (Tab)GUILayout.Toolbar((int)_tab, TabNames, GUILayout.Height(24));
+            if (tab != _tab)
+                SwitchTab(tab);
+
+            EditorGUILayout.Space(4);
             _scroll = EditorGUILayout.BeginScrollView(_scroll);
 
-            DrawBasics();
-            EditorGUILayout.Space();
-            DrawCreate();
-
-            EditorGUILayout.Space(12);
-            DrawPose();
+            if (_tab == Tab.Create)
+            {
+                DrawBasics();
+                EditorGUILayout.Space();
+                DrawCreate();
+            }
+            else
+            {
+                DrawPose();
+            }
 
             EditorGUILayout.EndScrollView();
+        }
+
+        void SwitchTab(Tab tab)
+        {
+            if (tab == _tab)
+                return;
+
+            // Leaving the Pose tab ends posing, so the preview doesn't linger out of sight.
+            if (_tab == Tab.Pose && IsPosing)
+            {
+                // Event.current is only set inside OnGUI, where IfConfirmed can end the GUI pass safely.
+                if (Event.current != null)
+                {
+                    IfConfirmed(() =>
+                    {
+                        StopPosing();
+                        _tab = tab;
+                    });
+                }
+                else if (ConfirmDiscard())
+                {
+                    StopPosing();
+                    _tab = tab;
+                }
+
+                return;
+            }
+
+            _tab = tab;
         }
 
         void DrawBasics()
@@ -145,8 +214,8 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             ShowNotification(new GUIContent($"Created '{result.Item.name}'."));
 
             // Ready to pose straight away.
-            if (!IsPosing)
-                _poseItem = result.Item;
+            SwitchTab(Tab.Pose);
+            LoadPoseItem(result.Item);
 
             _args.Name = string.Empty;
             _args.Model = null;

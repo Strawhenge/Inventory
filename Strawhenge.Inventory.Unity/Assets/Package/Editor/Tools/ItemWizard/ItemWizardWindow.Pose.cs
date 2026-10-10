@@ -11,14 +11,6 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
 {
     public partial class ItemWizardWindow
     {
-        [MenuItem("Strawhenge/Inventory/Pose Item Offsets...", priority = 2)]
-        public static void OpenForPosing()
-        {
-            var window = ShowWindow();
-            if (Selection.activeObject is ItemScriptableObject item)
-                window._poseItem = item;
-        }
-
         [SerializeField] ItemScriptableObject _poseItem;
         [SerializeField] InventoryScript _poseCharacter;
         [SerializeField] int _slotIndex;
@@ -34,6 +26,29 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
         Vector3 _lastRotation;
 
         bool IsPosing => _preview.IsActive && _activeSlot != null;
+
+        void LoadPoseItem(ItemScriptableObject item)
+        {
+            if (item == _poseItem)
+                return;
+
+            // Can be called outside OnGUI (from menus), so this uses a plain dialog rather than IfConfirmed.
+            if (IsPosing && !ConfirmDiscard())
+                return;
+
+            StopPosing();
+            _poseItem = item;
+        }
+
+        /// <summary>
+        /// For use outside OnGUI. Returns true if there's nothing to lose or the user agrees to discard it.
+        /// </summary>
+        bool ConfirmDiscard() =>
+            !HasUnappliedChanges() ||
+            EditorUtility.DisplayDialog(
+                "Unapplied offset",
+                $"Discard the unapplied {_activeSlot.DisplayName} offset for '{_poseItem.name}'?",
+                "Discard", "Keep Posing");
 
         void EnablePosing()
         {
