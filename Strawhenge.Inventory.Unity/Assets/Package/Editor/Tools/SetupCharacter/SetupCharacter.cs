@@ -111,11 +111,11 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.SetupCharacter
         {
             var serializedObject = new SerializedObject(inventory);
 
-            SetIfEmpty(serializedObject.FindProperty("_leftHand"), leftHand);
-            SetIfEmpty(serializedObject.FindProperty("_rightHand"), rightHand);
-            SetIfEmpty(serializedObject.FindProperty("_animator"), animator);
+            SetIfEmpty(serializedObject.FindProperty(InventoryScript.LeftHandFieldName), leftHand);
+            SetIfEmpty(serializedObject.FindProperty(InventoryScript.RightHandFieldName), rightHand);
+            SetIfEmpty(serializedObject.FindProperty(InventoryScript.AnimatorFieldName), animator);
 
-            var weightProperty = serializedObject.FindProperty("_maxStoredItemsWeight");
+            var weightProperty = serializedObject.FindProperty(InventoryScript.MaxStoredItemsWeightFieldName);
             if (weightProperty != null && weightProperty.intValue == 0)
                 weightProperty.intValue = Mathf.Max(0, maxStoredItemsWeight);
 

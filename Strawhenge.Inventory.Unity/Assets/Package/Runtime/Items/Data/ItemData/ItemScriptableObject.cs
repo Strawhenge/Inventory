@@ -11,7 +11,7 @@ using UnityEngine.Serialization;
 namespace Strawhenge.Inventory.Unity.Items.ItemData
 {
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Item")]
-    public class ItemScriptableObject : ScriptableObject, IItemData
+    public partial class ItemScriptableObject : ScriptableObject, IItemData
     {
         [FormerlySerializedAs("prefab"), SerializeField]
         ItemScript _prefab;
