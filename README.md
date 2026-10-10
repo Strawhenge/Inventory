@@ -16,7 +16,7 @@ The rules live in a plain .NET library (`Strawhenge.Inventory`) with no Unity de
 - **Procedure queue**: actions run in order and wait for animations; `Interrupt()` cancels pending ones.
 - **Loot**: loot containers and other characters' inventories.
 - **Save/load**: export and import inventory state.
-- **Editor tooling**: one-click character setup and wizards that build Animator states for you.
+- **Editor tooling**: one-click character setup, an Item Wizard that creates items and lets you position them in the hand and holsters visually, and wizards that build Animator states for you.
 
 ## Requirements
 
@@ -68,6 +68,39 @@ Anything already set up is kept, and the whole operation is a single undo step. 
 
 ### 3. Create an item
 
+Open the **Item Wizard**: **Strawhenge > Inventory > Item Wizard…**, or **Assets > Create > Strawhenge > Inventory > Item (Wizard)…**. It has two tabs, **Create** and **Pose**.
+
+**Create** makes everything an item needs from a model or prefab:
+
+1. Choose the **Model**. The **Name** fills in from it; the item asset's name is the item's name.
+2. Set **Size** (one- or two-handed), **Storable**, **Weight** and the **Folder** to save to.
+3. Click **Create Item**. In the folder you get:
+   - `<Name>.prefab`: the item as it appears in the hand and holsters, with `ItemScript`
+   - `<Name> Pickup.prefab`: the item lying in the world, with a collider, Rigidbody and `ItemPickupScript` (untick **Create Pickup** if you don't need one)
+   - `<Name>.asset`: the Item asset, with both prefabs assigned
+
+Existing assets are never overwritten. After creating, the wizard switches to the **Pose** tab with the new item loaded.
+
+### 4. Position it in the hand and holsters
+
+On the **Pose** tab (or click **Edit Visually…** at the top of any Item asset's Inspector):
+
+1. Choose a **Character** in the open scene (**Find** picks the first one with an `InventoryScript`) and a **Slot**: Left Hand, Right Hand or one of the character's holsters.
+2. Click **Start Posing**. A preview of the item appears in that hand or holster.
+3. Move and rotate it with the Scene view handles (or type the values), then click **Apply** to save the offset to the item. **Revert** goes back to the saved offset.
+
+Tips:
+
+- **Preview Pose** samples an animation clip onto the character, such as the hold animation, so you can position the item against the pose it will actually be held in. The character's pose is restored when you stop.
+- While posing a hand, the **Copy** buttons copy the saved offset between the left and right hands.
+- **Item Holsters** lists the holsters the item fits. **Pose** jumps to one, **Remove** takes it off the item, and **Add** makes the item fit another. Posing a holster the item doesn't fit yet and pressing Apply also adds it.
+- The preview is never saved into your scene, and changes to the item are undoable.
+
+Draw/put-away animations and consumable settings are set in the Item asset's Inspector (see [Animation](#animation) and [Effects](#effects)).
+
+<details>
+<summary>Setting up an item by hand</summary>
+
 1. Make a prefab for the item as it appears in the hand and holster, and add an `ItemScript` to it.
 2. Optionally, make a pickup prefab (the item lying in the world) and add an `ItemPickupScript` to it.
 3. **Assets > Create > Strawhenge > Inventory > Item**, then fill in:
@@ -78,9 +111,9 @@ Anything already set up is kept, and the whole operation is a single undo step. 
    - **Holster Item Data**: one entry per holster the item fits, with offsets and optional draw/put-away animations
    - **Consumable**: optional effects and consume animation
 
-The asset's name is the item's name.
+</details>
 
-### 4. Use it from code
+### 5. Use it from code
 
 ```csharp
 using Strawhenge.Inventory.Unity;
