@@ -245,36 +245,3 @@ Strawhenge.Inventory.Unity/           Unity 2021.3 project
     Editor/                           Inspectors and wizards
   Assets/Development/                 Development scene, Y Bot character and test items
 ```
-
-## Development
-
-### Building the core library
-
-The library depends on `strawhenge.common` and `functionalutilities` from the Strawhenge GitHub Packages NuGet feed. GitHub Packages needs authentication even for public packages, so add the feed once with a [personal access token](https://github.com/settings/tokens) that has the `read:packages` scope:
-
-```bash
-dotnet nuget add source https://nuget.pkg.github.com/Strawhenge/index.json \
-  --name github --username <github-username> --password <token> --store-password-in-clear-text
-```
-
-Then:
-
-```bash
-dotnet build Strawhenge.Inventory
-dotnet test Strawhenge.Inventory
-```
-
-Requires the .NET 8 SDK. Building copies `Strawhenge.Inventory.dll` into `Strawhenge.Inventory.Unity/Assets/Package/Runtime`, so the Unity project picks up library changes. This post-build step uses `xcopy` and only runs on Windows.
-
-### Working on the Unity package
-
-Open `Strawhenge.Inventory.Unity` in Unity 2021.3 and use `Assets/Development/Development.unity`. Controls in the development scene:
-
-- **I**: open or close the inventory menu
-- **Right-click**: loot the character or container under the cursor
-- **Ctrl+R**: reload the scene
-
-### CI and releases
-
-- **CI** (`.github/workflows/ci.yml`) builds and tests on every push and pull request to `master`.
-- **Release** (`.github/workflows/release.yml`) is run manually from the Actions tab. It builds and tests, copies the DLL into the package, stamps `package.json` with version `3.0.<n>`, and replaces the `release` branch, which is what users install from.
