@@ -5,16 +5,19 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
 {
-    public class ItemWizardWindow : EditorWindow
+    public partial class ItemWizardWindow : EditorWindow
     {
         const string Title = "Item Wizard";
 
         [MenuItem("Strawhenge/Inventory/Create Item...", priority = 1)]
-        public static void Open()
+        public static void Open() => ShowWindow();
+
+        static ItemWizardWindow ShowWindow()
         {
             var window = GetWindow<ItemWizardWindow>(utility: false, title: Title, focus: true);
-            window.minSize = new Vector2(360, 260);
+            window.minSize = new Vector2(360, 420);
             window._args.Folder = GetSelectedFolder();
+            return window;
         }
 
         [MenuItem("Assets/Create/Strawhenge/Inventory/Item (Wizard)...", priority = 0)]
@@ -23,6 +26,10 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
         [SerializeField] CreateItemArgs _args = new();
         Vector2 _scroll;
 
+        void OnEnable() => EnablePosing();
+
+        void OnDisable() => DisablePosing();
+
         void OnGUI()
         {
             _scroll = EditorGUILayout.BeginScrollView(_scroll);
@@ -30,6 +37,9 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             DrawBasics();
             EditorGUILayout.Space();
             DrawCreate();
+
+            EditorGUILayout.Space(12);
+            DrawPose();
 
             EditorGUILayout.EndScrollView();
         }
@@ -133,6 +143,10 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             Selection.activeObject = result.Item;
             EditorGUIUtility.PingObject(result.Item);
             ShowNotification(new GUIContent($"Created '{result.Item.name}'."));
+
+            // Ready to pose straight away.
+            if (!IsPosing)
+                _poseItem = result.Item;
 
             _args.Name = string.Empty;
             _args.Model = null;
