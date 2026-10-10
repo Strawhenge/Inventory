@@ -1,6 +1,9 @@
+using Strawhenge.Inventory.Unity.Items;
 using Strawhenge.Inventory.Unity.Items.HoldItemData;
 using Strawhenge.Inventory.Unity.Items.HolsterItemData;
 using Strawhenge.Inventory.Unity.Items.ItemData;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -35,7 +38,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
         public static void Write(ItemScriptableObject item, PoseSlot slot, Vector3 position, Vector3 rotation)
         {
             var serializedItem = new SerializedObject(item);
-            var data = FindData(serializedItem, slot) ?? AddHolster(serializedItem, slot);
+            var data = FindData(serializedItem, slot) ?? AddHolsterEntry(serializedItem, slot.Holster);
 
             data.FindPropertyRelative(PositionName(slot)).vector3Value = position;
             data.FindPropertyRelative(RotationName(slot)).vector3Value = rotation;
@@ -56,6 +59,55 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             serializedItem.ApplyModifiedProperties();
         }
 
+        /// <summary>
+        /// The holsters the item fits, in order. An entry may be null if its holster isn't set.
+        /// </summary>
+        public static IReadOnlyList<HolsterScriptableObject> GetHolsters(ItemScriptableObject item)
+        {
+            var holsters = new SerializedObject(item).FindProperty(ItemScriptableObject.HolsterItemDataFieldName);
+            var result = new List<HolsterScriptableObject>(holsters.arraySize);
+
+            for (var i = 0; i < holsters.arraySize; i++)
+            {
+                var holster = holsters.GetArrayElementAtIndex(i)
+                    .FindPropertyRelative(SerializedHolsterItemData.HolsterFieldName)
+                    .objectReferenceValue as HolsterScriptableObject;
+
+                result.Add(holster);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Adds a holster entry with zero offsets, unless the item already fits that holster. Recorded for undo.
+        /// </summary>
+        public static bool AddHolster(ItemScriptableObject item, HolsterScriptableObject holster)
+        {
+            if (holster == null || GetHolsters(item).Contains(holster))
+                return false;
+
+            var serializedItem = new SerializedObject(item);
+            AddHolsterEntry(serializedItem, holster);
+            serializedItem.ApplyModifiedProperties();
+            return true;
+        }
+
+        /// <summary>
+        /// Removes the holster entry at the index from <see cref="GetHolsters"/>. Recorded for undo.
+        /// </summary>
+        public static void RemoveHolster(ItemScriptableObject item, int index)
+        {
+            var serializedItem = new SerializedObject(item);
+            var holsters = serializedItem.FindProperty(ItemScriptableObject.HolsterItemDataFieldName);
+
+            if (index < 0 || index >= holsters.arraySize)
+                return;
+
+            holsters.DeleteArrayElementAtIndex(index);
+            serializedItem.ApplyModifiedProperties();
+        }
+
         static SerializedProperty FindData(SerializedObject serializedItem, PoseSlot slot)
         {
             if (slot.IsHand)
@@ -72,7 +124,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             return null;
         }
 
-        static SerializedProperty AddHolster(SerializedObject serializedItem, PoseSlot slot)
+        static SerializedProperty AddHolsterEntry(SerializedObject serializedItem, HolsterScriptableObject holster)
         {
             var holsters = serializedItem.FindProperty(ItemScriptableObject.HolsterItemDataFieldName);
             holsters.arraySize++;
@@ -80,7 +132,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             // A new array element copies the previous one, so reset everything except the holster.
             var entry = holsters.GetArrayElementAtIndex(holsters.arraySize - 1);
             ResetChildren(entry);
-            entry.FindPropertyRelative(SerializedHolsterItemData.HolsterFieldName).objectReferenceValue = slot.Holster;
+            entry.FindPropertyRelative(SerializedHolsterItemData.HolsterFieldName).objectReferenceValue = holster;
             return entry;
         }
 
