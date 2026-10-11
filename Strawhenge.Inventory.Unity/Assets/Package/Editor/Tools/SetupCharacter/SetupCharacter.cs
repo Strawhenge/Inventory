@@ -21,10 +21,10 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.SetupCharacter
         {
             var report = new SetupCharacterReport();
 
-            var animator = character.GetComponentInChildren<Animator>(includeInactive: true);
+            var animator = FindAnimator(character);
             if (animator == null)
             {
-                report.Error($"No Animator found on '{character.name}' or its children. " +
+                report.Error($"No Animator found on, above or below '{character.name}'. " +
                              "Add an Animator (with an Animator Controller) and run setup again.");
                 return report;
             }
@@ -32,7 +32,9 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.SetupCharacter
             Undo.SetCurrentGroupName("Set Up Inventory Character");
             var undoGroup = Undo.GetCurrentGroup();
 
-            var inventory = character.GetComponent<InventoryScript>();
+            // Reuse an InventoryScript anywhere under the selection (e.g. on an "Inventory" child) rather than
+            // adding a second one to the selected object.
+            var inventory = FindInventory(character);
             if (inventory == null)
             {
                 inventory = Undo.AddComponent<InventoryScript>(character);
@@ -40,14 +42,14 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.SetupCharacter
             }
             else
             {
-                report.Skipped($"'{character.name}' already has an {nameof(InventoryScript)}.");
+                report.Skipped($"Using the existing {nameof(InventoryScript)} on '{inventory.name}'.");
             }
 
-            var leftHand = GetOrCreateHand<LeftHandScript>(
-                character, animator, HumanBodyBones.LeftHand, "Left Hand Item Point", report);
+            var leftHand = GetOrCreateHand(
+                inventory.LeftHand, animator, HumanBodyBones.LeftHand, "Left Hand Item Point", report);
 
-            var rightHand = GetOrCreateHand<RightHandScript>(
-                character, animator, HumanBodyBones.RightHand, "Right Hand Item Point", report);
+            var rightHand = GetOrCreateHand(
+                inventory.RightHand, animator, HumanBodyBones.RightHand, "Right Hand Item Point", report);
 
             AssignInventoryFields(inventory, leftHand, rightHand, animator, maxStoredItemsWeight);
             report.Done($"Linked hands and Animator on {nameof(InventoryScript)} (existing references kept).");
@@ -64,15 +66,39 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.SetupCharacter
             return report;
         }
 
+        /// <summary>
+        /// The InventoryScript on or below the selected object, if there is one.
+        /// </summary>
+        public static InventoryScript FindInventory(GameObject character) =>
+            character.GetComponentInChildren<InventoryScript>(includeInactive: true);
+
+        /// <summary>
+        /// The Animator assigned on an existing InventoryScript, otherwise one on or below the selected object,
+        /// otherwise one above it (for when an "Inventory" child of the character is selected).
+        /// </summary>
+        public static Animator FindAnimator(GameObject character)
+        {
+            var inventory = FindInventory(character);
+            if (inventory != null && inventory.Animator != null)
+                return inventory.Animator;
+
+            var animator = character.GetComponentInChildren<Animator>(includeInactive: true);
+            return animator != null ? animator : character.GetComponentInParent<Animator>();
+        }
+
         static T GetOrCreateHand<T>(
-            GameObject character,
+            T assigned,
             Animator animator,
             HumanBodyBones bone,
             string objectName,
             SetupCharacterReport report)
             where T : HandScript
         {
-            var existing = character.GetComponentInChildren<T>(includeInactive: true);
+            // The hand assigned on InventoryScript, otherwise any on the character's rig (below its Animator).
+            var existing = assigned != null
+                ? assigned
+                : animator.GetComponentInChildren<T>(includeInactive: true);
+
             if (existing != null)
             {
                 report.Skipped($"Found existing {typeof(T).Name} on '{existing.name}'.");
@@ -85,9 +111,9 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.SetupCharacter
 
             if (parent == null)
             {
-                parent = character.transform;
+                parent = animator.transform;
                 report.Warning($"Could not find the humanoid {bone} bone, so '{objectName}' was created " +
-                               $"under '{character.name}'. Move it under the character's hand bone.");
+                               $"under '{parent.name}'. Move it under the character's hand bone.");
             }
 
             var handObject = new GameObject(objectName);

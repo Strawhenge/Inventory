@@ -20,6 +20,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
 
         readonly OffsetPreview _preview = new();
         IReadOnlyList<PoseSlot> _slots = new List<PoseSlot>();
+        readonly List<string> _slotWarnings = new();
         PoseSlot _activeSlot;
         Vector3 _savedPosition;
         Vector3 _savedRotation;
@@ -56,7 +57,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             EditorApplication.update += OnEditorUpdate;
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
             EditorSceneManager.sceneClosing += OnSceneClosing;
-            EditorApplication.hierarchyChanged += OnHierarchyChanged;
+            ObjectChangeEvents.changesPublished += OnChangesPublished;
             RefreshSlots();
         }
 
@@ -65,7 +66,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
             EditorApplication.update -= OnEditorUpdate;
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
             EditorSceneManager.sceneClosing -= OnSceneClosing;
-            EditorApplication.hierarchyChanged -= OnHierarchyChanged;
+            ObjectChangeEvents.changesPublished -= OnChangesPublished;
             StopPosing();
         }
 
@@ -253,6 +254,9 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
                     : slot.DisplayName)
                 .ToArray();
 
+            foreach (var warning in _slotWarnings)
+                EditorGUILayout.HelpBox(warning, MessageType.Warning);
+
             EditorGUI.BeginChangeCheck();
             var index = EditorGUILayout.Popup("Slot", Mathf.Clamp(_slotIndex, 0, _slots.Count - 1), names);
             if (EditorGUI.EndChangeCheck())
@@ -415,7 +419,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
 
         void ApplyPoseClip()
         {
-            var animator = _poseCharacter != null ? _poseCharacter.GetComponentInChildren<Animator>() : null;
+            var animator = PoseSlot.FindAnimator(_poseCharacter);
             _preview.SetPose(animator, _poseClip, _poseClipTime);
         }
 
@@ -479,7 +483,8 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
 
         void RefreshSlots()
         {
-            _slots = PoseSlot.FindSlots(_poseCharacter);
+            _slotWarnings.Clear();
+            _slots = PoseSlot.FindSlots(_poseCharacter, _slotWarnings);
         }
 
         void RememberPreviewValues()
@@ -520,9 +525,10 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
 
         void OnSceneClosing(Scene scene, bool removingScene) => StopPosing();
 
-        void OnHierarchyChanged()
+        void OnChangesPublished(ref ObjectChangeEventStream stream)
         {
-            // Picks up hands or holsters added to the character. Slots are fixed while posing.
+            // Picks up hands or holsters added to the character or assigned on its InventoryScript (a property
+            // change, which hierarchyChanged doesn't report). Slots are fixed while posing.
             if (IsPosing)
                 return;
 
