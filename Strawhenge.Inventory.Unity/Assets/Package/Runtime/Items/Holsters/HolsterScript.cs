@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
-    public class HolsterScript : MonoBehaviour
+    public partial class HolsterScript : MonoBehaviour
     {
         [FormerlySerializedAs("holster"), SerializeField]
         HolsterScriptableObject _holster;

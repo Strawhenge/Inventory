@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 namespace Strawhenge.Inventory.Unity.Items.HolsterItemData
 {
     [Serializable]
-    public class SerializedHolsterItemData : IHolsterItemData
+    public partial class SerializedHolsterItemData : IHolsterItemData
     {
         [FormerlySerializedAs("holster"), SerializeField]
         HolsterScriptableObject _holster;

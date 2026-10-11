@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Strawhenge.Inventory.Unity.Items
 {
-    public class ItemPickupScript : MonoBehaviour
+    public partial class ItemPickupScript : MonoBehaviour
     {
         [SerializeField] ItemScriptableObject _data;
         [SerializeField] ItemContextHandlerScript[] _contextHandlers;

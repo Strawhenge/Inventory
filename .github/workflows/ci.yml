@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+          dotnet-version: 8.0.x
+
+    - name: Restore
+      run: |
+        dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Strawhenge/index.json"
+        dotnet restore Strawhenge.Inventory
+
+    - name: Build
+      run: dotnet build Strawhenge.Inventory --configuration Release --no-restore
+
+    - name: Test
+      run: dotnet test Strawhenge.Inventory --configuration Release --no-build

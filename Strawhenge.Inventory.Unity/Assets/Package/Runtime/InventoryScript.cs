@@ -14,7 +14,7 @@ using UnityLogger = Strawhenge.Common.Unity.UnityLogger;
 
 namespace Strawhenge.Inventory.Unity
 {
-    public class InventoryScript : MonoBehaviour
+    public partial class InventoryScript : MonoBehaviour
     {
         [SerializeField] LeftHandScript _leftHand;
         [SerializeField] RightHandScript _rightHand;
