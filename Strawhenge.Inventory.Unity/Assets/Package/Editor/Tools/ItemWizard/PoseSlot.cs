@@ -36,30 +36,84 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.ItemWizard
 
         public bool IsHand => Kind != PoseSlotKind.Holster;
 
-        public static IReadOnlyList<PoseSlot> FindSlots(InventoryScript character)
+        /// <summary>
+        /// Finds the character's slots the way InventoryScript does at runtime: the hands and holsters assigned
+        /// on it, falling back to searching only for unassigned hands. Adds a warning for anything the game
+        /// wouldn't find.
+        /// </summary>
+        public static IReadOnlyList<PoseSlot> FindSlots(InventoryScript character, List<string> warnings)
         {
             var slots = new List<PoseSlot>();
             if (character == null)
                 return slots;
 
-            var leftHand = character.GetComponentInChildren<LeftHandScript>(includeInactive: true);
+            var leftHand = Resolve(character, character.LeftHand, "Left Hand", warnings);
             if (leftHand != null)
                 slots.Add(new PoseSlot(PoseSlotKind.LeftHand, "Left Hand", leftHand.transform));
 
-            var rightHand = character.GetComponentInChildren<RightHandScript>(includeInactive: true);
+            var rightHand = Resolve(character, character.RightHand, "Right Hand", warnings);
             if (rightHand != null)
                 slots.Add(new PoseSlot(PoseSlotKind.RightHand, "Right Hand", rightHand.transform));
 
-            var holsters = character
-                .GetComponentsInChildren<HolsterScript>(includeInactive: true)
+            // Only holsters in InventoryScript's Holsters list are used at runtime, so only those are offered.
+            var holsters = character.Holsters
+                .Where(script => script != null)
                 .Select(script => (script, holster: GetHolsterAsset(script)))
                 .Where(x => x.holster != null)
+                .GroupBy(x => x.holster)
+                .Select(group => group.First())
                 .OrderBy(x => x.holster.name);
 
             foreach (var (script, holster) in holsters)
                 slots.Add(new PoseSlot(PoseSlotKind.Holster, $"Holster: {holster.name}", script.transform, holster));
 
             return slots;
+        }
+
+        /// <summary>
+        /// Finds the character's Animator the same way as its hands.
+        /// </summary>
+        public static Animator FindAnimator(InventoryScript character, List<string> warnings = null) =>
+            character == null ? null : Resolve(character, character.Animator, "Animator", warnings);
+
+        /// <summary>
+        /// The assigned reference if set. Otherwise the runtime's fallback (below InventoryScript), and failing
+        /// that a search of the whole character, with a warning because the game wouldn't find it there.
+        /// </summary>
+        static T Resolve<T>(InventoryScript character, T assigned, string label, List<string> warnings)
+            where T : Component
+        {
+            if (assigned != null)
+                return assigned;
+
+            var found = character.GetComponentInChildren<T>(includeInactive: true);
+            if (found != null)
+                return found;
+
+            found = CharacterRoot(character).GetComponentInChildren<T>(includeInactive: true);
+            if (found != null)
+            {
+                warnings?.Add($"{label} isn't assigned on InventoryScript and isn't below it, so the game won't " +
+                              $"find '{found.name}'. Assign it in InventoryScript's Inspector.");
+            }
+
+            return found;
+        }
+
+        /// <summary>
+        /// The character the InventoryScript belongs to: the Animator's object if the InventoryScript is below it,
+        /// otherwise the InventoryScript's own object. Deliberately not transform.root, which may be a scene-level
+        /// parent holding several characters.
+        /// </summary>
+        static Transform CharacterRoot(InventoryScript character)
+        {
+            var animator = character.Animator != null
+                ? character.Animator
+                : character.GetComponentInParent<Animator>();
+
+            return animator != null && character.transform.IsChildOf(animator.transform)
+                ? animator.transform
+                : character.transform;
         }
 
         static HolsterScriptableObject GetHolsterAsset(HolsterScript holsterScript)

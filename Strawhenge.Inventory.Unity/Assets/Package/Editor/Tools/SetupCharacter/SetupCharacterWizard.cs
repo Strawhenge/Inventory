@@ -18,7 +18,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.SetupCharacter
         [MenuItem("GameObject/Strawhenge/Inventory/Set Up Character...", priority = 10)]
         static void ShowEditorWindowFromHierarchy() => ShowEditorWindow();
 
-        [SerializeField, Tooltip("The character root. Must have an Animator on it or one of its children.")]
+        [SerializeField, Tooltip("The character root, or the object with its InventoryScript. Needs an Animator on it, above it or below it.")]
         GameObject _character;
 
         [SerializeField, Tooltip("Adds the draw/put away/consume layer and parameters to the Animator Controller.")]
@@ -43,8 +43,8 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.SetupCharacter
                 errorString = "Select a character.";
             else if (EditorUtility.IsPersistent(_character))
                 errorString = "Select a character in the scene or open its prefab in Prefab Mode.";
-            else if (_character.GetComponentInChildren<Animator>(includeInactive: true) == null)
-                errorString = "The character needs an Animator on it or one of its children.";
+            else if (SetupCharacter.FindAnimator(_character) == null)
+                errorString = "The character needs an Animator on it, above it or below it.";
 
             isValid = string.IsNullOrEmpty(errorString);
         }
@@ -70,7 +70,7 @@ namespace Strawhenge.Inventory.Unity.Editor.Tools.SetupCharacter
                 message,
                 "OK");
 
-            var inventory = _character.GetComponent<InventoryScript>();
+            var inventory = SetupCharacter.FindInventory(_character);
             if (inventory != null)
                 Selection.activeObject = inventory;
         }
