@@ -17,5 +17,7 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
         internal static string RightHandHoldItemDataFieldName => nameof(_rightHandHoldItemData);
 
         internal static string HolsterItemDataFieldName => nameof(_holsterItemData);
+
+        internal static string CustomDataFieldName => nameof(_customData);
     }
 }

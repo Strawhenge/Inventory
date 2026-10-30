@@ -5,6 +5,7 @@ using Strawhenge.Inventory.Unity.Items.ConsumableData;
 using Strawhenge.Inventory.Unity.Items.DrawAnimationSettings;
 using Strawhenge.Inventory.Unity.Items.HoldItemData;
 using Strawhenge.Inventory.Unity.Items.HolsterItemData;
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -41,6 +42,10 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
         [SerializeField]
         SerializedSource<IConsumableData, SerializedConsumableData, ConsumableDataScriptableObject> _consumable;
 
+        [SerializeField, Tooltip("Optional. Any scriptable objects to attach to this item. " +
+                                 "Read them back with item.GetCustomData<T>().")]
+        ScriptableObject[] _customData = Array.Empty<ScriptableObject>();
+
         ItemScript IItemData.Prefab => _prefab;
 
         Maybe<ItemPickupScript> IItemData.PickupPrefab => _pickupPrefab == null
@@ -71,6 +76,7 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
                 .Create(name, _size, _isStorable, _weight, x =>
                 {
                     x.Set<IItemData>(this);
+                    x.Set(new CustomItemData(_customData, name, this));
                     Set(x);
                 });
 
