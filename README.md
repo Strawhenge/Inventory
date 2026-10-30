@@ -110,6 +110,7 @@ Draw/put-away animations and consumable settings are set in the Item asset's Ins
    - **Left/Right Hand Hold Item Data**: position and rotation offsets in each hand, plus an optional hold animation
    - **Holster Item Data**: one entry per holster the item fits, with offsets and optional draw/put-away animations
    - **Consumable**: optional effects and consume animation
+   - **Custom Data**: optional scriptable objects carrying your own data (see [Other extension points](#other-extension-points))
 
 </details>
 
@@ -261,7 +262,13 @@ lootMenu.Open(otherCharacter.Inventory.Loot());
 ## Other extension points
 
 - **`ItemContextHandlerScript`**: attach per-instance data (ammo count, durability, …) to an item. The `Context` follows the item from pickup, to hand, to dropped pickup.
-- **Subclass `ItemScriptableObject`** and override `Set(IDataSetter)` to attach your own data to items; read it back with `item.Get<T>()`.
+- **Custom Data**: attach your own data to an item by adding any `ScriptableObject` to the item asset's **Custom Data** list. No base class is needed. Read it back by type with `GetCustomData<T>()` on an `Item` or `InventoryItem`:
+
+  ```csharp
+  sword.GetCustomData<WeaponStats>().Do(stats => Debug.Log(stats.Damage));
+  ```
+
+  Subclasses and interfaces match too, so `GetCustomData<IWeaponStats>()` finds any entry that implements it. If more than one entry matches, the first in the list is used and a warning is logged.
 - **`ImportInventoryStateScript`**: give a character a starting loadout from the Inspector.
 - **`ResourcesItemRepository` / `ResourcesApparelPieceRepository`**: look up item and apparel assets by name from `Resources` folders (useful for save files). Names must be unique.
 - **UnityEvents** on `InventoryScript`, `HandScript` and `HolsterScript` fire when item and apparel prefabs are spawned, set and unset.
