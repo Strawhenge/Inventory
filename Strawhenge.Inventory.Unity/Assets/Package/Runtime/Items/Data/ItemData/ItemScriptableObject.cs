@@ -12,7 +12,7 @@ using UnityEngine.Serialization;
 namespace Strawhenge.Inventory.Unity.Items.ItemData
 {
     [CreateAssetMenu(menuName = "Strawhenge/Inventory/Item")]
-    public partial class ItemScriptableObject : ScriptableObject, IItemData
+    public sealed partial class ItemScriptableObject : ScriptableObject, IItemData
     {
         [FormerlySerializedAs("prefab"), SerializeField]
         ItemScript _prefab;
@@ -77,7 +77,6 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
                 {
                     x.Set<IItemData>(this);
                     x.Set(new CustomItemData(_customData, name, this));
-                    Set(x);
                 });
 
             foreach (var holsterItemData in _holsterItemData)
@@ -95,10 +94,6 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
             }
 
             return builder.Build();
-        }
-
-        protected virtual void Set(IDataSetter dataSetter)
-        {
         }
     }
 }

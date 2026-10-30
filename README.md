@@ -269,7 +269,6 @@ lootMenu.Open(otherCharacter.Inventory.Loot());
   ```
 
   Subclasses and interfaces match too, so `GetCustomData<IWeaponStats>()` finds any entry that implements it. If more than one entry matches, the first in the list is used and a warning is logged.
-- **Subclass `ItemScriptableObject`** and override `Set(IDataSetter)` to attach your own data to items; read it back with `item.Get<T>()`.
 - **`ImportInventoryStateScript`**: give a character a starting loadout from the Inspector.
 - **`ResourcesItemRepository` / `ResourcesApparelPieceRepository`**: look up item and apparel assets by name from `Resources` folders (useful for save files). Names must be unique.
 - **UnityEvents** on `InventoryScript`, `HandScript` and `HolsterScript` fire when item and apparel prefabs are spawned, set and unset.

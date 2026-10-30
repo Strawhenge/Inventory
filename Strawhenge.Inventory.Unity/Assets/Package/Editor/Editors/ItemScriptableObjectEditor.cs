@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Strawhenge.Inventory.Unity.Editor.Editors
 {
-    [CustomEditor(typeof(ItemScriptableObject), editorForChildClasses: true)]
+    [CustomEditor(typeof(ItemScriptableObject))]
     [CanEditMultipleObjects]
     public class ItemScriptableObjectEditor : UnityEditor.Editor
     {
