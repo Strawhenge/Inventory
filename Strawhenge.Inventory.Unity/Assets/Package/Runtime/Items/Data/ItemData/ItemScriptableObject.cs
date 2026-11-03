@@ -85,8 +85,7 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
                             x.Add(data);
                     }
                 })
-                // UnityLogger's context is a GameObject, which an item asset isn't. Warnings name the item instead.
-                .SetLogger(new UnityLogger(null));
+                .SetLogger(new UnityLogger(this));
 
             foreach (var holsterItemData in _holsterItemData)
             {
