@@ -29,15 +29,15 @@ namespace Strawhenge.Inventory.Tests.ItemDataTests
         [Fact]
         public void Should_return_first_added_match()
         {
-            Assert.Same(_first, _item.Get<WeaponStats>().Reduce(() => null));
-            Assert.Same(_first, _item.Get<IWeaponStats>().Reduce(() => null));
+            _item.Get<WeaponStats>().VerifyIsSome(_first);
+            _item.Get<IWeaponStats>().VerifyIsSome(_first);
         }
 
         [Fact]
         public void Should_return_only_match_without_warning()
         {
-            Assert.Same(_second, _item.Get<FireSwordStats>().Reduce(() => null));
-            Assert.Same(_third, _item.Get<ShieldStats>().Reduce(() => null));
+            _item.Get<FireSwordStats>().VerifyIsSome(_second);
+            _item.Get<ShieldStats>().VerifyIsSome(_third);
 
             _logger.Verify(x => x.LogWarning(It.IsAny<string>()), Times.Never);
         }

@@ -22,25 +22,25 @@ namespace Strawhenge.Inventory.Tests.ItemDataTests
         [Fact]
         public void Should_return_data_by_its_own_type()
         {
-            Assert.Same(_stats, _item.Get<FireSwordStats>().Reduce(() => null));
+            _item.Get<FireSwordStats>().VerifyIsSome(_stats);
         }
 
         [Fact]
         public void Should_return_data_by_base_type()
         {
-            Assert.Same(_stats, _item.Get<WeaponStats>().Reduce(() => null));
+            _item.Get<WeaponStats>().VerifyIsSome(_stats);
         }
 
         [Fact]
         public void Should_return_data_by_interface()
         {
-            Assert.Same(_stats, _item.Get<IWeaponStats>().Reduce(() => null));
+            _item.Get<IWeaponStats>().VerifyIsSome(_stats);
         }
 
         [Fact]
         public void Should_return_none_for_unrelated_type()
         {
-            Assert.False(_item.Get<ArmourStats>().HasSome(out _));
+            _item.Get<ArmourStats>().VerifyIsNone();
         }
 
         [Fact]

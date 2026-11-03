@@ -24,18 +24,16 @@ namespace Strawhenge.Inventory.Tests.ItemDataTests
         [Fact]
         public void Should_return_holster_data_by_interface()
         {
-            Assert.Same(_holsterStats, _item.Holsters[0].Get<IWeaponStats>().Reduce(() => null));
+            _item.Holsters[0].Get<IWeaponStats>().VerifyIsSome(_holsterStats);
         }
 
         [Fact]
         public void Should_return_consumable_data_by_interface()
         {
-            var stats = _item.Consumable
+            _item.Consumable
                 .Map(consumable => consumable.Get<IWeaponStats>())
                 .Flatten()
-                .Reduce(() => null);
-
-            Assert.Same(_consumableStats, stats);
+                .VerifyIsSome(_consumableStats);
         }
     }
 }

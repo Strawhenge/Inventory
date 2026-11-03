@@ -23,13 +23,13 @@ namespace Strawhenge.Inventory.Tests.ItemDataTests
         [Fact]
         public void Should_return_set_data_for_the_type_it_was_set_as()
         {
-            Assert.Same(_setStats, _item.Get<IWeaponStats>().Reduce(() => null));
+            _item.Get<IWeaponStats>().VerifyIsSome(_setStats);
         }
 
         [Fact]
         public void Should_return_added_data_for_other_types()
         {
-            Assert.Same(_addedStats, _item.Get<WeaponStats>().Reduce(() => null));
+            _item.Get<WeaponStats>().VerifyIsSome(_addedStats);
         }
     }
 }
