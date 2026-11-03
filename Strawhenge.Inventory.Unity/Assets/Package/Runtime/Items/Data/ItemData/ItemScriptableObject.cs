@@ -8,6 +8,7 @@ using Strawhenge.Inventory.Unity.Items.HolsterItemData;
 using System;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityLogger = Strawhenge.Common.Unity.UnityLogger;
 
 namespace Strawhenge.Inventory.Unity.Items.ItemData
 {
@@ -84,7 +85,8 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
                             x.Add(data);
                     }
                 })
-                .SetLogger(new UnityObjectLogger(this));
+                // UnityLogger's context is a GameObject, which an item asset isn't. Warnings name the item instead.
+                .SetLogger(new UnityLogger(null));
 
             foreach (var holsterItemData in _holsterItemData)
             {
