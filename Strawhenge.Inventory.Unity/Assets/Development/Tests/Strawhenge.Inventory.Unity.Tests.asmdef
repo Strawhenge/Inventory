@@ -1,0 +1,26 @@
+{
+    "name": "Strawhenge.Inventory.Unity.Tests",
+    "rootNamespace": "Strawhenge.Inventory.Unity.Tests",
+    "references": [
+        "Strawhenge.Inventory.Unity",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "Strawhenge.Inventory.dll",
+        "FunctionalUtilities.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
