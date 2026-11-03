@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using FunctionalUtilities;
 using Strawhenge.Inventory.Effects;
 using Strawhenge.Inventory.Items;
 using Xunit;
