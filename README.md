@@ -262,13 +262,13 @@ lootMenu.Open(otherCharacter.Inventory.Loot());
 ## Other extension points
 
 - **`ItemContextHandlerScript`**: attach per-instance data (ammo count, durability, …) to an item. The `Context` follows the item from pickup, to hand, to dropped pickup.
-- **Custom Data**: attach your own data to an item by adding any `ScriptableObject` to the item asset's **Custom Data** list. No base class is needed. Read it back by type with `GetCustomData<T>()` on an `Item` or `InventoryItem`:
+- **Custom Data**: attach your own data to an item by adding any `ScriptableObject` to the item asset's **Custom Data** list. No base class is needed. Read it back by type with `Get<T>()`, the same way as the item's built-in data:
 
   ```csharp
-  sword.GetCustomData<WeaponStats>().Do(stats => Debug.Log(stats.Damage));
+  sword.Item.Get<WeaponStats>().Do(stats => Debug.Log(stats.Damage));
   ```
 
-  Subclasses and interfaces match too, so `GetCustomData<IWeaponStats>()` finds any entry that implements it. If more than one entry matches, the first in the list is used and a warning is logged.
+  Base classes and interfaces match too, so `Get<IWeaponStats>()` finds an entry that implements it. If more than one entry matches the same type, the first in the list is used and a warning is logged when the item is first used.
 - **`ImportInventoryStateScript`**: give a character a starting loadout from the Inspector.
 - **`ResourcesItemRepository` / `ResourcesApparelPieceRepository`**: look up item and apparel assets by name from `Resources` folders (useful for save files). Names must be unique.
 - **UnityEvents** on `InventoryScript`, `HandScript` and `HolsterScript` fire when item and apparel prefabs are spawned, set and unset.

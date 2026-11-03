@@ -43,7 +43,7 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
         SerializedSource<IConsumableData, SerializedConsumableData, ConsumableDataScriptableObject> _consumable;
 
         [SerializeField, Tooltip("Optional. Any scriptable objects to attach to this item. " +
-                                 "Read them back with item.GetCustomData<T>().")]
+                                 "Read them back with item.Get<T>().")]
         ScriptableObject[] _customData = Array.Empty<ScriptableObject>();
 
         ItemScript IItemData.Prefab => _prefab;
@@ -59,6 +59,8 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
         IDrawAnimationSettings IItemData.DrawAnimationSettings =>
             _drawAnimationSettings.GetValueOrDefault(
                 () => NullDrawAnimationSettings.Instance);
+
+        static readonly Type[] BuiltInDataTypes = { typeof(IItemData) };
 
         Item _item;
 
@@ -76,7 +78,7 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
                 .Create(name, _size, _isStorable, _weight, x =>
                 {
                     x.Set<IItemData>(this);
-                    x.Set(new CustomItemData(_customData, name, this));
+                    CustomItemDataSetter.Set(x, _customData, BuiltInDataTypes, name, this);
                 });
 
             foreach (var holsterItemData in _holsterItemData)
