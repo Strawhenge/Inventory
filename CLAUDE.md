@@ -7,7 +7,7 @@ Guidance for AI coding agents working in this repository.
 Strawhenge Inventory is a character inventory system for Unity, with two parts:
 
 - `Strawhenge.Inventory/`: a .NET solution containing the core library (`netstandard2.0`, no Unity dependency) and xUnit tests (`net8.0`).
-- `Strawhenge.Inventory.Unity/`: a Unity **2021.3** project. `Assets/Package/` is the distributed package `com.strawhenge.inventory`, installed by users via Git URL. `Assets/Development/` is a development scene (Y Bot character, test items) and is not shipped.
+- `Strawhenge.Inventory.Unity/`: a Unity **2021.3** project. `Assets/Package/` is the distributed package `com.strawhenge.inventory`, installed by users via Git URL. `Assets/Development/` is a development scene (Y Bot character, test items) for manually testing and demonstrating features, and `Assets/Tests/` holds the automated Unity tests. Neither is shipped.
 
 `README.md` is for **package users only**. Don't add build, contributing or other development content to it.
 
@@ -22,7 +22,7 @@ dotnet test Strawhenge.Inventory
 - Building the library copies `Strawhenge.Inventory.dll` into `Assets/Package/Runtime/` (post-build `xcopy`, Windows only). Never edit or hand-copy that DLL.
 - CI (`.github/workflows/ci.yml`) builds and tests the .NET solution on pushes and PRs to master. **Unity code is not compiled by CI.** If Unity isn't available to you, say that Unity changes are uncompiled and give the user a test checklist.
 - Headless Unity compile check, if Unity is installed: `Unity.exe -batchmode -nographics -quit -projectPath Strawhenge.Inventory.Unity -logFile -`
-- Unity EditMode tests live in `Strawhenge.Inventory.Unity/Assets/Development/Tests/` (not shipped). Run them from **Window > General > Test Runner**, or headless: `Unity.exe -batchmode -nographics -projectPath Strawhenge.Inventory.Unity -runTests -testPlatform EditMode -testResults results.xml`. CI doesn't run them.
+- Unity EditMode tests live in `Strawhenge.Inventory.Unity/Assets/Tests/` (not shipped). Run them from **Window > General > Test Runner**, or headless: `Unity.exe -batchmode -nographics -projectPath Strawhenge.Inventory.Unity -runTests -testPlatform EditMode -testResults results.xml`. CI doesn't run them.
 
 ## Code conventions
 
