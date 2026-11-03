@@ -31,7 +31,8 @@ dotnet test Strawhenge.Inventory
 - Renaming a serialized field needs `[FormerlySerializedAs("oldName")]`.
 - **Never look up serialized fields with string literals.** Expose the name from the owning class as `internal static string XFieldName => nameof(_x);` in a partial `<Class>.Internals.cs` file (see `ItemScriptableObject.Internals.cs`). The Editor assembly can see Runtime internals via `Runtime/Assembly.cs`.
 - Tests are behaviour-style: one class per scenario, grouped by action folder (`ItemTests/HoldRightHand/`, …). Fakes live in `Fakes/`.
-- Class names are always PascalCase, including test classes (`GetWhenMoreThanOneAddedDataMatches`). Test methods use underscores (`Should_return_first_added_match`). Older test classes such as `Hold_when_another_item_in_hand` predate this; don't copy their naming.
+- Class names are PascalCase, including test classes (`GetWhenMoreThanOneAddedDataMatches`). Test methods use underscores (`Should_return_first_added_match`).
+- Exception: a test class that inherits a base test class (e.g. `BaseInventoryItemTest`) is one case of that base's setup, so it's named for the scenario with underscores (`Hold_when_another_item_in_hand`).
 
 ## Unity package rules
 
