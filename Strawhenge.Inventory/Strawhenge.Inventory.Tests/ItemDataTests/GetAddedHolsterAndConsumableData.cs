@@ -6,13 +6,13 @@ using Xunit;
 
 namespace Strawhenge.Inventory.Tests.ItemDataTests
 {
-    public class Get_added_holster_and_consumable_data
+    public class GetAddedHolsterAndConsumableData
     {
         readonly WeaponStats _holsterStats = new WeaponStats();
         readonly WeaponStats _consumableStats = new WeaponStats();
         readonly Item _item;
 
-        public Get_added_holster_and_consumable_data()
+        public GetAddedHolsterAndConsumableData()
         {
             _item = ItemBuilder
                 .Create("Potion", ItemSize.OneHanded, isStorable: true, 1)

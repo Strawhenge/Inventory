@@ -5,13 +5,13 @@ using Xunit;
 
 namespace Strawhenge.Inventory.Tests.ItemDataTests
 {
-    public class Get_added_data
+    public class GetAddedData
     {
         readonly Mock<ILogger> _logger = new Mock<ILogger>();
         readonly FireSwordStats _stats = new FireSwordStats();
         readonly Item _item;
 
-        public Get_added_data()
+        public GetAddedData()
         {
             _item = ItemBuilder
                 .Create("Sword", ItemSize.OneHanded, isStorable: true, 1, x => x.Add(_stats))

@@ -3,13 +3,13 @@ using Xunit;
 
 namespace Strawhenge.Inventory.Tests.ItemDataTests
 {
-    public class Get_when_set_data_and_added_data_match
+    public class GetWhenSetDataAndAddedDataMatch
     {
         readonly WeaponStats _setStats = new WeaponStats();
         readonly WeaponStats _addedStats = new WeaponStats();
         readonly Item _item;
 
-        public Get_when_set_data_and_added_data_match()
+        public GetWhenSetDataAndAddedDataMatch()
         {
             _item = ItemBuilder
                 .Create("Sword", ItemSize.OneHanded, isStorable: true, 1, x =>
