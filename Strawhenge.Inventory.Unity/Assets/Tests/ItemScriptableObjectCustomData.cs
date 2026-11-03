@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 
 namespace Strawhenge.Inventory.Unity.Tests
 {
-    public class ItemScriptableObject_custom_data
+    public class ItemScriptableObjectCustomData
     {
         readonly List<Object> _created = new();
         ItemScriptableObject _item;
