@@ -268,7 +268,7 @@ lootMenu.Open(otherCharacter.Inventory.Loot());
   sword.Item.Get<WeaponStats>().Do(stats => Debug.Log(stats.Damage));
   ```
 
-  Base classes and interfaces match too, so `Get<IWeaponStats>()` finds an entry that implements it. If more than one entry matches the same type, the first in the list is used and a warning is logged when the item is first used.
+  Base classes and interfaces match too, so `Get<IWeaponStats>()` finds an entry that implements it. If more than one entry matches the same type, the first in the list is used and a warning is logged the first time that type is looked up.
 - **`ImportInventoryStateScript`**: give a character a starting loadout from the Inspector.
 - **`ResourcesItemRepository` / `ResourcesApparelPieceRepository`**: look up item and apparel assets by name from `Resources` folders (useful for save files). Names must be unique.
 - **UnityEvents** on `InventoryScript`, `HandScript` and `HolsterScript` fire when item and apparel prefabs are spawned, set and unset.

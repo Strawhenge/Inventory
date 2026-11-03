@@ -60,8 +60,6 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
             _drawAnimationSettings.GetValueOrDefault(
                 () => NullDrawAnimationSettings.Instance);
 
-        static readonly Type[] BuiltInDataTypes = { typeof(IItemData) };
-
         Item _item;
 
         public Item ToItem()
@@ -78,8 +76,15 @@ namespace Strawhenge.Inventory.Unity.Items.ItemData
                 .Create(name, _size, _isStorable, _weight, x =>
                 {
                     x.Set<IItemData>(this);
-                    CustomItemDataSetter.Set(x, _customData, BuiltInDataTypes, name, this);
-                });
+
+                    foreach (var data in _customData)
+                    {
+                        // Unity's == null also catches unassigned and destroyed references.
+                        if (data != null)
+                            x.Add(data);
+                    }
+                })
+                .SetLogger(new UnityObjectLogger(this));
 
             foreach (var holsterItemData in _holsterItemData)
             {
