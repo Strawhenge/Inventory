@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Strawhenge.Inventory.Tests.ItemDataTests
 {
-    public class Get_when_more_than_one_added_data_matches
+    public class GetWhenMoreThanOneAddedDataMatches
     {
         readonly Mock<ILogger> _logger = new Mock<ILogger>();
         readonly WeaponStats _first = new WeaponStats();
@@ -13,7 +13,7 @@ namespace Strawhenge.Inventory.Tests.ItemDataTests
         readonly ShieldStats _third = new ShieldStats();
         readonly Item _item;
 
-        public Get_when_more_than_one_added_data_matches()
+        public GetWhenMoreThanOneAddedDataMatches()
         {
             _item = ItemBuilder
                 .Create("Sword", ItemSize.OneHanded, isStorable: true, 1, x =>

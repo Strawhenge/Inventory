@@ -30,7 +30,8 @@ dotnet test Strawhenge.Inventory
 - Use `Maybe<T>` (FunctionalUtilities) for optional values rather than null, in the core library and the package.
 - Renaming a serialized field needs `[FormerlySerializedAs("oldName")]`.
 - **Never look up serialized fields with string literals.** Expose the name from the owning class as `internal static string XFieldName => nameof(_x);` in a partial `<Class>.Internals.cs` file (see `ItemScriptableObject.Internals.cs`). The Editor assembly can see Runtime internals via `Runtime/Assembly.cs`.
-- Tests are behaviour-style: one class per scenario, named like `Hold_when_another_item_in_hand`, grouped by action folder (`ItemTests/HoldRightHand/`, …). Fakes live in `Fakes/`.
+- Tests are behaviour-style: one class per scenario, grouped by action folder (`ItemTests/HoldRightHand/`, …). Fakes live in `Fakes/`.
+- Class names are always PascalCase, including test classes (`GetWhenMoreThanOneAddedDataMatches`). Test methods use underscores (`Should_return_first_added_match`). Older test classes such as `Hold_when_another_item_in_hand` predate this; don't copy their naming.
 
 ## Unity package rules
 
