@@ -7,7 +7,7 @@ Guidance for AI coding agents working in this repository.
 Strawhenge Inventory is a character inventory system for Unity, with two parts:
 
 - `Strawhenge.Inventory/`: a .NET solution containing the core library (`netstandard2.0`, no Unity dependency) and xUnit tests (`net8.0`).
-- `Strawhenge.Inventory.Unity/`: a Unity **2021.3** project. `Assets/Package/` is the distributed package `com.strawhenge.inventory`, installed by users via Git URL. `Assets/Development/` is a development scene (Y Bot character, test items) and is not shipped.
+- `Strawhenge.Inventory.Unity/`: a Unity **2021.3** project. `Assets/Package/` is the distributed package `com.strawhenge.inventory`, installed by users via Git URL. `Assets/Development/` is a development scene (Y Bot character, test items) for manually testing and demonstrating features, and `Assets/Tests/` holds the automated Unity tests. Neither is shipped.
 
 `README.md` is for **package users only**. Don't add build, contributing or other development content to it.
 
@@ -22,6 +22,7 @@ dotnet test Strawhenge.Inventory
 - Building the library copies `Strawhenge.Inventory.dll` into `Assets/Package/Runtime/` (post-build `xcopy`, Windows only). Never edit or hand-copy that DLL.
 - CI (`.github/workflows/ci.yml`) builds and tests the .NET solution on pushes and PRs to master. **Unity code is not compiled by CI.** If Unity isn't available to you, say that Unity changes are uncompiled and give the user a test checklist.
 - Headless Unity compile check, if Unity is installed: `Unity.exe -batchmode -nographics -quit -projectPath Strawhenge.Inventory.Unity -logFile -`
+- Unity EditMode tests live in `Strawhenge.Inventory.Unity/Assets/Tests/` (not shipped). Run them from **Window > General > Test Runner**, or headless: `Unity.exe -batchmode -nographics -projectPath Strawhenge.Inventory.Unity -runTests -testPlatform EditMode -testResults results.xml`. CI doesn't run them.
 
 ## Code conventions
 
@@ -29,7 +30,9 @@ dotnet test Strawhenge.Inventory
 - Use `Maybe<T>` (FunctionalUtilities) for optional values rather than null, in the core library and the package.
 - Renaming a serialized field needs `[FormerlySerializedAs("oldName")]`.
 - **Never look up serialized fields with string literals.** Expose the name from the owning class as `internal static string XFieldName => nameof(_x);` in a partial `<Class>.Internals.cs` file (see `ItemScriptableObject.Internals.cs`). The Editor assembly can see Runtime internals via `Runtime/Assembly.cs`.
-- Tests are behaviour-style: one class per scenario, named like `Hold_when_another_item_in_hand`, grouped by action folder (`ItemTests/HoldRightHand/`, …). Fakes live in `Fakes/`.
+- Tests are behaviour-style: one class per scenario, grouped by action folder (`ItemTests/HoldRightHand/`, …). Fakes live in `Fakes/`.
+- Class names are PascalCase, including test classes (`GetWhenMoreThanOneAddedDataMatches`). Test methods use underscores (`Should_return_first_added_match`).
+- Exception: a test class that inherits a base test class (e.g. `BaseInventoryItemTest`) is one case of that base's setup, so it's named for the scenario with underscores (`Hold_when_another_item_in_hand`).
 
 ## Unity package rules
 

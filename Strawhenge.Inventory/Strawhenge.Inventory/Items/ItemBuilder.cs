@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FunctionalUtilities;
+using Strawhenge.Common.Logging;
 using Strawhenge.Inventory.Effects;
 
 namespace Strawhenge.Inventory.Items
@@ -28,6 +29,8 @@ namespace Strawhenge.Inventory.Items
             new List<(string name, Action<IDataSetter> setData)>();
 
         (EffectData[] effects, Action<IDataSetter> setData)? _consumable;
+
+        Maybe<ILogger> _logger = Maybe.None<ILogger>();
 
         ItemBuilder(string name, ItemSize size, bool isStorable, int weight, Action<IDataSetter> setData)
         {
@@ -58,14 +61,26 @@ namespace Strawhenge.Inventory.Items
             return this;
         }
 
+        /// <summary>
+        /// Logs warnings about the item's data, such as more than one added value matching a type.
+        /// </summary>
+        public ItemBuilder SetLogger(ILogger logger)
+        {
+            _logger = logger == null
+                ? Maybe.None<ILogger>()
+                : Maybe.Some(logger);
+
+            return this;
+        }
+
         public Item Build()
         {
-            var genericData = new GenericData();
+            var genericData = new GenericData($"Item '{_name}'", _logger);
             _setData(genericData);
 
             var holsters = _holsters.Select(x =>
             {
-                var genericHolsterData = new GenericData();
+                var genericHolsterData = new GenericData($"Item '{_name}', holster '{x.name}'", _logger);
                 x.setData(genericHolsterData);
                 return new ItemHolster(x.name, genericHolsterData);
             });
@@ -73,7 +88,7 @@ namespace Strawhenge.Inventory.Items
             var consumable = Maybe.None<ItemConsumable>();
             if (_consumable.HasValue)
             {
-                var genericConsumableData = new GenericData();
+                var genericConsumableData = new GenericData($"Item '{_name}', consumable", _logger);
                 _consumable.Value.setData(genericConsumableData);
                 consumable = new ItemConsumable(_consumable.Value.effects, genericConsumableData);
             }
