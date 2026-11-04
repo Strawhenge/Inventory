@@ -78,5 +78,7 @@ crashlytics-build.properties
 /[Aa]ssets/Package/Runtime/Strawhenge.Inventory.dll
 !/[Aa]ssets/Development/
 !/[Aa]ssets/Development.meta
+!/[Aa]ssets/Tests/
+!/[Aa]ssets/Tests.meta
 /[Aa]ssets/Development/*.fbx
 /[Aa]ssets/Development/*/*.fbx
